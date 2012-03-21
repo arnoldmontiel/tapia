@@ -130,6 +130,30 @@ class WallController extends Controller
 												'dataProvider'=>$dataProvider));
 		
 	}
+	
+	public function actionManage()
+	{
+		$ddlSource = Customer::model()->findAll();
+	
+		$criteria=new CDbCriteria;
+		$criteria->order = 't.Id desc';
+		$dataProvider = new CActiveDataProvider ('Wall', array (
+					    	'criteria' => $criteria,
+					    	'pagination' => array ( 
+					        					'PageSize' => 7, 
+		)
+		));
+	
+		$model=new Wall('search');
+		$model->unsetAttributes();  // clear any default values
+	
+		$this->render('manage',array(
+					'model'=>$model,
+					'ddlSource'=>$ddlSource,
+					'dataProvider'=>$dataProvider,
+		));
+	}
+	
 	public function actionUpload()
 	{
 		Yii::import("ext.EAjaxUpload.qqFileUploader");
