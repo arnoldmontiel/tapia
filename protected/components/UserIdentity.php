@@ -7,6 +7,7 @@
  */
 class UserIdentity extends CUserIdentity
 {
+	private $_username;
 	/**
 	 * Authenticates a user.
 	 * The example implementation makes sure if the username and password
@@ -28,5 +29,5 @@ class UserIdentity extends CUserIdentity
             $this->errorCode=self::ERROR_NONE;
         }
         return !$this->errorCode;
-			}
+	}
 }
