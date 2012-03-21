@@ -1,6 +1,6 @@
 <?php
 
-class WallController extends Controller
+class MultimediaController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -49,14 +49,16 @@ class WallController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new Wall;
+		$model=new Multimedia;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Wall']))
+		if(isset($_POST['Multimedia']))
 		{
-			$model->attributes=$_POST['Wall'];
+			$model->attributes=$_POST['Multimedia'];
+			$model->Id_customer = 1;
+			$model->Id_multimedia_type = 1;
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->Id));
 		}
@@ -78,9 +80,9 @@ class WallController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Wall']))
+		if(isset($_POST['Multimedia']))
 		{
-			$model->attributes=$_POST['Wall'];
+			$model->attributes=$_POST['Multimedia'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->Id));
 		}
@@ -115,18 +117,10 @@ class WallController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$criteria=new CDbCriteria;
-		$criteria->order = 't.Id desc';
-		$dataProvider = new CActiveDataProvider ('Wall', array (
-				    	'criteria' => $criteria,
-				    	'pagination' => array ( 
-				        					'PageSize' => 7, 
-		)
+		$dataProvider=new CActiveDataProvider('Multimedia');
+		$this->render('index',array(
+			'dataProvider'=>$dataProvider,
 		));
-		
-		$this->render('index',array('model'=>$model,
-												'dataProvider'=>$dataProvider));
-		
 	}
 
 	/**
@@ -134,90 +128,16 @@ class WallController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new Wall('search');
+		$model=new Multimedia('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Wall']))
-			$model->attributes=$_GET['Wall'];
+		if(isset($_GET['Multimedia']))
+			$model->attributes=$_GET['Multimedia'];
 
 		$this->render('admin',array(
 			'model'=>$model,
 		));
 	}
 
-	public function actionAjaxShareImage()
-	{
-		$multi = $_POST['Multimedia'];
-		if(isset($multi))
-		{
-			$model = new Multimedia;
-			
-			$transaction = $model->dbConnection->beginTransaction();
-			
-			try {
-
-				$model->attributes = $multi;
-				$model->Id_customer = 1;
-				$model->Id_multimedia_type = 1;
-				//CUploadedFile::getInstance($model,'uploadedFile')
-				
-				$model->save();
-				//$_FILES
-					
-				$modelWall = new Wall;
-				$modelWall->attributes = array('Id_customer'=>1,
-													'Id_multimedia'=>$model->Id, 
-													'index_order'=>$this->getNextIndexOrder());
-				$modelWall->save();
-				
-			} catch (Exception $e) {
-				$transaction->rollback();
-			}
-			
-			
-		}
-	}
-	
-	private function getNextIndexOrder()
-	{
-		$index = 1;
-		$criteria=new CDbCriteria;
-		$criteria->select = 'max(t.index_order) AS index_order';
-			
-		$singleRow = Wall::model()->find($criteria);
-			
-		if(isset($singleRow) && isset($singleRow['index_order']))
-			$index = (int)$singleRow['index_order'] + $index;
-		
-		return $index;
-	}
-	
-	public function actionAjaxShareNote()
-	{
-		$note = trim($_POST['notes']);
-		if(!empty($note))
-		{
-			$modelNote = new Note;
-				
-			$transaction = $modelNote->dbConnection->beginTransaction();
-			try {
-	
-				$modelNote->attributes = array('Id_customer'=>1,'note'=>$note);
-				$modelNote->save();
-					
-				$modelWall = new Wall;
-				$modelWall->attributes = array('Id_customer'=>1,
-																'Id_note'=>$modelNote->Id, 
-																'index_order'=>$this->getNextIndexOrder());
-				$modelWall->save();
-				$transaction->commit();
-			} catch (Exception $e) {
-				$transaction->rollback();
-			}
-				
-		}
-	}
-	
-	
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
@@ -225,7 +145,7 @@ class WallController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model=Wall::model()->findByPk($id);
+		$model=Multimedia::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -237,7 +157,7 @@ class WallController extends Controller
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='wall-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='multimedia-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

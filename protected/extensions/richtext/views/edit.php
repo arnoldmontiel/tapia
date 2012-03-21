@@ -26,8 +26,11 @@
 			insertUnorderedList  : { visible : true },
 			insertHorizontalRule : { visible : true },
 
+			h1 : { visible : false },
+			h2 : { visible : false },
+			h3 : { visible : false },
 			h4: {
-				visible: true,
+				visible: false,
 				className: 'h4',
 				command: ($.browser.msie || $.browser.safari) ? 'formatBlock' : 'heading',
 				arguments: ($.browser.msie || $.browser.safari) ? '<h4>' : 'h4',
@@ -35,7 +38,7 @@
 				tooltip: 'Header 4'
 			},
 			h5: {
-				visible: true,
+				visible: false,
 				className: 'h5',
 				command: ($.browser.msie || $.browser.safari) ? 'formatBlock' : 'heading',
 				arguments: ($.browser.msie || $.browser.safari) ? '<h5>' : 'h5',
@@ -43,7 +46,7 @@
 				tooltip: 'Header 5'
 			},
 			h6: {
-				visible: true,
+				visible: false,
 				className: 'h6',
 				command: ($.browser.msie || $.browser.safari) ? 'formatBlock' : 'heading',
 				arguments: ($.browser.msie || $.browser.safari) ? '<h6>' : 'h6',
@@ -54,12 +57,12 @@
 			createLink : { visible : false},
 			insertTable : {visible : false},
 			code : {visible : false},
-			cut   : { visible : true },
-			copy  : { visible : true },
-			paste : { visible : true },
+			cut   : { visible : false },
+			copy  : { visible : false },
+			paste : { visible : false },
 			html  : { visible: false },
-			increaseFontSize : { visible : true },
-			decreaseFontSize : { visible : true },
+			increaseFontSize : { visible : false },
+			decreaseFontSize : { visible : false },
 			exam_html: {
 				exec: function() {
 					this.insertHtml('<abbr title="exam">Jam</abbr>');

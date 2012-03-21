@@ -158,3 +158,12 @@ div.wide.form .buttons, div.wide.form .hint, div.wide.form .errorMessage
 	clear: left;
 	padding-left: 110px;
 }
+
+.nub {
+	background: url(nub.gif) no-repeat center top;
+	height: 7px;
+	left: 2px;
+	position: relative;
+	top: 18px;
+	width: 11px;
+}
