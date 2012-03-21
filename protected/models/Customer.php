@@ -65,6 +65,11 @@ class Customer extends CActiveRecord
 		);
 	}
 
+	public function getCustomerDesc()
+	{
+		return $this->last_name .' - '. $this->name;
+	}
+	
 	/**
 	 * @return array customized attribute labels (name=>label)
 	 */
