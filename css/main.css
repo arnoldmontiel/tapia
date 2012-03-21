@@ -1,30 +1,34 @@
 body
 {
-	margin: 0;
-	padding: 0;
-	color: #555;
-	font: normal 10pt Arial,Helvetica,sans-serif;
-	background: #EFEFEF;
+color: #666;
+font-family: Roboto,Arial,sans-serif;
+font-size: 14px;
+margin: 0;
+padding: 0;	margin: 0;
 }
 
 #page
 {
-	margin-top: 5px;
-	margin-bottom: 5px;
-	background: white;
-	border: 1px solid #C9E0ED;
 }
 
 #header
 {
-	margin: 0;
-	padding: 0;
-	border-top: 3px solid #C9E0ED;
+	border-bottom: 1px solid #CCC;
+	position: relative;
+	z-index: 100;
+	 padding: 35px 0 45px;
 }
-
+#header-container
+{
+	margin: 0 auto;
+	padding: 0 10px;
+	width: 940px;	
+}
 #content
 {
-    padding: 20px;
+	margin: 0 auto;
+	padding: 20px;
+	width: 940px;	
 }
 
 #sidebar
@@ -34,17 +38,24 @@ body
 
 #footer
 {
+	margin: 0 auto;
 	padding: 10px;
-	margin: 10px 20px;
 	font-size: 0.8em;
 	text-align: center;
-	border-top: 1px solid #C9E0ED;
+	width: 940px;	
 }
-
+div.line {
+    background: -moz-linear-gradient(center top , #ACBC00 0pt, #ACBC00 50%, #BDDE00 50%, #BDDE00 100%) repeat scroll 0 0 transparent;
+    clear: both;
+    height: 2px;
+    margin-top: 45px;
+    position: relative;
+    z-index: 11;
+}
 #logo
 {
-	padding: 10px 20px;
 	font-size: 200%;
+	float: left;
 }
 
 #mainmenu
@@ -134,7 +145,25 @@ div.view
 	margin: 10px 0;
 	border: 1px solid #C9E0ED;
 }
-
+div.view-single
+{
+	background-color: #FCFDFF;
+	padding: 10px;
+	margin: 10px 10px;
+	border: 1px solid #9ad7f5;
+	width: 45%;
+	float: left;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	display: block;
+	z-index: 4;
+	position: relative;
+}
+div.text-note
+{
+	font-size: 13px;
+	line-height: 18px;
+}
 div.breadcrumbs
 {
 	font-size: 0.9em;
@@ -226,4 +255,74 @@ div.search-form
 .operations li a:hover
 {
 	background: #80CFFF;
+}
+ul.nav
+{
+	list-style-type: none;
+	float: left;	
+	 margin: 0;
+    padding: 0;
+}
+li.nav
+{
+	display: inline;
+    margin-left: 45px;
+	list-style-type: none;
+}
+.nav a
+{
+	color: #333333;
+    font-size: 16px;
+    text-decoration: none;
+}
+.nav a:hover
+{
+	color: #33B5E5;
+}
+
+
+div.search
+{
+	margin-right: 5px;
+    position: relative;
+    top: -2px;
+	float: right;
+}
+div.search-icon
+{
+	float: left;	
+	background: url("search.png") no-repeat scroll 0 0 transparent;
+    display: inline-block;
+    height: 17px;
+    margin-right: 10px;
+    position: relative;
+    top: 2px;
+    width: 17px;
+}
+#search
+{
+	display: inline-block;
+    width: 145px;
+}
+div.view-dialog-right
+{
+	float: left;
+	z-index: 1;
+	position: absolute;
+	background: url("dialog-right.png") no-repeat;
+	top: 10px;
+	left: -9px;
+	width: 19px;
+	height: 15px;
+}
+div.view-dialog-left
+{
+	float: left;
+	z-index: 1;
+	position: absolute;
+	background: url("dialog-left.png") no-repeat;
+	top: 10px;
+	right: -19px;
+	width: 19px;
+	height: 15px;
 }
