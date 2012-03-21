@@ -1,0 +1,348 @@
+div.login-left
+{
+	width: 34%;
+	float: left;
+}
+div.login-right
+{
+	width: 65%;
+	float: left;
+}
+div.login-text-logo
+{
+	margin-top: 40px;
+	vertical-align: middle;
+	font-family: cursive;
+	font-style: oblique;
+	font-size: 40px;
+}
+div.login
+{
+	height: 200px;
+	width: 600px;
+	display:inline-block;
+	margin-top: 10%;
+	margin-bottom: 100px;
+	margin-left: 100px;
+	margin-right: 100px;
+
+	padding-top: 40px;
+	padding-bottom: 20px;
+	padding-left: 20px;
+	padding-right: 20px;
+
+	background: rgba(0,0,0,0.5);
+	border-radius: 6px 6px 6px 6px;
+		
+	
+}
+body
+{
+	margin: 0;
+	padding: 0;
+	color: white;
+	font: normal 10pt Arial,Helvetica,sans-serif;
+	background: url("Film Reel.jpg") no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;	
+}
+
+#page
+{
+}
+
+#header
+{
+	margin: 0;
+	padding: 0;
+}
+
+#content
+{
+    padding: 20px;
+}
+
+
+#sidebar
+{
+	padding: 20px 20px 20px 0;
+}
+
+#footer
+{
+	padding: 10px;
+	margin: 10px 20px;
+	font-size: 0.8em;
+	text-align: center;
+	border-top: 1px solid #C9E0ED;
+}
+
+#logo
+{
+	padding: 10px 20px;
+	font-size: 200%;
+}
+
+
+div.flash-error, div.flash-notice, div.flash-success
+{
+	padding:.8em;
+	margin-bottom:1em;
+	border:2px solid #ddd;
+}
+
+div.flash-error
+{
+	background:#FBE3E4;
+	color:#8a1f11;
+	border-color:#FBC2C4;
+}
+
+div.flash-notice
+{
+	background:#FFF6BF;
+	color:#514721;
+	border-color:#FFD324;
+}
+
+div.flash-success
+{
+	background:#E6EFC2;
+	color:#264409;
+	border-color:#C6D880;
+}
+
+div.flash-error a
+{
+	color:#8a1f11;
+}
+
+div.flash-notice a
+{
+	color:#514721;
+}
+
+div.flash-success a
+{
+	color:#264409;
+}
+
+div.form .rememberMe label
+{
+	display: inline;
+}
+
+div.view
+{
+	padding: 10px;
+	margin: 10px 0;
+	border: 1px solid #C9E0ED;
+}
+
+div.footer
+{
+	background-color:#EFFDFF;
+	bottom:0;
+  	left:0;
+  	width:100%;
+  	clear: both;
+  	padding: 0; 
+	margin: 0;  
+}
+
+div.left
+{
+	width:51%;
+	float:left;
+	bottom:10px;
+  	left:0;
+  	clear: both;
+  	padding: 0; 
+	margin: 0 0 10px 0;  
+}
+
+div.right
+{
+	width:49%;
+	float:left;
+	bottom:10px;
+  	padding: 0; 
+	margin: 0 0 10px 0;  
+}
+
+div.breadcrumbs
+{
+	font-size: 0.9em;
+	padding: 5px 20px;
+	width: 70%;
+	float: left;
+}
+div.language
+{
+	float: right;
+	
+}
+div.second-menu
+{
+	display: inline-block;
+	width: 100%;
+}
+div.breadcrumbs span
+{
+	font-weight: bold;
+}
+
+div.search-form
+{
+	padding: 10px;
+	margin: 10px 0;
+	background: #eee;
+}
+
+
+.portlet
+{
+
+}
+
+.portlet-decoration
+{
+	padding: 3px 8px;
+	background: #B7D6E7;
+	border-left: 5px solid #6FACCF;
+}
+
+.portlet-title
+{
+	font-size: 12px;
+	font-weight: bold;
+	padding: 0;
+	margin: 0;
+	color: #298dcd;
+}
+
+.portlet-content
+{
+	font-size:0.9em;
+	margin: 0 0 15px 0;
+	padding: 5px 8px;
+	background:#EFFDFF;
+}
+
+.portlet-content ul
+{
+	list-style-image:none;
+	list-style-position:outside;
+	list-style-type:none;
+	margin: 0;
+	padding: 0;
+}
+
+.portlet-content li
+{
+	padding: 2px 0 4px 0px;
+}
+
+.operations
+{
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+.operations li
+{
+	padding-bottom: 2px;
+}
+
+.operations li a
+{
+	font: bold 12px Arial;
+	color: #0066A4;
+	display: block;
+	padding: 2px 0 2px 8px;
+	line-height: 15px;
+	text-decoration: none;
+}
+
+.operations li a:visited
+{
+	color: #0066A4;
+}
+
+.operations li a:hover
+{
+	background: #80CFFF;
+}
+
+.messageError
+{
+	color: red;
+	font-style: italic;
+	display: none;
+}
+
+#language {
+	
+	margin: 0 auto;
+	padding: 3px 0;
+	text-align: right;
+}
+div.home-row
+{
+	display: inline-block;
+	width: 100%;
+}
+div.home-right-view
+{
+	margin: 10px 10px 10px 10px;
+	border: 1px solid white;
+	display: inline-block;
+	float:left;	
+	width: 45%;
+	float:left;
+	background-color:#F4F4F4;
+	background-image:url('home-view-bg.png');
+	background-repeat:repeat-x;
+	padding-bottom: 10px;
+}
+
+div.home-left-view
+{
+	margin: 10px 10px 10px 10px;
+	border: 1px solid white;
+	display: inline-block;
+	width: 45%;
+	float:left;
+	background-color:#F4F4F4;
+	background-image:url('home-view-bg.png');
+	background-repeat:repeat-x;
+	padding-bottom: 10px;
+}
+
+div.home-title-view
+{
+	font-size: 17px;
+	color: black;
+	display: inline-block;
+	float: left;
+	width: 90%;
+	margin-left: 5px;
+}
+div.home-item-view
+{
+	font-size: 18px;
+	color: white;
+	display: inline-block;
+	float: left;
+	margin-top: 5px;
+	width: 90%;
+	margin-left: 20px;
+}
+div a
+{
+	color: #357;
+	text-decoration: none;
+}
