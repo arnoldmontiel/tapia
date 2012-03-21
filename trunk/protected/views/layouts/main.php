@@ -29,6 +29,9 @@
 					<a href="/Home/" data-g-label="Home" data-g-event="Nav">Inicio </a>
 				</li>
 				<li class="nav">
+					<?php echo CHtml::link('Administrar ',Yii::app()->createUrl('wall/manage')); ?>
+				</li>
+				<li class="nav">
 					<a href="/contact/" data-g-label="Contact" data-g-event="Nav">Contactenos </a>
 				</li>
 			</ul>
