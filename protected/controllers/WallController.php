@@ -115,6 +115,8 @@ class WallController extends Controller
 	 */
 	public function actionIndex()
 	{
+		$_FILES;
+		
 		$criteria=new CDbCriteria;
 		$criteria->order = 't.Id desc';
 		$dataProvider = new CActiveDataProvider ('Wall', array (
@@ -123,12 +125,27 @@ class WallController extends Controller
 				        					'PageSize' => 7, 
 		)
 		));
-		
+		$model = new Multimedia;
 		$this->render('index',array('model'=>$model,
 												'dataProvider'=>$dataProvider));
 		
 	}
-
+	public function actionUpload()
+	{
+		Yii::import("ext.EAjaxUpload.qqFileUploader");
+	
+		$folder='./images/';// folder for uploaded files
+		$allowedExtensions = array("jpg");//array("jpg","jpeg","gif","exe","mov" and etc...
+		$sizeLimit = 10 * 1024 * 1024;// maximum file size in bytes
+		$uploader = new qqFileUploader($allowedExtensions, $sizeLimit);
+		$result = $uploader->handleUpload($folder);
+		$result=htmlspecialchars(json_encode($result), ENT_NOQUOTES);
+	
+		$fileSize=filesize($folder.$result['filename']);//GETTING FILE SIZE
+		$fileName=$result['filename'];//GETTING FILE NAME
+	
+		echo $result;// it's array
+	}
 	/**
 	 * Manages all models.
 	 */
@@ -158,7 +175,7 @@ class WallController extends Controller
 				$model->attributes = $multi;
 				$model->Id_customer = 1;
 				$model->Id_multimedia_type = 1;
-				//CUploadedFile::getInstance($model,'uploadedFile')
+				$file= CUploadedFile::getInstance($model,'uploadedFile');
 				
 				$model->save();
 				//$_FILES
