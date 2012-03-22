@@ -8,7 +8,7 @@
  * @property integer $Id_note
  * @property integer $Id_multimedia
  * @property integer $index_order
- * @property integer $album_Id
+ * @property integer $Id_album
  * @property integer $Id_customer
  *
  * The followings are the available model relations:
@@ -46,10 +46,10 @@ class Wall extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('Id_customer', 'required'),
-			array('Id_note, Id_multimedia, index_order, album_Id, Id_customer', 'numerical', 'integerOnly'=>true),
+			array('Id_note, Id_multimedia, index_order, Id_album, Id_customer', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id, Id_note, Id_multimedia, index_order, album_Id, Id_customer', 'safe', 'on'=>'search'),
+			array('Id, Id_note, Id_multimedia, index_order, Id_album, Id_customer', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -62,7 +62,7 @@ class Wall extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'customer' => array(self::BELONGS_TO, 'Customer', 'Id_customer'),
-			'album' => array(self::BELONGS_TO, 'Album', 'album_Id'),
+			'album' => array(self::BELONGS_TO, 'Album', 'Id_album'),
 			'multimedia' => array(self::BELONGS_TO, 'Multimedia', 'Id_multimedia'),
 			'note' => array(self::BELONGS_TO, 'Note', 'Id_note'),
 		);
@@ -78,7 +78,7 @@ class Wall extends CActiveRecord
 			'Id_note' => 'Id Note',
 			'Id_multimedia' => 'Id Multimedia',
 			'index_order' => 'Index Order',
-			'album_Id' => 'Album',
+			'Id_album' => 'Album',
 			'Id_customer' => 'Id Customer',
 		);
 	}
@@ -98,7 +98,7 @@ class Wall extends CActiveRecord
 		$criteria->compare('Id_note',$this->Id_note);
 		$criteria->compare('Id_multimedia',$this->Id_multimedia);
 		$criteria->compare('index_order',$this->index_order);
-		$criteria->compare('album_Id',$this->album_Id);
+		$criteria->compare('Id_album',$this->Id_album);
 		$criteria->compare('Id_customer',$this->Id_customer);
 
 		return new CActiveDataProvider($this, array(
