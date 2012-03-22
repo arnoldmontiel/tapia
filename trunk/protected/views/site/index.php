@@ -3,6 +3,7 @@
 <?php 
 $data = $dataProvider->getData();
 $left=true;
+$first = true;
 foreach ($data as $item){
 	if($left)
 	{
@@ -11,7 +12,8 @@ foreach ($data as $item){
 	}else 
 	{
 		$left=true;
-		$this->renderPartial('_viewRight',array('data'=>$item));		
+		$this->renderPartial('_viewRight',array('data'=>$item,'first'=>$first));		
+		$first=false;
 	}
 }
 ?>

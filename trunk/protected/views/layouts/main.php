@@ -26,19 +26,19 @@
 			<div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
 			<ul class="nav">
 				<li class="nav">
-					<a href="/Home/" data-g-label="Home" data-g-event="Nav">Inicio </a>
+					<?php echo CHtml::link('Inicio ',Yii::app()->createUrl('site/index')); ?>
 				</li>
 				<li class="nav">
 					<?php echo CHtml::link('Administrar ',Yii::app()->createUrl('wall/manage')); ?>
 				</li>
 				<li class="nav">
-					<a href="/contact/" data-g-label="Contact" data-g-event="Nav">Contactenos </a>
+					<?php echo CHtml::link('Previsualizar ',Yii::app()->createUrl('wall/preview')); ?>
 				</li>
 			</ul>
 			<div class="search">
 				<div class="search-icon"></div>
 				<form id="search" action="/search/">
-					<input id="q" type="text" x-webkit-speech="" speech="" placeholder="Search" name="q">
+					<input id="q" type="text" x-webkit-speech="" placeholder="Search" name="q">
 				</form>
 			</div>			
 		</div><!-- header-container -->
