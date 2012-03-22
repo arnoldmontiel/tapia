@@ -11,6 +11,7 @@
  *
  * The followings are the available model relations:
  * @property Note[] $notes
+ * @property Multimedia[] $multimedias
  * @property Wall[] $walls
  */
 class Album extends CActiveRecord
@@ -58,6 +59,7 @@ class Album extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'notes' => array(self::MANY_MANY, 'Note', 'album_note(Id_album, Id_note)'),
+			'multimedias' => array(self::HAS_MANY, 'Multimedia', 'Id_album'),
 			'walls' => array(self::HAS_MANY, 'Wall', 'album_Id'),
 		);
 	}
