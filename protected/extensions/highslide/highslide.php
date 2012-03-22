@@ -1,6 +1,8 @@
 <?php
 class Highslide extends CWidget
 {
+	public $images = array();
+	public $Id;
 	public $smallImage;
 	public $image;
 	public $caption;
@@ -24,7 +26,9 @@ class Highslide extends CWidget
 		
 		// Publishing and registering CSS file
 		$var = Yii::app()->assetManager->publish($assetsDir);
-		$cs->registerScriptFile($var.'/highslide.js',CClientScript::POS_HEAD);
+		//$cs->registerScriptFile($var.'/highslide.js',CClientScript::POS_HEAD);
+		$cs->registerScriptFile($var.'/highslide-with-gallery.js',CClientScript::POS_HEAD);
+		$cs->registerScriptFile($var.'/highslide-exe.js',CClientScript::POS_HEAD);
 		$cs->registerCssFile($var.'/highslide.css');
 		$this->graphics = $var.'/graphics';
 		
@@ -33,9 +37,11 @@ class Highslide extends CWidget
 	{
 		if($this->id != null){
 			$this->render("body", array(
+						'images'=>$this->images,
+						'Id'=>$this->Id,
 						'image'=>$this->image,
 						'smallImage'=>$this->smallImage,
-						'camptio'=>$this->caption,
+						'caption'=>$this->caption,
 			));
 		}
 		

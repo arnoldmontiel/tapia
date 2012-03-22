@@ -31,7 +31,7 @@ class SiteController extends Controller
 		// using the default layout 'protected/views/layouts/main.php'
 		$modelWall = new Wall;
 		$dataProvider= $modelWall->search();
-		$dataProvider->pagination->pageSize= 7;
+		$dataProvider->pagination->pageSize= 12;
 		
 		
 		$this->render('index',array(
