@@ -114,9 +114,7 @@ class WallController extends Controller
 	 * Lists all models.
 	 */
 	public function actionIndex()
-	{
-		$_FILES;
-		
+	{	
 		$criteria=new CDbCriteria;
 		$criteria->order = 't.Id desc';
 		$dataProvider = new CActiveDataProvider ('Wall', array (
@@ -126,7 +124,9 @@ class WallController extends Controller
 		)
 		));
 		$model = new Multimedia;
+		$modelNote = new Note;
 		$this->render('index',array('model'=>$model,
+									'modelNote'=>$modelNote,
 												'dataProvider'=>$dataProvider));
 		
 	}
@@ -154,22 +154,7 @@ class WallController extends Controller
 		));
 	}
 	
-	public function actionUpload()
-	{
-		Yii::import("ext.EAjaxUpload.qqFileUploader");
 	
-		$folder='./images/';// folder for uploaded files
-		$allowedExtensions = array("jpg");//array("jpg","jpeg","gif","exe","mov" and etc...
-		$sizeLimit = 10 * 1024 * 1024;// maximum file size in bytes
-		$uploader = new qqFileUploader($allowedExtensions, $sizeLimit);
-		$result = $uploader->handleUpload($folder);
-		$result=htmlspecialchars(json_encode($result), ENT_NOQUOTES);
-	
-		$fileSize=filesize($folder.$result['filename']);//GETTING FILE SIZE
-		$fileName=$result['filename'];//GETTING FILE NAME
-	
-		echo $result;// it's array
-	}
 	/**
 	 * Manages all models.
 	 */
@@ -187,35 +172,52 @@ class WallController extends Controller
 
 	public function actionAjaxShareImage()
 	{
-		$multi = $_POST['Multimedia'];
-		if(isset($multi))
+		//$_FILES
+		$file = $_FILES["file"];
+		if ((($_FILES["file"]["type"] == "image/gif")
+		|| ($_FILES["file"]["type"] == "image/jpeg")
+		|| ($_FILES["file"]["type"] == "image/pjpeg")))
 		{
-			$model = new Multimedia;
-			
-			$transaction = $model->dbConnection->beginTransaction();
-			
-			try {
-
-				$model->attributes = $multi;
-				$model->Id_customer = 1;
-				$model->Id_multimedia_type = 1;
-				$file= CUploadedFile::getInstance($model,'uploadedFile');
-				
-				$model->save();
-				//$_FILES
-					
-				$modelWall = new Wall;
-				$modelWall->attributes = array('Id_customer'=>1,
-													'Id_multimedia'=>$model->Id, 
-													'index_order'=>$this->getNextIndexOrder());
-				$modelWall->save();
-				
-			} catch (Exception $e) {
-				$transaction->rollback();
+			if ($_FILES["file"]["error"] > 0)
+			{
+				echo "Return Code: " . $_FILES["file"]["error"] . "<br />";
 			}
-			
-			
+			else
+			{
+							
+				
+				$multi = $_POST['Multimedia'];
+				$model = new Multimedia;
+					
+				$transaction = $model->dbConnection->beginTransaction();
+					
+				try {
+				
+					$model->attributes = $multi;
+					$model->uploadedFile = $file;
+					$model->Id_multimedia_type = 1;
+					$model->Id_customer = 1;
+				
+					$model->save();
+						
+					$modelWall = new Wall;
+					$modelWall->attributes = array('Id_customer'=>1,
+																	'Id_multimedia'=>$model->Id, 
+																	'index_order'=>$this->getNextIndexOrder());
+					$modelWall->save();
+					$transaction->commit();
+					$this->redirect(array('wall/index'));
+					
+				} catch (Exception $e) {
+					$transaction->rollback();
+				}
+			}
 		}
+		else
+		{
+			echo "Invalid file";
+		}
+		
 	}
 	
 	private function getNextIndexOrder()
@@ -234,25 +236,29 @@ class WallController extends Controller
 	
 	public function actionAjaxShareNote()
 	{
-		$note = trim($_POST['notes']);
-		if(!empty($note))
+
+		if(isset($_POST['Note']))
 		{
-			$modelNote = new Note;
-				
-			$transaction = $modelNote->dbConnection->beginTransaction();
-			try {
-	
-				$modelNote->attributes = array('Id_customer'=>1,'note'=>$note);
-				$modelNote->save();
-					
-				$modelWall = new Wall;
-				$modelWall->attributes = array('Id_customer'=>1,
-																'Id_note'=>$modelNote->Id, 
-																'index_order'=>$this->getNextIndexOrder());
-				$modelWall->save();
-				$transaction->commit();
-			} catch (Exception $e) {
-				$transaction->rollback();
+			$str = trim($_POST['Note']['note']);
+			if(!empty($str))
+			{
+				$modelNote = new Note;
+				$modelNote->attributes = $_POST['Note'];
+				$transaction = $modelNote->dbConnection->beginTransaction();
+				try {
+		
+					$modelNote->attributes = array('Id_customer'=>1);
+					$modelNote->save();
+						
+					$modelWall = new Wall;
+					$modelWall->attributes = array('Id_customer'=>1,
+																	'Id_note'=>$modelNote->Id, 
+																	'index_order'=>$this->getNextIndexOrder());
+					$modelWall->save();
+					$transaction->commit();
+				} catch (Exception $e) {
+					$transaction->rollback();
+				}
 			}
 				
 		}
