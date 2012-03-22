@@ -5,11 +5,10 @@
  *
  * The followings are the available columns in table 'multimedia':
  * @property integer $Id
- * @property string $content
- * @property string $name
+ * @property string $file_name
  * @property double $size
  * @property string $description
- * @property string $content_small
+ * @property string $file_name_small
  * @property double $size_small
  * @property integer $Id_multimedia_type
  * @property integer $Id_customer
@@ -17,72 +16,84 @@
  * @property integer $Id_album
  *
  * The followings are the available model relations:
- * @property Customer $customer
+ * @property Album $idAlbum
+ * @property Customer $idCustomer
  * @property MultimediaType $idMultimediaType
  * @property Note[] $notes
  * @property Wall[] $walls
  */
 class Multimedia extends CActiveRecord
 {
+	
 	public $uploadedFile;
+	
 	
 	public function beforeSave()
 	{
 	
-		if($file=CUploadedFile::getInstance($this,'uploadedFile'))
+		if(isset($this->uploadedFile))
 		{
-			if($this->name == null)
-				$this->name=$file->name;
-				
-			if(strstr($file->type,'image'))
+			if(strstr($this->uploadedFile["type"],'image'))
 			{
-				// set the new size
-				// maximum dimension
-				$newFile = $this->resizeFile(640,640,$file);
-				$this->content = $newFile['content'];
-				$this->size = $newFile['size'];
-	
-				$this->Id_multimedia_type = 1; // image
+				//save original
+				move_uploaded_file($this->uploadedFile["tmp_name"],"images/" . $this->uploadedFile["name"]);
 				
-				//set the new small size
-				$newFile = $this->resizeFile(150,150,$file);
-				$this->content_small = $newFile['content'];
-				$this->size_small = $newFile['size'];
-	
+				$folder = "images/";
+				$filePath = $folder . $this->uploadedFile["name"];
 				
+				$uniqueId = uniqid();
+				
+				//generate medium file version
+				$newFile = $this->resizeFile(800,800,$filePath);
+				$content = $newFile['content'];
+				if ($content !== false) {
+					$fileName = $uniqueId.'.jpg';
+					$file = fopen($folder.$fileName, 'w');
+					fwrite($file,$content);
+					fclose($file);
+					$this->file_name = $fileName;
+					$this->size = $newFile['size'];
+				}
+
+				//generate small file version
+				$newFile = $this->resizeFile(320,320,$filePath);
+				$content = $newFile['content'];
+				if ($content !== false) {
+					$fileName = $uniqueId.'_small.jpg';
+					$file = fopen($folder.$fileName, 'w');
+					fwrite($file,$content);
+					fclose($file);
+					$this->file_name_small = $fileName;
+					$this->size_small = $newFile['size'];
+				}
+				unlink($filePath);
+				$this->Id_multimedia_type = 1;
+	
 			}
-			elseif(strstr($file->type,'video')||$file->type=="application/octet-stream")//flash
+			elseif(strstr($this->uploadedFile["type"],'video')||$this->uploadedFile["type"]=="application/octet-stream")//flash
 			{
-				$this->Id_multimedia_type = 2; // video
-				$this->content = file_get_contents($file->tempName);
-				$this->size = $file->size;
-	
+				$this->Id_multimedia_type = 2;
 			}
 		}
 	
 		return parent::beforeSave();
 	}
 	
-	/**
-	 * Returns an array with the new content and new size
-	 * @param integer $w new width of file
-	 * @param integer $d new width of file
-	 * @param file $file the file to be modified
-	 */
-	private function resizeFile($w,$h,$file)
+	private function resizeFile($w=null,$h=null,$filePath)
 	{
-		$im = imagecreatefromstring(file_get_contents($file->tempName));
+		$im = imagecreatefromstring(file_get_contents($filePath));
 	
 		$size[0] = imagesx($im);
 		$size[1] = imagesy($im);
 		$newwidth = $size[0];
 		$newheight = $size[1];
+		
 		//calculate the new dimensions respecting the original sizes
-		if( $newwidth > $w ){
+		if( isset($w) && $newwidth > $w ){
 			$newheight = ($w / $newwidth) * $newheight;
 			$newwidth = $w;
 		}
-		if( $newheight > $h ){
+		if( isset($h) &&  $newheight > $h ){
 			$newwidth = ($h / $newheight) * $newwidth;
 			$newheight = $h;
 		}
@@ -93,9 +104,8 @@ class Multimedia extends CActiveRecord
 		ob_start();
 		ob_implicit_flush(false);
 	
-		if( $file->type == 'image/jpeg' || $file->type == 'image/pjpeg' ) imagejpeg($new, '', 100);
-		elseif ( $file->type == 'image/gif' ) imagegif($new);
-		elseif (  $file->type == 'image/png' ) imagepng($new);
+		imagejpeg($new, '', 100);
+	
 	
 		return array('size'=>$newwidth*$newheight, 'content'=> ob_get_clean());
 	}
@@ -129,12 +139,11 @@ class Multimedia extends CActiveRecord
 			array('Id_multimedia_type, Id_customer', 'required'),
 			array('Id_multimedia_type, Id_customer, Id_album', 'numerical', 'integerOnly'=>true),
 			array('size, size_small', 'numerical'),
-			array('name', 'length', 'max'=>100),
-			array('description', 'length', 'max'=>255),
-			array('content, content_small, creation_date', 'safe'),
+			array('file_name, description, file_name_small', 'length', 'max'=>255),
+			array('creation_date', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('content, name, size, description, content_small, size_small, Id_multimedia_type, Id_customer, creation_date, Id_album', 'safe', 'on'=>'search'),
+			array('Id, file_name, size, description, file_name_small, size_small, Id_multimedia_type, Id_customer, creation_date, Id_album', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -146,7 +155,8 @@ class Multimedia extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'customer' => array(self::BELONGS_TO, 'Customer', 'Id_customer'),
+			'idAlbum' => array(self::BELONGS_TO, 'Album', 'Id_album'),
+			'idCustomer' => array(self::BELONGS_TO, 'Customer', 'Id_customer'),
 			'idMultimediaType' => array(self::BELONGS_TO, 'MultimediaType', 'Id_multimedia_type'),
 			'notes' => array(self::MANY_MANY, 'Note', 'multimedia_note(Id_multimedia, Id_note)'),
 			'walls' => array(self::HAS_MANY, 'Wall', 'Id_multimedia'),
@@ -160,14 +170,13 @@ class Multimedia extends CActiveRecord
 	{
 		return array(
 			'Id' => 'ID',
-			'content' => 'Content',
-			'name' => 'Name',
+			'file_name' => 'File Name',
 			'size' => 'Size',
 			'description' => 'Description',
-			'content_small' => 'Content Small',
+			'file_name_small' => 'File Name Small',
 			'size_small' => 'Size Small',
 			'Id_multimedia_type' => 'Id Multimedia Type',
-			'Id_customer' => 'Customer',
+			'Id_customer' => 'Id Customer',
 			'creation_date' => 'Creation Date',
 			'Id_album' => 'Id Album',
 		);
@@ -185,11 +194,10 @@ class Multimedia extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('Id',$this->Id);
-		$criteria->compare('content',$this->content,true);
-		$criteria->compare('name',$this->name,true);
+		$criteria->compare('file_name',$this->file_name,true);
 		$criteria->compare('size',$this->size);
 		$criteria->compare('description',$this->description,true);
-		$criteria->compare('content_small',$this->content_small,true);
+		$criteria->compare('file_name_small',$this->file_name_small,true);
 		$criteria->compare('size_small',$this->size_small);
 		$criteria->compare('Id_multimedia_type',$this->Id_multimedia_type);
 		$criteria->compare('Id_customer',$this->Id_customer);
