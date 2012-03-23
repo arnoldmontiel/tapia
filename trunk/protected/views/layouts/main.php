@@ -29,7 +29,7 @@
 					<?php echo CHtml::link('Inicio ',Yii::app()->createUrl('site/index')); ?>
 				</li>
 				<li class="nav">
-					<?php echo CHtml::link('Administrar ',Yii::app()->createUrl('wall/manage')); ?>
+					<?php echo CHtml::link('Administrar ',Yii::app()->createUrl('wall/index')); ?>
 				</li>
 				<li class="nav">
 					<?php echo CHtml::link('Previsualizar ',Yii::app()->createUrl('wall/preview')); ?>

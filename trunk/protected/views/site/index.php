@@ -1,6 +1,5 @@
-<div class="view-index">
-
-<?php 
+<?php
+echo CHtml::openTag('div',array('class'=>'view-index')); 
 $data = $dataProvider->getData();
 $left=true;
 $first = true;
@@ -16,5 +15,5 @@ foreach ($data as $item){
 		$first=false;
 	}
 }
+echo CHtml::closeTag('div');
 ?>
-</div>
