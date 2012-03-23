@@ -60,7 +60,7 @@ class Album extends CActiveRecord
 		return array(
 			'notes' => array(self::MANY_MANY, 'Note', 'album_note(Id_album, Id_note)'),
 			'multimedias' => array(self::HAS_MANY, 'Multimedia', 'Id_album'),
-			'walls' => array(self::HAS_MANY, 'Wall', 'album_Id'),
+			'walls' => array(self::HAS_MANY, 'Wall', 'Id_album'),
 		);
 	}
 
