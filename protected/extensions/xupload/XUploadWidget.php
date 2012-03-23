@@ -135,9 +135,9 @@ class XUploadWidget extends CJuiInputWidget {
 	private function _getBuildDownloadRow(){
 		$js = <<<EOD
 js:function (files, index) {
-	return $('<tr><td>' + files.name + '<\/td>' +
+	return $('<tr id="'+files.id+'"><td>' + files.name + '<\/td>' +
     	'<td class="file_upload_progress"><div><\/div><\/td>' +
-    	'<td class="filesize">'+files.size+'</td>' +
+    	'<td class="filesize">'+files.size+' KB</td>' +
         '<td class="file_upload_cancel">' +
         '<button class="ui-state-default ui-corner-all" title="Cancel">' +
         '<span class="ui-icon ui-icon-cancel">Cancel<\/span>' +
@@ -150,11 +150,12 @@ EOD;
 	private function _getBuildUploadRow(){
 		$params = $this->multiple ? "file, index" : "file";
 		$file = $this->multiple ? "file[index].name" : "file[0].name";
+		$size = $this->multiple ? "file[index].size" : "file[0].size";
 		$js = <<<EOD
 js:function ($params) {
 	return $('<tr>'+
 		'<td class="filename">'+$file+'</td>'+
-		'<td class="filesize">'+$file+'</td>'+
+		'<td class="filesize">'+$size+' KB</td>'+
 		'<td class="file_upload_progress"><div></div></td>'+
 		'<td class="file_upload_start" style="display:none">'+
 			'<button class="ui-state-default ui-corner-all" title="Start Upload">'+
