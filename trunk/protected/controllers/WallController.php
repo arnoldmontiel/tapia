@@ -6,7 +6,7 @@ class WallController extends Controller
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
-	public $layout='//layouts/column2';
+	public $layout='//layouts/column1';
 
 	/**
 	 * @return array action filters
@@ -115,20 +115,17 @@ class WallController extends Controller
 	 */
 	public function actionIndex()
 	{	
+		$modelMultimedia = new Multimedia;
+		$modelNote = new Note;
+		$ddlCustomer = Customer::model()->findAll();
+		
 		$criteria=new CDbCriteria;
 		$criteria->order = 't.Id desc';
-		$dataProvider = new CActiveDataProvider ('Wall', array (
-				    	'criteria' => $criteria,
-				    	'pagination' => array ( 
-				        					'PageSize' => 7, 
-		)
-		));
-		$model = new Multimedia;
-		$modelNote = new Note;
-		$this->render('index',array('model'=>$model,
-									'modelNote'=>$modelNote,
-												'dataProvider'=>$dataProvider));
-		
+		$this->render('index',array('modelMultimedia'=>$modelMultimedia,
+			'modelNote'=>$modelNote,
+			'ddlCustomer'=>$ddlCustomer,
+			)
+		);		
 	}
 	
 	public function actionManage()
@@ -261,6 +258,34 @@ class WallController extends Controller
 				}
 			}
 				
+		}
+	}
+	public function actionAjaxFillWall()
+	{
+
+		if(isset($_POST['Id_customer']))
+		{
+			$wall = new Wall;
+			$wall->Id_customer = $_POST['Id_customer'];
+			$dataProvider = $wall->search(); 
+			$data = $dataProvider->getData();
+			
+			echo CHtml::openTag('div',array('class'=>'view-index')); 
+			$left=true;
+			$first = true;
+			foreach ($data as $item){
+				if($left)
+				{
+					$left=false;
+					$this->renderPartial('_viewLeft',array('data'=>$item));
+				}else 
+				{
+					$left=true;
+					$this->renderPartial('_viewRight',array('data'=>$item,'first'=>$first));		
+					$first=false;
+				}
+			}
+			echo CHtml::closeTag('div');
 		}
 	}
 	
