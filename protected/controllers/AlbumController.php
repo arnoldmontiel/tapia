@@ -49,18 +49,20 @@ class AlbumController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new Album;
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+		
 
 		if(isset($_POST['Album']))
 		{
+			$model=$this->loadModel($_POST['idAlbum']);
 			$model->attributes=$_POST['Album'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->Id));
 		}
-
+		else{
+			$model=new Album;
+			$model->save();
+		}
+		
 		$this->render('create',array(
 			'model'=>$model,
 		));
@@ -90,16 +92,14 @@ class AlbumController extends Controller
 		));
 	}
 	
-	public function actionUpload()
+	public function actionAjaxUpload($id)
 	{
-		
-		
- 		
+
 		$file = $_FILES['file'];
 		
 		$modelMultimedia = new Multimedia;
  		
- 		$modelMultimedia->Id_album = 1;
+ 		$modelMultimedia->Id_album = $id;
  		$modelMultimedia->uploadedFile = $file;
  		$modelMultimedia->Id_multimedia_type = 1;
  		$modelMultimedia->Id_customer = 1;
@@ -110,6 +110,22 @@ class AlbumController extends Controller
  		$size = round($modelMultimedia->size/1024,2);
  		
 		echo json_encode(array("name" => $img,"type" => '',"size"=> $size, "id"=>$modelMultimedia->Id));
+	}
+	
+	public function actionAjaxCancelAlbum()
+	{
+		$id = $_GET['id'];
+		$model=$this->loadModel($id);
+		
+		$transaction = $model->dbConnection->beginTransaction();
+		try {
+			Multimedia::model()->deleteAllByAttributes(array('Id_album'=>$id));
+			$model->delete();
+			$transaction->commit();
+			$this->redirect(array('index'));
+		} catch (Exception $e) {
+			$transaction->rollback();
+		}
 	}
 	
 	public function actionAjaxRemoveImage()
@@ -130,11 +146,19 @@ class AlbumController extends Controller
 		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow deletion via POST request
-			$this->loadModel($id)->delete();
+			$model = $this->loadModel($id);
 
-			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-			if(!isset($_GET['ajax']))
-				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+			$transaction = $model->dbConnection->beginTransaction();
+			try {
+				Multimedia::model()->deleteAllByAttributes(array('Id_album'=>$id));
+				$model->delete();
+				$transaction->commit();
+				// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+				if(!isset($_GET['ajax']))
+					$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+			} catch (Exception $e) {
+				$transaction->rollback();
+			}
 		}
 		else
 			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
