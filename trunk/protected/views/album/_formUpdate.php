@@ -2,7 +2,60 @@
 
 Yii::app()->clientScript->registerScript('updateAlbum', "
 
+$('#cancelButton').click(function(){
+	window.location = '".AlbumController::createUrl('AjaxClose') ."';
+	return false;
+});
 
+$('#Album_title').change(function(){
+	
+		$.post(
+			'".AlbumController::createUrl('AjaxUpdateTitle')."',
+			{
+			 	id: ".$model->Id.",
+				title:$(this).val(),
+			 }).success(
+					function() 
+					{ 
+						$('#saveok').animate({opacity: 'show'},2000);
+						$('#saveok').animate({opacity: 'hide'},2000);
+						
+					});
+		});
+		
+$('#Album_description').change(function(){
+	
+		$.post(
+			'".AlbumController::createUrl('AjaxUpdateDescription')."',
+			{
+			 	id: ".$model->Id.",
+				description:$(this).val(),
+			 }).success(
+					function() 
+					{ 
+						$('#saveok2').animate({opacity: 'show'},2000);
+						$('#saveok2').animate({opacity: 'hide'},2000);
+						
+					});
+		});
+		
+$(document).keypress(function(e) {
+    if(e.keyCode == 13) 
+    {
+    	if($('*:focus').attr('id') == 'Album_title' && $('*:focus').val() != '')
+    	{
+    		$('#Album_title').blur();
+    		return false;
+    	}
+    	
+    	if($('*:focus').attr('id') == 'Album_description' && $('*:focus').val() != '')
+    	{
+    		$('#Album_description').blur();
+    		return false;
+    	}
+		return false; 
+    }
+  });
 ");
 ?>
 <div class="form">
@@ -18,12 +71,14 @@ Yii::app()->clientScript->registerScript('updateAlbum', "
 	<div class="row">
 		<?php echo $form->labelEx($model,'title'); ?>
 		<?php echo $form->textField($model,'title',array('size'=>45,'maxlength'=>45)); ?>
+		<?php echo CHtml::image("images/save_ok.png","",array("id"=>"saveok", "style"=>"display:none", "width"=>"20px", "height"=>"20px")); ?>
 		<?php echo $form->error($model,'title'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'description'); ?>
 		<?php echo $form->textField($model,'description',array('size'=>45,'maxlength'=>45)); ?>
+		<?php echo CHtml::image("images/save_ok.png","",array("id"=>"saveok2", "style"=>"display:none", "width"=>"20px", "height"=>"20px")); ?>
 		<?php echo $form->error($model,'description'); ?>
 	</div>
 
@@ -63,7 +118,7 @@ Yii::app()->clientScript->registerScript('updateAlbum', "
 	}
 	?>	
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+		<?php echo CHtml::submitButton('Close',array('id'=>'closeButton')); ?>
 	</div>
 
 <?php $this->endWidget(); ?>
