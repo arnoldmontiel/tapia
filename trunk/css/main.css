@@ -441,6 +441,17 @@ div.wall-action-area-note-dialog
 	position: absolute;
 	background: url("dialog-wall-action.png") no-repeat;
 	top: -8px;
+	left: 530px;
+	width: 19px;
+	height: 15px;
+}
+div.wall-action-area-album-dialog
+{
+	float: left;
+	z-index: 1;
+	position: absolute;
+	background: url("dialog-wall-action.png") no-repeat;
+	top: -8px;
 	left: 415px;
 	width: 19px;
 	height: 15px;
