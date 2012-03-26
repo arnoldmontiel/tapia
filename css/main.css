@@ -550,3 +550,16 @@ div.test
 	font-weight: bold; 
 	z-index: 1;	
 }
+div.loading-place-holder
+{
+	float: right;
+	position: absolute;
+	right:20px;
+	width: 16px;
+	height: 16px;
+}
+div.loading
+{
+	background:url(loading.gif) transparent no-repeat right;
+	background-color: #f4f6fb;
+}
