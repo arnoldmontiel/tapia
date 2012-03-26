@@ -5,6 +5,35 @@ $cs->registerScriptFile(Yii::app()->request->baseUrl.'/js/highslide-exe.js',CCli
 $cs->registerCssFile(Yii::app()->request->baseUrl.'/js/highslide.css');
 
 Yii::app()->clientScript->registerScript('indexWall', "
+$(window).scroll(function(){
+
+	if  ($(window).scrollTop() == $(document).height() - $(window).height()){
+		var lastId;
+		var lastLeft = 0;
+		if($('.view-single-right:last').attr('id')<$('.view-single-left:last').attr('id'))
+		{
+			lastId = $('.view-single-right:last').attr('id');
+		}
+		else
+		{
+			lastId= $('.view-single-left:last').attr('id');
+			lastLeft = 1;
+		}
+		$.post('".WallController::createUrl('AjaxFillNextWall')."', 
+			$('#Id_customer').serialize()+'&lastId='+lastId+'&lastLeft='+lastLeft
+		).success(
+		function(data){
+			if(lastLeft){
+				$('.view-single-left:last').after(data);
+			}else{
+				$('.view-single-right:last').after(data);
+			}				
+		}
+		);
+}
+});
+LoadPage();
+
 $('#uploadFile').change(
 function()
 {
@@ -22,16 +51,36 @@ function()
 }
 )
 
+function LoadPage()
+{
+	var id_customer =".$Id_customer."; 
+	if(id_customer!=-1)
+	{
+		$('#Multimedia_Id_customer').val(id_customer);
+		$('#Note_Id_customer').val(id_customer);
+		$.post('".WallController::createUrl('AjaxFillWall')."', 
+			$('#Id_customer').serialize()
+		).success(
+		function(data){
+			$('#wallView').html(data)
+		}
+		);
+		$('#wallView').animate({opacity: 'show'},240);
+	}
+}
+
 
 $('#Id_customer').change(function(){
 	$('#Multimedia_Id_customer').val($(this).val());
 	$('#Note_Id_customer').val($(this).val());
 	
 	if($(this).val()!= ''){
+		$('#loading').addClass('loading');
 		$.post('".WallController::createUrl('AjaxFillWall')."', 
 			$(this).serialize()
 		).success(
 		function(data){
+			$('#loading').removeClass('loading');
 			$('#wallView').html(data)
 		}
 		);
@@ -91,11 +140,13 @@ $('#submitFile').click(function(){
 		return false;
 	}
 	$('#wall-action-image').animate({opacity: 'hide'},240);
-
+	$('#loading').addClass('loading');
 });
 ");
 ?>
-<div class="wall-action-area">
+<div class="wall-action-area" id="wall-action-area">
+<div id="loading" class="loading-place-holder" >
+</div>
 <div id="customer" class="wall-action-ddl" >
 	<?php	$customers = CHtml::listData($ddlCustomer, 'Id', 'CustomerDesc');?>
 	<?php echo CHtml::label('Customer','Id_customer'); ?>
@@ -141,7 +192,7 @@ $('#submitFile').click(function(){
 														'type'=>'POST',
 														'url'=>WallController::createUrl('AjaxShareNote'),
 														'beforeSend'=>'function(){
-														
+																$("#loading").addClass("loading");
 																	if(! $.trim($("#Note_note").val()).length > 0)
 																	{
 																		alert("Debe completar la nota antes de publicarla");
@@ -150,6 +201,7 @@ $('#submitFile').click(function(){
 														}',
 														'success'=>'js:function(data)
 														{																
+															$("#loading").removeClass("loading");
 															$("#Note_note").val("");
 															$("#wall-action-note").animate({opacity: "hide"},240);
 															$("#wallView").html(data);							
