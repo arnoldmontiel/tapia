@@ -109,18 +109,34 @@ $('#cancelImage').click(function(){
 });
 $('#btnNote').click(function(){
 
-	$('#wall-action-image').animate({opacity: 'hide'},240,function(){
-	$('#wall-action-note').animate({opacity: 'show'},240);
-	$('#uploadFile').val('');
-	$('#Multimedia_description').val('');
-});
+	$('#wall-action-image').animate({opacity: 'hide'},240,function()
+	{
+		$('#wall-action-album').animate({opacity: 'hide'},240,function()
+		{
+			$('#wall-action-note').animate({opacity: 'show'},240);
+			$('#Multimedia_description').val('');
+		});
+	});
 });
 
 $('#btnImage').click(function(){
 	$('#Note_note').val('');
 	$('#wall-action-note').animate({opacity: 'hide'},240,function()
 	{
-		$('#wall-action-image').animate({opacity: 'show'},240);
+		$('#wall-action-album').animate({opacity: 'hide'},240,function()
+		{
+			$('#wall-action-image').animate({opacity: 'show'},240);
+		});
+	});
+});
+
+$('#btnAlbum').click(function(){
+	$('#wall-action-note').animate({opacity: 'hide'},240,function()
+	{
+		$('#wall-action-image').animate({opacity: 'hide'},240,function()
+		{
+			$('#wall-action-album').animate({opacity: 'show'},240);
+		});
 	});
 });
 
@@ -162,6 +178,9 @@ $('#submitFile').click(function(){
 	echo CHtml::openTag('div',array('class'=>'wall-action-btn','id'=>'btnImage'));
 		echo 'Imagenes';
 	echo CHtml::closeTag('div');
+	echo CHtml::openTag('div',array('class'=>'wall-action-btn','id'=>'btnAlbum'));
+		echo 'Album';
+	echo CHtml::closeTag('div');	
 	echo CHtml::openTag('div',array('class'=>'wall-action-btn','id'=>'btnNote'));
 		echo 'Notas';
 	echo CHtml::closeTag('div');	
@@ -258,6 +277,12 @@ $('#submitFile').click(function(){
 		<?php $this->endWidget(); ?>
 	</div><!-- image-form -->
 </div>
+<div id="wall-action-album"  class='wall-action-area-note' style="display:none">
+	<div class="wall-action-area-album-dialog">
+	</div>
+
+</div>
+
 <br>
 <div id="wallView">
 <!-- data container -->
