@@ -60,7 +60,20 @@ class AlbumController extends Controller
 		}
 		else{
 			$model=new Album;
-			$model->save();
+			$transaction = $model->dbConnection->beginTransaction();
+			try {
+				$model->Id_customer = 1;
+				$model->save();
+				$modelWall = new Wall;
+				$modelWall->attributes = array('Id_customer'=>$model->Id_customer,
+												'Id_album'=>$model->Id, 
+												'index_order'=>$this->getNextIndexOrder());
+				$modelWall->save();
+				
+				$transaction->commit();
+			} catch (Exception $e) {
+				$transaction->rollback();
+			}
 		}
 		
 		$this->render('create',array(
@@ -68,6 +81,20 @@ class AlbumController extends Controller
 		));
 	}
 
+	private function getNextIndexOrder()
+	{
+		$index = 1;
+		$criteria=new CDbCriteria;
+		$criteria->select = 'max(t.index_order) AS index_order';
+			
+		$singleRow = Wall::model()->find($criteria);
+			
+		if(isset($singleRow) && isset($singleRow['index_order']))
+		$index = (int)$singleRow['index_order'] + $index;
+	
+		return $index;
+	}
+	
 	/**
 	 * Updates a particular model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
