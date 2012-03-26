@@ -1,11 +1,8 @@
 <?php
 
-Yii::app()->clientScript->registerScript('createAlbum', "
+Yii::app()->clientScript->registerScript('updateAlbum', "
 
-$('#cancelButton').click(function(){
-	window.location = '".AlbumController::createUrl('AjaxCancelAlbum',array('id'=>$model->Id)) ."';
-	return false;
-});
+
 ");
 ?>
 <div class="form">
@@ -18,7 +15,6 @@ $('#cancelButton').click(function(){
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
 
 	<?php echo $form->errorSummary($model); ?>
-	<?php echo CHtml::hiddenField('idAlbum',$model->Id,array('id'=>'idAlbum')); ?>
 	<div class="row">
 		<?php echo $form->labelEx($model,'title'); ?>
 		<?php echo $form->textField($model,'title',array('size'=>45,'maxlength'=>45)); ?>
@@ -31,9 +27,43 @@ $('#cancelButton').click(function(){
 		<?php echo $form->error($model,'description'); ?>
 	</div>
 
+<?php 
+
+	foreach ($model->multimedias as $item)
+	{
+		echo "<div id=picture_".$item->Id.">";
+		$this->widget('ext.highslide.highslide', array(
+								'smallImage'=>"images/".$item->file_name_small,
+								'image'=>"images/".$item->file_name,
+								'caption'=>$item->description,
+								'Id'=>$item->Id,
+		)); 
+		echo CHtml::imageButton(
+		                                'images/add_all_blue.png',
+								array(
+		                                'title'=>'Delete Image',
+		                                'style'=>'width:30px;',
+		                                'id'=>'delete_'.$item->Id,
+		                                	'ajax'=> array(
+												'type'=>'GET',
+												'url'=>AlbumController::createUrl('AjaxRemoveImage',array('IdMultimedia'=>$item->Id)),
+												'beforeSend'=>'function(){
+															if(!confirm("Are you sure you want to delete this image?")) 
+																return false;
+																}',
+												'success'=>'js:function(data)
+												{
+													$("#picture_'.$item->Id.'").attr("style","display:none");
+												}'
+									)
+								)
+		 
+			);
+		echo "</div>";
+	}
+	?>	
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
-		<?php echo CHtml::submitButton('Cancel',array('id'=>'cancelButton')); ?>
 	</div>
 
 <?php $this->endWidget(); ?>
