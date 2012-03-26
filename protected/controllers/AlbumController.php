@@ -128,6 +128,37 @@ class AlbumController extends Controller
 		}
 	}
 	
+	public function actionAjaxClose()
+	{
+		$this->redirect(array('index'));
+	}
+	
+	public function actionAjaxUpdateTitle()
+	{
+		$title = $_POST['title'];
+		$id = $_POST['id'];
+		$model=$this->loadModel($id);
+		if(isset($model))
+		{
+			$model->title = $title;
+			$model->save();
+		}
+		
+	}
+	
+	public function actionAjaxUpdateDescription()
+	{
+		$description = $_POST['description'];
+		$id = $_POST['id'];
+		$model=$this->loadModel($id);
+		if(isset($model))
+		{
+			$model->description = $description;
+			$model->save();
+		}
+	
+	}
+	
 	public function actionAjaxRemoveImage()
 	{	
 			
