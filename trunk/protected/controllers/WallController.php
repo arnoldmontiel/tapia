@@ -118,13 +118,18 @@ class WallController extends Controller
 		$modelMultimedia = new Multimedia;
 		$modelNote = new Note;
 		$ddlCustomer = Customer::model()->findAll();
-		
+		$Id_customer = -1;
+		if(isset($_GET['Id_customer']))
+		{
+			$Id_customer =$_GET['Id_customer'];
+		}
 		$criteria=new CDbCriteria;
 		$criteria->order = 't.Id desc';
 		$this->render('index',array('modelMultimedia'=>$modelMultimedia,
 			'modelNote'=>$modelNote,
 			'ddlCustomer'=>$ddlCustomer,
-			)
+			'Id_customer'=>$Id_customer,
+		)
 		);		
 	}
 	
@@ -193,18 +198,18 @@ class WallController extends Controller
 					$model->attributes = $multi;
 					$model->uploadedFile = $file;
 					$model->Id_multimedia_type = 1;
-					$model->Id_customer = 1;
 				
 					$model->save();
 						
 					$modelWall = new Wall;
-					$modelWall->attributes = array('Id_customer'=>1,
+					$modelWall->attributes = array('Id_customer'=>$model->Id_customer,
 																	'Id_multimedia'=>$model->Id, 
 																	'index_order'=>$this->getNextIndexOrder());
 					$modelWall->save();
 					$transaction->commit();
-					$this->redirect(array('wall/index'));
-					
+					$this->redirect(array('wall/index','Id_customer'=>$model->Id_customer));
+					$this->fillWall($_POST['Note']['Id_customer']);
+						
 				} catch (Exception $e) {
 					$transaction->rollback();
 				}
@@ -244,11 +249,10 @@ class WallController extends Controller
 				$transaction = $modelNote->dbConnection->beginTransaction();
 				try {
 		
-					$modelNote->attributes = array('Id_customer'=>1);
 					$modelNote->save();
 						
 					$modelWall = new Wall;
-					$modelWall->attributes = array('Id_customer'=>1,
+					$modelWall->attributes = array('Id_customer'=>$modelNote->Id_customer,
 																	'Id_note'=>$modelNote->Id, 
 																	'index_order'=>$this->getNextIndexOrder());
 					$modelWall->save();
@@ -257,35 +261,40 @@ class WallController extends Controller
 					$transaction->rollback();
 				}
 			}
-				
+			$this->fillWall($_POST['Note']['Id_customer']);
 		}
+	}
+	private function fillWall($Id_customer)
+	{
+		$wall = new Wall;
+		$wall->Id_customer = $Id_customer;
+		$dataProvider = $wall->searchOrderedByIndex();
+		$data = $dataProvider->getData();
+			
+		echo CHtml::openTag('div',array('class'=>'view-index'));
+		$left=true;
+		$first = true;
+		foreach ($data as $item){
+			if($left)
+			{
+				$left=false;
+				$this->renderPartial('_viewLeft',array('data'=>$item));
+			}else
+			{
+				$left=true;
+				$this->renderPartial('_viewRight',array('data'=>$item,'first'=>$first));
+				$first=false;
+			}
+		}
+		echo CHtml::closeTag('div');
+		
 	}
 	public function actionAjaxFillWall()
 	{
 
 		if(isset($_POST['Id_customer']))
 		{
-			$wall = new Wall;
-			$wall->Id_customer = $_POST['Id_customer'];
-			$dataProvider = $wall->search(); 
-			$data = $dataProvider->getData();
-			
-			echo CHtml::openTag('div',array('class'=>'view-index')); 
-			$left=true;
-			$first = true;
-			foreach ($data as $item){
-				if($left)
-				{
-					$left=false;
-					$this->renderPartial('_viewLeft',array('data'=>$item));
-				}else 
-				{
-					$left=true;
-					$this->renderPartial('_viewRight',array('data'=>$item,'first'=>$first));		
-					$first=false;
-				}
-			}
-			echo CHtml::closeTag('div');
+			$this->fillWall($_POST['Id_customer']);
 		}
 	}
 	

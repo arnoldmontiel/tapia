@@ -82,7 +82,31 @@ class Wall extends CActiveRecord
 			'Id_customer' => 'Id Customer',
 		);
 	}
+	
+	/**
+	 * Retrieves a list of models based on the current search/filter conditions.
+	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
+	 */
+	public function searchOrderedByIndex()
+	{
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
 
+		$criteria=new CDbCriteria;
+
+		$criteria->compare('Id',$this->Id);
+		$criteria->compare('Id_note',$this->Id_note);
+		$criteria->compare('Id_multimedia',$this->Id_multimedia);
+		$criteria->compare('index_order',$this->index_order);
+		$criteria->compare('Id_album',$this->Id_album);
+		$criteria->compare('Id_customer',$this->Id_customer);
+
+		$criteria->order = 'index_order DESC';
+		
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+		));
+	}
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.

@@ -24,6 +24,9 @@ function()
 
 
 $('#Id_customer').change(function(){
+	$('#Multimedia_Id_customer').val($(this).val());
+	$('#Note_Id_customer').val($(this).val());
+	
 	if($(this).val()!= ''){
 		$.post('".WallController::createUrl('AjaxFillWall')."', 
 			$(this).serialize()
@@ -34,7 +37,8 @@ $('#Id_customer').change(function(){
 		);
 		$('#wallView').animate({opacity: 'show'},240);
 	}
-	else{
+	else
+	{
 		$('#wallView').animate({opacity: 'hide'},240);	
 		$('#wall-action-image').animate({opacity: 'hide'},240);
 		$('#wall-action-note').animate({opacity: 'hide'},240);
@@ -95,7 +99,7 @@ $('#submitFile').click(function(){
 <div id="customer" class="wall-action-ddl" >
 	<?php	$customers = CHtml::listData($ddlCustomer, 'Id', 'CustomerDesc');?>
 	<?php echo CHtml::label('Customer','Id_customer'); ?>
-	<?php echo CHtml::dropDownList('Id_customer',-1, $customers,		
+	<?php echo CHtml::dropDownList('Id_customer',$Id_customer, $customers,		
 		array(
 			'prompt'=>'Select a Customer',
 			)		
@@ -123,7 +127,7 @@ $('#submitFile').click(function(){
 					'method'=>'post',
 					'enableAjaxValidation'=>false,
 			));
-			
+			echo $form->hiddenField($modelNote,'Id_customer');			
 			?>
 			<?php echo $form->textArea($modelNote,'note',array('rows'=>2, 'cols'=>110,'class'=>'wall-action-upload-file-description', 'placeholder'=>'Escriba una nota...')); ?>
 			<div class="row" style="text-align: center;">
@@ -148,7 +152,7 @@ $('#submitFile').click(function(){
 														{																
 															$("#Note_note").val("");
 															$("#wall-action-note").animate({opacity: "hide"},240);
-							
+															$("#wallView").html(data);							
 														}'
 				                                	)
 				                                )
@@ -173,7 +177,9 @@ $('#submitFile').click(function(){
 			'action'=>WallController::createUrl('AjaxShareImage'),
 			'htmlOptions'=>array('enctype'=>'multipart/form-data'),
 			'method'=>'post',
-		)); ?>
+			)); 
+			echo $form->hiddenField($modelMultimedia,'Id_customer');			
+		?>
 		<!-- JavaScript is called by OnChange attribute -->
 		<div class="wall-action-upload-file-container">
 			<div class="wall-action-upload-file-btn-container">
