@@ -131,10 +131,12 @@ $('#btnImage').click(function(){
 });
 
 $('#btnAlbum').click(function(){
+		$('#loading').addClass('loading');
 		$.post('".WallController::createUrl('AjaxCreateAlbum')."', 
 			$('#Id_customer').serialize()
 		).success(
 		function(data){
+			$('#loading').removeClass('loading');
 			$('#_form').attr('action','".AlbumController::createUrl('album/AjaxUpload')."'+'&id='+data);
 			$('#Album_Id_album').val(data);
 			$('#wall-action-note').animate({opacity: 'hide'},240,function()
@@ -168,10 +170,12 @@ $('#submitFile').click(function(){
 });
 
 $('#btnCancelAlbum').click(function(){
+	$('#loading').addClass('loading');
 	$.post('".WallController::createUrl('AjaxCancelAlbum')."', 
 		$('#Album_Id_album').serialize()
 	).success(
 	function(data){
+		$('#loading').removeClass('loading');
 		$('#wall-action-album').animate({opacity: 'hide'},240);
 		$('#Album_description').val('');
 		$('#Album_title').val('');
@@ -179,10 +183,12 @@ $('#btnCancelAlbum').click(function(){
 });
 
 $('#btnPublicAlbum').click(function(){
+	$('#loading').addClass('loading');
 	$.post('".WallController::createUrl('AjaxFillWall')."', 
 		$('#Id_customer').serialize()
 	).success(
 	function(data){
+		$('#loading').removeClass('loading');
 		$('#wallView').html(data)
 		$('#wall-action-album').animate({opacity: 'hide'},240);
 		$('#Album_description').val('');
@@ -323,13 +329,12 @@ $('#btnPublicAlbum').click(function(){
 	<div class="wall-action-area-album-dialog">
 	</div>
 	<?php 
-		$model = Album::model()->findByPk('16');
+		$model = new Album;
 		$this->renderPartial('_formAlbum',array('model'=>$model));
 	?>
 	<div class="row" style="text-align: center;">
 		<?php echo CHtml::button('Publicar',array('class'=>'wall-action-submit-btn','id'=>'btnPublicAlbum',));?>
 		<?php echo CHtml::button('Cancelar',array('class'=>'wall-action-submit-btn','id'=>'btnCancelAlbum',));?>
-	
 	</div>
 		
 </div>

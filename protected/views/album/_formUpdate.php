@@ -2,11 +2,6 @@
 
 Yii::app()->clientScript->registerScript('updateAlbum', "
 
-$('#cancelButton').click(function(){
-	window.location = '".AlbumController::createUrl('AjaxClose') ."';
-	return false;
-});
-
 $('#Album_title').change(function(){
 	
 		$.post(

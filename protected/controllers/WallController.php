@@ -328,15 +328,16 @@ class WallController extends Controller
 	
 	public function actionAjaxCancelAlbum()
 	{	
-		if(isset($_POST['Id_album']))
+		if(isset($_POST['Album_Id_album']))
 		{
-			$modelAlbum = Album::model()->findByPk($_POST['Id_album']);
-			$transaction = $model->dbConnection->beginTransaction();
+			$modelAlbum = Album::model()->findByPk($_POST['Album_Id_album']);
+			$transaction = $modelAlbum->dbConnection->beginTransaction();
 			try {
 					
 				Multimedia::model()->deleteAllByAttributes(array('Id_album'=>$modelAlbum->Id));
 				Wall::model()->deleteAllByAttributes(array('Id_album'=>$modelAlbum->Id));
 				$modelAlbum->delete();
+				$transaction->commit();
 			} catch (Exception $e) {
 				$transaction->rollback();
 			}	
