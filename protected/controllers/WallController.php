@@ -326,7 +326,52 @@ class WallController extends Controller
 		}
 	}
 	
+	public function actionAjaxCancelAlbum()
+	{	
+		if(isset($_POST['Id_album']))
+		{
+			$modelAlbum = Album::model()->findByPk($_POST['Id_album']);
+			$transaction = $model->dbConnection->beginTransaction();
+			try {
+					
+				Multimedia::model()->deleteAllByAttributes(array('Id_album'=>$modelAlbum->Id));
+				Wall::model()->deleteAllByAttributes(array('Id_album'=>$modelAlbum->Id));
+				$modelAlbum->delete();
+			} catch (Exception $e) {
+				$transaction->rollback();
+			}	
+		}
+	}
+	public function actionAjaxCreateAlbum()
+	{	
+		if(isset($_POST['Id_customer']))
+		{
+			$modelAlbum = new Album;
+			$modelAlbum->Id_customer = $_POST['Id_customer'];
+			$transaction = $modelAlbum->dbConnection->beginTransaction();
+			try {
+		
+				$modelAlbum->save();
+					
+				$modelWall = new Wall;
+				$modelWall->attributes = 
+					array('Id_customer'=>$modelAlbum->Id_customer,
+						'Id_album'=>$modelAlbum->Id, 
+						'index_order'=>$this->getNextIndexOrder()
+				);
+				$modelWall->save();
+				$transaction->commit();
+			} catch (Exception $e) {
+				$transaction->rollback();
+			}
+			echo $modelAlbum->Id;
+			//echo CHtml::openTag('div',array('class'=>'wall-action-area-album-dialog'));
+			//echo CHtml::closeTag('div');
+			//$this->renderPartial('_formAlbum',array('model'=>$modelAlbum));
+		}
+	}
 	
+		
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.

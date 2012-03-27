@@ -3,8 +3,8 @@ $cs = Yii::app()->getClientScript();
 $cs->registerScriptFile(Yii::app()->request->baseUrl.'/js/highslide-with-gallery.js',CClientScript::POS_HEAD);
 $cs->registerScriptFile(Yii::app()->request->baseUrl.'/js/highslide-exe.js',CClientScript::POS_HEAD);
 $cs->registerCssFile(Yii::app()->request->baseUrl.'/js/highslide.css');
-
 Yii::app()->clientScript->registerScript('indexWall', "
+
 $(window).scroll(function(){
 
 	if  ($(window).scrollTop() == $(document).height() - $(window).height()){
@@ -131,13 +131,21 @@ $('#btnImage').click(function(){
 });
 
 $('#btnAlbum').click(function(){
-	$('#wall-action-note').animate({opacity: 'hide'},240,function()
-	{
-		$('#wall-action-image').animate({opacity: 'hide'},240,function()
-		{
-			$('#wall-action-album').animate({opacity: 'show'},240);
-		});
-	});
+		$.post('".WallController::createUrl('AjaxCreateAlbum')."', 
+			$('#Id_customer').serialize()
+		).success(
+		function(data){
+			$('#_form').attr('action','".AlbumController::createUrl('album/AjaxUpload')."'+'&id='+data);
+			$('#Album_Id_album').val(data);
+			$('#wall-action-note').animate({opacity: 'hide'},240,function()
+			{
+				$('#wall-action-image').animate({opacity: 'hide'},240,function()
+				{
+					$('#wall-action-album').animate({opacity: 'show'},240);
+				});
+			});
+		}
+		);
 });
 
 $('#submitFile').click(function(){
@@ -158,6 +166,32 @@ $('#submitFile').click(function(){
 	$('#wall-action-image').animate({opacity: 'hide'},240);
 	$('#loading').addClass('loading');
 });
+
+$('#btnCancelAlbum').click(function(){
+	$.post('".WallController::createUrl('AjaxCancelAlbum')."', 
+		$('#Album_Id_album').serialize()
+	).success(
+	function(data){
+		$('#wall-action-album').animate({opacity: 'hide'},240);
+		$('#Album_description').val('');
+		$('#Album_title').val('');
+	});
+});
+
+$('#btnPublicAlbum').click(function(){
+	$.post('".WallController::createUrl('AjaxFillWall')."', 
+		$('#Id_customer').serialize()
+	).success(
+	function(data){
+		$('#wallView').html(data)
+		$('#wall-action-album').animate({opacity: 'hide'},240);
+		$('#Album_description').val('');
+		$('#Album_title').val('');
+	}
+	);
+
+});
+
 ");
 ?>
 <div class="wall-action-area" id="wall-action-area">
@@ -187,6 +221,8 @@ $('#submitFile').click(function(){
 ?>
 
 </div>
+
+<!-- *************** NOTE ******************************* -->
 
 <div id="wall-action-note"  class='wall-action-area-note' style="display:none">
 	<div class="wall-action-area-note-dialog">
@@ -239,6 +275,9 @@ $('#submitFile').click(function(){
 		</div><!-- form -->		
 
 </div>
+
+<!-- *************** IMAGE ******************************* -->
+
 <div id="wall-action-image"  class='wall-action-area-note' style="display:none">
 
 	<div class="wall-action-area-images-dialog">
@@ -277,12 +316,23 @@ $('#submitFile').click(function(){
 		<?php $this->endWidget(); ?>
 	</div><!-- image-form -->
 </div>
+
+<!-- *************** ALBUM ******************************* -->
+
 <div id="wall-action-album"  class='wall-action-area-note' style="display:none">
 	<div class="wall-action-area-album-dialog">
 	</div>
-
+	<?php 
+		$model = Album::model()->findByPk('16');
+		$this->renderPartial('_formAlbum',array('model'=>$model));
+	?>
+	<div class="row" style="text-align: center;">
+		<?php echo CHtml::button('Publicar',array('class'=>'wall-action-submit-btn','id'=>'btnPublicAlbum',));?>
+		<?php echo CHtml::button('Cancelar',array('class'=>'wall-action-submit-btn','id'=>'btnCancelAlbum',));?>
+	
+	</div>
+		
 </div>
-
 <br>
 <div id="wallView">
 <!-- data container -->
