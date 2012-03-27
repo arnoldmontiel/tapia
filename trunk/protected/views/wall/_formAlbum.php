@@ -75,7 +75,7 @@ echo $formAlbum->hiddenField($model,'Id_customer');
 
 <?php
 $this->widget('ext.xupload.XUploadWidget', array(
-                    'url' => AlbumController::createUrl('album/AjaxUpload',array('id'=>$model->Id)),
+                    'url' => AlbumController::createUrl('album/AjaxUpload'),
 					'multiple'=>true,
 					'name'=>'file',
 					'options' => array(
