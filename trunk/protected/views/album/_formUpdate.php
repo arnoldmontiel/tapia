@@ -58,7 +58,7 @@ $(document).keypress(function(e) {
   });
 ");
 ?>
-<div class="form">
+<div class="wide form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'album-form',
