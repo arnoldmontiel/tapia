@@ -18,7 +18,7 @@
 								$item->creation_date.
 							'</div>'.	
 					CHtml::image('images/remove.png','',
-					array('id'=>'left_note_'.$item->Id.'_'.$data->Id, 'style'=>'width: 30px;cursor:pointer;','title'=>'Remove')).
+					array('id'=>'left_note_'.$item->Id.'_'.$data->Id, 'class'=>'wall-action-remove-small','title'=>'Remove')).
 						$item->note.
 					'</div>';							
 				}
@@ -62,7 +62,7 @@
 						$item->creation_date.
 					'</div>'.	
 			CHtml::image('images/remove.png','',
-			array('id'=>'left_multimedia_'.$item->Id.'_'.$data->Id, 'style'=>'width: 30px;cursor:pointer;','title'=>'Remove')).
+			array('id'=>'left_multimedia_'.$item->Id.'_'.$data->Id, 'class'=>'wall-action-remove-small','title'=>'Remove')).
 				$item->note.
 			'</div>';							
 		}
@@ -110,7 +110,7 @@
 						$item->creation_date.
 					'</div>'.			
 			CHtml::image('images/remove.png','',
-			array('id'=>'left_album_'.$item->Id.'_'.$data->Id, 'style'=>'width: 30px;cursor:pointer;','title'=>'Remove')).
+			array('id'=>'left_album_'.$item->Id.'_'.$data->Id, 'class'=>'wall-action-remove-small','title'=>'Remove')).
 				$item->note.
 			'</div>';						
 		}

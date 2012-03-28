@@ -24,7 +24,7 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#site_view'.$data->Id, "
 								$item->creation_date.
 							'</div>'.
 					CHtml::image('images/remove.png','',
-						array('id'=>'right_note_'.$item->Id.'_'.$data->Id, 'style'=>'width: 30px;cursor:pointer;','title'=>'Remove')).
+						array('id'=>'right_note_'.$item->Id.'_'.$data->Id, 'class'=>'wall-action-remove-small','title'=>'Remove')).
 						$item->note.
 					'</div>';							
 				}
@@ -68,7 +68,7 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#site_view'.$data->Id, "
 						$item->creation_date.
 					'</div>'.			
 			CHtml::image('images/remove.png','',
-			array('id'=>'right_multimedia_'.$item->Id.'_'.$data->Id, 'style'=>'width: 30px;cursor:pointer;','title'=>'Remove')).
+			array('id'=>'right_multimedia_'.$item->Id.'_'.$data->Id, 'class'=>'wall-action-remove-small','title'=>'Remove')).
 				$item->note.
 			'</div>';						
 		}
@@ -116,7 +116,7 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#site_view'.$data->Id, "
 						$item->creation_date.
 					'</div>'.	
 			CHtml::image('images/remove.png','',
-			array('id'=>'right_album_'.$item->Id.'_'.$data->Id, 'style'=>'width: 30px;cursor:pointer;','title'=>'Remove')).
+			array('id'=>'right_album_'.$item->Id.'_'.$data->Id, 'class'=>'wall-action-remove-small','title'=>'Remove')).
 				$item->note.
 			'</div>';						
 		}
