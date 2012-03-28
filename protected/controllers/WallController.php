@@ -172,6 +172,91 @@ class WallController extends Controller
 		));
 	}
 
+	public function actionAjaxRemoveBubble($id)
+	{
+		$model = $this->loadModel($id);
+		$transaction = $model->dbConnection->beginTransaction();
+		try {
+		    
+			$model->delete();
+			
+			if(isset($model->Id_multimedia)){
+				$this->removeMultimediaRelation(MultimediaNote::model()->findAllByAttributes(array('Id_multimedia'=>$model->Id_multimedia)));
+		    	Multimedia::model()->deleteByPk($model->Id_multimedia);
+			}
+		    if(isset($model->Id_note)){
+		    	Note::model()->deleteByPk($model->Id_note);
+		    }
+		    if(isset($model->Id_album))
+		    {
+		    	Multimedia::model()->deleteAllByAttributes(array('Id_album'=>$model->Id_album));
+		    	Album::model()->deleteByPk($model->Id_album);
+		    }
+			$transaction->commit();
+		} catch (Exception $e) {
+			$transaction->rollback();
+		}
+	}
+	
+	private function removeMultimediaRelation($arrModel)
+	{
+		foreach ($arrModel as $model)
+		{
+			MultimediaNote::model()->deleteAllByAttributes(array('Id_note'=>$model->Id_note, 'Id_multimedia'=>$model->Id_multimedia));
+			Note::model()->deleteByPk($model->Id_note);
+		}	
+	}
+	
+	public function actionAjaxAddNoteTo()
+	{
+		$id = $_POST['id'];
+		$value = $_POST['value'];
+		$side = $_POST['side'];
+		$type = $_POST['type'];
+		$modelNote = new Note;
+		
+		$transaction = $modelNote->dbConnection->beginTransaction();
+		try {
+			$modelNote->note = $value;
+			$modelNote->Id_customer = 1;
+			$modelNote->save();
+			
+			switch ($type) {
+				case "multimedia":
+					
+					$modelMultimediaNote = new MultimediaNote;
+					$modelMultimediaNote->Id_multimedia = $id;
+					$modelMultimediaNote->Id_note = $modelNote->Id;
+					$modelMultimediaNote->save();
+					$model = Wall::model()->findByAttributes(array('Id_multimedia'=>$id));
+					break;
+				case "album":
+					
+					$modelAlbumNote = new AlbumNote;
+					$modelAlbumNote->Id_album = $id;
+					$modelAlbumNote->Id_note = $modelNote->Id;
+					$modelAlbumNote->save();
+					$model = Wall::model()->findByAttributes(array('Id_album'=>$id));
+					break;
+				default :
+					$modelNoteNote = new NoteNote;
+					$modelNoteNote->Id_parent = $id;
+					$modelNoteNote->Id_child = $modelNote->Id;
+					$modelNoteNote->save();
+					$model = Wall::model()->findByAttributes(array('Id_note'=>$id));
+					break;
+			}
+			
+			
+			$transaction->commit();
+			
+			$this->renderPartial($side,array('data'=>$model));
+		} catch (Exception $e) {
+			$transaction->rollback();
+		}
+	}
+	
+	
 	public function actionAjaxShareImage()
 	{
 		//$_FILES
