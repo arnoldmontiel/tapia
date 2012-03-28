@@ -185,11 +185,13 @@ class WallController extends Controller
 		    	Multimedia::model()->deleteByPk($model->Id_multimedia);
 			}
 		    if(isset($model->Id_note)){
+		    	$this->removeNoteRelation(NoteNote::model()->findAllByAttributes(array('Id_parent'=>$model->Id_note)));
 		    	Note::model()->deleteByPk($model->Id_note);
 		    }
 		    if(isset($model->Id_album))
 		    {
 		    	Multimedia::model()->deleteAllByAttributes(array('Id_album'=>$model->Id_album));
+		    	$this->removeAlbumRelation(AlbumNote::model()->findAllByAttributes(array('Id_album'=>$model->Id_album)));
 		    	Album::model()->deleteByPk($model->Id_album);
 		    }
 			$transaction->commit();
@@ -205,6 +207,24 @@ class WallController extends Controller
 			MultimediaNote::model()->deleteAllByAttributes(array('Id_note'=>$model->Id_note, 'Id_multimedia'=>$model->Id_multimedia));
 			Note::model()->deleteByPk($model->Id_note);
 		}	
+	}
+	
+	private function removeNoteRelation($arrModel)
+	{
+		foreach ($arrModel as $model)
+		{
+			NoteNote::model()->deleteAllByAttributes(array('Id_parent'=>$model->Id_parent, 'Id_child'=>$model->Id_child));
+			Note::model()->deleteByPk($model->Id_child);
+		}
+	}
+	
+	private function removeAlbumRelation($arrModel)
+	{
+		foreach ($arrModel as $model)
+		{
+			AlbumNote::model()->deleteAllByAttributes(array('Id_note'=>$model->Id_note, 'Id_album'=>$model->Id_album));
+			Note::model()->deleteByPk($model->Id_note);
+		}
 	}
 	
 	public function actionAjaxAddNoteTo()
