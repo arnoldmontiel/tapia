@@ -49,24 +49,31 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#site_view'.$data->Id, "
 	<div class="view-text-date"><?php echo $data->album->creation_date;?></div>
 	<?php 
 		$images = array();
+		$height =0;
 		foreach($data->album->multimedias as $item)
 		{
 			$image= array();
 			$image['image'] = "images/".$item->file_name;
 			$image['small_image'] = "images/".$item->file_name_small;
 			$image['caption'] = $item->description;
+			if($item->height_small>$height);
+			{
+				$height = $item->height_small;
+			}
+
 			$images[]=$image;
 		}
 		$this->widget('ext.highslide.highslide', array(
 								'images'=>$images,
 								'Id'=>$data->Id,
+								'height'=>$height,
 		)); 
 	?>	
-	<?php $notes=$data->album->notes;?>
-	<?php if (empty($notes)):?>
-		<div class="view-text-simple-note"><?php echo $data->multimedia->description;?></div>		
-	<?php endif?>
+	<?php $notes=$data->album->notes;?>	
 	<div class="view-text-simple-title"><?php echo $data->album->title;?></div>	
+	<?php if (empty($notes)):?>
+		<div class="view-text-simple-note"><?php echo $data->album->description;?></div>		
+	<?php endif?>
 	<?php if (!empty($notes)):?>
 		<?php 
 		foreach($notes as $item)

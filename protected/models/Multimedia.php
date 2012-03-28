@@ -53,6 +53,8 @@ class Multimedia extends CActiveRecord
 					fclose($file);
 					$this->file_name = $fileName;
 					$this->size = $newFile['size'];
+					$this->width= $newFile['width'];
+					$this->height= $newFile['height'];
 				}
 
 				//generate small file version
@@ -65,6 +67,8 @@ class Multimedia extends CActiveRecord
 					fclose($file);
 					$this->file_name_small = $fileName;
 					$this->size_small = $newFile['size'];
+					$this->width_small = $newFile['width'];
+					$this->height_small = $newFile['height'];
 				}
 				unlink($filePath);
 				$this->Id_multimedia_type = 1;
@@ -78,7 +82,6 @@ class Multimedia extends CActiveRecord
 	
 		return parent::beforeSave();
 	}
-	
 	private function resizeFile($w=null,$h=null,$filePath)
 	{
 		$im = imagecreatefromstring(file_get_contents($filePath));
@@ -107,7 +110,7 @@ class Multimedia extends CActiveRecord
 		imagejpeg($new, '', 100);
 	
 	
-		return array('size'=>$newwidth*$newheight, 'content'=> ob_get_clean());
+		return array('size'=>$newwidth*$newheight, 'content'=> ob_get_clean(),'width'=>$newwidth,'height'=>$newheight);
 	}
 	
 	/**
