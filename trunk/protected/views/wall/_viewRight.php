@@ -10,7 +10,7 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#site_view'.$data->Id, "
 			<div class="view-text-date"><?php echo $data->note->creation_date;?></div>
 			<?php
 				 echo CHtml::image('images/remove.png','',
-						array('id'=>'delete_'.$data->Id, 'style'=>'width: 30px;cursor:pointer;','title'=>'Remove'));
+						array('id'=>'delete_'.$data->Id, 'class'=>'wall-action-remove','title'=>'Remove'));
 				?>
 			<div class="view-text-simple-note"><?php echo $data->note->note;?></div>		
 						
@@ -45,7 +45,7 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#site_view'.$data->Id, "
 	<div class="view-text-date"><?php echo $data->multimedia->creation_date;?></div>
 	<?php
 		 echo CHtml::image('images/remove.png','',
-				array('id'=>'delete_'.$data->Id, 'style'=>'width: 30px;cursor:pointer;','title'=>'Remove'));
+				array('id'=>'delete_'.$data->Id, 'class'=>'wall-action-remove','title'=>'Remove'));
 		?>
 			<?php 
 		$this->widget('ext.highslide.highslide', array(
@@ -88,7 +88,7 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#site_view'.$data->Id, "
 	<div class="view-text-date"><?php echo $data->album->creation_date;?></div>
 		<?php
 		 echo CHtml::image('images/remove.png','',
-				array('id'=>'delete_'.$data->Id, 'style'=>'width:30px;cursor: pointer;', 'title'=>'Remove'));
+				array('id'=>'delete_'.$data->Id, 'class'=>'wall-action-remove', 'title'=>'Remove'));
 		?>		
 		<?php 
 		$images = array();
