@@ -94,6 +94,7 @@ $(window).scroll(function(){
 	if  ($(window).scrollTop() == $(document).height() - $(window).height()){
 		var lastId;
 		var lastLeft = 0;
+		$('#big-loading').addClass('big-loading');
 		if($('.view-single-right:last').attr('id')<$('.view-single-left:last').attr('id'))
 		{
 			lastId = $('.view-single-right:last').attr('id');
@@ -107,7 +108,7 @@ $(window).scroll(function(){
 			$('#Id_customer').serialize()+'&lastId='+lastId+'&lastLeft='+lastLeft
 		).success(
 		function(data){
-			
+			$('#big-loading').removeClass('big-loading');
 			if(lastLeft){
 				$('.view-single-left:last').after(data);
 			}else{
@@ -433,3 +434,5 @@ $('#btnPublicAlbum').click(function(){
 <div id="wallView">
 <!-- data container -->
 </div>		
+<div id="big-loading" class="big-loading-place-holder" >
+</div>
