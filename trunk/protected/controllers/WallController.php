@@ -276,6 +276,26 @@ class WallController extends Controller
 		}
 	}
 	
+	public function actionAjaxRemoveSingleNote($id, $type, $side, $idParent)
+	{
+		
+		switch ($type) {
+			case "multimedia":
+				MultimediaNote::model()->deleteAllByAttributes(array('Id_note'=>$id));
+				Note::model()->deleteByPk($id);
+				break;
+			case "album":
+				AlbumNote::model()->deleteAllByAttributes(array('Id_note'=>$id));
+				Note::model()->deleteByPk($id);
+				break;
+			default :
+				NoteNote::model()->deleteAllByAttributes(array('Id_child'=>$id));
+				Note::model()->deleteByPk($id);
+				break;
+		}
+		$model = Wall::model()->findByPk($idParent);
+		$this->renderPartial($side,array('data'=>$model));
+	}
 	
 	public function actionAjaxShareImage()
 	{
