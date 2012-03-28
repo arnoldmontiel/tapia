@@ -10,6 +10,44 @@ function bindEvents(data)
 {
 	$(data).children().children().each(
 			function(index, item){
+			
+				$(item).children().children('img').each(
+								function(i, imgItem){
+									$('#'+$(imgItem).attr('id')).click(function(){
+										var id = $(imgItem).attr('id');
+										
+										var idNote = id.split('_')[2];
+										var idParent = id.split('_')[3];
+										
+										var side = '_viewRight';
+										if (id.indexOf('left') >= 0)
+											side = '_viewLeft';
+											
+										var type = 'note';
+										if (id.indexOf('multimedia') >= 0)
+											type = 'multimedia';
+										else{
+											if (id.indexOf('album') >= 0)
+												type = 'album';
+										}
+										var getParam = '&id='+idNote+'&type='+type+'&side='+side+'&idParent='+idParent;
+										
+										$.ajax({
+												type : 'GET',
+												url : '" . WallController::createUrl('AjaxRemoveSingleNote') ."' + getParam,
+												beforeSend : function(){
+															if(!confirm('Seguro que quiere borrar esta nota?')) 
+																return false;
+																},
+												success : function(data)
+												{
+													$('#'+type+'Container_'+idParent).html(data);
+													bindEvents($('#'+type+'Container_'+idParent));
+												}
+										});
+									});
+								}
+				); // end sub note click event
 							
 				$('#'+$(item).children().children('textarea').attr('id')).change(function(){
 							var idParent = $(item).attr('id');
@@ -61,7 +99,7 @@ function bindEvents(data)
 													$('#Id_customer').change();
 												}
 										});
-				}); //end click event
+				}); //end remove click event
 		}); //end each
 }
 
