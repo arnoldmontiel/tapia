@@ -5,6 +5,90 @@ $cs->registerScriptFile(Yii::app()->request->baseUrl.'/js/highslide-exe.js',CCli
 $cs->registerCssFile(Yii::app()->request->baseUrl.'/js/highslide.css');
 Yii::app()->clientScript->registerScript('indexWall', "
 
+
+function bindEvents(data)
+{
+	$(data).children().children().each(
+			function(index, item){
+							
+				$('#'+$(item).children('textarea').attr('id')).change(function(){
+							var idParent = $(item).attr('id');
+							var id = $(this).attr('id').split('_')[1];
+							var value = $(this).val();
+							
+							var type = 'note';
+							if($(item).children('textarea').attr('id').indexOf('multimedia') >= 0){
+								type = 'multimedia';
+							}else{
+								if($(item).children('textarea').attr('id').indexOf('album') >= 0){
+									type = 'album';
+								}
+							}
+							
+							var side = '_viewRight';
+							if ($(item).attr('class').indexOf('left') >= 0)
+								side = '_viewLeft';
+								
+							$.post(
+								'".WallController::createUrl('AjaxAddNoteTo')."',
+								{
+								 	id: id,
+									value: $(this).val(),
+									side: side,
+									type: type,
+								 }).success(
+										function(data) 
+										{ 
+											$('#'+type+'Container_'+idParent).html(data);
+											bindEvents($('#'+type+'Container_'+idParent));
+											
+										}
+									);
+				}); //end change event				
+				
+				$('#delete_' + $(item).attr('id')).click(function(){
+							var id = $(item).attr('id');
+							$.ajax({
+												type : 'GET',
+												url : '" . WallController::createUrl('AjaxRemoveBubble') ."' + '&id='+id,
+												beforeSend : function(){
+															if(!confirm('Are you sure you want to delete this bubble?')) 
+																return false;
+																},
+												success : function(data)
+												{
+													$('#'+$(item).attr('id')).attr('style','display:none');
+													$('#Id_customer').change();
+												}
+										});
+				}); //end click event
+		}); //end each
+}
+
+$(document).keypress(function(e) {
+    if(e.keyCode == 13) 
+    {
+    	if($('*:focus').attr('id').indexOf('multimedia') >= 0 && $('*:focus').val() != '')
+    	{
+    		$('#'+$('*:focus').attr('id')).blur();
+    		return false;
+    	}
+    	
+		if($('*:focus').attr('id').indexOf('album') >= 0 && $('*:focus').val() != '')
+    	{
+    		$('#'+$('*:focus').attr('id')).blur();
+    		return false;
+    	}
+    	
+    	if($('*:focus').attr('id').indexOf('note') >= 0 && $('*:focus').val() != '')
+    	{
+    		$('#'+$('*:focus').attr('id')).blur();
+    		return false;
+    	}
+		return false; 
+    }
+  });
+  
 $(window).scroll(function(){
 
 	if  ($(window).scrollTop() == $(document).height() - $(window).height()){
@@ -19,20 +103,21 @@ $(window).scroll(function(){
 			lastId= $('.view-single-left:last').attr('id');
 			lastLeft = 1;
 		}
-		$('#big-loading').addClass('big-loading');
 		$.post('".WallController::createUrl('AjaxFillNextWall')."', 
 			$('#Id_customer').serialize()+'&lastId='+lastId+'&lastLeft='+lastLeft
 		).success(
 		function(data){
-			$('#big-loading').removeClass('big-loading');
+			
 			if(lastLeft){
 				$('.view-single-left:last').after(data);
 			}else{
 				$('.view-single-right:last').after(data);
-			}				
-		}
-		);
-}
+			}
+			
+			bindEvents(data);
+						
+		});
+	}
 });
 LoadPage();
 
@@ -63,13 +148,15 @@ function LoadPage()
 		$.post('".WallController::createUrl('AjaxFillWall')."', 
 			$('#Id_customer').serialize()
 		).success(
-		function(data){
-			$('#wallView').html(data)
-		}
-		);
+			function(data){
+				$('#wallView').html(data);
+				bindEvents(data);		
+		});
+		
 		$('#wallView').animate({opacity: 'show'},240);
 	}
 }
+
 
 
 $('#Id_customer').change(function(){
@@ -83,9 +170,10 @@ $('#Id_customer').change(function(){
 		).success(
 		function(data){
 			$('#loading').removeClass('loading');
-			$('#wallView').html(data)
-		}
-		);
+			$('#wallView').html(data);
+			bindEvents(data);
+		});
+		
 		$('#wallView').animate({opacity: 'show'},240);
 	}
 	else
@@ -267,7 +355,8 @@ $('#btnPublicAlbum').click(function(){
 															$("#loading").removeClass("loading");
 															$("#Note_note").val("");
 															$("#wall-action-note").animate({opacity: "hide"},240);
-															$("#wallView").html(data);							
+															$("#wallView").html(data);
+															bindEvents(data);
 														}'
 				                                	)
 				                                )
@@ -344,5 +433,3 @@ $('#btnPublicAlbum').click(function(){
 <div id="wallView">
 <!-- data container -->
 </div>		
-<div id="big-loading" class="big-loading-place-holder" >
-</div>

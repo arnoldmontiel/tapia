@@ -5,17 +5,45 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#site_view'.$data->Id, "
 
 ?>
 <?php if (isset($data->note)):?>
-<div class="view-single-right" id="<?php echo $data->Id?>" <?php if($first) echo 'style="margin-top: 20px"';?>>
-	<div class="view-text-date"><?php echo $data->note->creation_date;?></div>
-	<div class="view-text-simple-note"><?php echo $data->note->note;?></div>		
-	<div class="view-dialog-right" ></div>
-</div>
+	<div id="noteContainer_<?php echo $data->Id?>" >
+		<div class="view-single-right" id="<?php echo $data->Id?>" <?php if($first) echo 'style="margin-top: 20px"';?>>
+			<div class="view-text-date"><?php echo $data->note->creation_date;?></div>
+			<?php
+				 echo CHtml::image('images/remove.png','',
+						array('id'=>'delete_'.$data->Id, 'style'=>'width: 30px;cursor:pointer;','title'=>'Remove'));
+				?>
+			<div class="view-text-simple-note"><?php echo $data->note->note;?></div>		
+			
+			<textarea id="note_<?php echo $data->Id_note?>" class="wall-action-upload-file-description" placeholder='Escriba una nota...'></textarea>
+			
+			<?php $notes=$data->note->notes;?>
+			<?php if (!empty($notes)):?>
+				<?php 
+				foreach($notes as $item)
+				{
+					echo '<div class="view-text-note">'.
+							'<div class="view-text-date">'.
+								$item->creation_date.
+							'</div>'.						
+						$item->note.
+					'</div>';							
+				}
+				?>
+			<?php endif?>
+			<div class="view-dialog-right" ></div>
+		</div>
+	</div>
 <?php endif?>
 
 <?php if (isset($data->multimedia)):?>
+<div id="multimediaContainer_<?php echo $data->Id?>" >
 <div class="view-single-right" id="<?php echo $data->Id?>" <?php if($first) echo 'style="margin-top: 20px"';?>>
 	<div class="view-text-date"><?php echo $data->multimedia->creation_date;?></div>
-	<?php 
+	<?php
+		 echo CHtml::image('images/remove.png','',
+				array('id'=>'delete_'.$data->Id, 'style'=>'width: 30px;cursor:pointer;','title'=>'Remove'));
+		?>
+			<?php 
 		$this->widget('ext.highslide.highslide', array(
 								'smallImage'=>"images/".$data->multimedia->file_name_small,
 								'image'=>"images/".$data->multimedia->file_name,
@@ -27,6 +55,7 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#site_view'.$data->Id, "
 	<?php if (empty($notes)):?>
 		<div class="view-text-simple-note"><?php echo $data->multimedia->description;?></div>		
 	<?php endif?>
+	<textarea id="multimedia_<?php echo $data->Id_multimedia?>" class="wall-action-upload-file-description" placeholder='Escriba una nota...'></textarea>
 	<?php if (!empty($notes)):?>
 		<?php 
 		foreach($notes as $item)
@@ -42,12 +71,18 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#site_view'.$data->Id, "
 	<?php endif?>
 	<div class="view-dialog-right" ></div>
 </div>
+</div>
 <?php endif?>
 
 <?php if (isset($data->album)):?>
+<div id="albumContainer_<?php echo $data->Id?>" >
 <div class="view-single-right" id="<?php echo $data->Id?>" <?php if($first) echo 'style="margin-top: 20px"';?>>
 	<div class="view-text-date"><?php echo $data->album->creation_date;?></div>
-	<?php 
+		<?php
+		 echo CHtml::image('images/remove.png','',
+				array('id'=>'delete_'.$data->Id, 'style'=>'width:30px;cursor: pointer;', 'title'=>'Remove'));
+		?>		
+		<?php 
 		$images = array();
 		foreach($data->album->multimedias as $item)
 		{
@@ -63,7 +98,8 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#site_view'.$data->Id, "
 		)); 
 	?>	
 	<?php $notes=$data->album->notes;?>
-	<div class="view-text-simple-title"><?php echo $data->album->title;?></div>	
+	<div class="view-text-simple-title"><?php echo $data->album->title;?></div>
+	<textarea id="album_<?php echo $data->Id_album?>" class="wall-action-upload-file-description" placeholder='Escriba una nota...'></textarea>
 	<?php if (!empty($notes)):?>
 		<?php 
 		foreach($notes as $item)
@@ -79,5 +115,5 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#site_view'.$data->Id, "
 	<?php endif?>
 	<div class="view-dialog-right" ></div>
 </div>
-
+</div>
 <?php endif?>
