@@ -233,12 +233,13 @@ class WallController extends Controller
 		$value = $_POST['value'];
 		$side = $_POST['side'];
 		$type = $_POST['type'];
+		$idCustomer = $_POST['idCustomer'];
 		$modelNote = new Note;
 		
 		$transaction = $modelNote->dbConnection->beginTransaction();
 		try {
 			$modelNote->note = $value;
-			$modelNote->Id_customer = 1;
+			$modelNote->Id_customer = $idCustomer;
 			$modelNote->save();
 			
 			switch ($type) {
