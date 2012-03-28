@@ -1,8 +1,8 @@
 <script type="text/javascript">
 hs.graphicsDir = '<?php echo '../..'. $this->graphics ?>/'
 </script>
-
-<div class="highslide-gallery" style="display:inline-block;position: relative;height: 190px;">
+<?php $height+=10;?>
+<div class="highslide-gallery" style="display:inline-block;position: relative; <?php echo (isset($height))? 'height:'.$height.'px;':'';?> ">
 	<?php if (empty($images)):?>		
 		<?php 		
 			echo CHtml::openTag('a',
@@ -28,7 +28,7 @@ hs.graphicsDir = '<?php echo '../..'. $this->graphics ?>/'
 					'id'=>'thumb'.$Id,
 					'href'=>$images[0]['image'],
 					'class'=>'highslide',
-					'style'=>'position:absolute;float:left;z-index:10;',
+					'style'=>'position:relative;float:left;z-index:10;',
 					'onclick'=>'return hs.expand(this, { thumbnailId: "thumb'.$Id.'", slideshowGroup: '.$Id.' })',
 				)
 			);
@@ -42,8 +42,8 @@ hs.graphicsDir = '<?php echo '../..'. $this->graphics ?>/'
 									'id'=>'thumb'.$Id,
 									'href'=>$images[1]['image'],
 									'class'=>'highslide',
-									'style'=>'-webkit-transform: rotate(-3deg);
-									-moz-transform: rotate(-3deg); position:absolute;float:left;',
+									'style'=>'height:200px;-webkit-transform: rotate(-5deg);
+									-moz-transform: rotate(-5deg); position:absolute;float:left;left:0px;',
 									'onclick'=>'return hs.expand(this, { thumbnailId: "thumb'.$Id.'", slideshowGroup: '.$Id.' })',
 				)
 				);
@@ -57,8 +57,8 @@ hs.graphicsDir = '<?php echo '../..'. $this->graphics ?>/'
 									'id'=>'thumb'.$Id,
 									'href'=>$images[2]['image'],
 									'class'=>'highslide',
-									'style'=>'-webkit-transform: rotate(3deg);
-									-moz-transform: rotate(3deg); position:absolute;float:left;',
+									'style'=>'height:200px;-webkit-transform: rotate(4deg);
+									-moz-transform: rotate(4deg); position:absolute;float:left;;left:0px;',
 									'onclick'=>'return hs.expand(this, { thumbnailId: "thumb'.$Id.'", slideshowGroup: '.$Id.' })',
 				)
 				);
