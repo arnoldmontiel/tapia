@@ -1,26 +1,18 @@
 <?php
 
 /**
- * This is the model class for table "note".
+ * This is the model class for table "multimedia_note".
  *
- * The followings are the available columns in table 'note':
- * @property integer $Id
- * @property string $note
- * @property string $creation_date
- * @property integer $Id_customer
- *
- * The followings are the available model relations:
- * @property Album[] $albums
- * @property Multimedia[] $multimedias
- * @property Customer $idCustomer
- * @property Wall[] $walls
+ * The followings are the available columns in table 'multimedia_note':
+ * @property integer $Id_note
+ * @property integer $Id_multimedia
  */
-class Note extends CActiveRecord
+class MultimediaNote extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return Note the static model class
+	 * @return MultimediaNote the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -32,7 +24,7 @@ class Note extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'note';
+		return 'multimedia_note';
 	}
 
 	/**
@@ -43,12 +35,11 @@ class Note extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('Id_customer', 'required'),
-			array('Id_customer', 'numerical', 'integerOnly'=>true),
-			array('note, creation_date', 'safe'),
+			array('Id_note, Id_multimedia', 'required'),
+			array('Id_note, Id_multimedia', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id, note, creation_date, Id_customer', 'safe', 'on'=>'search'),
+			array('Id_note, Id_multimedia', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -60,11 +51,6 @@ class Note extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'albums' => array(self::MANY_MANY, 'Album', 'album_note(Id_note, Id_album)'),
-			'multimedias' => array(self::MANY_MANY, 'Multimedia', 'multimedia_note(Id_note, Id_multimedia)'),
-			'idCustomer' => array(self::BELONGS_TO, 'Customer', 'Id_customer'),
-			'walls' => array(self::HAS_MANY, 'Wall', 'Id_note'),
-			'notes' => array(self::MANY_MANY, 'Note', 'note_note(Id_parent, Id_child)'),
 		);
 	}
 
@@ -74,10 +60,8 @@ class Note extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'Id' => 'ID',
-			'note' => 'Note',
-			'creation_date' => 'Creation Date',
-			'Id_customer' => 'Id Customer',
+			'Id_note' => 'Id Note',
+			'Id_multimedia' => 'Id Multimedia',
 		);
 	}
 
@@ -92,10 +76,8 @@ class Note extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('Id',$this->Id);
-		$criteria->compare('note',$this->note,true);
-		$criteria->compare('creation_date',$this->creation_date,true);
-		$criteria->compare('Id_customer',$this->Id_customer);
+		$criteria->compare('Id_note',$this->Id_note);
+		$criteria->compare('Id_multimedia',$this->Id_multimedia);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
