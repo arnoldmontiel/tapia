@@ -574,3 +574,17 @@ div.loading
 	background:url(loading.gif) transparent no-repeat right;
 	background-color: #f4f6fb;
 }
+div.big-loading-place-holder
+{
+	z-index:100;
+	bottom:20px;
+	float: right;
+	position: relative;
+	right:20px;
+	width: 66px;
+	height: 66px;
+}
+div.big-loading
+{
+	background:url(big-loading.gif) transparent no-repeat right;
+}
