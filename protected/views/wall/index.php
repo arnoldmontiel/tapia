@@ -19,10 +19,12 @@ $(window).scroll(function(){
 			lastId= $('.view-single-left:last').attr('id');
 			lastLeft = 1;
 		}
+		$('#big-loading').addClass('big-loading');
 		$.post('".WallController::createUrl('AjaxFillNextWall')."', 
 			$('#Id_customer').serialize()+'&lastId='+lastId+'&lastLeft='+lastLeft
 		).success(
 		function(data){
+			$('#big-loading').removeClass('big-loading');
 			if(lastLeft){
 				$('.view-single-left:last').after(data);
 			}else{
@@ -342,3 +344,5 @@ $('#btnPublicAlbum').click(function(){
 <div id="wallView">
 <!-- data container -->
 </div>		
+<div id="big-loading" class="big-loading-place-holder" >
+</div>
