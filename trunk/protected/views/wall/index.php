@@ -74,6 +74,7 @@ function bindEvents(data)
 									value: $(this).val(),
 									side: side,
 									type: type,
+									idCustomer: $('#Id_customer').val(),
 								 }).success(
 										function(data) 
 										{ 
