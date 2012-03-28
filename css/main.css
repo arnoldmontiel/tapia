@@ -205,6 +205,8 @@ div.view-text-simple-title
 	font-size: 13px;
 	line-height: 18px;
 	position: relative;
+	margin-bottom: 5px;
+	margin-left: 5px;
 }
 
 div.view-text-date
@@ -545,7 +547,7 @@ textarea.wall-action-add-note
 {
 	z-index:10;
 	position: relative;
-	padding: 18px 10px 10px;
+	padding: 5px 10px 5px;
 	outline: none;
 	background-color: #f4f6fb;
 	border-top: 1px solid #f4f6fb;
@@ -625,5 +627,13 @@ img.wall-action-remove
 	top:0px;
 	right:0px;
 	width:25px;
+	cursor: pointer;
+}
+img.wall-action-remove-small
+{	
+	position:absolute;
+	top:0px;
+	right:0px;
+	width:20px;
 	cursor: pointer;
 }
