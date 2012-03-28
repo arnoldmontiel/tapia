@@ -531,6 +531,37 @@ textarea.wall-action-upload-file-description
 	line-height: 18px;
 	resize: none;
 }
+div.view-text-note-add
+{
+	font-size: 13px;
+	line-height: 18px;
+	border-top: 1px solid white;
+	border-bottom: 1px solid #D2D9E7;
+	background-color: #f4f6fb;
+	position: relative;
+}
+
+textarea.wall-action-add-note
+{
+	z-index:10;
+	position: relative;
+	padding: 18px 10px 10px;
+	outline: none;
+	background-color: #f4f6fb;
+	border-top: 1px solid #f4f6fb;
+	border-bottom: 1px solid #f4f6fb;
+	border-left: 1px solid #f4f6fb;
+	border-right: 1px solid #f4f6fb;
+	font-size: 13px;
+	line-height: 18px;
+	resize: none;
+	width: 95%;
+}
+textarea.wall-action-add-note:focus
+{
+	background-color: white;	
+}
+
 input.wall-action-submit-btn
 {
 	background-color: #afbad7;
