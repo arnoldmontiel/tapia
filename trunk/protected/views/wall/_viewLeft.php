@@ -16,7 +16,9 @@
 					echo '<div class="view-text-note">'.
 							'<div class="view-text-date">'.
 								$item->creation_date.
-							'</div>'.						
+							'</div>'.	
+					CHtml::image('images/remove.png','',
+					array('id'=>'left_note_'.$item->Id.'_'.$data->Id, 'style'=>'width: 30px;cursor:pointer;','title'=>'Remove')).
 						$item->note.
 					'</div>';							
 				}
@@ -58,7 +60,9 @@
 			echo '<div class="view-text-note">'.
 					'<div class="view-text-date">'.
 						$item->creation_date.
-					'</div>'.						
+					'</div>'.	
+			CHtml::image('images/remove.png','',
+			array('id'=>'left_multimedia_'.$item->Id.'_'.$data->Id, 'style'=>'width: 30px;cursor:pointer;','title'=>'Remove')).
 				$item->note.
 			'</div>';							
 		}
@@ -104,7 +108,9 @@
 			echo '<div class="view-text-note">'.
 					'<div class="view-text-date">'.
 						$item->creation_date.
-					'</div>'.						
+					'</div>'.			
+			CHtml::image('images/remove.png','',
+			array('id'=>'left_album_'.$item->Id.'_'.$data->Id, 'style'=>'width: 30px;cursor:pointer;','title'=>'Remove')).
 				$item->note.
 			'</div>';						
 		}

@@ -22,7 +22,9 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#site_view'.$data->Id, "
 					echo '<div class="view-text-note">'.
 							'<div class="view-text-date">'.
 								$item->creation_date.
-							'</div>'.						
+							'</div>'.
+					CHtml::image('images/remove.png','',
+						array('id'=>'right_note_'.$item->Id.'_'.$data->Id, 'style'=>'width: 30px;cursor:pointer;','title'=>'Remove')).
 						$item->note.
 					'</div>';							
 				}
@@ -64,7 +66,9 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#site_view'.$data->Id, "
 			echo '<div class="view-text-note">'.
 					'<div class="view-text-date">'.
 						$item->creation_date.
-					'</div>'.						
+					'</div>'.			
+			CHtml::image('images/remove.png','',
+			array('id'=>'right_multimedia_'.$item->Id.'_'.$data->Id, 'style'=>'width: 30px;cursor:pointer;','title'=>'Remove')).
 				$item->note.
 			'</div>';						
 		}
@@ -110,7 +114,9 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#site_view'.$data->Id, "
 			echo '<div class="view-text-note">'.
 					'<div class="view-text-date">'.
 						$item->creation_date.
-					'</div>'.						
+					'</div>'.	
+			CHtml::image('images/remove.png','',
+			array('id'=>'right_album_'.$item->Id.'_'.$data->Id, 'style'=>'width: 30px;cursor:pointer;','title'=>'Remove')).
 				$item->note.
 			'</div>';						
 		}
