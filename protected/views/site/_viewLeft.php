@@ -4,7 +4,7 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#site_view'.$data->Id, "
 
 ?>
 <?php if (isset($data->note)):?>
-	<div class="view-single-left" >
+	<div class="view-single-left" <?php if($first) echo 'style="margin-top: 20px"';?>>
 		<div class="view-text-date"><?php echo $data->note->creation_date;?></div>
 		<div class="view-text-simple-note"><?php echo $data->note->note;?></div>		
 		<div class="view-dialog-left"></div>

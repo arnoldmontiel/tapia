@@ -7,7 +7,6 @@
 					array('id'=>'delete_'.$data->Id, 'style'=>'width:30px;cursor: pointer;', 'title'=>'Remove'));
 			?>
 			<div class="view-text-simple-note"><?php echo $data->note->note;?></div>		
-			<textarea id="note_<?php echo $data->Id_note?>" class="wall-action-upload-file-description" placeholder='Escriba una nota...'></textarea>
 
 			<?php $notes=$data->note->notes;?>
 			<?php if (!empty($notes)):?>
@@ -23,6 +22,9 @@
 				}
 				?>
 			<?php endif?>
+			<div class="view-text-note-add">
+				<textarea id="note_<?php echo $data->Id_note?>" class="wall-action-add-note" placeholder='Escriba una nota...'></textarea>
+			</div>
 			<div class="view-dialog-left"></div>
 		</div>
 	</div>
@@ -49,7 +51,6 @@
 	<?php if (empty($notes)):?>
 		<div class="view-text-simple-note"><?php echo $data->multimedia->description;?></div>		
 	<?php endif?>
-	<textarea id="multimedia_<?php echo $data->Id_multimedia?>" class="wall-action-upload-file-description" placeholder='Escriba una nota...'></textarea>
 	<?php if (!empty($notes)):?>
 		<?php 
 		foreach($notes as $item)
@@ -63,6 +64,9 @@
 		}
 		?>
 	<?php endif?>
+	<div class="view-text-note-add">
+		<textarea id="multimedia_<?php echo $data->Id_multimedia?>" class="wall-action-add-note" placeholder='Escriba una nota...'></textarea>
+	</div>
 	<div class="view-dialog-left" ></div>
 	</div>
 </div>
@@ -93,7 +97,6 @@
 	?>	
 	<?php $notes=$data->album->notes;?>
 	<div class="view-text-simple-title"><?php echo $data->album->title;?></div>
-	<textarea id="album_<?php echo $data->Id_album?>" class="wall-action-upload-file-description" placeholder='Escriba una nota...'></textarea>
 	<?php if (!empty($notes)):?>
 		<?php 
 		foreach($notes as $item)
@@ -107,6 +110,9 @@
 		}
 		?>
 	<?php endif?>
+	<div class="view-text-note-add">
+		<textarea id="album_<?php echo $data->Id_album?>" class="wall-action-add-note" placeholder='Escriba una nota...'></textarea>
+	</div>
 	<div class="view-dialog-left" ></div>
 </div>
 </div>

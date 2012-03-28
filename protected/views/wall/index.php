@@ -11,16 +11,16 @@ function bindEvents(data)
 	$(data).children().children().each(
 			function(index, item){
 							
-				$('#'+$(item).children('textarea').attr('id')).change(function(){
+				$('#'+$(item).children().children('textarea').attr('id')).change(function(){
 							var idParent = $(item).attr('id');
 							var id = $(this).attr('id').split('_')[1];
 							var value = $(this).val();
 							
 							var type = 'note';
-							if($(item).children('textarea').attr('id').indexOf('multimedia') >= 0){
+							if($(item).children().children('textarea').attr('id').indexOf('multimedia') >= 0){
 								type = 'multimedia';
 							}else{
-								if($(item).children('textarea').attr('id').indexOf('album') >= 0){
+								if($(item).children().children('textarea').attr('id').indexOf('album') >= 0){
 									type = 'album';
 								}
 							}
