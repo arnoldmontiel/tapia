@@ -2,8 +2,7 @@
 hs.graphicsDir = '<?php echo '../..'. $this->graphics ?>/'
 </script>
 
-<div class="highslide-gallery">
-
+<div class="highslide-gallery" style="display:inline-block;position: relative;height: 190px;">
 	<?php if (empty($images)):?>		
 		<?php 		
 			echo CHtml::openTag('a',
@@ -29,12 +28,44 @@ hs.graphicsDir = '<?php echo '../..'. $this->graphics ?>/'
 					'id'=>'thumb'.$Id,
 					'href'=>$images[0]['image'],
 					'class'=>'highslide',
+					'style'=>'position:absolute;float:left;z-index:10;',
 					'onclick'=>'return hs.expand(this, { thumbnailId: "thumb'.$Id.'", slideshowGroup: '.$Id.' })',
 				)
 			);
 			echo CHtml::image($images[0]['small_image'],'Highslide JS',array('title'=>'Click para ampliar'));
 			echo CHtml::closeTag('a');
-		?>
+
+			if(isset($images[1]))
+			{
+				echo CHtml::openTag('a',
+				array(
+									'id'=>'thumb'.$Id,
+									'href'=>$images[1]['image'],
+									'class'=>'highslide',
+									'style'=>'-webkit-transform: rotate(-3deg);
+									-moz-transform: rotate(-3deg); position:absolute;float:left;',
+									'onclick'=>'return hs.expand(this, { thumbnailId: "thumb'.$Id.'", slideshowGroup: '.$Id.' })',
+				)
+				);
+				echo CHtml::image($images[1]['small_image'],'Highslide JS',array('title'=>'Click para ampliar'));
+				echo CHtml::closeTag('a');				
+			}
+			if(isset($images[2]))
+			{
+				echo CHtml::openTag('a',
+				array(
+									'id'=>'thumb'.$Id,
+									'href'=>$images[2]['image'],
+									'class'=>'highslide',
+									'style'=>'-webkit-transform: rotate(3deg);
+									-moz-transform: rotate(3deg); position:absolute;float:left;',
+									'onclick'=>'return hs.expand(this, { thumbnailId: "thumb'.$Id.'", slideshowGroup: '.$Id.' })',
+				)
+				);
+				echo CHtml::image($images[2]['small_image'],'Highslide JS',array('title'=>'Click para ampliar'));
+				echo CHtml::closeTag('a');				
+			}
+			?>
 		<?php 
 		echo CHtml::openTag('div',array('class'=>'highslide-caption'));
 			echo $images[0]['caption'];
@@ -43,7 +74,7 @@ hs.graphicsDir = '<?php echo '../..'. $this->graphics ?>/'
 		<div class="hidden-container">
 		<?php foreach ($images as $indice => $item)
 		{
-			if($indice!=0)
+			if($indice>2)
 			{
 				echo CHtml::openTag('a',
 					array(

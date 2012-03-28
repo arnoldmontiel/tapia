@@ -306,9 +306,12 @@ $('#btnCancelAlbum').click(function(){
 	).success(
 	function(data){
 		$('#loading').removeClass('loading');
-		$('#wall-action-album').animate({opacity: 'hide'},240);
-		$('#Album_description').val('');
-		$('#Album_title').val('');
+		$('#wall-action-album').animate({opacity: 'hide'},240,
+			function(){		
+				$('#files').html('');
+			$('#Album_description').val('');
+			$('#Album_title').val('');
+		});
 	});
 });
 
@@ -320,9 +323,13 @@ $('#btnPublicAlbum').click(function(){
 	function(data){
 		$('#loading').removeClass('loading');
 		$('#wallView').html(data)
-		$('#wall-action-album').animate({opacity: 'hide'},240);
-		$('#Album_description').val('');
-		$('#Album_title').val('');
+		$('#wall-action-album').animate({opacity: 'hide'},240,
+		function()
+		{
+			$('#files').html('');
+			$('#Album_description').val('');
+			$('#Album_title').val('');
+		});		
 	}
 	);
 
