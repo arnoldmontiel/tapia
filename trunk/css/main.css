@@ -399,10 +399,20 @@ div.wall-action-area
 	background-color: #f4f6fb;
 	position: relative;
 	width: 940px;	
+	height: 45px;	
 	margin-left: 15px;
 	margin-bottom: 10px;
 	float: left;
 }
+div.wall-action-box-btn
+{
+	
+}
+div.div-hidden
+{
+	display: none;
+}
+
 div.wall-action-btn
 {
 	float: left;
@@ -636,6 +646,22 @@ div.big-loading
 {
 	background:url(big-loading.gif) transparent no-repeat right;
 }
+img.wall-action-album-update
+{	
+	position:absolute;
+	top:20px;
+	right:5px;
+	width:15px;
+	cursor: pointer;
+}
+input.album-action-remove
+{	
+	position:absolute;
+	top:0px;
+	right:0px;
+	width:25px;
+	cursor: pointer;
+}
 img.wall-action-remove
 {	
 	position:absolute;
@@ -651,4 +677,36 @@ img.wall-action-remove-small
 	right:0px;
 	width:20px;
 	cursor: pointer;
+}
+div.album-action-area
+{
+	font-size: 13px;
+	line-height: 18px;
+	padding:18px 10px 10px 10px;
+	border-top: 1px solid white;
+	border-bottom: 1px solid white;
+	background-color: #f4f6fb;
+	position: relative;
+	width: 940px;	
+	margin-left: 15px;
+	margin-bottom: 10px;
+	float: left;
+}
+div.album-action-area-images
+{
+	position: relative;
+	display: inline-block;	
+}
+div.album-action-area-image
+{
+	position: relative;
+	background-color: #FCFDFF;
+	padding: 25px 5px 5px 5px ;
+	margin: 10px 10px 10px 10px;
+	border: 1px solid #9ad7f5;
+	float: left;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	display: block;
 }
