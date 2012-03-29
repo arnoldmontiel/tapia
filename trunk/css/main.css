@@ -46,7 +46,15 @@ padding: 0;	margin: 0;
 }
 div.line {
     background: -moz-linear-gradient(center top , #ACBC00 0pt, #ACBC00 50%, #BDDE00 50%, #BDDE00 100%) repeat scroll 0 0 transparent;
-    clear: both;
+	background-image: -webkit-linear-gradient(top, #ACBC00 0px, #ACBC00 50%, #BDDE00 50%, #BDDE00 100%);
+	background-repeat-x: initial;
+	background-repeat-y: initial;
+	background-attachment: initial;
+	background-position-x: initial;
+	background-position-y: initial;
+	background-origin: initial;
+	background-clip: initial;
+	background-color: initial;	clear: both;
     height: 2px;
     margin-top: 45px;
     position: relative;
@@ -160,6 +168,7 @@ div.view-single-left
 	width: 45%;
 	float: left;
 	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
 	border-radius: 5px;
 	display: block;
 	z-index: 4;
@@ -175,6 +184,7 @@ div.view-single-right
 	width: 45%;
 	float: right;
 	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
 	border-radius: 5px;
 	display: block;
 	z-index: 4;
@@ -404,6 +414,7 @@ div.wall-action-btn
 	height:20px;	
 	cursor:pointer;
 	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
 	border-radius: 5px;
 	text-align: center;
 	font-weight: bold; 
@@ -478,6 +489,7 @@ input.wall-action-upload-file-hidden
 	text-align: right;
 	filter:alpha(opacity: 0);
 	-moz-opacity:0 ;
+	-webkit-opacity:0 ;
 	opacity: 0;
 	z-index: 2;
 	width: 120px;
@@ -496,6 +508,7 @@ div.wall-action-upload-file-btn
 	height:20px;	
 	cursor:pointer;
 	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
 	border-radius: 5px;
 	text-align: center;
 	font-weight: bold; 
@@ -573,6 +586,7 @@ input.wall-action-submit-btn
     padding: 5px;
 	width: 100px;
 	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
 	border-radius: 5px;
 }
 input.wall-action-submit-btn:HOVER
@@ -588,6 +602,7 @@ div.test
 	width: 100px;
 	height:20px;	
 	cursor:pointer;
+	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 	text-align: center;
