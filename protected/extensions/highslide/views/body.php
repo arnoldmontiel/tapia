@@ -1,7 +1,12 @@
 <script type="text/javascript">
 hs.graphicsDir = '<?php echo '../..'. $this->graphics ?>/'
 </script>
-<?php $height+=10;?>
+<?php
+	if(isset($height))
+	{
+		$height+=10;		
+	} 
+?>
 <div class="highslide-gallery" style="display:inline-block;position: relative; <?php echo (isset($height))? 'height:'.$height.'px;':'';?> ">
 	<?php if (empty($images)):?>		
 		<?php 		
