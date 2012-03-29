@@ -115,7 +115,11 @@ $(document).keypress(function(e) {
 	?>	
 	</div>
 	<div class="row buttons">
-		<?php echo CHtml::submitButton('Close',array('id'=>'closeButton')); ?>
+		<?php echo CHtml::link('Finalizar',
+		AlbumController::createUrl('wall/index',array('Id_customer'=>$model->Id_customer)),
+		array('id'=>'finish-btn','class'=>'wall-action-submit-btn')
+		);
+		 ?>
 	</div>
 
 <?php $this->endWidget(); ?>
