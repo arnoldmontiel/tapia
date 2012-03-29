@@ -48,12 +48,21 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#site_view'.$data->Id, "
 				array('id'=>'delete_'.$data->Id, 'class'=>'wall-action-remove','title'=>'Remove'));
 		?>
 			<?php 
-		$this->widget('ext.highslide.highslide', array(
-								'smallImage'=>"images/".$data->multimedia->file_name_small,
-								'image'=>"images/".$data->multimedia->file_name,
-								'caption'=>$data->multimedia->description,
-								'Id'=>$data->Id,
-		)); 
+		if($data->multimedia->Id_multimedia_type == 1)
+		{
+			$this->widget('ext.highslide.highslide', array(
+									'smallImage'=>"images/".$data->multimedia->file_name_small,
+									'image'=>"images/".$data->multimedia->file_name,
+									'caption'=>$data->multimedia->description,
+									'Id'=>$data->Id,
+			));
+		}
+		else
+		{
+			echo CHtml::link(
+			CHtml::image(Yii::app()->baseUrl.'/images/'.$data->multimedia->file_name_small,''),
+			Yii::app()->baseUrl.'/docs/'.$data->multimedia->file_name,array('target'=>'_blank'));
+		}
 	?>	
 	<?php $notes=$data->multimedia->notes;?>
 	<?php if (empty($notes)):?>

@@ -15,13 +15,22 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#site_view'.$data->Id, "
 <?php if (isset($data->multimedia)):?>
 <div class="view-single-right" <?php if($first) echo 'style="margin-top: 20px"';?>>
 	<div class="view-text-date"><?php echo $data->multimedia->creation_date;?></div>
-	<?php 
-		$this->widget('ext.highslide.highslide', array(
-								'smallImage'=>"images/".$data->multimedia->file_name_small,
-								'image'=>"images/".$data->multimedia->file_name,
-								'caption'=>$data->multimedia->description,
-								'Id'=>$data->Id,
-		)); 
+	<?php  
+		if($data->multimedia->Id_multimedia_type == 1)
+		{
+			$this->widget('ext.highslide.highslide', array(
+											'smallImage'=>"images/".$data->multimedia->file_name_small,
+											'image'=>"images/".$data->multimedia->file_name,
+											'caption'=>$data->multimedia->description,
+											'Id'=>$data->Id,
+			));
+		}
+		else
+		{
+			echo CHtml::link(
+			CHtml::image(Yii::app()->baseUrl.'/images/'.$data->multimedia->file_name_small,''),
+			Yii::app()->baseUrl.'/docs/'.$data->multimedia->file_name,array('target'=>'_blank'));
+		}
 	?>	
 	<?php $notes=$data->multimedia->notes;?>
 	<?php if (empty($notes)):?>
