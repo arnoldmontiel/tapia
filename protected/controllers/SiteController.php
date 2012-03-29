@@ -30,7 +30,8 @@ class SiteController extends Controller
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
 		$modelWall = new Wall;
-		$nodelWall->Id_customer = 1;
+		$customer = User::getCustomer();
+		$modelWall->Id_customer = $customer->Id;
 		$dataProvider = $modelWall->searchOrderedByIndex();
 		
 		$dataProvider->pagination->pageSize= 12;
