@@ -322,7 +322,8 @@ $('#btnPublicAlbum').click(function(){
 	).success(
 	function(data){
 		$('#loading').removeClass('loading');
-		$('#wallView').html(data)
+		$('#wallView').html(data);
+		bindEvents(data);
 		$('#wall-action-album').animate({opacity: 'hide'},240,
 		function()
 		{
