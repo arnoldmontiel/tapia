@@ -204,6 +204,7 @@ $('#Id_customer').change(function(){
 	$('#Note_Id_customer').val($(this).val());
 	
 	if($(this).val()!= ''){
+		$('#btn-box').removeClass('div-hidden');
 		$('#loading').addClass('loading');
 		$.post('".WallController::createUrl('AjaxFillWall')."', 
 			$(this).serialize()
@@ -218,6 +219,7 @@ $('#Id_customer').change(function(){
 	}
 	else
 	{
+		$('#btn-box').addClass('div-hidden');
 		$('#wallView').animate({opacity: 'hide'},240);	
 		$('#wall-action-image').animate({opacity: 'hide'},240);
 		$('#wall-action-note').animate({opacity: 'hide'},240);
@@ -353,14 +355,16 @@ $('#btnPublicAlbum').click(function(){
 </div>
 
 <?php
-	echo CHtml::openTag('div',array('class'=>'wall-action-btn','id'=>'btnImage'));
-		echo 'Imagenes';
-	echo CHtml::closeTag('div');
-	echo CHtml::openTag('div',array('class'=>'wall-action-btn','id'=>'btnAlbum'));
-		echo 'Album';
-	echo CHtml::closeTag('div');	
-	echo CHtml::openTag('div',array('class'=>'wall-action-btn','id'=>'btnNote'));
-		echo 'Notas';
+	echo CHtml::openTag('div',array('class'=>'wall-action-box-btn div-hidden','id'=>'btn-box'));
+		echo CHtml::openTag('div',array('class'=>'wall-action-btn','id'=>'btnImage'));
+			echo 'Imagenes';
+		echo CHtml::closeTag('div');
+		echo CHtml::openTag('div',array('class'=>'wall-action-btn','id'=>'btnAlbum'));
+			echo 'Album';
+		echo CHtml::closeTag('div');	
+		echo CHtml::openTag('div',array('class'=>'wall-action-btn','id'=>'btnNote'));
+			echo 'Notas';
+		echo CHtml::closeTag('div');	
 	echo CHtml::closeTag('div');	
 ?>
 

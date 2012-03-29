@@ -83,7 +83,13 @@
 	<?php
 		 echo CHtml::image('images/remove.png','',
 				array('id'=>'delete_'.$data->Id, 'class'=>'wall-action-remove', 'title'=>'Remove'));
-		?>	
+	?>	
+	<?php
+		echo CHtml::link(
+			CHtml::image('images/edit.png','',
+				array('id'=>'delete_'.$data->Id, 'class'=>'wall-action-album-update', 'title'=>'Update'))
+		,AlbumController::createUrl('album/update',array('id'=>$data->album->Id)));
+	?>	
 	<?php 
 		$images = array();
 		$height=0;

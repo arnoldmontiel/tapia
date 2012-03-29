@@ -53,16 +53,16 @@ $(document).keypress(function(e) {
   });
 ");
 ?>
-<div class="wide form">
+<div class="album-action-area">
+
+<div class="wide form" >
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'album-form',
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
 
-	<?php echo $form->errorSummary($model); ?>
 	<div class="row">
 		<?php echo $form->labelEx($model,'title'); ?>
 		<?php echo $form->textField($model,'title',array('size'=>45,'maxlength'=>45)); ?>
@@ -77,11 +77,12 @@ $(document).keypress(function(e) {
 		<?php echo $form->error($model,'description'); ?>
 	</div>
 
-<?php 
+	<div class="album-action-area-images">
+	<?php 
 
 	foreach ($model->multimedias as $item)
 	{
-		echo "<div id=picture_".$item->Id.">";
+		echo CHtml::openTag('div',array('id'=>'picture_'.$item->Id,'class'=>'album-action-area-image'));
 		$this->widget('ext.highslide.highslide', array(
 								'smallImage'=>"images/".$item->file_name_small,
 								'image'=>"images/".$item->file_name,
@@ -89,16 +90,16 @@ $(document).keypress(function(e) {
 								'Id'=>$item->Id,
 		)); 
 		echo CHtml::imageButton(
-		                                'images/add_all_blue.png',
+		                                'images/remove.png',
 								array(
+		                                'class'=>'album-action-remove',
 		                                'title'=>'Delete Image',
-		                                'style'=>'width:30px;',
-		                                'id'=>'delete_'.$item->Id,
+										'id'=>'delete_'.$item->Id,
 		                                	'ajax'=> array(
 												'type'=>'GET',
 												'url'=>AlbumController::createUrl('AjaxRemoveImage',array('IdMultimedia'=>$item->Id)),
 												'beforeSend'=>'function(){
-															if(!confirm("Are you sure you want to delete this image?")) 
+															if(!confirm("¿Esta seguro de eliminar esta imagen?")) 
 																return false;
 																}',
 												'success'=>'js:function(data)
@@ -109,9 +110,10 @@ $(document).keypress(function(e) {
 								)
 		 
 			);
-		echo "</div>";
+		echo CHtml::closeTag('div');
 	}
 	?>	
+	</div>
 	<div class="row buttons">
 		<?php echo CHtml::submitButton('Close',array('id'=>'closeButton')); ?>
 	</div>
@@ -144,10 +146,9 @@ $this->widget('ext.xupload.XUploadWidget', array(
  								);
                          		
  							});
-                        		
-
                          }'
 					),
 ));
 ?>
 </div><!-- form -->
+</div>

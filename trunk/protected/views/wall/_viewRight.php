@@ -87,10 +87,16 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#site_view'.$data->Id, "
 <div class="view-single-right" id="<?php echo $data->Id?>" <?php if($first) echo 'style="margin-top: 20px"';?>>
 	<div class="view-text-date"><?php echo $data->album->creation_date;?></div>
 		<?php
-		 echo CHtml::image('images/remove.png','',
-				array('id'=>'delete_'.$data->Id, 'class'=>'wall-action-remove', 'title'=>'Remove'));
-		?>		
-		<?php 
+			 echo CHtml::image('images/remove.png','',
+					array('id'=>'delete_'.$data->Id, 'class'=>'wall-action-remove', 'title'=>'Remove'));
+		?>	
+		<?php
+			echo CHtml::link(
+				CHtml::image('images/edit.png','',
+					array('id'=>'delete_'.$data->Id, 'class'=>'wall-action-album-update', 'title'=>'Update'))
+			,AlbumController::createUrl('album/update',array('id'=>$data->album->Id)));
+		?>	
+		<?php
 		$images = array();
 		$height=0;
 		foreach($data->album->multimedias as $item)
