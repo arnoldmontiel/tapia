@@ -491,6 +491,19 @@ div.wall-action-area-images-dialog
 	width: 19px;
 	height: 15px;
 }
+
+div.wall-action-area-docs-dialog
+{
+	float: left;
+	z-index: 1;
+	position: absolute;
+	background: url("dialog-wall-action.png") no-repeat;
+	top: -8px;
+	left: 630px;
+	width: 19px;
+	height: 15px;
+}
+
 input.wall-action-upload-file-hidden
 {	
 	cursor:pointer;
