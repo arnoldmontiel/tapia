@@ -182,6 +182,7 @@ class WallController extends Controller
 			
 			if(isset($model->Id_multimedia)){
 				$this->removeMultimediaRelation(MultimediaNote::model()->findAllByAttributes(array('Id_multimedia'=>$model->Id_multimedia)));
+				$this->unlinkFile(Multimedia::model()->findByPk($model->Id_multimedia));
 		    	Multimedia::model()->deleteByPk($model->Id_multimedia);
 			}
 		    if(isset($model->Id_note)){
@@ -190,13 +191,34 @@ class WallController extends Controller
 		    }
 		    if(isset($model->Id_album))
 		    {
-		    	Multimedia::model()->deleteAllByAttributes(array('Id_album'=>$model->Id_album));
+		    	$this->unlinkAlbumFiles(Multimedia::model()->findAllByAttributes(array('Id_album'=>$model->Id_album)));
 		    	$this->removeAlbumRelation(AlbumNote::model()->findAllByAttributes(array('Id_album'=>$model->Id_album)));
 		    	Album::model()->deleteByPk($model->Id_album);
 		    }
 			$transaction->commit();
 		} catch (Exception $e) {
 			$transaction->rollback();
+		}
+	}
+	
+	private function unlinkFile($model)
+	{
+		$imagePath = 'images/';
+		$docPath = 'docs/';
+		if($model->Id_multimedia_type == 1)
+			unlink($imagePath.$model->file_name);
+		else
+			unlink($docPath.$model->file_name);
+		
+		unlink($imagePath.$model->file_name_small);
+	}
+	
+	private function unlinkAlbumFiles($arrModel)
+	{
+		foreach ($arrModel as $model)
+		{
+			$this->unlinkFile($model);
+			$model->delete();
 		}
 	}
 	
@@ -302,49 +324,42 @@ class WallController extends Controller
 	{
 		//$_FILES
 		$file = $_FILES["file"];
-		if ((($_FILES["file"]["type"] == "image/gif")
-		|| ($_FILES["file"]["type"] == "image/jpeg")
-		|| ($_FILES["file"]["type"] == "image/pjpeg")))
+		
+		if ($_FILES["file"]["error"] > 0)
 		{
-			if ($_FILES["file"]["error"] > 0)
-			{
-				echo "Return Code: " . $_FILES["file"]["error"] . "<br />";
-			}
-			else
-			{
-							
-				
-				$multi = $_POST['Multimedia'];
-				$model = new Multimedia;
-					
-				$transaction = $model->dbConnection->beginTransaction();
-					
-				try {
-				
-					$model->attributes = $multi;
-					$model->uploadedFile = $file;
-					$model->Id_multimedia_type = 1;
-				
-					$model->save();
-						
-					$modelWall = new Wall;
-					$modelWall->attributes = array('Id_customer'=>$model->Id_customer,
-																	'Id_multimedia'=>$model->Id, 
-																	'index_order'=>$this->getNextIndexOrder());
-					$modelWall->save();
-					$transaction->commit();
-					$this->redirect(array('wall/index','Id_customer'=>$model->Id_customer));
-					$this->fillWall($_POST['Note']['Id_customer']);
-						
-				} catch (Exception $e) {
-					$transaction->rollback();
-				}
-			}
+			echo "Return Code: " . $_FILES["file"]["error"] . "<br />";
 		}
 		else
 		{
-			echo "Invalid file";
+						
+			
+			$multi = $_POST['Multimedia'];
+			$model = new Multimedia;
+				
+			$transaction = $model->dbConnection->beginTransaction();
+				
+			try {
+			
+				$model->attributes = $multi;
+				$model->uploadedFile = $file;
+				$model->Id_multimedia_type = $_POST['docType'];
+			
+				$model->save();
+					
+				$modelWall = new Wall;
+				$modelWall->attributes = array('Id_customer'=>$model->Id_customer,
+																'Id_multimedia'=>$model->Id, 
+																'index_order'=>$this->getNextIndexOrder());
+				$modelWall->save();
+				$transaction->commit();
+				$this->redirect(array('wall/index','Id_customer'=>$model->Id_customer));
+				$this->fillWall($_POST['Note']['Id_customer']);
+					
+			} catch (Exception $e) {
+				$transaction->rollback();
+			}
 		}
+		
 		
 	}
 	
