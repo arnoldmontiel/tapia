@@ -185,6 +185,7 @@ function LoadPage()
 	{
 		$('#Multimedia_Id_customer').val(id_customer);
 		$('#Note_Id_customer').val(id_customer);
+		$('#btn-box').removeClass('div-hidden');
 		$.post('".WallController::createUrl('AjaxFillWall')."', 
 			$('#Id_customer').serialize()
 		).success(
