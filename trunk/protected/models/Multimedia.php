@@ -78,6 +78,50 @@ class Multimedia extends CActiveRecord
 			{
 				$this->Id_multimedia_type = 2;
 			}
+			else {
+				$uniqueId = uniqid();
+				
+				$folder = "docs/";
+				$fileName = $uniqueId.'.pdf';
+				$filePath = $folder . $fileName;
+				
+				//save pdf
+				move_uploaded_file($this->uploadedFile["tmp_name"],$filePath);
+				
+				$this->file_name = $fileName;
+				$this->size =$this->uploadedFile["size"];
+				
+				
+				$template = new Imagick();
+				//$template->setResolution(100, 100); //Skip this to generate PDF, results in poor quality though
+				$template->readImage($filePath.'[0]');
+				$template->setImageFormat("pdf");
+				//Doing some manipulation here but it doesn’t have any effect on the problem.
+				$template->setImageCompressionQuality(100);
+				
+				$folder = "images/";
+				$fileName = $uniqueId.'_tmp.jpg';
+				$filePath = $folder . $fileName;
+				
+				//save small image
+				$template->writeImages($filePath, true); //Works fine, high quality png
+				
+				$newFile = $this->resizeFile(320,320,$filePath);
+				$content = $newFile['content'];
+				if ($content !== false) {
+					$fileName = $uniqueId.'_small.jpg';
+					$file = fopen($folder.$fileName, 'w');
+					fwrite($file,$content);
+					fclose($file);
+					$this->file_name_small = $fileName;
+					$this->size_small = $newFile['size'];
+					$this->width_small = $newFile['width'];
+					$this->height_small = $newFile['height'];
+				}
+				unlink($filePath);
+			
+				
+			}
 		}
 	
 		return parent::beforeSave();
