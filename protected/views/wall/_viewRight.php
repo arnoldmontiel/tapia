@@ -60,7 +60,7 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#site_view'.$data->Id, "
 		else
 		{
 			echo CHtml::link(
-			CHtml::image(Yii::app()->baseUrl.'/images/'.$data->multimedia->file_name_small,''),
+			CHtml::image(Yii::app()->baseUrl.'/images/'.$data->multimedia->file_name_small,'',array('class'=>'wall-action-pdf')),
 			Yii::app()->baseUrl.'/docs/'.$data->multimedia->file_name,array('target'=>'_blank'));
 			
 			echo CHtml::link(
