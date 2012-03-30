@@ -252,6 +252,20 @@ $('#btnNote').click(function(){
 	});
 });
 
+$('#btnDoc').click(function(){
+	$('#Note_note').val('');
+	$('#wall-action-note').animate({opacity: 'hide'},240,function()
+	{
+		$('#wall-action-album').animate({opacity: 'hide'},240,function()
+		{
+			$('#wall-action-image').animate({opacity: 'show'},240);
+			$('#docType').val('3'); // PDF
+			$('#arrow').removeClass('wall-action-area-images-dialog');
+			$('#arrow').addClass('wall-action-area-docs-dialog');
+		});
+	});
+});
+
 $('#btnImage').click(function(){
 	$('#Note_note').val('');
 	$('#wall-action-note').animate({opacity: 'hide'},240,function()
@@ -259,6 +273,9 @@ $('#btnImage').click(function(){
 		$('#wall-action-album').animate({opacity: 'hide'},240,function()
 		{
 			$('#wall-action-image').animate({opacity: 'show'},240);
+			$('#docType').val('1'); // IMAGE
+			$('#arrow').removeClass('wall-action-area-docs-dialog');
+			$('#arrow').addClass('wall-action-area-images-dialog');
 		});
 	});
 });
@@ -287,7 +304,13 @@ $('#submitFile').click(function(){
 	if($('#uploadFile').val())
 	{
 		var ext = $('#uploadFile').val().split('.').pop().toLowerCase(); 
-		var allow = new Array('gif','png','jpg','jpeg'); 
+		
+		var allow;
+		if($('#docType').val() == 1) 
+			allow = new Array('gif','png','jpg','jpeg');
+		else
+			allow = new Array('pdf');
+			
 		if(jQuery.inArray(ext, allow) == -1) { 
 			alert('La extención no es válida');
 			return false;
@@ -366,6 +389,9 @@ $('#btnPublicAlbum').click(function(){
 		echo CHtml::openTag('div',array('class'=>'wall-action-btn','id'=>'btnNote'));
 			echo 'Notas';
 		echo CHtml::closeTag('div');	
+		echo CHtml::openTag('div',array('class'=>'wall-action-btn','id'=>'btnDoc'));
+			echo 'Documentos';
+		echo CHtml::closeTag('div');
 	echo CHtml::closeTag('div');	
 ?>
 
@@ -430,7 +456,7 @@ $('#btnPublicAlbum').click(function(){
 
 <div id="wall-action-image"  class='wall-action-area-note' style="display:none">
 
-	<div class="wall-action-area-images-dialog">
+	<div id="arrow" class="wall-action-area-images-dialog">
 	</div>
 	<div class="wide form">
 		<?php $form=$this->beginWidget('CActiveForm', array(
@@ -438,7 +464,8 @@ $('#btnPublicAlbum').click(function(){
 			'htmlOptions'=>array('enctype'=>'multipart/form-data'),
 			'method'=>'post',
 			)); 
-			echo $form->hiddenField($modelMultimedia,'Id_customer');			
+			echo $form->hiddenField($modelMultimedia,'Id_customer');	
+			echo CHtml::hiddenField('docType','',array('Id'=>'docType'));
 		?>
 		<!-- JavaScript is called by OnChange attribute -->
 		<div class="wall-action-upload-file-container">
