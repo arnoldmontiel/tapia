@@ -7,7 +7,21 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#site_view'.$data->Id, "
 <?php if (isset($data->note)):?>
 <div class="view-single-right" id="<?php echo $data->Id?>"  <?php if($first) echo 'style="margin-top: 20px"';?>>
 	<div class="view-text-date"><?php echo $data->note->creation_date;?></div>
-	<div class="view-text-simple-note"><?php echo $data->note->note;?></div>		
+	<div class="view-text-simple-note"><?php echo $data->note->note;?></div>
+	<?php $notes=$data->note->notes;?>
+			<?php if (!empty($notes)):?>
+				<?php 
+				foreach($notes as $item)
+				{
+					echo '<div class="view-text-note">'.
+							'<div class="view-text-date">'.
+								$item->creation_date.
+							'</div>'.
+						$item->note.
+					'</div>';							
+				}
+				?>
+			<?php endif?>		
 	<div class="view-dialog-right" ></div>
 </div>
 <?php endif?>
