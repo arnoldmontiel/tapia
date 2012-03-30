@@ -103,7 +103,37 @@ class SiteController extends Controller
 		// display the login form
 		$this->render('login',array('model'=>$model));
 	}
-
+	
+	public function actionAjaxFillNextWall()
+	{
+		if(isset($_POST['lastId'])&&isset($_POST['lastLeft']))
+		{
+			$wall = new Wall;
+			$customer = User::getCustomer();
+				
+			$wall->Id_customer = $customer->Id;
+			$dataProvider = $wall->searchOrderedByIndexSince($_POST['lastId']);
+			$dataProvider->pagination->pageSize= 4;
+			$data = $dataProvider->getData();
+	
+			echo CHtml::openTag('div',array('class'=>'view-index'));
+			$left=$_POST['lastLeft']==1?false:trueS;
+			$first = false;
+			foreach ($data as $item){
+				if($left)
+				{
+					$left=false;
+					$this->renderPartial('_viewLeft',array('data'=>$item));
+				}else
+				{
+					$left=true;
+					$this->renderPartial('_viewRight',array('data'=>$item,'first'=>$first));
+				}
+			}
+			echo CHtml::closeTag('div');
+		}
+	}
+	
 	/**
 	 * Logs out the current user and redirect to homepage.
 	 */

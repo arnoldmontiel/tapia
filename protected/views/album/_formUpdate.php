@@ -114,13 +114,6 @@ $(document).keypress(function(e) {
 	}
 	?>	
 	</div>
-	<div class="row buttons">
-		<?php echo CHtml::link('Finalizar',
-		AlbumController::createUrl('wall/index',array('Id_customer'=>$model->Id_customer)),
-		array('id'=>'finish-btn','class'=>'wall-action-submit-btn')
-		);
-		 ?>
-	</div>
 
 <?php $this->endWidget(); ?>
 
@@ -154,5 +147,14 @@ $this->widget('ext.xupload.XUploadWidget', array(
 					),
 ));
 ?>
+	<div class="row" style="text-align: center;">
+			<?php 
+				echo CHtml::link('Cerrar',
+					AlbumController::createUrl('wall/index',array('Id_customer'=>$model->Id_customer)),
+					array('id'=>'finish-btn','class'=>'wall-action-submit-btn')
+				);
+			?>
+	</div>
+
 </div><!-- form -->
 </div>

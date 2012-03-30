@@ -4,7 +4,7 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#site_view'.$data->Id, "
 
 ?>
 <?php if (isset($data->note)):?>
-	<div class="view-single-left" <?php if($first) echo 'style="margin-top: 20px"';?>>
+	<div class="view-single-left" id="<?php echo $data->Id?>" <?php if($first) echo 'style="margin-top: 20px"';?>>
 		<div class="view-text-date"><?php echo $data->note->creation_date;?></div>
 		<div class="view-text-simple-note"><?php echo $data->note->note;?></div>		
 		<div class="view-dialog-left"></div>
@@ -13,7 +13,7 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#site_view'.$data->Id, "
 
 
 <?php if (isset($data->multimedia)):?>
-<div class="view-single-left" <?php if($first) echo 'style="margin-top: 20px"';?>>
+<div class="view-single-left" id="<?php echo $data->Id?>" <?php if($first) echo 'style="margin-top: 20px"';?>>
 	<div class="view-text-date"><?php echo $data->multimedia->creation_date;?></div>
 	<?php  
 		if($data->multimedia->Id_multimedia_type == 1)
@@ -48,7 +48,7 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#site_view'.$data->Id, "
 </div>
 <?php endif?>
 <?php if (isset($data->album)):?>
-<div class="view-single-left" <?php if($first) echo 'style="margin-top: 20px"';?>>
+<div class="view-single-left" id="<?php echo $data->Id?>" <?php if($first) echo 'style="margin-top: 20px"';?>>
 	<div class="view-text-date"><?php echo $data->album->creation_date;?></div>
 	<?php 
 		$images = array();
