@@ -32,7 +32,7 @@
 					<?php echo CHtml::link('Administrar ',Yii::app()->createUrl('wall/index')); ?>
 				</li>
 				<li class="nav">
-					<?php echo CHtml::link('Previsualizar ',Yii::app()->createUrl('wall/preview')); ?>
+					<?php echo CHtml::link('Salir '.' ('.Yii::app()->user->name.')',Yii::app()->createUrl('site/login')); ?>
 				</li>
 			</ul>
 			<div class="search">
