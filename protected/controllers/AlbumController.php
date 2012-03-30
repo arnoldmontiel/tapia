@@ -190,8 +190,22 @@ class AlbumController extends Controller
 	{	
 			
 		$idMultimedia = isset($_GET['IdMultimedia'])?$_GET['IdMultimedia']:null;
-		Multimedia::model()->deleteByPk($idMultimedia);
+		$model = Multimedia::model()->findByPk($idMultimedia);
+		$this->unlinkFile($model);
+		$model->delete();
 		
+	}
+	
+	private function unlinkFile($model)
+	{
+		$imagePath = 'images/';
+		$docPath = 'docs/';
+		if($model->Id_multimedia_type == 1)
+		unlink($imagePath.$model->file_name);
+		else
+		unlink($docPath.$model->file_name);
+	
+		unlink($imagePath.$model->file_name_small);
 	}
 	
 	/**
