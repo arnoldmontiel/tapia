@@ -38,7 +38,7 @@ CREATE TABLE `itemchildren` (
 
 LOCK TABLES `itemchildren` WRITE;
 /*!40000 ALTER TABLE `itemchildren` DISABLE KEYS */;
-INSERT INTO `itemchildren` VALUES ('SiteManage','SiteIndex'),('Administrator','SiteManage'),('WallManage','WallIndex'),('Administrator','WallManage');
+INSERT INTO `itemchildren` VALUES ('AlbumManage','AlbumAdmin'),('AlbumManage','AlbumCreate'),('AlbumManage','AlbumDelete'),('AlbumManage','AlbumIndex'),('Administrator','AlbumManage'),('AlbumManage','AlbumUpdate'),('AlbumManage','AlbumView'),('Administrator','CustomerManage'),('SiteManage','SiteIndex'),('Administrator','SiteManage'),('Customer','SiteManage'),('Administrator','UserManage'),('WallManage','WallIndex'),('Administrator','WallManage');
 /*!40000 ALTER TABLE `itemchildren` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-03-29 10:59:43
+-- Dump completed on 2012-03-30 14:05:13
