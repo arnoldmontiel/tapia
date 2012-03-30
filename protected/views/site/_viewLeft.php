@@ -30,6 +30,9 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#site_view'.$data->Id, "
 			echo CHtml::link(
 			CHtml::image(Yii::app()->baseUrl.'/images/'.$data->multimedia->file_name_small,''),
 			Yii::app()->baseUrl.'/docs/'.$data->multimedia->file_name,array('target'=>'_blank'));
+			echo CHtml::link(
+			CHtml::image(Yii::app()->baseUrl.'/images/pdfwatermark.png','',array('class'=>'wall-action-pdf-watermark')),
+			Yii::app()->baseUrl.'/docs/'.$data->multimedia->file_name, array('target'=>'_blank'));
 		}
 	?>	
 	<?php $notes=$data->multimedia->notes;?>
