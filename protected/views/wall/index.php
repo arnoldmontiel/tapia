@@ -13,39 +13,45 @@ function bindEvents(data)
 			
 				$(item).children().children('img').each(
 								function(i, imgItem){
-									$('#'+$(imgItem).attr('id')).click(function(){
-										var id = $(imgItem).attr('id');
-										
-										var idNote = id.split('_')[2];
-										var idParent = id.split('_')[3];
-										
-										var side = '_viewRight';
-										if (id.indexOf('left') >= 0)
-											side = '_viewLeft';
-											
-										var type = 'note';
-										if (id.indexOf('multimedia') >= 0)
-											type = 'multimedia';
-										else{
-											if (id.indexOf('album') >= 0)
-												type = 'album';
-										}
-										var getParam = '&id='+idNote+'&type='+type+'&side='+side+'&idParent='+idParent;
-										
-										$.ajax({
-												type : 'GET',
-												url : '" . WallController::createUrl('AjaxRemoveSingleNote') ."' + getParam,
-												beforeSend : function(){
-															if(!confirm('Seguro que quiere borrar esta nota?')) 
-																return false;
-																},
-												success : function(data)
-												{
-													$('#'+type+'Container_'+idParent).html(data);
-													bindEvents($('#'+type+'Container_'+idParent));
+									if(typeof $(imgItem).attr('id') != 'undefined')
+									{
+										if ($(imgItem).attr('id').indexOf('left') >= 0 || $(imgItem).attr('id').indexOf('right') >= 0)
+										{
+											$('#'+$(imgItem).attr('id')).click(function(){
+												var id = $(imgItem).attr('id');
+												
+												var idNote = id.split('_')[2];
+												var idParent = id.split('_')[3];
+												
+												var side = '_viewRight';
+												if (id.indexOf('left') >= 0)
+													side = '_viewLeft';
+													
+												var type = 'note';
+												if (id.indexOf('multimedia') >= 0)
+													type = 'multimedia';
+												else{
+													if (id.indexOf('album') >= 0)
+														type = 'album';
 												}
-										});
-									});
+												var getParam = '&id='+idNote+'&type='+type+'&side='+side+'&idParent='+idParent;
+												
+												$.ajax({
+														type : 'GET',
+														url : '" . WallController::createUrl('AjaxRemoveSingleNote') ."' + getParam,
+														beforeSend : function(){
+																	if(!confirm('Seguro que quiere borrar esta nota?')) 
+																		return false;
+																		},
+														success : function(data)
+														{
+															$('#'+type+'Container_'+idParent).html(data);
+															bindEvents($('#'+type+'Container_'+idParent));
+														}
+												});
+											});
+										}
+									} //end typeof undefined
 								}
 				); // end sub note click event
 							
