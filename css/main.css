@@ -621,8 +621,7 @@ a.wall-action-submit-btn
 	background-color: #afbad7;
     border: 0 solid #AFBAD7;
     font-size: 15px;
-    outline: medium none;
-    padding: 5px;
+    padding: 5px 30px 5px 30px;
 	width: 100px;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
@@ -741,4 +740,12 @@ div.album-action-area-image
 	-webkit-border-radius: 5px;
 	border-radius: 5px;
 	display: block;
+}
+img.wall-action-pdf-watermark
+{
+	float:left;
+	position:absolute;
+	left:20px;
+	top:30px;
+	width: 60px;
 }
