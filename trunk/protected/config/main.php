@@ -6,7 +6,11 @@
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
 return array(
-	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
+	'language'=>'es', // Este es el lenguaje en el que querés que muestre las cosas
+    'sourceLanguage'=>'en', //  este es el lenguaje por default de los archivos
+    
+    'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
+    
 	'name'=>'Tapia',
 
 	// preloading 'log' component

@@ -97,7 +97,7 @@ function bindEvents(data)
 												type : 'GET',
 												url : '" . WallController::createUrl('AjaxRemoveBubble') ."' + '&id='+id,
 												beforeSend : function(){
-															if(!confirm('Esta seguro de borrar esta burbuja?')) 
+															if(!confirm('\u00BFEst\u00e1 seguro de borrar esta burbuja?')) 
 																return false;
 																},
 												success : function(data)

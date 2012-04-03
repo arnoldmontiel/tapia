@@ -25,21 +25,23 @@
 		<div id="header-container">
 			<div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
 			<ul class="nav">
-				<li class="nav">
-					<?php echo CHtml::link('Inicio ',Yii::app()->createUrl('site/index')); ?>
-				</li>
-				<li class="nav">
+				<?php if(Yii::app()->user->checkAccess('SiteIndex')):?>
+					<li class="nav">
+						<?php echo CHtml::link('Inicio ',Yii::app()->createUrl('site/index')); ?>
+					</li>
+				<?php endif?>
+				<?php if(Yii::app()->user->checkAccess('WallIndex')):?>
+					<li class="nav">
 					<?php echo CHtml::link('Administrar ',Yii::app()->createUrl('wall/index')); ?>
-				</li>
+					</li>
+				<?php endif?>
 				<li class="nav">
-					<?php echo CHtml::link('Salir '.' ('.Yii::app()->user->name.')',Yii::app()->createUrl('site/login')); ?>
+					<?php echo CHtml::link('Salir '.' ('.Yii::app()->user->name.')',Yii::app()->createUrl('site/logout')); ?>
 				</li>
 			</ul>
 			<div class="search">
 				<div class="search-icon"></div>
-				<form id="search" action="/search/">
-					<input id="q" type="text" x-webkit-speech="" placeholder="Search" name="q">
-				</form>
+					<input id="q" type="text" x-webkit-speech="" placeholder="Buscar" name="q">
 			</div>			
 		</div><!-- header-container -->
 	</div><!-- header -->

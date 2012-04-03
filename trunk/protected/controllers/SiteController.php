@@ -27,19 +27,28 @@ class SiteController extends Controller
 	 */
 	public function actionIndex()
 	{
+				
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
 		$modelWall = new Wall;
 		$customer = User::getCustomer();
-		$modelWall->Id_customer = $customer->Id;
-		$dataProvider = $modelWall->searchOrderedByIndex();
-		
-		$dataProvider->pagination->pageSize= 12;
-		
-		
-		$this->render('index',array(
-					'dataProvider'=>$dataProvider,
-		));
+		if(isset($customer))
+		{
+			$modelWall->Id_customer = $customer->Id;
+			$dataProvider = $modelWall->searchOrderedByIndex();
+			
+			$dataProvider->pagination->pageSize= 12;
+			
+			
+			$this->render('index',array(
+								'dataProvider'=>$dataProvider,
+			));
+				
+		}
+		else
+		{
+			Yii::app()->controller->redirect(array('wall/index'));				
+		}
 	}
 
 	/**

@@ -32,7 +32,7 @@ div.login
 	width: 600px;
 	display:inline-block;
 	margin-top: 10%;
-	margin-bottom: 100px;
+	margin-bottom: 150px;
 	margin-left: 100px;
 	margin-right: 100px;
 
@@ -364,6 +364,18 @@ div.view-dialog-right
 	width: 19px;
 	height: 15px;
 }
+div.login-reflex
+{
+	float: left;
+	z-index: 1;
+	position: absolute;
+	background: url("login-reflex.png") no-repeat;
+	top: 261px;
+	left: -13px;
+	width: 659px;
+	height: 221px;
+}
+
 input.submit-btn
 {
 	background-color: #afbad7;
