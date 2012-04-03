@@ -16,8 +16,18 @@ div.login-text-logo
 	font-style: oblique;
 	font-size: 40px;
 }
+div.container {
+    margin: 0 auto;
+    width: 950px;
+}
 div.login
 {
+	background-color: #FCFDFF;
+	border: 1px solid #9ad7f5;
+	-moz-border-radius: 20px;
+	-webkit-border-radius: 20px;
+	border-radius: 20px;
+	position:relative;
 	height: 200px;
 	width: 600px;
 	display:inline-block;
@@ -30,10 +40,7 @@ div.login
 	padding-bottom: 20px;
 	padding-left: 20px;
 	padding-right: 20px;
-
-	background: rgba(0,0,0,0.5);
-	border-radius: 6px 6px 6px 6px;
-		
+	color: #666666;
 	
 }
 body
@@ -345,4 +352,32 @@ div a
 {
 	color: #357;
 	text-decoration: none;
+}
+div.view-dialog-right
+{
+	float: left;
+	z-index: 1;
+	position: absolute;
+	background: url("dialog-right.png") no-repeat;
+	top: 25px;
+	left: -9px;
+	width: 19px;
+	height: 15px;
+}
+input.submit-btn
+{
+	background-color: #afbad7;
+    border: 0 solid #AFBAD7;
+    font-size: 15px;
+    outline: medium none;
+    padding: 5px;
+	width: 100px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	cursor: pointer;
+}
+input.submit-btn:HOVER
+{
+	background-color: #F4F6FB;	
 }
