@@ -99,7 +99,7 @@ $(document).keypress(function(e) {
 												'type'=>'GET',
 												'url'=>AlbumController::createUrl('AjaxRemoveImage',array('IdMultimedia'=>$item->Id)),
 												'beforeSend'=>'function(){
-															if(!confirm("¿Esta seguro de eliminar esta imagen?")) 
+															if(!confirm("\u00BFEst\u00e1 seguro de eliminar esta imagen?")) 
 																return false;
 																}',
 												'success'=>'js:function(data)
