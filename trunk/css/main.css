@@ -611,6 +611,7 @@ input.wall-action-submit-btn
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
 	border-radius: 5px;
+	cursor: pointer;
 }
 input.wall-action-submit-btn:HOVER
 {
@@ -740,6 +741,10 @@ div.album-action-area-image
 	-webkit-border-radius: 5px;
 	border-radius: 5px;
 	display: block;
+}
+img.wall-action-pdf
+{
+	border: 2px solid silver;
 }
 img.wall-action-pdf-watermark
 {

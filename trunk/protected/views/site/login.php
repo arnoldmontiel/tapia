@@ -29,7 +29,7 @@
 	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton('Login'); ?>
+		<?php echo CHtml::submitButton('Login',array('class'=>'submit-btn')); ?>
 	</div>
 
 <?php $this->endWidget(); ?>
@@ -40,4 +40,5 @@
 	TAPIA
 	</div>	
 </div><!-- right -->
+<div class="view-dialog-right" ></div>
 </div>
