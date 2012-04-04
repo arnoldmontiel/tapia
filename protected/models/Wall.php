@@ -149,4 +149,31 @@ class Wall extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+	public function searchOn($expresion)
+	{
+		$criteria=new CDbCriteria;
+		
+		$criteria->order = 'index_order DESC';
+		$criteria->compare('Id_customer',$this->Id_customer);
+		
+		$criteria->with[]='note';
+		$criteria->compare('note.note',$expresion,true,'OR');
+		
+		$criteria->with[]='multimedia';
+		$criteria->compare('multimedia.description',$expresion,true,'OR');
+		
+		$criteria->with[]='multimedia';
+		$criteria->compare('multimedia.description',$expresion,true,'OR');
+		
+		return new CActiveDataProvider($this, array(
+								'criteria'=>$criteria,
+		));
+		
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+		));
+	}
 }

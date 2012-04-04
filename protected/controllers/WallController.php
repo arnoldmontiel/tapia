@@ -467,6 +467,10 @@ class WallController extends Controller
 		}
 	}
 	
+	public function actionSeach()
+	{
+		
+	}	
 	public function actionAjaxCancelAlbum()
 	{	
 		if(isset($_POST['Album_Id_album']))
