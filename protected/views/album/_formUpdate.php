@@ -33,6 +33,27 @@ $('#Album_description').change(function(){
 						
 					});
 		});
+
+
+$('#images_container').find('textarea').each(
+									function(index, item){
+												$(item).change(function(){
+													var target = $(this);
+													var it = $(item);
+													$.get('".AlbumController::createUrl('album/AjaxAddImageDescription')."',
+					 									{
+															IdMultimedia:$(target).attr('id'),
+															description:$(this).val()
+					 								}).success(
+					 									function(data) 
+					 									{
+					 										
+					 									}
+					 								);
+												});
+
+});	
+
 		
 $(document).keypress(function(e) {
     if(e.keyCode == 13) 
@@ -77,7 +98,7 @@ $(document).keypress(function(e) {
 		<?php echo $form->error($model,'description'); ?>
 	</div>
 
-	<div class="album-action-area-images">
+	<div class="album-action-area-images" id="images_container">
 	<?php 
 
 	foreach ($model->multimedias as $item)
@@ -86,7 +107,7 @@ $(document).keypress(function(e) {
 		$this->widget('ext.highslide.highslide', array(
 								'smallImage'=>"images/".$item->file_name_small,
 								'image'=>"images/".$item->file_name,
-								'caption'=>$item->description,
+								'caption'=>'',
 								'Id'=>$item->Id,
 		)); 
 		echo CHtml::imageButton(
@@ -110,6 +131,15 @@ $(document).keypress(function(e) {
 								)
 		 
 			);
+		echo '<br>';
+		echo CHtml::textArea('photo_description',$item->description,
+							array(
+								'id'=>$item->Id,
+								'placeholder'=>'Escriba una description...',
+							)
+						
+			);
+		
 		echo CHtml::closeTag('div');
 	}
 	?>	
@@ -139,6 +169,22 @@ $this->widget('ext.xupload.XUploadWidget', array(
  									{
  										
  										$(target).parent().parent().attr("style","display:none");	
+ 									}
+ 								);
+                         		
+ 							});
+ 							
+ 							$tr.find("#photo_description").change(function(){
+								var target = $(this);
+								
+								$.get("'.AlbumController::createUrl('album/AjaxAddImageDescription').'",
+ 									{
+										IdMultimedia:$(target).parent().parent().attr("id"),
+										description:$(this).val()
+ 								}).success(
+ 									function(data) 
+ 									{
+ 										
  									}
  								);
                          		

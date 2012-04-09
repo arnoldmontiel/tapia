@@ -99,7 +99,23 @@ $this->widget('ext.xupload.XUploadWidget', array(
  								);
                          		
  							});
-                        		
+
+ 							$tr.find("#photo_description").change(function(){
+								var target = $(this);
+								
+								$.get("'.AlbumController::createUrl('album/AjaxAddImageDescription').'",
+ 									{
+										IdMultimedia:$(target).parent().parent().attr("id"),
+										description:$(this).val()
+ 								}).success(
+ 									function(data) 
+ 									{
+ 										
+ 									}
+ 								);
+                         		
+ 							});
+ 							
 
                          }'
 					),
