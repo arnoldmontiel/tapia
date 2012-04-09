@@ -7,6 +7,7 @@
  * @property integer $Id
  * @property integer $review
  * @property integer $Id_customer
+ * @property string $description
  *
  * The followings are the available model relations:
  * @property Album[] $albums
@@ -45,9 +46,10 @@ class Review extends CActiveRecord
 		return array(
 			array('Id_customer', 'required'),
 			array('review, Id_customer', 'numerical', 'integerOnly'=>true),
+			array('description', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id, review, Id_customer', 'safe', 'on'=>'search'),
+			array('Id, review, Id_customer, description', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -76,6 +78,7 @@ class Review extends CActiveRecord
 			'Id' => 'ID',
 			'review' => 'Review',
 			'Id_customer' => 'Id Customer',
+			'description' => 'Description',
 		);
 	}
 
@@ -93,6 +96,7 @@ class Review extends CActiveRecord
 		$criteria->compare('Id',$this->Id);
 		$criteria->compare('review',$this->review);
 		$criteria->compare('Id_customer',$this->Id_customer);
+		$criteria->compare('description',$this->description,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
