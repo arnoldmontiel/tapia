@@ -40,6 +40,10 @@ hs.graphicsDir = '<?php echo '../..'. $this->graphics ?>/'
 			echo CHtml::image($images[0]['small_image'],'Highslide JS',array('title'=>'Click para ampliar'));
 			echo CHtml::closeTag('a');
 
+			echo CHtml::openTag('div',array('class'=>'highslide-caption'));
+			echo $images[0]['caption'];
+			echo CHtml::closeTag('div');
+			
 			if(isset($images[1]))
 			{
 				echo CHtml::openTag('a',
@@ -53,7 +57,10 @@ hs.graphicsDir = '<?php echo '../..'. $this->graphics ?>/'
 				)
 				);
 				echo CHtml::image($images[1]['small_image'],'Highslide JS',array('title'=>'Click para ampliar'));
-				echo CHtml::closeTag('a');				
+				echo CHtml::closeTag('a');	
+				echo CHtml::openTag('div',array('class'=>'highslide-caption'));
+				echo $images[1]['caption'];
+				echo CHtml::closeTag('div');
 			}
 			if(isset($images[2]))
 			{
@@ -68,13 +75,16 @@ hs.graphicsDir = '<?php echo '../..'. $this->graphics ?>/'
 				)
 				);
 				echo CHtml::image($images[2]['small_image'],'Highslide JS',array('title'=>'Click para ampliar'));
-				echo CHtml::closeTag('a');				
+				echo CHtml::closeTag('a');		
+				echo CHtml::openTag('div',array('class'=>'highslide-caption'));
+				echo $images[2]['caption'];
+				echo CHtml::closeTag('div');
 			}
 			?>
 		<?php 
-		echo CHtml::openTag('div',array('class'=>'highslide-caption'));
-			echo $images[0]['caption'];
-		echo CHtml::closeTag('div');
+// 		echo CHtml::openTag('div',array('class'=>'highslide-caption'));
+// 			echo $images[0]['caption'];
+// 		echo CHtml::closeTag('div');
 		?>
 		<div class="hidden-container">
 		<?php foreach ($images as $indice => $item)
