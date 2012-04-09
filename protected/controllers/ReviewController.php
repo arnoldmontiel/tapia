@@ -50,10 +50,16 @@ class ReviewController extends Controller
 	public function actionCreate()
 	{
 		$model=new Review;
-
+		$modelCustomer=new Customer;
+		
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
-
+		
+		if(isset($_GET['Id_customer']))
+		{
+			$model->Id_customer=$_GET['Id_customer'];
+			$modelCustomer = Customer::model()->findByPk($model->Id_customer);
+		}
 		if(isset($_POST['Review']))
 		{
 			$model->attributes=$_POST['Review'];
@@ -63,6 +69,7 @@ class ReviewController extends Controller
 
 		$this->render('create',array(
 			'model'=>$model,
+			'modelCustomer'=>$modelCustomer
 		));
 	}
 
