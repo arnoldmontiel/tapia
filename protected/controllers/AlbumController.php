@@ -196,6 +196,17 @@ class AlbumController extends Controller
 		
 	}
 	
+	public function actionAjaxAddImageDescription()
+	{
+			
+		$idMultimedia = isset($_GET['IdMultimedia'])?$_GET['IdMultimedia']:null;
+		$description = isset($_GET['description'])?$_GET['description']:'';
+		$model = Multimedia::model()->findByPk($idMultimedia);
+		$model->description = $description;
+		$model->save();
+	
+	}
+	
 	private function unlinkFile($model)
 	{
 		$imagePath = 'images/';
