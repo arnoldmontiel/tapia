@@ -381,7 +381,7 @@ $('#btnPublicAlbum').click(function(){
 			'prompt'=>'Select a Customer',
 			)		
 		);
-		?>
+	?>
 </div>
 
 <?php

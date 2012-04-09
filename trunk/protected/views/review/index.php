@@ -14,6 +14,7 @@ $('#Id_customer').change(function(){
 			$('#review-area').html(data);
 			//bindEvents(data);
 			$('#review-area').animate({opacity: 'show'},240);
+			$('#btn-create').attr('href','".ReviewController::createUrl('create')."'+'&Id_customer='+$('#Id_customer').val());
 		});		
 	}
 	else
@@ -42,10 +43,8 @@ $('#Id_customer').change(function(){
 </div>
 
 <?php
-	echo CHtml::openTag('div',array('class'=>'div-hidden wall-action-box-btn','id'=>'btn-box'));
-		echo CHtml::openTag('div',array('class'=>'wall-action-btn','id'=>'btnReview'));
-			echo CHtml::encode('Nuevo');
-		echo CHtml::closeTag('div');
+	echo CHtml::openTag('div',array('class'=>'div-hidden wall-action-box-btn','id'=>'btn-box'));	
+			echo CHtml::link('Nuevo','',array('id'=>'btn-create','class'=>'submit-btn'));
 	echo CHtml::closeTag('div');	
 ?>
 
