@@ -136,8 +136,10 @@ class XUploadWidget extends CJuiInputWidget {
 		$js = <<<EOD
 js:function (files, index) {
 	return $('<tr id="'+files.id+'"><td>' + files.name + '<\/td>' +
-    	'<td class="file_upload_progress"><div><\/div><\/td>' +
     	'<td class="filesize">'+files.size+' KB</td>' +
+    	'<td>' +
+    	'<textarea id="photo_description" class="photo_description" placeholder="Escriba una description..." cols="50" rows="2"></textarea>' +
+    	'<\/td>' +
         '<td class="file_upload_cancel">' +
         '<button class="ui-state-default ui-corner-all" title="Cancel">' +
         '<span class="ui-icon ui-icon-cancel">Cancel<\/span>' +
