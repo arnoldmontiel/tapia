@@ -14,11 +14,17 @@
  * @property integer $Id_customer
  * @property string $creation_date
  * @property integer $Id_album
+ * @property integer $width
+ * @property integer $height
+ * @property integer $width_small
+ * @property integer $height_small
+ * @property integer $Id_review
  *
  * The followings are the available model relations:
  * @property Album $idAlbum
  * @property Customer $idCustomer
  * @property MultimediaType $idMultimediaType
+ * @property Review $idReview
  * @property Note[] $notes
  * @property Wall[] $walls
  */
@@ -183,14 +189,14 @@ class Multimedia extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('Id_multimedia_type, Id_customer', 'required'),
-			array('Id_multimedia_type, Id_customer, Id_album', 'numerical', 'integerOnly'=>true),
+			array('Id_multimedia_type, Id_customer, Id_review', 'required'),
+			array('Id_multimedia_type, Id_customer, Id_album, width, height, width_small, height_small, Id_review', 'numerical', 'integerOnly'=>true),
 			array('size, size_small', 'numerical'),
 			array('file_name, description, file_name_small', 'length', 'max'=>255),
 			array('creation_date', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id, file_name, size, description, file_name_small, size_small, Id_multimedia_type, Id_customer, creation_date, Id_album', 'safe', 'on'=>'search'),
+			array('Id, file_name, size, description, file_name_small, size_small, Id_multimedia_type, Id_customer, creation_date, Id_album, Id_review', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -202,9 +208,10 @@ class Multimedia extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'idAlbum' => array(self::BELONGS_TO, 'Album', 'Id_album'),
-			'idCustomer' => array(self::BELONGS_TO, 'Customer', 'Id_customer'),
-			'idMultimediaType' => array(self::BELONGS_TO, 'MultimediaType', 'Id_multimedia_type'),
+			'album' => array(self::BELONGS_TO, 'Album', 'Id_album'),
+			'customer' => array(self::BELONGS_TO, 'Customer', 'Id_customer'),
+			'multimediaType' => array(self::BELONGS_TO, 'MultimediaType', 'Id_multimedia_type'),
+			'review' => array(self::BELONGS_TO, 'Review', 'Id_review'),
 			'notes' => array(self::MANY_MANY, 'Note', 'multimedia_note(Id_multimedia, Id_note)'),
 			'walls' => array(self::HAS_MANY, 'Wall', 'Id_multimedia'),
 		);
@@ -226,6 +233,11 @@ class Multimedia extends CActiveRecord
 			'Id_customer' => 'Id Customer',
 			'creation_date' => 'Creation Date',
 			'Id_album' => 'Id Album',
+			'width' => 'Width',
+			'height' => 'Height',
+			'width_small' => 'Width Small',
+			'height_small' => 'Height Small',
+			'Id_review' => 'Id Review',
 		);
 	}
 
@@ -250,7 +262,8 @@ class Multimedia extends CActiveRecord
 		$criteria->compare('Id_customer',$this->Id_customer);
 		$criteria->compare('creation_date',$this->creation_date,true);
 		$criteria->compare('Id_album',$this->Id_album);
-
+		$criteria->compare('Id_review',$this->Id_review);
+		
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));

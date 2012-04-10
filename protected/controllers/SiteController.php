@@ -47,7 +47,7 @@ class SiteController extends Controller
 		}
 		else
 		{
-			Yii::app()->controller->redirect(array('wall/index'));				
+			Yii::app()->controller->redirect(array('review/index'));				
 		}
 	}
 

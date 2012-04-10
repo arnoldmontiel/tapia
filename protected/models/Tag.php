@@ -1,28 +1,21 @@
 <?php
 
 /**
- * This is the model class for table "review".
+ * This is the model class for table "tag".
  *
- * The followings are the available columns in table 'review':
+ * The followings are the available columns in table 'tag':
  * @property integer $Id
- * @property integer $review
- * @property integer $Id_customer
  * @property string $description
  *
  * The followings are the available model relations:
- * @property Album[] $albums
- * @property Multimedia[] $multimedias
- * @property Note[] $notes
- * @property Customer $idCustomer
- * @property Tag[] $tags
- * @property Wall[] $walls
+ * @property Review[] $reviews
  */
-class Review extends CActiveRecord
+class Tag extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return Review the static model class
+	 * @return Tag the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -34,7 +27,7 @@ class Review extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'review';
+		return 'tag';
 	}
 
 	/**
@@ -45,12 +38,10 @@ class Review extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('Id_customer', 'required'),
-			array('review, Id_customer', 'numerical', 'integerOnly'=>true),
-			array('description', 'safe'),
+			array('description', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id, review, Id_customer, description', 'safe', 'on'=>'search'),
+			array('Id, description', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -62,12 +53,7 @@ class Review extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'albums' => array(self::HAS_MANY, 'Album', 'Id_review'),
-			'multimedias' => array(self::HAS_MANY, 'Multimedia', 'Id_review'),
-			'notes' => array(self::HAS_MANY, 'Note', 'Id_review'),
-			'idCustomer' => array(self::BELONGS_TO, 'Customer', 'Id_customer'),
-			'tags' => array(self::MANY_MANY, 'Tag', 'tag_review(Id_review, Id_tag)'),
-			'walls' => array(self::HAS_MANY, 'Wall', 'Id_review'),
+			'reviews' => array(self::MANY_MANY, 'Review', 'tag_review(Id_tag, Id_review)'),
 		);
 	}
 
@@ -78,8 +64,6 @@ class Review extends CActiveRecord
 	{
 		return array(
 			'Id' => 'ID',
-			'review' => 'Review',
-			'Id_customer' => 'Id Customer',
 			'description' => 'Description',
 		);
 	}
@@ -96,8 +80,6 @@ class Review extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('Id',$this->Id);
-		$criteria->compare('review',$this->review);
-		$criteria->compare('Id_customer',$this->Id_customer);
 		$criteria->compare('description',$this->description,true);
 
 		return new CActiveDataProvider($this, array(
