@@ -8,8 +8,10 @@
  * @property string $note
  * @property string $creation_date
  * @property integer $Id_customer
+ * @property integer $Id_review
  *
  * The followings are the available model relations:
+ * @property Review $idReview
  * @property Album[] $albums
  * @property Multimedia[] $multimedias
  * @property Customer $idCustomer
@@ -43,12 +45,12 @@ class Note extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('Id_customer', 'required'),
-			array('Id_customer', 'numerical', 'integerOnly'=>true),
+			array('Id_customer, Id_review', 'required'),
+			array('Id_customer, Id_review', 'numerical', 'integerOnly'=>true),
 			array('note, creation_date', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id, note, creation_date, Id_customer', 'safe', 'on'=>'search'),
+			array('Id, note, creation_date, Id_customer, Id_review', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -65,6 +67,7 @@ class Note extends CActiveRecord
 			'idCustomer' => array(self::BELONGS_TO, 'Customer', 'Id_customer'),
 			'walls' => array(self::HAS_MANY, 'Wall', 'Id_note'),
 			'notes' => array(self::MANY_MANY, 'Note', 'note_note(Id_parent, Id_child)'),
+			'review' => array(self::BELONGS_TO, 'Review', 'Id_review'),
 		);
 	}
 
@@ -78,6 +81,7 @@ class Note extends CActiveRecord
 			'note' => 'Note',
 			'creation_date' => 'Creation Date',
 			'Id_customer' => 'Id Customer',
+			'Id_review' => 'Id Review',
 		);
 	}
 
@@ -96,6 +100,7 @@ class Note extends CActiveRecord
 		$criteria->compare('note',$this->note,true);
 		$criteria->compare('creation_date',$this->creation_date,true);
 		$criteria->compare('Id_customer',$this->Id_customer);
+		$criteria->compare('Id_review',$this->Id_review);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
