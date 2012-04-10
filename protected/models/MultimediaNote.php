@@ -51,6 +51,8 @@ class MultimediaNote extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+				'note' => array(self::BELONGS_TO, 'Note', 'Id_note'),
+				'multimedia' => array(self::BELONGS_TO, 'Multimedia', 'Id_multimedia'),
 		);
 	}
 

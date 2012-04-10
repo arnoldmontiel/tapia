@@ -9,9 +9,11 @@
  * @property string $description
  * @property string $creation_date
  * @property integer $Id_customer
+ * @property integer $Id_review
  * 
  *
  * The followings are the available model relations:
+ * @property Review $idReview
  * @property Customer $idCustomer
  * @property Note[] $notes
  * @property Multimedia[] $multimedias
@@ -44,8 +46,8 @@ class Album extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('Id_customer', 'required'),
-			array('Id_customer', 'numerical', 'integerOnly'=>true),
+			array('Id_customer, Id_review', 'required'),
+			array('Id_customer, Id_review', 'numerical', 'integerOnly'=>true),
 			array('title, description', 'length', 'max'=>45),
 			array('creation_date', 'safe'),
 			// The following rule is used by search().
@@ -62,6 +64,7 @@ class Album extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'review' => array(self::BELONGS_TO, 'Review', 'Id_review'),
 			'customer' => array(self::BELONGS_TO, 'Customer', 'Id_customer'),
 			'notes' => array(self::MANY_MANY, 'Note', 'album_note(Id_album, Id_note)'),
 			'multimedias' => array(self::HAS_MANY, 'Multimedia', 'Id_album'),
@@ -79,6 +82,7 @@ class Album extends CActiveRecord
 			'description' => 'Description',
 			'creation_date' => 'Creation Date',
 			'Id_customer' => 'Id Customer',
+			'Id_review' => 'Id Review',
 		);
 	}
 
@@ -98,6 +102,7 @@ class Album extends CActiveRecord
 		$criteria->compare('description',$this->description,true);
 		$criteria->compare('creation_date',$this->creation_date,true);
 		$criteria->compare('Id_customer',$this->Id_customer);
+		$criteria->compare('Id_review',$this->Id_review);
 		
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

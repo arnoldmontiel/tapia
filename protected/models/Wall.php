@@ -10,6 +10,7 @@
  * @property integer $index_order
  * @property integer $Id_album
  * @property integer $Id_customer
+ * @property integer $Id_review
  *
  * The followings are the available model relations:
  * @property Customer $idCustomer
@@ -45,11 +46,11 @@ class Wall extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('Id_customer', 'required'),
-			array('Id_note, Id_multimedia, index_order, Id_album, Id_customer', 'numerical', 'integerOnly'=>true),
+			array('Id_customer, Id_review', 'required'),
+			array('Id_note, Id_multimedia, index_order, Id_album, Id_customer, Id_review', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id, Id_note, Id_multimedia, index_order, Id_album, Id_customer', 'safe', 'on'=>'search'),
+			array('Id, Id_note, Id_multimedia, index_order, Id_album, Id_customer, Id_review', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -65,6 +66,7 @@ class Wall extends CActiveRecord
 			'album' => array(self::BELONGS_TO, 'Album', 'Id_album'),
 			'multimedia' => array(self::BELONGS_TO, 'Multimedia', 'Id_multimedia'),
 			'note' => array(self::BELONGS_TO, 'Note', 'Id_note'),
+			'review' => array(self::BELONGS_TO, 'Reviw', 'Id_review'),
 		);
 	}
 
@@ -80,6 +82,7 @@ class Wall extends CActiveRecord
 			'index_order' => 'Index Order',
 			'Id_album' => 'Album',
 			'Id_customer' => 'Id Customer',
+			'Id_review' => 'Id Review',
 		);
 	}
 	
@@ -100,6 +103,7 @@ class Wall extends CActiveRecord
 		$criteria->compare('index_order',$this->index_order);
 		$criteria->compare('Id_album',$this->Id_album);
 		$criteria->compare('Id_customer',$this->Id_customer);
+		$criteria->compare('Id_review',$this->Id_review);
 
 		$criteria->order = 'index_order DESC';
 		
@@ -120,6 +124,7 @@ class Wall extends CActiveRecord
 		$criteria->compare('index_order',$this->index_order);
 		$criteria->compare('Id_album',$this->Id_album);
 		$criteria->compare('Id_customer',$this->Id_customer);
+		$criteria->compare('Id_review',$this->Id_review);
 
 		$criteria->order = 'index_order DESC';
 		
@@ -144,6 +149,7 @@ class Wall extends CActiveRecord
 		$criteria->compare('index_order',$this->index_order);
 		$criteria->compare('Id_album',$this->Id_album);
 		$criteria->compare('Id_customer',$this->Id_customer);
+		$criteria->compare('Id_review',$this->Id_review);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
