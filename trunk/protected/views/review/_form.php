@@ -16,7 +16,7 @@
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'review-form',
-	'enableAjaxValidation'=>false,
+	'enableAjaxValidation'=>true,
 )); ?>
 
 	<?php echo $form->errorSummary($model); ?>

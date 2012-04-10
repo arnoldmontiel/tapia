@@ -4,12 +4,13 @@ Yii::app()->clientScript->registerScript('indexWall', "
 $('#Id_customer').change(function(){
 	
 	if($(this).val()!= ''){
-		$('#btn-box').removeClass('div-hidden');
+		$('#btn-actions-box').removeClass('div-hidden');
 		$('#loading').addClass('loading');
 		$.post('".ReviewController::createUrl('AjaxFillInbox')."', 
 			$(this).serialize()
 		).success(
 		function(data){
+			$('#review-area').removeClass('div-hidden');
 			$('#loading').removeClass('loading');
 			$('#review-area').html(data);
 			//bindEvents(data);
@@ -19,7 +20,8 @@ $('#Id_customer').change(function(){
 	}
 	else
 	{
-		$('#btn-box').addClass('div-hidden');
+		$('#btn-actions-box').addClass('div-hidden');
+		$('#review-area').html('');
 		$('#review-area').addClass('div-hidden');
 }
 	return false;
@@ -28,26 +30,26 @@ $('#Id_customer').change(function(){
 ");
 ?>
 
-<div class="wall-action-area" id="wall-action-area">
+<div class="review-action-area" id="review-action-area">
 <div id="loading" class="loading-place-holder" >
 </div>
 <div id="customer" class="wall-action-ddl" >
 	<?php	$customers = CHtml::listData($ddlCustomer, 'Id', 'CustomerDesc');?>
-	<?php echo CHtml::label('Customer','Id_customer'); ?>
+	<?php echo CHtml::label('Cliente: ','Id_customer'); ?>
 	<?php echo CHtml::dropDownList('Id_customer',$Id_customer, $customers,		
 		array(
-			'prompt'=>'Select a Customer',
+			'prompt'=>'Clientes',
 			)		
 		);
 		?>
 </div>
 
 <?php
-	echo CHtml::openTag('div',array('class'=>'div-hidden wall-action-box-btn','id'=>'btn-box'));	
-			echo CHtml::link('Nuevo','',array('id'=>'btn-create','class'=>'submit-btn'));
+	echo CHtml::openTag('div',array('class'=>'review-action-box-btn div-hidden','id'=>'btn-actions-box'));	
+		echo CHtml::link('Nuevo','',array('id'=>'btn-create','class'=>'submit-btn'));
 	echo CHtml::closeTag('div');	
 ?>
 
 </div>
-<div id="review-area" class="div-hidden index-review-area" >
+<div id="review-area" class="index-review-area div-hidden" >
 </div>
