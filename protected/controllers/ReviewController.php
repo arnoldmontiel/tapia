@@ -78,7 +78,7 @@ class ReviewController extends Controller
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 * @param integer $id the ID of the model to be updated
 	 */
-	public function actionUpdate($id)
+	public function actionUpdate($id, $idNote=null)
 	{
 		$model=$this->loadModel($id);
 
@@ -91,12 +91,22 @@ class ReviewController extends Controller
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->Id));
 		}
-
+		
 		$this->render('update',array(
 			'model'=>$model,
+			'idNote'=>$idNote,
 		));
 	}
 
+	public function actionAjaxAttachImage($id, $idNote)
+	{
+		$model=$this->loadModel($id);
+		$this->render('attachImages',array(
+					'model'=>$model,
+					'idNote'=>$idNote,
+		));
+	}
+	
 	/**
 	 * Deletes a particular model.
 	 * If deletion is successful, the browser will be redirected to the 'admin' page.
@@ -180,6 +190,32 @@ class ReviewController extends Controller
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
+	}
+	
+	public function actionAjaxUpdateReview()
+	{
+		$review = $_POST['review'];
+		$id = $_POST['id'];
+		$model=$this->loadModel($id);
+		if(isset($model))
+		{
+			$model->review = $review;
+			$model->save();
+		}
+	
+	}
+	
+	public function actionAjaxUpdateDescription()
+	{
+		$description = $_POST['description'];
+		$id = $_POST['id'];
+		$model=$this->loadModel($id);
+		if(isset($model))
+		{
+			$model->description = $description;
+			$model->save();
+		}
+	
 	}
 	private function fillIndex($Id_customer)
 	{
