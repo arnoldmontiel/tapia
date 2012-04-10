@@ -3,7 +3,7 @@
 Yii::app()->clientScript->registerScript('createAlbum', "
 
 $('#cancelButton').click(function(){
-	window.location = '".AlbumController::createUrl('AjaxCancelAlbum',array('id'=>$model->Id)) ."';
+	window.location = '".AlbumController::createUrl('AjaxCancel',array('id'=>$model->Id)) ."';
 	return false;
 });
 ");
