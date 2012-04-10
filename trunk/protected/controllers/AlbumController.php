@@ -119,17 +119,20 @@ class AlbumController extends Controller
 		));
 	}
 	
-	public function actionAjaxUpload($id)
+	public function actionAjaxUpload($idAlbum, $idReview)
 	{
 
 		$file = $_FILES['file'];
 		
+		$modelReview = Review::model()->findByPk($idReview);
+		
 		$modelMultimedia = new Multimedia;
  		
- 		$modelMultimedia->Id_album = $id;
+ 		$modelMultimedia->Id_album = $idAlbum;
+ 		$modelMultimedia->Id_review = $idReview;
  		$modelMultimedia->uploadedFile = $file;
  		$modelMultimedia->Id_multimedia_type = 1;
- 		$modelMultimedia->Id_customer = 1;
+ 		$modelMultimedia->Id_customer = $modelReview->Id_customer;
  		
  		$modelMultimedia->save();
  		
@@ -139,7 +142,7 @@ class AlbumController extends Controller
 		echo json_encode(array("name" => $img,"type" => '',"size"=> $size, "id"=>$modelMultimedia->Id));
 	}
 	
-	public function actionAjaxCancelAlbum()
+	public function actionAjaxCancel()
 	{
 		$id = $_GET['id'];
 		$model=$this->loadModel($id);
@@ -152,6 +155,23 @@ class AlbumController extends Controller
 			$this->redirect(array('index'));
 		} catch (Exception $e) {
 			$transaction->rollback();
+		}
+	}
+	
+	public function actionAjaxCancelAlbum()
+	{
+		if(isset($_POST['Album_Id_album']))
+		{
+			$modelAlbum = Album::model()->findByPk($_POST['Album_Id_album']);
+			$transaction = $modelAlbum->dbConnection->beginTransaction();
+			try {
+					
+				Multimedia::model()->deleteAllByAttributes(array('Id_album'=>$modelAlbum->Id));
+				$modelAlbum->delete();
+				$transaction->commit();
+			} catch (Exception $e) {
+				$transaction->rollback();
+			}
 		}
 	}
 	
@@ -186,6 +206,7 @@ class AlbumController extends Controller
 	
 	}
 	
+	
 	public function actionAjaxRemoveImage()
 	{	
 			
@@ -194,6 +215,15 @@ class AlbumController extends Controller
 		$this->unlinkFile($model);
 		$model->delete();
 		
+	}
+	
+	public function actionAjaxRemoveImageFromNote()
+	{
+			
+		$idMultimedia = isset($_GET['IdMultimedia'])?$_GET['IdMultimedia']:null;
+		$idNote = isset($_GET['IdNote'])?$_GET['IdNote']:null;
+		MultimediaNote::model()->deleteByPk(array('Id_multimedia'=>$idMultimedia, 'Id_note'=>$idNote));
+	
 	}
 	
 	public function actionAjaxAddImageDescription()
@@ -218,6 +248,29 @@ class AlbumController extends Controller
 	
 		unlink($imagePath.$model->file_name_small);
 	}
+	
+	public function actionAjaxCreateAlbum()
+	{
+		
+		if(isset($_POST['idCustomer']))
+		{
+			$modelAlbum = new Album;
+			$modelAlbum->Id_customer = $_POST['idCustomer'];
+			$modelAlbum->Id_review = $_POST['idReview'];
+			$transaction = $modelAlbum->dbConnection->beginTransaction();
+			try {
+	
+				$modelAlbum->save();
+				
+				$transaction->commit();
+			} catch (Exception $e) {
+				$transaction->rollback();
+			}
+			echo $modelAlbum->Id;
+			
+		}
+	}
+	
 	
 	/**
 	 * Deletes a particular model.
