@@ -53,7 +53,7 @@ class ReviewController extends Controller
 		$modelCustomer=new Customer;
 		
 		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+		$this->performAjaxValidation($model);
 		
 		if(isset($_GET['Id_customer']))
 		{
@@ -85,12 +85,12 @@ class ReviewController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Review']))
-		{
-			$model->attributes=$_POST['Review'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->Id));
-		}
+// 		if(isset($_POST['Review']))
+// 		{
+// 			$model->attributes=$_POST['Review'];
+// 			if($model->save())
+// 				$this->redirect(array('view','id'=>$model->Id));
+// 		}
 		
 		$this->render('update',array(
 			'model'=>$model,
