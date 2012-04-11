@@ -3,17 +3,35 @@ Yii::app()->clientScript->registerScript('indexWall', "
 
 $('#Id_customer').change(function(){
 	
-	if($(this).val()!= ''){
+	var data = { 'filter[]' : []};
+
+	$('input:checked').each(function() {
+		if($(this).val() != '')
+ 	 		data['filter[]'].push($(this).val());
+	});
+	$('#tagFilter').val('');
+	$('#tagFilter').val(data['filter[]']);
+	doFilter();
+	
+	return false;
+});
+
+function doFilter()
+{
+	if($('#Id_customer').val()!= ''){
 		$('#btn-actions-box').removeClass('div-hidden');
 		$('#loading').addClass('loading');
 		$.post('".ReviewController::createUrl('AjaxFillInbox')."', 
-			$(this).serialize()
+		{
+			tagFilter: $('#tagFilter').val(),
+			Id_customer: $('#Id_customer').val()
+			
+		}	
 		).success(
 		function(data){
 			$('#review-area').removeClass('div-hidden');
 			$('#loading').removeClass('loading');
 			$('#review-area').html(data);
-			//bindEvents(data);
 			$('#review-area').animate({opacity: 'show'},240);
 			$('#btn-create').attr('href','".ReviewController::createUrl('create')."'+'&Id_customer='+$('#Id_customer').val());
 		});		
@@ -23,10 +41,20 @@ $('#Id_customer').change(function(){
 		$('#btn-actions-box').addClass('div-hidden');
 		$('#review-area').html('');
 		$('#review-area').addClass('div-hidden');
+	}
 }
-	return false;
-});
 
+$('#btn-filter').click(function(){
+	var data = { 'filter[]' : []};
+
+	$('input:checked').each(function() {
+		if($(this).val() != '')
+ 	 		data['filter[]'].push($(this).val());
+	});
+	$('#tagFilter').val('');
+	$('#tagFilter').val(data['filter[]']);
+	doFilter();
+});
 ");
 ?>
 
@@ -51,5 +79,8 @@ $('#Id_customer').change(function(){
 ?>
 
 </div>
+<?php
+	echo CHtml::hiddenField('tagFilter','',array('id'=>'tagFilter'));	
+?>
 <div id="review-area" class="index-review-area div-hidden" >
 </div>
