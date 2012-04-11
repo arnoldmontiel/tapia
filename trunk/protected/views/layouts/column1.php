@@ -12,7 +12,7 @@
 		?>
 		</div>
 		<?php
-			echo CHtml::openTag('div',array('class'=>'wall-action-box-btn','id'=>'btn-box'));	
+			echo CHtml::openTag('div',array('class'=>'wall-action-box-btn','id'=>'filter-btn-box'));	
 			echo CHtml::link('Filtrar','',array('id'=>'btn-filter','class'=>'submit-btn'));
 			echo CHtml::closeTag('div');	
 		?>		
