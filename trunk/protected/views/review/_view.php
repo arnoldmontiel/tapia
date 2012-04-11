@@ -1,4 +1,6 @@
+<a href="<?php echo ReviewController::createUrl('update',array('id'=>$data->Id))?>" class="index-review-single-link">
 <div class="index-review-single" id='review_<?php echo $data->Id; ?>'>
+	
 	<div class="index-review-summary">
 
 		#<?php echo CHtml::encode($data->review); ?>:
@@ -71,3 +73,4 @@
 		echo CHtml::closeTag('div');
 	?>
 </div>
+</a>

@@ -123,27 +123,11 @@ $('#btnAttachToNote').click(function(){
 
 ");
 ?>
-
-
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
-
-	<?php echo CHtml::errorSummary($model); ?>
-
-	<div class="row">
-		<?php echo CHtml::activeLabelEx($model,'review'); ?>
-		<?php echo CHtml::activeTextField($model,'review'); ?>
-		<?php echo CHtml::error($model,'review'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo CHtml::activeLabelEx($model,'description'); ?>
-		<?php echo CHtml::activeTextArea($model,'description',array('rows'=>6, 'cols'=>50)); ?>
-		<?php echo CHtml::error($model,'description'); ?>
-	</div>
-
-
-
 <div class="wall-action-area" id="wall-action-area">
+<div id="customer" class="wall-action-ddl" >
+	<?php echo CHtml::label($model->customer->name.' '.$model->customer->last_name,'Id_customer'); ?>
+</div>
+
 <div id="loading" class="loading-place-holder" >
 </div>
 <?php
@@ -195,3 +179,14 @@ $('#btnAttachToNote').click(function(){
 	</div>
 		
 </div>
+<div class="review-update-data">
+
+	<div class="review-update-data-info">
+		<?php echo CHtml::label('Revis&oacute;n', 'Review_review');?>
+		<?php echo CHtml::activeTextField($model,'review',array('class'=>'review-update-data-number')); ?>
+	</div>
+	<div class="review-update-data-info-descr">
+		<?php echo CHtml::activeTextArea($model,'description',array('class'=>'review-update-data-text','rows'=>2, 'cols'=>70)); ?>
+	</div>
+</div>
+	

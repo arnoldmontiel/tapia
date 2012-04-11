@@ -64,7 +64,7 @@ class ReviewController extends Controller
 		{
 			$model->attributes=$_POST['Review'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->Id));
+				$this->redirect(array('update','id'=>$model->Id));
 		}
 
 		$this->render('create',array(

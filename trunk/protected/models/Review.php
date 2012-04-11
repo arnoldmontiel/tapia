@@ -65,7 +65,7 @@ class Review extends CActiveRecord
 			'albums' => array(self::HAS_MANY, 'Album', 'Id_review'),
 			'multimedias' => array(self::HAS_MANY, 'Multimedia', 'Id_review'),
 			'notes' => array(self::HAS_MANY, 'Note', 'Id_review'),
-			'idCustomer' => array(self::BELONGS_TO, 'Customer', 'Id_customer'),
+			'customer' => array(self::BELONGS_TO, 'Customer', 'Id_customer'),
 			'tags' => array(self::MANY_MANY, 'Tag', 'tag_review(Id_review, Id_tag)'),
 			'walls' => array(self::HAS_MANY, 'Wall', 'Id_review'),
 		);
@@ -78,9 +78,9 @@ class Review extends CActiveRecord
 	{
 		return array(
 			'Id' => 'ID',
-			'review' => 'Review',
+			'review' => 'Revisión',
 			'Id_customer' => 'Id Customer',
-			'description' => 'Description',
+			'description' => 'Descripción',
 		);
 	}
 
