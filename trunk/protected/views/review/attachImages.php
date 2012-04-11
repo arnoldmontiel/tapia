@@ -33,7 +33,7 @@ $('#btnPublic').click(function(){
 	<?php
 	
 	
-	foreach ($model->multimedias as $item)
+	foreach ($modelMultimedia as $item)
 	{
 		if($item->notes->Id_note != $idNote)
 		{
