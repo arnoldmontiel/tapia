@@ -163,6 +163,19 @@ class NoteController extends Controller
 	
 	}
 	
+	public function actionAjaxAttachDoc()
+	{
+		$docs = $_POST['docs'];
+		$id = $_POST['id'];
+		foreach($docs as $item)
+		{
+			$model = new MultimediaNote;
+			$model->Id_note = $id;
+			$model->Id_multimedia = $item;
+			$model->save();
+		}
+	
+	}
 	
 	public function actionAjaxCancelNote()
 	{
