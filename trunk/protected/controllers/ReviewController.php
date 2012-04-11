@@ -106,12 +106,33 @@ class ReviewController extends Controller
 		
 		$criteria->addCondition('t.Id NOT IN(select Id_multimedia from multimedia_note where Id_note = '. $idNote.')');
 		$criteria->addCondition('t.Id_review = '. $id);
+		$criteria->addCondition('t.Id_multimedia_type = 1'); //image
+		
 		$modelMultimedia = Multimedia::model()->findAll($criteria);
 		
 		$this->render('attachImages',array(
 					'model'=>$model,
 					'idNote'=>$idNote,
 					'modelMultimedia'=>$modelMultimedia,
+		));
+	}
+	
+	public function actionAjaxAttachDoc($id, $idNote)
+	{
+		$model=$this->loadModel($id);
+	
+		$criteria=new CDbCriteria;
+	
+		$criteria->addCondition('t.Id NOT IN(select Id_multimedia from multimedia_note where Id_note = '. $idNote.')');
+		$criteria->addCondition('t.Id_review = '. $id);
+		$criteria->addCondition('t.Id_multimedia_type = 3 or t.Id_multimedia_type = 4'); //docs (pdf or autocad)
+		
+		$modelMultimedia = Multimedia::model()->findAll($criteria);
+	
+		$this->render('attachDocs',array(
+						'model'=>$model,
+						'idNote'=>$idNote,
+						'modelMultimedia'=>$modelMultimedia,
 		));
 	}
 	
@@ -225,11 +246,20 @@ class ReviewController extends Controller
 		}
 	
 	}
-	private function fillIndex($Id_customer)
+	private function fillIndex($Id_customer, $tagFilter=null)
 	{
+		$criteria=new CDbCriteria;
+		
+		if($tagFilter)
+			$criteria->addCondition('t.Id IN(select Id_review from tag_review where Id_tag IN ('. $tagFilter.'))');
+		
+		$criteria->addCondition('t.Id_customer = '. $Id_customer);
+		
+		
 		$review = new Review;
-		$review->Id_customer = $Id_customer;
-		$dataProvider = $review->search();
+		$dataProvider = new CActiveDataProvider($review, array(
+					'criteria'=>$criteria,
+		));
 		$dataProvider->pagination->pageSize= 10;
 		$data = $dataProvider->getData();
 			
@@ -241,7 +271,7 @@ class ReviewController extends Controller
 	{
 		if(isset($_POST['Id_customer']))
 		{
-			$this->fillIndex($_POST['Id_customer']);
+			$this->fillIndex($_POST['Id_customer'], $_POST['tagFilter']);
 		}		
 	}
 	
