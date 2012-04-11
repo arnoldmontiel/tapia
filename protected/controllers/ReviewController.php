@@ -101,9 +101,17 @@ class ReviewController extends Controller
 	public function actionAjaxAttachImage($id, $idNote)
 	{
 		$model=$this->loadModel($id);
+		
+		$criteria=new CDbCriteria;
+		
+		$criteria->addCondition('t.Id NOT IN(select Id_multimedia from multimedia_note where Id_note = '. $idNote.')');
+		$criteria->addCondition('t.Id_review = '. $id);
+		$modelMultimedia = Multimedia::model()->findAll($criteria);
+		
 		$this->render('attachImages',array(
 					'model'=>$model,
 					'idNote'=>$idNote,
+					'modelMultimedia'=>$modelMultimedia,
 		));
 	}
 	
