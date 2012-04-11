@@ -440,10 +440,22 @@ div.wall-action-btn
 	font-weight: bold; 
 	z-index: 9;
 }
-div.wall-action-btn:hover
+div.wall-action-btn-hover
 {
 	background-color: white;
 }
+
+div.wall-action-btn-disable
+{
+	background-color: #d7ddeb;
+	cursor: default;
+}
+div.wall-action-btn-selected
+{
+	background-color: white;
+	cursor: default;
+}
+
 div.wall-action-ddl
 {
 	margin-right: 20px;
@@ -453,6 +465,29 @@ div.wall-action-ddl
 	position: relative;
 	z-index: 9;
 }
+div.review-action-back
+{
+	float: left;
+	margin:5px 5px 5px 5px;
+	padding:5px 5px 5px 5px;
+	position: relative;
+	width: 110px;
+	height:20px;	
+	cursor:pointer;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	text-align: center;
+	font-weight: bold; 
+	z-index: 9;	
+}
+div.review-action-back:hover
+{
+	background-color: #e5ecfb;
+	color: gray;
+}
+
+
 div.review-action-box-btn
 {
 	margin-right: 20px;
@@ -477,6 +512,18 @@ div.wall-action-area-note
 	margin-bottom: 15px;
 	float: left;	
 }
+div.review-action-area-dialog
+{
+	float: left;
+	z-index: 1;
+	position: absolute;
+	background: url("dialog-wall-action.png") no-repeat;
+	top: -8px;
+	left: 530px;
+	width: 19px;
+	height: 15px;
+}
+
 div.wall-action-area-note-dialog
 {
 	float: left;
@@ -791,6 +838,72 @@ div.div-hidden
 {
 	display: none;
 }
+a.index-review-single-link
+{
+	text-decoration: none;
+	color: black;
+}
+div.review-update-data
+{
+	position:relative;
+	display: inline-block;
+	padding:5px 10px 10px 10px;
+	border-top: 1px solid white;
+	border-bottom: 1px solid white;
+	background-color: #f4f6fb;
+	width: 940px;	
+	height: 60px;	
+	margin-left: 15px;
+	margin-top: 0px;
+	
+}
+input.review-update-data-number
+{	
+	background-color: #f4f6fb;
+	border: 1px solid #AFBAD7;
+	width: 25px;
+	text-align: center;
+}
+
+input.review-update-data-number:FOCUS
+{
+	background-color: white;
+	border: solid #F4F6FB 1px;
+}
+textarea.review-update-data-text
+{
+	z-index:10;
+	position: relative;
+	padding: 5px 10px 5px;
+	outline: none;
+	background-color: #f4f6fb;
+	border: 1px solid #AFBAD7;
+	font-size: 13px;
+	line-height: 18px;
+	resize: none;
+	width: 95%;
+}
+textarea.review-update-data-text:focus
+{
+	background-color: white;	
+}
+
+div.review-update-data-info
+{
+	
+	margin-top: 20px;
+	margin-right: 5px;
+	display: inline-block;
+	float: left;
+	
+}
+div.review-update-data-info-descr
+{
+	margin-right: 5px;
+	display: inline-block;
+	float: left;
+	width: 800px;
+}
 
 div.index-review-single
 {
@@ -806,7 +919,7 @@ div.index-review-single
 	display: block;
 	z-index: 4;
 	position: relative;
-	clear: left;
+	cursor: pointer;		
 }
 div.index-review-single-item
 {
