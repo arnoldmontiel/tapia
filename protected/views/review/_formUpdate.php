@@ -1,11 +1,60 @@
 <?php
 Yii::app()->clientScript->registerScript('UpdateReview', "
 
+function RestoreButtons()
+{
+	$('#btn-box').children().removeClass('wall-action-btn-disable');
+	$('#btn-box').children().removeClass('wall-action-btn-selected');
+}
+
+function SelectAButton(btnSelected)
+{
+	$('#btn-box').children().addClass('wall-action-btn-disable');
+	$(btnSelected).removeClass('wall-action-btn-disable');
+	$(btnSelected).addClass('wall-action-btn-selected');
+}
+function EnableButton(btnClicked)
+{
+	if($(btnClicked).hasClass('wall-action-btn-disable')||$(btnClicked).hasClass('wall-action-btn-selected'))
+	{
+		return false;
+	}
+	return true;
+}
+
+
 if('".$idNote."'!='')
 	$('#wall-action-note').animate({opacity: 'show'},240);
 
+$('#btnAlbum').hover(function(){
+	if(!EnableButton($(this)))
+	{
+		return false;
+	}
+	$(this).addClass('wall-action-btn-hover');
+},function(){
+	$(this).removeClass('wall-action-btn-hover');
+}
+);
+
+$('#btnNote').hover(function(){
+	if(!EnableButton($(this)))
+	{
+		return false;
+	}
+	$(this).addClass('wall-action-btn-hover');
+},function(){
+	$(this).removeClass('wall-action-btn-hover');
+}
+);
 
 $('#btnAlbum').click(function(){
+		if(!EnableButton($(this)))
+		{
+			return false;
+		}
+		SelectAButton($(this));
+
 		$('#loading').addClass('loading');
 		$.post('".AlbumController::createUrl('album/AjaxCreateAlbum')."', 
 			{
@@ -33,7 +82,12 @@ $('#btnAlbum').click(function(){
 });
 
 $('#btnNote').click(function(){
-	
+	if(!EnableButton($(this)))
+	{
+		return false;
+	}
+	SelectAButton($(this));
+
 	$('#loading').addClass('loading');
 	$.post('".NoteController::createUrl('note/AjaxCreateNote')."', 
 		{
@@ -57,6 +111,26 @@ $('#btnNote').click(function(){
 	
 });
 
+$('#btnPublicNote').click(function(){
+	$('#wall-action-note').animate({opacity: 'hide'},240,
+		function(){		
+			RestoreButtons();
+			$('#Note_note').val('');
+		}
+	);
+});
+
+$('#btnPublicAlbum').click(function(){
+	$('#wall-action-album').animate({opacity: 'hide'},240,
+		function(){		
+			RestoreButtons();
+			$('#files').html('');
+			$('#Album_description').val('');
+			$('#Album_title').val('');
+	});
+});
+
+
 $('#btnCancelNote').click(function(){
 	$('#loading').addClass('loading');
 	$.post('".NoteController::createUrl('note/AjaxCancelNote')."', 
@@ -66,6 +140,7 @@ $('#btnCancelNote').click(function(){
 		$('#loading').removeClass('loading');
 		$('#wall-action-note').animate({opacity: 'hide'},240,
 			function(){		
+			RestoreButtons();
 			$('#Note_note').val('');
 		});
 	});
@@ -80,9 +155,10 @@ $('#btnCancelAlbum').click(function(){
 		$('#loading').removeClass('loading');
 		$('#wall-action-album').animate({opacity: 'hide'},240,
 			function(){		
+				RestoreButtons();
 				$('#files').html('');
-			$('#Album_description').val('');
-			$('#Album_title').val('');
+				$('#Album_description').val('');
+				$('#Album_title').val('');
 		});
 	});
 });
@@ -124,24 +200,21 @@ $('#btnAttachToNote').click(function(){
 ");
 ?>
 <div class="wall-action-area" id="wall-action-area">
-<div id="customer" class="wall-action-ddl" >
-	<?php echo CHtml::label($model->customer->name.' '.$model->customer->last_name,'Id_customer'); ?>
+<div id="customer" class="review-action-back" >
+	<?php echo $model->customer->name.' '.$model->customer->last_name ?>
 </div>
 
 <div id="loading" class="loading-place-holder" >
 </div>
 <?php
 	echo CHtml::openTag('div',array('class'=>'wall-action-box-btn','id'=>'btn-box'));
-		echo CHtml::openTag('div',array('class'=>'wall-action-btn','id'=>'btnImage'));
-			echo 'Imagenes';
-		echo CHtml::closeTag('div');
 		echo CHtml::openTag('div',array('class'=>'wall-action-btn','id'=>'btnAlbum'));
 			echo 'Album';
 		echo CHtml::closeTag('div');	
 		echo CHtml::openTag('div',array('class'=>'wall-action-btn','id'=>'btnNote'));
 			echo 'Notas';
 		echo CHtml::closeTag('div');	
-		echo CHtml::openTag('div',array('class'=>'wall-action-btn','id'=>'btnDoc'));
+		echo CHtml::openTag('div',array('class'=>'wall-action-btn div-hidden','id'=>'btnDoc'));
 			echo 'Documentos';
 		echo CHtml::closeTag('div');
 	echo CHtml::closeTag('div');	
@@ -150,7 +223,7 @@ $('#btnAttachToNote').click(function(){
 <!-- *************** NOTE ******************************* -->
 
 <div id="wall-action-note"  class='wall-action-area-note' style="display:none">
-	<div class="wall-action-area-note-dialog">
+	<div class="review-action-area-dialog" style="left: 310px;">
 	</div>
 	<?php 
 		
@@ -167,7 +240,7 @@ $('#btnAttachToNote').click(function(){
 <!-- *************** ALBUM ******************************* -->
 
 <div id="wall-action-album"  class='wall-action-area-note' style="display:none">
-	<div class="wall-action-area-album-dialog">
+	<div class="review-action-area-dialog" style="left: 190px;">
 	</div>
 	<?php 
 		$modelAlbum = new Album;
