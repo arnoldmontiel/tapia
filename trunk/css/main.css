@@ -28,7 +28,7 @@ padding: 0;	margin: 0;
 {
 	margin: 0 auto;
 	padding: 20px;
-	width: 1000px;	
+	width: 940px;	
 }
 
 #sidebar
@@ -56,7 +56,7 @@ div.line {
 	background-clip: initial;
 	background-color: initial;	clear: both;
     height: 2px;
-    margin-top: 45px;
+    margin-top: 20px;
     position: relative;
     z-index: 11;
 }
@@ -392,26 +392,35 @@ div.view-dialog-left
 }
 div.wall-action-area
 {
-	font-size: 13px;
-	line-height: 18px;
+	position:relative;
+	display: inline-block;
 	padding:18px 10px 10px 10px;
 	border-top: 1px solid white;
 	border-bottom: 1px solid white;
 	background-color: #f4f6fb;
-	position: relative;
 	width: 940px;	
 	height: 45px;	
 	margin-left: 15px;
-	margin-bottom: 10px;
-	float: left;
+	margin-top: 0px;
 }
+div.review-action-area
+{
+	position:relative;
+	vertical-align: baseline;
+	display: block;
+	padding:18px 10px 10px 10px;
+	border-top: 1px solid white;
+	border-bottom: 1px solid white;
+	background-color: #f4f6fb;
+	width: 940px;	
+	height: 45px;	
+	margin-left: 15px;
+	margin-top: 0px;
+}
+
 div.wall-action-box-btn
 {
 	
-}
-div.div-hidden
-{
-	display: none;
 }
 
 div.wall-action-btn
@@ -444,6 +453,16 @@ div.wall-action-ddl
 	position: relative;
 	z-index: 9;
 }
+div.review-action-box-btn
+{
+	margin-right: 20px;
+	margin-left: 15px;
+	margin-top: 6px;
+	float: left;
+	position: relative;
+	z-index: 9;
+}
+
 div.wall-action-area-note
 {
 	font-size: 13px;
@@ -630,6 +649,7 @@ a.wall-action-submit-btn
 	border-radius: 5px;
 	text-decoration: none;
 	color: black;
+	cursor: pointer;	
 }
 a.wall-action-submit-btn:HOVER
 {
@@ -767,6 +787,11 @@ div.index-review-area
 	-webkit-border-radius: 5px;
 	border-radius: 5px;
 }
+div.div-hidden
+{
+	display: none;
+}
+
 div.index-review-single
 {
 	background-color: #FCFDFF;
@@ -785,4 +810,86 @@ div.index-review-single
 }
 div.index-review-single-item
 {
+}
+a.submit-btn
+{
+	background-color: #afbad7;
+    border: 0 solid #AFBAD7;
+    font-size: 15px;
+    padding: 5px 30px 5px 30px;
+	width: 100px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	text-decoration: none;
+	color: black;
+	cursor: pointer;
+	
+}
+a.submit-btn:HOVER
+{
+	background-color: white;
+}
+div.search-box
+{
+	padding:18px 10px 10px 10px;
+	margin: 20px 0px 0px 10px;
+	border-top: 1px solid white;
+	border-bottom: 1px solid white;
+	background-color: #f4f6fb;
+}
+div.search-box-title
+{
+    font-size: 15px;
+    font-weight: bold;
+    margin: 0px 0px 5px 0px;
+}
+div.search-box-list
+{
+    margin: 0px 0px 5px 0px;
+}
+div.index-review-summary
+{
+	float: left;
+	position:relative;
+}
+div.index-review-tag-box
+{
+	margin:0px 0px 0px 5px;
+	float: left;
+	position:relative;
+	display: inline-block;
+}
+
+div.index-review-single-tag
+{
+	padding: 0px 2px 0px 2px;
+	float:left;
+    font-size: 12px;
+	border: 1px solid white;
+	background-color: #9AD7F5;
+}
+
+div.index-review-resource-box
+{
+	margin:0px 0px 0px 5px;
+	float: right;
+	position:relative;
+	display: inline-block;
+}
+
+div.index-review-single-resource
+{
+	padding: 0px 2px 0px 2px;
+	float:left;
+}
+div.index-review-date
+{
+	display: inline-block;
+	position: relative;
+	float: right;
+	top: 2px;
+	font-size: 10px;
+	line-height: 18px;
+	
 }
