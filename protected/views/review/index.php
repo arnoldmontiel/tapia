@@ -44,6 +44,16 @@ function doFilter()
 	}
 }
 
+LoadPage();
+function LoadPage()
+{
+	var id_customer =".$Id_customer."; 
+	if(id_customer!=-1)
+	{
+		doFilter();
+	}
+}
+
 $('#btn-filter').click(function(){
 	var data = { 'filter[]' : []};
 
