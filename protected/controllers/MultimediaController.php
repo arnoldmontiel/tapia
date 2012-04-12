@@ -61,6 +61,7 @@ class MultimediaController extends Controller
 			$model->attributes=$_POST['Multimedia'];
 			$model->Id_customer = 1;
 			$model->Id_multimedia_type = 3;
+			$model->Id_review = 1;
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->Id));
 		}
