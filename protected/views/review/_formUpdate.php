@@ -202,6 +202,12 @@ $('#btnAttachToNote').click(function(){
 });
 
 $('#btnDoc').click(function(){
+	if(!EnableButton($(this)))
+	{
+		return false;
+	}
+	SelectAButton($(this));
+
 	$('#Note_note').val('');
 	$('#wall-action-note').animate({opacity: 'hide'},240,function()
 	{
