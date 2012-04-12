@@ -177,6 +177,18 @@ class NoteController extends Controller
 	
 	}
 	
+	public function actionAjaxPublicNote()
+	{
+		$id = $_POST['id'];
+		$model=$this->loadModel($id);
+		
+		if(isset($model))
+		{
+			$model->in_progress = 0;
+			$model->save();
+		}
+	}
+	
 	public function actionAjaxCancelNote()
 	{
 		if(isset($_POST['Note_Id_note']))
