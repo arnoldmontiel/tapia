@@ -29,23 +29,28 @@ $('#btnPublic').click(function(){
 ?>
 
 
-<div class="album-action-area-images" id="images_container">
+<div class="review-area-files" id="files_container">
+	<div class="review-action-area-files" >
 	<?php
-	
-	
 	foreach ($modelMultimedia as $item)
 	{
 		if($item->notes->Id_note != $idNote)
 		{
-			echo CHtml::openTag('div',array('id'=>'picture_'.$item->Id,'class'=>'album-action-area-image'));
-			echo CHtml::encode($item->description);
-			echo CHtml::checkBox('chkDoc','',array('id'=>$item->Id, 'value'=>$item->Id));
-			
-		
+			echo CHtml::openTag('div',array('id'=>'picture_'.$item->Id,'class'=>'review-area-single-files'));
+				echo CHtml::openTag('div',array('class'=>'review-area-single-files-name'));
+					echo CHtml::checkBox('chkDoc','',array('id'=>$item->Id, 'value'=>$item->Id));
+					echo CHtml::link(CHtml::encode($item->file_name),Yii::app()->baseUrl.'/docs/'.$item->file_name,array('target'=>'_blank'));
+					echo CHtml::encode(' '.round(($item->size / 1024), 2));
+					echo CHtml::encode(' (Kb) ');
+				echo CHtml::closeTag('div');
+				echo CHtml::openTag('div',array('class'=>'review-area-single-files-description'));
+					echo CHtml::encode($item->description);
+				echo CHtml::closeTag('div');
 			echo CHtml::closeTag('div');
 		}
 	}
 	?>
+	</div>
 </div>
 <div class="row" style="text-align: center;">
 	<?php echo CHtml::button('Publicar',array('class'=>'wall-action-submit-btn','id'=>'btnPublic',));?>
