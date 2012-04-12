@@ -54,6 +54,17 @@ $('#btnNote').hover(function(){
 }
 );
 
+$('#btnDoc').hover(function(){
+	if(!EnableButton($(this)))
+	{
+		return false;
+	}
+	$(this).addClass('wall-action-btn-hover');
+},function(){
+	$(this).removeClass('wall-action-btn-hover');
+}
+);
+
 $('#btnAlbum').click(function(){
 		if(!EnableButton($(this)))
 		{
@@ -112,18 +123,27 @@ $('#btnNote').click(function(){
 			$('#Note_note').val('');
 		});
 	
-	}
-	);
+	});
 	
 });
 
 $('#btnPublicNote').click(function(){
-	$('#wall-action-note').animate({opacity: 'hide'},240,
+	$('#loading').addClass('loading');
+	$.post('".NoteController::createUrl('note/AjaxPublicNote')."', 
+		{
+			id: $('#Note_Id_note').val(),
+		}
+	).success(
+	function(data){
+		$('#loading').removeClass('loading');
+		$('#wall-action-note').animate({opacity: 'hide'},240,
 		function(){		
 			RestoreButtons();
 			$('#Note_note').val('');
-		}
-	);
+		});
+	
+	});	
+
 });
 
 $('#btnPublicAlbum').click(function(){
