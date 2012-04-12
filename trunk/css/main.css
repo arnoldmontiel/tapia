@@ -192,6 +192,17 @@ div.view-single-right
 	clear: right;
 }
 
+div.review-single-view
+{
+	background-color: #FCFDFF;
+	padding: 20px 5px 5px 10px;
+	margin: 5px 0px 5px 15px;
+	width: 100%;
+	float: left;
+	display: block;
+	z-index: 4;
+	position: relative;
+}
 div.view-text-note
 {
 	font-size: 13px;
@@ -209,6 +220,29 @@ div.view-text-simple-note
 	line-height: 18px;
 	position: relative;
 }
+div.review-text-simple-note
+{
+	font-size: 13px;
+	line-height: 18px;
+	position: relative;
+	width: 60%;
+	float:left;
+	margin-left: 10px;
+	margin-bottom: 5px;
+}
+
+div.review-text-images
+{
+	font-size: 13px;
+	line-height: 18px;
+	position: relative;
+	width: 35%;
+	float:left;
+	margin-left: 20px;
+	margin-bottom: 5px;
+	margin-top: 15px;
+}
+
 div.view-text-simple-title
 {
 	font-weight:bold;
@@ -645,6 +679,17 @@ div.view-text-note-add
 	background-color: #f4f6fb;
 	position: relative;
 }
+div.review-text-note-add
+{
+	font-size: 13px;
+	line-height: 18px;
+	border-top: 1px solid white;
+	border-bottom: 1px solid #D2D9E7;
+	background-color: #f4f6fb;
+	position: relative;
+	width: 100%;
+	float: left;
+}
 
 textarea.wall-action-add-note
 {
@@ -662,6 +707,7 @@ textarea.wall-action-add-note
 	resize: none;
 	width: 95%;
 }
+
 textarea.wall-action-add-note:focus
 {
 	background-color: white;	
