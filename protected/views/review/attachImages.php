@@ -2,7 +2,7 @@
 Yii::app()->clientScript->registerScript('AttachImage', "
 
 $('#btnCancel').click(function(){
-		window.location = '".ReviewController::createUrl('update',array('id'=>$model->Id, 'idNote'=>$idNote))."';
+		window.location = '".ReviewController::createUrl('update',array('id'=>$model->Id))."';
 		return false;
 });
 
@@ -19,7 +19,7 @@ $('#btnPublic').click(function(){
 		}
 	).success(
 	function(data){
-		window.location = '".ReviewController::createUrl('update',array('id'=>$model->Id, 'idNote'=>$idNote))."';
+		window.location = '".ReviewController::createUrl('update',array('id'=>$model->Id))."';
 		return false;
 	}
 	);
