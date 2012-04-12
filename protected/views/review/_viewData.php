@@ -14,6 +14,16 @@ $('#review_image".$data->Id."').hover(
 		$('#edit_image".$data->Id."').addClass('div-hidden');
 	}
 );
+$('#delete_".$data->Id."').click(
+	function(){
+		$.post('".NoteController::createUrl('note/AjaxDelete')."',
+		{id:'".$data->Id."'},
+		function(data) {
+   			$('#noteContainer_".$data->Id."').remove();
+		});
+	}
+);
+
 ");
 ?>
 <div id="noteContainer_<?php echo $data->Id?>" >
@@ -29,7 +39,7 @@ $('#review_image".$data->Id."').hover(
 		</div>
 		<?php
 		 echo CHtml::image('images/remove.png','',
-				array('id'=>'delete_'.$data->Id, 'class'=>'wall-action-remove', 'title'=>'Remove'));
+				array('id'=>'delete_'.$data->Id, 'class'=>'wall-action-remove', 'title'=>'Eliminar'));
 		?>
 		<div class="review-text-simple-note"><?php echo $data->note;?></div>		
 		<div id='review_image<?php echo $data->Id?>' class="review-text-images">
