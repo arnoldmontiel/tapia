@@ -31,22 +31,22 @@ $('#btnPublic').click(function(){
 
 <div class="album-action-area-images" id="images_container">
 	<?php
-	
-	
 	foreach ($modelMultimedia as $item)
 	{
 		if($item->notes->Id_note != $idNote)
 		{
-			echo CHtml::openTag('div',array('id'=>'picture_'.$item->Id,'class'=>'album-action-area-image'));
+			echo CHtml::openTag('div',array('id'=>'picture_'.$item->Id,'class'=>'review-attach-image'));
 			$this->widget('ext.highslide.highslide', array(
 										'smallImage'=>"images/".$item->file_name_small,
 										'image'=>"images/".$item->file_name,
-										'caption'=>'',
+										'caption'=>$item->description,
 										'Id'=>$item->Id,
 			));
-			echo CHtml::checkBox('chkImage','',array('id'=>$item->Id, 'value'=>$item->Id));
+			echo CHtml::checkBox('chkImage','',array('id'=>$item->Id, 'value'=>$item->Id, 'class'=>'review-attach-image'));
 			
-		
+				echo CHtml::openTag('div',array('class'=>'review-attach-image-description'));
+					echo $item->description;
+				echo CHtml::closeTag('div');				
 			echo CHtml::closeTag('div');
 		}
 	}
