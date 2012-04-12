@@ -286,7 +286,7 @@ $('#btnDoc').click(function(){
 <!-- *************** DOCUMENT ******************************* -->
 
 <div id="wall-action-doc"  class='wall-action-area-note' style="display:none">
-	<div class="review-action-area-dialog" style="left: 190px;">
+	<div class="review-action-area-dialog" style="left: 430px;">
 	</div>
 	<?php 
 		$modelMulti = new Multimedia;

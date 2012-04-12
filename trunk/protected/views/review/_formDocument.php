@@ -21,6 +21,8 @@ $('#btnCancelDoc').click(function(){
 	$('#wall-action-doc').animate({opacity: 'hide'},240);
 	$('#uploadFile').val('');
 	$('#Multimedia_description').val('');
+	RestoreButtons();
+
 });
 
 $('#btnPublicDoc').click(function(){
@@ -42,6 +44,7 @@ $('#btnPublicDoc').click(function(){
 	}
 	$('#wall-action-doc').animate({opacity: 'hide'},240);
 	$('#loading').addClass('loading');
+	RestoreButtons();
 });
 
 ");
