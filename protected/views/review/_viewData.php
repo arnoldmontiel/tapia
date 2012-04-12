@@ -1,14 +1,38 @@
+<?php 
+Yii::app()->clientScript->registerScript(__CLASS__.'#review-view-data'.$data->Id, "
+$('#edit_image".$data->Id."').hover(
+	function(){
+		$(this).removeClass('div-hidden');
+	}
+);
+
+$('#review_image".$data->Id."').hover(
+	function(){
+		$('#edit_image".$data->Id."').removeClass('div-hidden');
+	},
+	function(){
+		$('#edit_image".$data->Id."').addClass('div-hidden');
+	}
+);
+");
+?>
 <div id="noteContainer_<?php echo $data->Id?>" >
 	<div class="review-single-view" id="<?php echo $data->Id?>" >
 		<div class="view-text-date"><?php echo $data->creation_date;?></div>
+		<div id='edit_image<?php echo $data->Id?>' class="review-edit-image div-hidden">
+		<?php
+			echo CHtml::link('Editar Imagenes',
+				ReviewController::createUrl('index',array('id'=>$data->Id)),
+				array('class'=>'review-edit-image')
+			);
+		?>
+		</div>
 		<?php
 		 echo CHtml::image('images/remove.png','',
 				array('id'=>'delete_'.$data->Id, 'class'=>'wall-action-remove', 'title'=>'Remove'));
 		?>
 		<div class="review-text-simple-note"><?php echo $data->note;?></div>		
-		<div class="review-text-images">
-		<?php
-		?>
+		<div id='review_image<?php echo $data->Id?>' class="review-text-images">
 				
 		<?php
 		
