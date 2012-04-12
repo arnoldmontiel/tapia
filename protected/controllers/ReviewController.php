@@ -78,7 +78,7 @@ class ReviewController extends Controller
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 * @param integer $id the ID of the model to be updated
 	 */
-	public function actionUpdate($id, $idNote=null)
+	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
 
@@ -91,10 +91,10 @@ class ReviewController extends Controller
 // 			if($model->save())
 // 				$this->redirect(array('view','id'=>$model->Id));
 // 		}
-		
+		$modelNote = Note::model()->findByAttributes(array('in_progress'=>1, 'Id_review'=>$id));
 		$this->render('update',array(
 			'model'=>$model,
-			'idNote'=>$idNote,
+			'idNote'=>$modelNote->Id,
 		));
 	}
 
