@@ -3,14 +3,12 @@ Yii::app()->clientScript->registerScript('indexWall', "
 
 $('#Id_customer').change(function(){
 	
-	var data = { 'filter[]' : []};
-
-	$('input:checked').each(function() {
-		if($(this).val() != '')
- 	 		data['filter[]'].push($(this).val());
-	});
+	$('#typeFilter').val('');
+	$('#typeFilter').val(getCheck('chklist-type[]'));
+	
 	$('#tagFilter').val('');
-	$('#tagFilter').val(data['filter[]']);
+	$('#tagFilter').val(getCheck('chklist-tag[]'));
+	
 	doFilter();
 	
 	return false;
@@ -24,7 +22,8 @@ function doFilter()
 		$.post('".ReviewController::createUrl('AjaxFillInbox')."', 
 		{
 			tagFilter: $('#tagFilter').val(),
-			Id_customer: $('#Id_customer').val()
+			Id_customer: $('#Id_customer').val(),
+			typeFilter: $('#typeFilter').val(),
 			
 		}	
 		).success(
@@ -54,17 +53,30 @@ function LoadPage()
 	}
 }
 
-$('#btn-filter').click(function(){
-	var data = { 'filter[]' : []};
-
-	$('input:checked').each(function() {
-		if($(this).val() != '')
- 	 		data['filter[]'].push($(this).val());
-	});
+$('#btn-filter-tag').click(function(){
 	$('#tagFilter').val('');
-	$('#tagFilter').val(data['filter[]']);
+	$('#tagFilter').val(getCheck('chklist-tag[]'));
 	doFilter();
 });
+
+$('#btn-filter-type').click(function(){
+	$('#typeFilter').val('');
+	$('#typeFilter').val(getCheck('chklist-type[]'));
+	doFilter();
+});
+
+function getCheck(checkName)
+{
+	var data = { 'value[]' : []};
+
+	$('input:checked').each(function() {
+		if($(this).val() != '' && $(this).attr('name') == checkName)
+ 	 		data['value[]'].push($(this).val());
+	});
+	
+	return data['value[]'];
+}
+
 ");
 ?>
 
@@ -91,6 +103,7 @@ $('#btn-filter').click(function(){
 </div>
 <?php
 	echo CHtml::hiddenField('tagFilter','',array('id'=>'tagFilter'));	
+	echo CHtml::hiddenField('typeFilter','',array('id'=>'typeFilter'));
 ?>
 <div id="review-area" class="index-review-area div-hidden" >
 </div>
