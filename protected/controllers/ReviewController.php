@@ -246,6 +246,7 @@ class ReviewController extends Controller
 		}
 	
 	}
+	
 	private function fillIndex($Id_customer, $tagFilter=null)
 	{
 		$criteria=new CDbCriteria;
@@ -267,6 +268,7 @@ class ReviewController extends Controller
 			$this->renderPartial('_view',array('data'=>$item));
 		}
 	}
+	
 	public function actionAjaxFillInbox()
 	{
 		if(isset($_POST['Id_customer']))
@@ -275,4 +277,42 @@ class ReviewController extends Controller
 		}		
 	}
 	
+	public function actionAjaxShareDocument()
+	{
+		//$_FILES
+		$file = $_FILES["file"];
+	
+		if ($_FILES["file"]["error"] > 0)
+		{
+			echo "Return Code: " . $_FILES["file"]["error"] . "<br />";
+		}
+		else
+		{
+	
+			$multi = $_POST['Multimedia'];
+			$model = new Multimedia;
+	
+			$transaction = $model->dbConnection->beginTransaction();
+	
+			try {
+					
+				$model->attributes = $multi;
+				$model->uploadedFile = $file;
+				$model->Id_multimedia_type = 3;
+				$model->Id_customer = $_POST['Id_customer'];
+				$model->Id_review = $_POST['Id_review'];
+					
+				$model->save();
+					
+				
+				$transaction->commit();
+				$this->redirect(array('review/index','Id_customer'=>$model->Id_customer));
+					
+			} catch (Exception $e) {
+				$transaction->rollback();
+			}
+		}
+	
+	
+	}
 }
