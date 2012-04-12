@@ -247,12 +247,18 @@ class ReviewController extends Controller
 	
 	}
 	
-	private function fillIndex($Id_customer, $tagFilter=null)
+	private function fillIndex($Id_customer, $tagFilter=null, $typeFilter=null)
 	{
 		$criteria=new CDbCriteria;
 		
 		if($tagFilter)
 			$criteria->addCondition('t.Id IN(select Id_review from tag_review where Id_tag IN ('. $tagFilter.'))');
+		
+		if($typeFilter)
+		{
+			$criteria->join =  	"LEFT OUTER JOIN multimedia m ON m.Id_review=t.Id";
+			$criteria->addCondition('m.Id IN(select mj.Id from multimedia mj where mj.Id_multimedia_type IN ('. $typeFilter.') group by Id_review)');	
+		}
 		
 		$criteria->addCondition('t.Id_customer = '. $Id_customer);
 		
@@ -273,7 +279,7 @@ class ReviewController extends Controller
 	{
 		if(isset($_POST['Id_customer']))
 		{
-			$this->fillIndex($_POST['Id_customer'], $_POST['tagFilter']);
+			$this->fillIndex($_POST['Id_customer'], $_POST['tagFilter'], $_POST['typeFilter']);
 		}		
 	}
 	
