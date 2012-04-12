@@ -209,6 +209,17 @@ class NoteController extends Controller
 				
 		}
 	}
+	public function actionAjaxDelete()
+	{
+		if(Yii::app()->request->isPostRequest)
+		{
+			$id=$_POST['id'];
+			// we only allow deletion via POST request
+			$this->loadModel($id)->delete();
+		}
+		else
+		throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+	}
 	
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
