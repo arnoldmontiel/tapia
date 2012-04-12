@@ -77,55 +77,69 @@ class Multimedia extends CActiveRecord
 					$this->height_small = $newFile['height'];
 				}
 				unlink($filePath);
-				$this->Id_multimedia_type = 1;
+				$this->Id_multimedia_type = 1; //image
 	
 			}
-			elseif(strstr($this->uploadedFile["type"],'video')||$this->uploadedFile["type"]=="application/octet-stream")//flash
+			else 
 			{
-				$this->Id_multimedia_type = 2;
-			}
-			else {
+				
+				$ext = end(explode(".", $this->uploadedFile["name"]));
+				
+				switch ( $ext) {
+					case "pdf":
+						$this->Id_multimedia_type = 3; //pdf
+						break;
+					case "dwg":
+						$this->Id_multimedia_type = 4; //autocad
+						break;
+					case "avi":
+						$this->Id_multimedia_type = 2; //video
+						break;
+				}
+				
+				
 				$uniqueId = uniqid();
 				
 				$folder = "docs/";
-				$fileName = $uniqueId.'.pdf';
+				$fileName = $uniqueId.'.'.$ext;
 				$filePath = $folder . $fileName;
 				
-				//save pdf
+				//save doc
 				move_uploaded_file($this->uploadedFile["tmp_name"],$filePath);
 				
 				$this->file_name = $fileName;
 				$this->size =$this->uploadedFile["size"];
 				
+//***************************************** To save pdf preview ****************************************************************				
+// 				$template = new Imagick();
+// 				//$template->setResolution(100, 100); //Skip this to generate PDF, results in poor quality though
+// 				$template->readImage($filePath.'[0]');
+// 				$template->setImageFormat("pdf");
+// 				//Doing some manipulation here but it doesn’t have any effect on the problem.
+// 				$template->setImageCompressionQuality(100);
 				
-				$template = new Imagick();
-				//$template->setResolution(100, 100); //Skip this to generate PDF, results in poor quality though
-				$template->readImage($filePath.'[0]');
-				$template->setImageFormat("pdf");
-				//Doing some manipulation here but it doesn’t have any effect on the problem.
-				$template->setImageCompressionQuality(100);
+// 				$folder = "images/";
+// 				$fileName = $uniqueId.'_tmp.jpg';
+// 				$filePath = $folder . $fileName;
 				
-				$folder = "images/";
-				$fileName = $uniqueId.'_tmp.jpg';
-				$filePath = $folder . $fileName;
+// 				//save small image
+// 				$template->writeImages($filePath, true); //Works fine, high quality png
 				
-				//save small image
-				$template->writeImages($filePath, true); //Works fine, high quality png
-				
-				$newFile = $this->resizeFile(320,320,$filePath);
-				$content = $newFile['content'];
-				if ($content !== false) {
-					$fileName = $uniqueId.'_small.jpg';
-					$file = fopen($folder.$fileName, 'w');
-					fwrite($file,$content);
-					fclose($file);
-					$this->file_name_small = $fileName;
-					$this->size_small = $newFile['size'];
-					$this->width_small = $newFile['width'];
-					$this->height_small = $newFile['height'];
-				}
-				unlink($filePath);
-			
+// 				$newFile = $this->resizeFile(320,320,$filePath);
+// 				$content = $newFile['content'];
+// 				if ($content !== false) {
+// 					$fileName = $uniqueId.'_small.jpg';
+// 					$file = fopen($folder.$fileName, 'w');
+// 					fwrite($file,$content);
+// 					fclose($file);
+// 					$this->file_name_small = $fileName;
+// 					$this->size_small = $newFile['size'];
+// 					$this->width_small = $newFile['width'];
+// 					$this->height_small = $newFile['height'];
+// 				}
+
+//				unlink($filePath);
+//***************************************************************************************************************************			
 				
 			}
 		}
@@ -189,7 +203,7 @@ class Multimedia extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('Id_multimedia_type, Id_customer, Id_review', 'required'),
+			array('Id_customer, Id_review', 'required'),
 			array('Id_multimedia_type, Id_customer, Id_album, width, height, width_small, height_small, Id_review', 'numerical', 'integerOnly'=>true),
 			array('size, size_small', 'numerical'),
 			array('file_name, description, file_name_small', 'length', 'max'=>255),
