@@ -1074,3 +1074,31 @@ div.index-review-date
 	line-height: 18px;
 	
 }
+div.review-attach-image
+{
+	position: relative;
+	background-color: #FCFDFF;
+	padding: 5px 5px 5px 5px ;
+	margin: 2px 2px 2px 2px;
+	display: inline-block;
+}
+
+input.review-attach-image
+{
+	position: absolute;
+	right:15px;
+	top: 15px;
+	z-index: 10;
+	padding: 0px 5px  0px 5px;
+}
+div.review-attach-image-description
+{
+	display: block;
+	position: relative;
+	font-size: 12px;
+}
+
+
+
+
+
