@@ -197,6 +197,22 @@ $('#btnAttachToNote').click(function(){
 	return false;
 });
 
+$('#btnDoc').click(function(){
+	$('#Note_note').val('');
+	$('#wall-action-note').animate({opacity: 'hide'},240,function()
+	{
+		$('#wall-action-album').animate({opacity: 'hide'},240,function()
+		{
+			$('#wall-action-doc').animate({opacity: 'show'},240);
+			$('#docType').val('3'); // PDF
+			$('#arrow').removeClass('wall-action-area-images-dialog');
+			$('#arrow').addClass('wall-action-area-docs-dialog');
+		});
+	});
+});
+
+
+
 ");
 ?>
 <div class="wall-action-area" id="wall-action-area">
@@ -218,7 +234,7 @@ $('#btnAttachToNote').click(function(){
 		echo CHtml::openTag('div',array('class'=>'wall-action-btn','id'=>'btnNote'));
 			echo 'Notas';
 		echo CHtml::closeTag('div');	
-		echo CHtml::openTag('div',array('class'=>'wall-action-btn div-hidden','id'=>'btnDoc'));
+		echo CHtml::openTag('div',array('class'=>'wall-action-btn','id'=>'btnDoc'));
 			echo 'Documentos';
 		echo CHtml::closeTag('div');
 	echo CHtml::closeTag('div');	
@@ -255,6 +271,17 @@ $('#btnAttachToNote').click(function(){
 		<?php echo CHtml::button('Cancelar',array('class'=>'wall-action-submit-btn','id'=>'btnCancelAlbum',));?>
 	</div>
 		
+</div>
+
+<!-- *************** DOCUMENT ******************************* -->
+
+<div id="wall-action-doc"  class='wall-action-area-note' style="display:none">
+	<div class="review-action-area-dialog" style="left: 190px;">
+	</div>
+	<?php 
+		$modelMulti = new Multimedia;
+		$this->renderPartial('_formDocument',array('model'=>$modelMulti, 'Id_review'=>$model->Id, 'Id_customer'=>$model->Id_customer));
+	?>
 </div>
 <div class="review-update-data">
 
