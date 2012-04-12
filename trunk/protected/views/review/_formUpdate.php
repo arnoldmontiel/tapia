@@ -1,4 +1,8 @@
 <?php
+$cs = Yii::app()->getClientScript();
+$cs->registerScriptFile(Yii::app()->request->baseUrl.'/js/highslide-with-gallery.js',CClientScript::POS_HEAD);
+$cs->registerScriptFile(Yii::app()->request->baseUrl.'/js/highslide-exe.js',CClientScript::POS_HEAD);
+$cs->registerCssFile(Yii::app()->request->baseUrl.'/js/highslide.css');
 Yii::app()->clientScript->registerScript('UpdateReview', "
 
 function RestoreButtons()
@@ -293,4 +297,17 @@ $('#btnDoc').click(function(){
 		<?php echo CHtml::activeTextArea($model,'description',array('class'=>'review-update-data-text','rows'=>2, 'cols'=>70)); ?>
 	</div>
 </div>
+	
+<div id="review-view">
+	<?php 
+		$modelNote = new Note;
+		$modelNote->Id_review = $model->Id;
+		$dataProviderNote = $modelNote->search();
+		$dataProviderNote->criteria->order= 'creation_date DESC';
+		$noteData = $dataProviderNote->data;
+		foreach ($noteData as $item) {
+			$this->renderPartial('_viewData',array('data'=>$item));
+		}
+	?>
+</div>		
 	
