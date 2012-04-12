@@ -27,8 +27,10 @@ function EnableButton(btnClicked)
 }
 
 
-if('".$idNote."'!='')
+if('".$idNote."'!=''){
 	$('#wall-action-note').animate({opacity: 'show'},240);
+	SelectAButton($('#btnNote'));
+}
 
 $('#btnAlbum').hover(function(){
 	if(!EnableButton($(this)))
@@ -194,9 +196,16 @@ $('#Review_description').change(function(){
 			});
 });
 	
-$('#btnAttachToNote').click(function(){
+$('#btnAttachImgToNote').click(function(){
 	
 	var url = '".ReviewController::createUrl('AjaxAttachImage',array('id'=>$model->Id))."';
+	window.location = url + '&idNote='+$('#Note_Id_note').val();
+	return false;
+});
+
+$('#btnAttachDocToNote').click(function(){
+	
+	var url = '".ReviewController::createUrl('AjaxAttachDoc',array('id'=>$model->Id))."';
 	window.location = url + '&idNote='+$('#Note_Id_note').val();
 	return false;
 });
@@ -262,7 +271,8 @@ $('#btnDoc').click(function(){
 	?>		
 	<div class="row" style="text-align: center;">
 		<?php echo CHtml::button('Publicar',array('class'=>'wall-action-submit-btn','id'=>'btnPublicNote',));?>
-		<?php echo CHtml::button('Adjuntar',array('class'=>'wall-action-submit-btn','id'=>'btnAttachToNote',));?>
+		<?php echo CHtml::button('Adjuntar Imagen',array('class'=>'wall-action-submit-btn','id'=>'btnAttachImgToNote', 'style'=>'width:150px'));?>
+		<?php echo CHtml::button('Adjuntar Docs',array('class'=>'wall-action-submit-btn','id'=>'btnAttachDocToNote', 'style'=>'width:150px'));?>
 		<?php echo CHtml::button('Cancelar',array('class'=>'wall-action-submit-btn','id'=>'btnCancelNote',));?>
 	</div>
 </div>
