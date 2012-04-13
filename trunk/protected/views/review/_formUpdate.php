@@ -160,17 +160,19 @@ $('#btnNote').click(function(){
 
 $('#btnPublicNote').click(function(){
 	$('#loading').addClass('loading');
-	$.post('".NoteController::createUrl('note/AjaxPublicNote')."', 
+	$.post('".NoteController::createUrl('AjaxPublicNote')."', 
 		{
 			id: $('#Note_Id_note').val()
 		}
 	).success(
 	function(data){
+		$('.view-single-left:first').before(data);
 		$('#loading').removeClass('loading');
 		$('#wall-action-note').animate({opacity: 'hide'},240,
 		function(){		
 			RestoreButtons();
 			$('#Note_note').val('');
+			
 		});
 	
 	});	
