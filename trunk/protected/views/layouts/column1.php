@@ -11,11 +11,6 @@
 			echo CHtml::checkBoxList('chklist-tag', '', $checkTags);
 		?>
 		</div>
-		<?php
-			echo CHtml::openTag('div',array('class'=>'wall-action-box-btn','id'=>'filter-btn-box'));	
-			echo CHtml::link('Filtrar','',array('id'=>'btn-filter-tag','class'=>'submit-btn'));
-			echo CHtml::closeTag('div');	
-		?>		
 	</div>
 	
 	<div class="search-box">
@@ -29,14 +24,19 @@
 			echo CHtml::checkBoxList('chklist-type', '', $checkType);
 		?>
 		</div>
-		<?php
-			echo CHtml::openTag('div',array('class'=>'wall-action-box-btn','id'=>'filter-btn-box-type'));	
-			echo CHtml::link('Filtrar','',array('id'=>'btn-filter-type','class'=>'submit-btn'));
-			echo CHtml::closeTag('div');	
-		?>		
 	</div>
+	
+	<div class="search-box">
+		<?php
+			echo CHtml::openTag('div',array('class'=>'wall-action-box-btn','id'=>'filter-btn-box'));	
+			echo CHtml::link('Filtrar','',array('id'=>'btn-filter','class'=>'submit-btn'));
+			echo CHtml::closeTag('div');	
+		?>
+	</div>		
 </div>
 
+
+		
 <div id="content">
 	<?php echo $content; ?>
 </div><!-- content -->
