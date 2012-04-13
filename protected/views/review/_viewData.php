@@ -74,7 +74,8 @@ $('#delete_".$data->Id."').click(
 	}
 	
 	?>
-	</div>				
+	</div>
+	<div id="singleNoteContainer">
 	<?php $notes=$data->notes;?>
 	<?php if (!empty($notes)):?>
 		<?php 
@@ -91,6 +92,7 @@ $('#delete_".$data->Id."').click(
 		}
 		?>
 	<?php endif?>
+	</div>
 	<div class="review-text-note-add">
 		<textarea id="note_<?php echo $data->Id?>" class="wall-action-add-note" placeholder='Escriba una nota...'></textarea>
 	</div>
