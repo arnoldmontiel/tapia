@@ -283,6 +283,36 @@ class ReviewController extends Controller
 		}		
 	}
 	
+	public function actionAjaxAddNote()
+	{
+		$id = $_POST['id'];
+		$value = $_POST['value'];
+		$idCustomer = $_POST['idCustomer'];
+	
+		$modelNote = new Note;
+	
+		$transaction = $modelNote->dbConnection->beginTransaction();
+		try {
+			$modelNote->note = $value;
+			$modelNote->Id_customer = $idCustomer;
+			$modelNote->in_progress = 0;
+			$modelNote->save();
+				
+			$modelNoteNote = new NoteNote;
+			$modelNoteNote->Id_parent = $id;
+			$modelNoteNote->Id_child = $modelNote->Id;
+			$modelNoteNote->save();
+	
+			$transaction->commit();
+				
+			$model = Note::model()->findByPk($id);
+	
+			$this->renderPartial('_viewData',array('data'=>$model));
+		} catch (Exception $e) {
+			$transaction->rollback();
+		}
+	}
+	
 	public function actionAjaxShareDocument()
 	{
 		//$_FILES
