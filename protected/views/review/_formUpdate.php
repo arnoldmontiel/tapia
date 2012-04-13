@@ -32,15 +32,46 @@ if('".$idNote."'!=''){
 	SelectAButton($('#btnNote'));
 }
 
+bindEvents();
+
+function bindEvents()
+{
+	
+	$('#review-view').children().each(
+		function(index, item){
+			$(item).find('textarea').change(function(){
+				var id = $(this).attr('id').split('_')[1];
+				var value = $(this).val();
+				$.post(
+					'".ReviewController::createUrl('AjaxAddNote')."',
+					{
+					 	id: id,
+						value: $(this).val(),
+						idCustomer: ".$model->Id_customer."
+					 }).success(
+							function(data) 
+							{ 
+								$('#noteContainer_'+id).html(data);
+								//bindEvents($('#'+type+'Container_'+idParent));
+								
+							}
+					);
+			});
+		}
+	);
+}
+
 $('#btnAlbum').hover(function(){
 	if(!EnableButton($(this)))
 	{
 		return false;
 	}
 	$(this).addClass('wall-action-btn-hover');
-},function(){
+},
+
+function(){
 	$(this).removeClass('wall-action-btn-hover');
-}
+	}
 );
 
 $('#btnNote').hover(function(){
@@ -131,7 +162,7 @@ $('#btnPublicNote').click(function(){
 	$('#loading').addClass('loading');
 	$.post('".NoteController::createUrl('note/AjaxPublicNote')."', 
 		{
-			id: $('#Note_Id_note').val(),
+			id: $('#Note_Id_note').val()
 		}
 	).success(
 	function(data){
@@ -194,7 +225,7 @@ $('#Review_review').change(function(){
 		'".ReviewController::createUrl('AjaxUpdateReview')."',
 		{
 			id: ".$model->Id.",
-			review:$(this).val(),
+			review:$(this).val()
 		}).success(
 			function() 
 			{ 
@@ -208,7 +239,7 @@ $('#Review_description').change(function(){
 		'".ReviewController::createUrl('AjaxUpdateDescription')."',
 		{
 			id: ".$model->Id.",
-			description:$(this).val(),
+			description:$(this).val()
 		}).success(
 			function() 
 			{ 
@@ -290,10 +321,10 @@ $('#btnDoc').click(function(){
 		$this->renderPartial('_formNote',array('model'=>$modelNote));
 	?>		
 	<div class="row" style="text-align: center;">
-		<?php echo CHtml::button('Publicar',array('class'=>'wall-action-submit-btn','id'=>'btnPublicNote',));?>
+		<?php echo CHtml::button('Publicar',array('class'=>'wall-action-submit-btn','id'=>'btnPublicNote'));?>
 		<?php echo CHtml::button('Adjuntar Imagen',array('class'=>'wall-action-submit-btn','id'=>'btnAttachImgToNote', 'style'=>'width:150px'));?>
 		<?php echo CHtml::button('Adjuntar Docs',array('class'=>'wall-action-submit-btn','id'=>'btnAttachDocToNote', 'style'=>'width:150px'));?>
-		<?php echo CHtml::button('Cancelar',array('class'=>'wall-action-submit-btn','id'=>'btnCancelNote',));?>
+		<?php echo CHtml::button('Cancelar',array('class'=>'wall-action-submit-btn','id'=>'btnCancelNote'));?>
 	</div>
 </div>
 
@@ -307,8 +338,8 @@ $('#btnDoc').click(function(){
 		$this->renderPartial('_formAlbum',array('model'=>$modelAlbum));
 	?>
 	<div class="row" style="text-align: center;">
-		<?php echo CHtml::button('Publicar',array('class'=>'wall-action-submit-btn','id'=>'btnPublicAlbum',));?>
-		<?php echo CHtml::button('Cancelar',array('class'=>'wall-action-submit-btn','id'=>'btnCancelAlbum',));?>
+		<?php echo CHtml::button('Publicar',array('class'=>'wall-action-submit-btn','id'=>'btnPublicAlbum'));?>
+		<?php echo CHtml::button('Cancelar',array('class'=>'wall-action-submit-btn','id'=>'btnCancelAlbum'));?>
 	</div>
 		
 </div>
@@ -342,7 +373,9 @@ $('#btnDoc').click(function(){
 		$dataProviderNote->criteria->order= 'creation_date DESC';
 		$noteData = $dataProviderNote->data;
 		foreach ($noteData as $item) {
+			echo CHtml::openTag('div',array('id'=>'noteContainer_'.$item->Id));
 			$this->renderPartial('_viewData',array('data'=>$item));
+			echo CHtml::closeTag('div');
 		}
 	?>
 </div>		
