@@ -378,7 +378,7 @@ class ReviewController extends Controller
 			$model->in_progress = 0;
 			$model->save();
 			echo CHtml::openTag('div', array('class'=>'review-container-single-view','id'=>'noteContainer_'.$id));
-			$this->renderPartial('_viewData',array('data'=>$item));
+			$this->renderPartial('_viewData',array('data'=>$model));
 			echo CHtml::closeTag('div');
 		}
 	}
