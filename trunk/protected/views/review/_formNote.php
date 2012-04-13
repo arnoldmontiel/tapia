@@ -7,7 +7,7 @@ $('#Note_note').change(function(){
 		'".NoteController::createUrl('note/AjaxUpdateNoteDesc')."',
 		{
 			id: $('#Note_Id_note').val(),
-			note:$(this).val(),
+			note:$(this).val()
 		}).success(
 			function() 
 			{ 
