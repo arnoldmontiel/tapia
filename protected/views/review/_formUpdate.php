@@ -32,33 +32,62 @@ if('".$idNote."'!=''){
 	SelectAButton($('#btnNote'));
 }
 
-bindEvents();
+beginBind();
 
-function bindEvents()
+function beginBind()
 {
 	
 	$('#review-view').children().each(
 		function(index, item){
-			$(item).find('textarea').change(function(){
-				var id = $(this).attr('id').split('_')[1];
-				var value = $(this).val();
-				$.post(
-					'".ReviewController::createUrl('AjaxAddNote')."',
-					{
-					 	id: id,
-						value: $(this).val(),
-						idCustomer: ".$model->Id_customer."
-					 }).success(
-							function(data) 
-							{ 
-								$('#noteContainer_'+id).html(data);
-								//bindEvents($('#'+type+'Container_'+idParent));
-								
-							}
-					);
-			});
+			bindEvents(item);
 		}
 	);
+}
+
+function bindEvents(item)
+{
+	$(item).find('textarea').change(function(){
+		var id = $(this).attr('id').split('_')[1];
+		var value = $(this).val();
+		$.post(
+			'".ReviewController::createUrl('AjaxAddNote')."',
+			{
+			 	id: id,
+				value: $(this).val(),
+				idCustomer: ".$model->Id_customer."
+			 }).success(
+					function(data) 
+					{ 
+						$('#noteContainer_'+id).html(data);
+						bindEvents($('#noteContainer_'+id));
+					}
+			);
+	});
+	
+	$(item).find('#singleNoteContainer').find('img').each(
+		function(i, imgItem){
+			$(imgItem).click(function(){
+				var id = $(imgItem).attr('id');								
+				var idNote = id.split('_')[2];
+				var idParent = id.split('_')[3];
+				
+				var getParam = '&id='+idNote+'&idParent='+idParent;
+												
+				$.ajax({
+						type : 'GET',
+						url : '" . ReviewController::createUrl('AjaxRemoveSingleNote') ."' + getParam,
+						beforeSend : function(){
+									if(!confirm('Seguro que quiere borrar esta nota?')) 
+										return false;
+										},
+						success : function(data)
+						{
+							$('#noteContainer_'+idParent).html(data);
+							bindEvents($('#noteContainer_'+idParent))
+						}
+				});
+			});
+	});
 }
 
 $('#btnAlbum').hover(function(){
