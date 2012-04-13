@@ -3,7 +3,8 @@ $cs = Yii::app()->getClientScript();
 $cs->registerScriptFile(Yii::app()->request->baseUrl.'/js/highslide-with-gallery.js',CClientScript::POS_HEAD);
 $cs->registerScriptFile(Yii::app()->request->baseUrl.'/js/highslide-exe.js',CClientScript::POS_HEAD);
 $cs->registerCssFile(Yii::app()->request->baseUrl.'/js/highslide.css');
-Yii::app()->clientScript->registerScript('UpdateReview', "
+
+Yii::app()->clientScript->registerScript(__CLASS__.'#review_update'.$model->Id, "
 
 function RestoreButtons()
 {
@@ -195,7 +196,7 @@ $('#btnPublicNote').click(function(){
 		}
 	).success(
 	function(data){
-		$('.view-single-left:first').before(data);
+		$('.review-container-single-view:first').before(data);
 		$('#loading').removeClass('loading');
 		$('#wall-action-note').animate({opacity: 'hide'},240,
 		function(){		
@@ -404,7 +405,7 @@ $('#btnDoc').click(function(){
 		$dataProviderNote->criteria->order= 'creation_date DESC';
 		$noteData = $dataProviderNote->data;
 		foreach ($noteData as $item) {
-			echo CHtml::openTag('div',array('id'=>'noteContainer_'.$item->Id));
+			echo CHtml::openTag('div',array('class'=>'review-container-single-view','id'=>'noteContainer_'.$item->Id));
 			$this->renderPartial('_viewData',array('data'=>$item));
 			echo CHtml::closeTag('div');
 		}
