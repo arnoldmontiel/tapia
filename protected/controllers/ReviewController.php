@@ -313,6 +313,24 @@ class ReviewController extends Controller
 		}
 	}
 	
+	public function actionAjaxRemoveSingleNote($id, $idParent)
+	{
+	
+		$model = Note::model()->findByPk($idParent);
+		
+		$transaction = $model->dbConnection->beginTransaction();
+		try {
+			NoteNote::model()->deleteAllByAttributes(array('Id_child'=>$id));
+			Note::model()->deleteByPk($id);
+			$transaction->commit();
+			
+			$this->renderPartial('_viewData',array('data'=>$model));
+		} catch (Exception $e) {
+			$transaction->rollback();
+		}
+	
+	}
+	
 	public function actionAjaxShareDocument()
 	{
 		//$_FILES
