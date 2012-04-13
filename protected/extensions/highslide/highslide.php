@@ -29,7 +29,7 @@ class Highslide extends CWidget
 		$var = Yii::app()->assetManager->publish($assetsDir);
 		//$cs->registerScriptFile($var.'/highslide.js',CClientScript::POS_HEAD);
 		$cs->registerScriptFile($var.'/highslide-with-gallery.js',CClientScript::POS_HEAD);
-		$cs->registerScriptFile($var.'/highslide-exe.js',CClientScript::POS_HEAD);
+		//$cs->registerScriptFile($var.'/highslide-exe.js',CClientScript::POS_HEAD);
 		$cs->registerCssFile($var.'/highslide.css');
 		$this->graphics = $var.'/graphics';
 		
