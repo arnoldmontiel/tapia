@@ -350,4 +350,18 @@ class ReviewController extends Controller
 	
 	
 	}
+	public function actionAjaxPublicNote()
+	{
+		$id = $_POST['id'];
+		$model= Note::model()->findByPk($id);
+		
+		if(isset($model))
+		{
+			$model->in_progress = 0;
+			$model->save();
+			echo CHtml::openTag('div', array('class'=>'review-container-single-view','id'=>'noteContainer_'.$id));
+			$this->renderPartial('_viewData',array('data'=>$item));
+			echo CHtml::closeTag('div');
+		}
+	}
 }
