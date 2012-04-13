@@ -53,17 +53,16 @@ function LoadPage()
 	}
 }
 
-$('#btn-filter-tag').click(function(){
+$('#btn-filter').click(function(){
+	$('#typeFilter').val('');
+	$('#typeFilter').val(getCheck('chklist-type[]'));
+	
 	$('#tagFilter').val('');
 	$('#tagFilter').val(getCheck('chklist-tag[]'));
+	
 	doFilter();
 });
 
-$('#btn-filter-type').click(function(){
-	$('#typeFilter').val('');
-	$('#typeFilter').val(getCheck('chklist-type[]'));
-	doFilter();
-});
 
 function getCheck(checkName)
 {
