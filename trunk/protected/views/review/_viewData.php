@@ -14,15 +14,7 @@ $('#review_image".$data->Id."').hover(
 		$('#edit_image".$data->Id."').addClass('div-hidden');
 	}
 );
-$('#delete_".$data->Id."').click(
-	function(){
-		$.post('".NoteController::createUrl('note/AjaxDelete')."',
-		{id:'".$data->Id."'},
-		function(data) {
-   			$('#noteContainer_".$data->Id."').remove();
-		});
-	}
-);
+
 
 ");
 ?>

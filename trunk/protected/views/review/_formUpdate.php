@@ -89,6 +89,25 @@ function bindEvents(item)
 				});
 			});
 	});
+	
+	var id = $(item).attr('id').split('_')[1];
+	
+	$(item).find('#delete_'+id).click(function(){
+		$.ajax({
+				type : 'POST',
+				data : 'id='+id,
+				url : '" . NoteController::createUrl('note/AjaxDelete') ."',
+				beforeSend : function(){
+							if(!confirm('Seguro que quiere borrar la nota entera?')) 
+								return false;
+								},
+				success : function(data)
+				{
+					$('#noteContainer_'+id).html(data);
+					bindEvents($('#noteContainer_'+id))
+				}
+		});
+	});
 }
 
 $('#btnAlbum').hover(function(){
