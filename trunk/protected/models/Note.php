@@ -46,7 +46,7 @@ class Note extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('Id_customer, Id_review', 'required'),
+			array('Id_customer', 'required'),
 			array('Id_customer, Id_review, in_progress', 'numerical', 'integerOnly'=>true),
 			array('note, creation_date', 'safe'),
 			// The following rule is used by search().
