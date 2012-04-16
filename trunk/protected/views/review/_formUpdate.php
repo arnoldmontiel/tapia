@@ -66,6 +66,13 @@ function bindEvents(item)
 			);
 	});
 	
+	$(item).find('#note_'+idMainNote).keypress(function(e) {
+    		if(e.keyCode == 13)
+    		{
+    			$(this).val(  $(this).val() + '". '\n'."');
+    		}
+    }); 
+    
 	$(item).find('#main_note'+idMainNote).change(function(){
 		var value = $(this).val();
 		$.post(
@@ -79,7 +86,15 @@ function bindEvents(item)
 						
 					}
 			);
+ 
 	});
+	
+	$(item).find('#main_note'+idMainNote).keypress(function(e) {
+    		if(e.keyCode == 13)
+    		{
+    			$(this).val(  $(this).val() + '". '\n'."');
+    		}
+    }); 
 	
 	$(item).find('#singleNoteContainer').find('img').each(
 		function(i, imgItem){
