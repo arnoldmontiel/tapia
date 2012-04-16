@@ -9,8 +9,9 @@ $('#btnCancel').click(function(){
 $('#btnPublic').click(function(){
 	$('#loading').addClass('loading');
 	var data = { 'images[]' : []};
-	$(':checked').each(function() {
- 	 data['images[]'].push($(this).val());
+	$('input:checked').each(function() {
+		if($(this).val() != '' && $(this).attr('name') == 'chkImage')
+ 	 		data['images[]'].push($(this).val());
 	});
 	$.post('".NoteController::createUrl('note/AjaxAttachImage')."', 
 		{
@@ -25,11 +26,23 @@ $('#btnPublic').click(function(){
 	);
 });
 
+$('#chkAll').change(function(){
+		if($(this).is(':checked'))
+			$('#images').find('input:checkbox').attr('checked',true);
+		else
+			$('#images').find('input:checkbox').attr('checked',false);
+		
+});
+
 ");
 ?>
 
-
-<div class="album-action-area-images" id="images_selected_container">
+<?php 
+echo CHtml::label('Seleccionar Todo', 'chkAll');
+echo CHtml::checkBox('chkAll','',array('id'=>'chkAll'));?>
+		
+<div id="images">		
+	<div class="album-action-area-images" id="images_selected_container">
 	<?php
 	foreach ($modelMultimediaSelected as $item)
 	{
@@ -53,32 +66,33 @@ $('#btnPublic').click(function(){
 		}
 	}
 	?>
-</div>
-<hr>
-<div class="album-action-area-images" id="images_container">
-	<?php
-	foreach ($modelMultimedia as $item)
-	{
-		if($item->notes->Id_note != $idNote)
+	</div>
+	<hr>
+	<div class="album-action-area-images" id="images_container">
+		<?php
+		foreach ($modelMultimedia as $item)
 		{
-			echo CHtml::openTag('div',array('id'=>'picture_'.$item->Id,'class'=>'review-attach-image'));
-			$this->widget('ext.highslide.highslide', array(
-										'smallImage'=>"images/".$item->file_name_small,
-										'image'=>"images/".$item->file_name,
-										'caption'=>$item->description,
-										'Id'=>$item->Id,
-										'small_width'=>240,
-										'small_height'=>180,
-			));
-			echo CHtml::checkBox('chkImage','',array('id'=>$item->Id, 'value'=>$item->Id, 'class'=>'review-attach-image'));
-			
-				echo CHtml::openTag('div',array('class'=>'review-attach-image-description'));
-					echo $item->description;
-				echo CHtml::closeTag('div');				
-			echo CHtml::closeTag('div');
+			if($item->notes->Id_note != $idNote)
+			{
+				echo CHtml::openTag('div',array('id'=>'picture_'.$item->Id,'class'=>'review-attach-image'));
+				$this->widget('ext.highslide.highslide', array(
+											'smallImage'=>"images/".$item->file_name_small,
+											'image'=>"images/".$item->file_name,
+											'caption'=>$item->description,
+											'Id'=>$item->Id,
+											'small_width'=>240,
+											'small_height'=>180,
+				));
+				echo CHtml::checkBox('chkImage','',array('id'=>$item->Id, 'value'=>$item->Id, 'class'=>'review-attach-image'));
+				
+					echo CHtml::openTag('div',array('class'=>'review-attach-image-description'));
+						echo $item->description;
+					echo CHtml::closeTag('div');				
+				echo CHtml::closeTag('div');
+			}
 		}
-	}
-	?>
+		?>
+	</div>
 </div>
 <div class="row" style="text-align: center;">
 	<?php echo CHtml::button('Publicar',array('class'=>'wall-action-submit-btn','id'=>'btnPublic',));?>
