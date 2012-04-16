@@ -36,7 +36,7 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#review-view-data'.$data->Id
 		$image['image'] = "images/".$item->file_name;
 		$image['small_image'] = "images/".$item->file_name_small;
 		$image['caption'] = $item->description;
-		if($item->height_small>$height);
+		if($item->height_small>$height)
 		{
 			$height = $item->height_small;
 		}
@@ -51,15 +51,17 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#review-view-data'.$data->Id
 												'height'=>$height,
 		));
 	}
-	else
-	{
-		echo CHtml::link('Adjuntar Imagenes',
-			ReviewController::createUrl('AjaxAttachImage',array('id'=>$data->review->Id, 'idNote'=>$data->Id)));
-	}
 	?>
 	</div>
 	<div class="review-text-docs">
 		<?php 
+			if(sizeof($images)==0)
+			{
+				echo CHtml::openTag('div');
+				echo CHtml::link('Adjuntar Imagenes',
+					ReviewController::createUrl('AjaxAttachImage',array('id'=>$data->review->Id, 'idNote'=>$data->Id)));
+				echo CHtml::closeTag('div');
+			}
 			foreach($data->multimedias as $item)
 			{
 				if($item->Id_multimedia_type!=3
@@ -69,8 +71,11 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#review-view-data'.$data->Id
 				echo CHtml::closeTag('div');
 					
 			}
+			echo CHtml::openTag('div');				
 			echo CHtml::link('Adjuntar Documentos',
 			ReviewController::createUrl('AjaxAttachDoc',array('id'=>$data->review->Id, 'idNote'=>$data->Id)));
+			echo CHtml::closeTag('div');
+				
 		?>
 	</div>
 	<div id="singleNoteContainer" class="singles-notes-container">
