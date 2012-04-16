@@ -117,7 +117,7 @@
 			$image['image'] = "images/".$item->file_name;
 			$image['small_image'] = "images/".$item->file_name_small;
 			$image['caption'] = $item->description;
-			if($item->height_small>$height);
+			if($item->height_small>$height)
 			{
 				$height = $item->height_small;
 			}
