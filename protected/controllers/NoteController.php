@@ -179,14 +179,25 @@ class NoteController extends Controller
 	{
 		$docs = $_POST['docs'];
 		$id = $_POST['id'];
-		foreach($docs as $item)
-		{
-			$model = new MultimediaNote;
-			$model->Id_note = $id;
-			$model->Id_multimedia = $item;
-			$model->save();
+		
+		$modelNote =$this->loadModel($id);
+		$transaction =  $modelNote->dbConnection->beginTransaction();
+		MultimediaNote::model()->deleteAllByAttributes(array('Id_note'=>$id));
+		try {
+			if($docs)
+			{
+				foreach($docs as $item)
+				{
+					$model = new MultimediaNote;
+					$model->Id_note = $id;
+					$model->Id_multimedia = $item;
+					$model->save();
+				}
+			}
+			$transaction->commit();	
+		} catch (Exception $e) {
+			$transaction->rollback();
 		}
-	
 	}
 	
 	public function actionAjaxPublicNote()
