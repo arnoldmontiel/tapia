@@ -7,6 +7,8 @@ class Highslide extends CWidget
 	public $image;
 	public $caption;
 	public $height;
+	public $small_height;
+	public $small_width;
 	protected $graphics;
 	public function init()
 	{
@@ -44,6 +46,8 @@ class Highslide extends CWidget
 						'smallImage'=>$this->smallImage,
 						'caption'=>$this->caption,
 						'height'=>$this->height,
+						'small_height'=>$this->small_height,
+						'small_width'=>$this->small_width,
 			));
 		}
 		
