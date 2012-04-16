@@ -107,6 +107,20 @@ function bindEvents(item)
 				}
 		});
 	});
+	
+	$('#edit_image'+idMainNote).hover(
+		function(){
+			$(this).removeClass('div-hidden');
+	});
+
+	$('#review_image'+idMainNote).hover(
+		function(){
+			$('#edit_image'+idMainNote).removeClass('div-hidden');
+		},
+		function(){
+			$('#edit_image'+idMainNote).addClass('div-hidden');
+	});
+
 }
 
 $('#btnAlbum').hover(function(){

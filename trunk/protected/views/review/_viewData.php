@@ -1,19 +1,6 @@
 <?php 
 Yii::app()->clientScript->registerScript(__CLASS__.'#review-view-data'.$data->Id, "
-$('#edit_image".$data->Id."').hover(
-	function(){
-		$(this).removeClass('div-hidden');
-	}
-);
 
-$('#review_image".$data->Id."').hover(
-	function(){
-		$('#edit_image".$data->Id."').removeClass('div-hidden');
-	},
-	function(){
-		$('#edit_image".$data->Id."').addClass('div-hidden');
-	}
-);
 
 
 ");
@@ -24,7 +11,7 @@ $('#review_image".$data->Id."').hover(
 	<div id='edit_image<?php echo $data->Id?>' class="review-edit-image div-hidden">
 	<?php
 		echo CHtml::link('Editar Imagenes',
-			ReviewController::createUrl('index',array('id'=>$data->Id)),
+			ReviewController::createUrl('AjaxAttachImage',array('id'=>$data->review->Id, 'idNote'=>$data->Id)),
 			array('class'=>'review-edit-image')
 		);
 	?>
