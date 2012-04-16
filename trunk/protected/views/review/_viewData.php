@@ -27,34 +27,44 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#review-view-data'.$data->Id
 			
 	<?php
 	
-	if($data->multimedias[0]->Id_multimedia_type == 1)
+	$images = array();
+	$height=0;
+	foreach($data->multimedias as $item)
 	{
-		$images = array();
-		$height=0;
-		foreach($data->multimedias as $item)
+		if($item->Id_multimedia_type!=1) continue;
+		$image= array();
+		$image['image'] = "images/".$item->file_name;
+		$image['small_image'] = "images/".$item->file_name_small;
+		$image['caption'] = $item->description;
+		if($item->height_small>$height);
 		{
-			$image= array();
-			$image['image'] = "images/".$item->file_name;
-			$image['small_image'] = "images/".$item->file_name_small;
-			$image['caption'] = $item->description;
-			if($item->height_small>$height);
-			{
-				$height = $item->height_small;
-			}
-			$images[]=$image;
+			$height = $item->height_small;
 		}
+		$images[]=$image;
+	}
+	if(sizeof($images)>0)
+	{
+	
 		$this->widget('ext.highslide.highslide', array(
 												'images'=>$images,
 												'Id'=>$data->Id,
 												'height'=>$height,
 		));
-	}
-	else
-	{
-	
-	}
-	
+	}	
 	?>
+	</div>
+	<div class="review-text-docs">
+		<?php 
+			foreach($data->multimedias as $item)
+			{
+				if($item->Id_multimedia_type!=3
+					&&$item->Id_multimedia_type!=4) continue;
+				echo CHtml::openTag('div');
+				echo CHtml::link(CHtml::encode($item->file_name),Yii::app()->baseUrl.'/docs/'.$item->file_name,array('target'=>'_blank'));
+				echo CHtml::closeTag('div');
+					
+			}
+		?>
 	</div>
 	<div id="singleNoteContainer" class="singles-notes-container">
 	<?php $notes=$data->notes;?>
