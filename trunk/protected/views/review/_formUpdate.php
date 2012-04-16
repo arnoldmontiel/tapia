@@ -49,7 +49,7 @@ function bindEvents(item)
 {
 	var idMainNote = $(item).attr('id').split('_')[1];
 
-	$(item).find('textarea').change(function(){
+	$(item).find('#note_'+idMainNote).change(function(){
 		var value = $(this).val();
 		$.post(
 			'".ReviewController::createUrl('AjaxAddNote')."',
@@ -62,6 +62,21 @@ function bindEvents(item)
 					{ 
 						$('#noteContainer_'+idMainNote).html(data);
 						bindEvents($('#noteContainer_'+idMainNote));
+					}
+			);
+	});
+	
+	$(item).find('#main_note'+idMainNote).change(function(){
+		var value = $(this).val();
+		$.post(
+			'".NoteController::createUrl('note/AjaxUpdateNoteDesc')."',
+			{
+			 	id: idMainNote,
+				note: $(this).val(),
+			 }).success(
+					function(data) 
+					{ 
+						
 					}
 			);
 	});
