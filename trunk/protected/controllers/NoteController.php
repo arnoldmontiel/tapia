@@ -156,7 +156,13 @@ class NoteController extends Controller
 		
 		$modelNote =$this->loadModel($id);
 		$transaction =  $modelNote->dbConnection->beginTransaction();
-		MultimediaNote::model()->deleteAllByAttributes(array('Id_note'=>$id));
+		
+		$criteria=new CDbCriteria;
+		
+		$criteria->addCondition('Id_multimedia IN(select Id from multimedia where Id_multimedia_type IN ( 1))');
+		
+		MultimediaNote::model()->deleteAllByAttributes(array('Id_note'=>$id),$criteria);
+		
 		try {
 			if($images)
 			{
@@ -182,7 +188,12 @@ class NoteController extends Controller
 		
 		$modelNote =$this->loadModel($id);
 		$transaction =  $modelNote->dbConnection->beginTransaction();
-		MultimediaNote::model()->deleteAllByAttributes(array('Id_note'=>$id));
+		
+		$criteria=new CDbCriteria;
+		
+		$criteria->addCondition('Id_multimedia IN(select Id from multimedia where Id_multimedia_type IN ( 3,4))');
+		
+		MultimediaNote::model()->deleteAllByAttributes(array('Id_note'=>$id),$criteria);
 		try {
 			if($docs)
 			{
