@@ -54,20 +54,22 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#review-view-data'.$data->Id
 	
 	?>
 	</div>
-	<div id="singleNoteContainer">
+	<div id="singleNoteContainer" class="singles-notes-container">
 	<?php $notes=$data->notes;?>
 	<?php if (!empty($notes)):?>
 		<?php 
 		foreach($notes as $item)
 		{
-			echo '<div class="view-text-note">'.
-					'<div class="view-text-date">'.
-						$item->creation_date.
-					'</div>'.	
-			CHtml::image('images/remove.png','',
-			array('id'=>'left_note_'.$item->Id.'_'.$data->Id, 'class'=>'wall-action-remove-small','title'=>'Remove')).
-				$item->note.
-			'</div>';							
+			echo CHtml::openTag('div',array('class'=>'view-text-note'));
+				echo CHtml::openTag('div',array('class'=>'view-text-date'));
+					echo $item->creation_date;
+				echo CHtml::closeTag('div');
+				echo CHtml::image('images/remove.png','',
+					array('id'=>'left_note_'.$item->Id.'_'.$data->Id, 'class'=>'wall-action-remove-small','title'=>'Remove'));
+				echo CHtml::openTag('p',array('class'=>'single-formated-text'));
+					echo $item->note;
+				echo CHtml::closeTag('p');
+				echo CHtml::closeTag('div');
 		}
 		?>
 	<?php endif?>
