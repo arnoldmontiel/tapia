@@ -50,7 +50,12 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#review-view-data'.$data->Id
 												'Id'=>$data->Id,
 												'height'=>$height,
 		));
-	}	
+	}
+	else
+	{
+		echo CHtml::link('Adjuntar Imagenes',
+			ReviewController::createUrl('AjaxAttachImage',array('id'=>$data->review->Id, 'idNote'=>$data->Id)));
+	}
 	?>
 	</div>
 	<div class="review-text-docs">
@@ -64,6 +69,8 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#review-view-data'.$data->Id
 				echo CHtml::closeTag('div');
 					
 			}
+			echo CHtml::link('Adjuntar Documentos',
+			ReviewController::createUrl('AjaxAttachDoc',array('id'=>$data->review->Id, 'idNote'=>$data->Id)));
 		?>
 	</div>
 	<div id="singleNoteContainer" class="singles-notes-container">
