@@ -109,6 +109,9 @@ $(document).keypress(function(e) {
 								'image'=>"images/".$item->file_name,
 								'caption'=>'',
 								'Id'=>$item->Id,
+								'small_width'=>240,
+								'small_height'=>180,
+		
 		)); 
 		echo CHtml::imageButton(
 		                                'images/remove.png',
