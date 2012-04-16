@@ -110,9 +110,18 @@ class ReviewController extends Controller
 		
 		$modelMultimedia = Multimedia::model()->findAll($criteria);
 		
+		$criteria=new CDbCriteria;
+		
+		$criteria->addCondition('t.Id IN(select Id_multimedia from multimedia_note where Id_note = '. $idNote.')');
+		$criteria->addCondition('t.Id_review = '. $id);
+		$criteria->addCondition('t.Id_multimedia_type = 1'); //image
+		
+		$modelMultimediaSelected = Multimedia::model()->findAll($criteria);
+		
 		$this->render('attachImages',array(
 					'model'=>$model,
 					'idNote'=>$idNote,
+					'modelMultimediaSelected'=>$modelMultimediaSelected,
 					'modelMultimedia'=>$modelMultimedia,
 		));
 	}
