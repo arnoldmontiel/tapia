@@ -153,12 +153,21 @@ class NoteController extends Controller
 	{
 		$images = $_POST['images'];
 		$id = $_POST['id'];
-		foreach($images as $item)
-		{
-			$model = new MultimediaNote;
-			$model->Id_note = $id;
-			$model->Id_multimedia = $item;
-			$model->save();
+		
+		$modelNote =$this->loadModel($id);
+		$transaction =  $modelNote->dbConnection->beginTransaction();
+		MultimediaNote::model()->deleteAllByAttributes(array('Id_note'=>$id));
+		try {
+			foreach($images as $item)
+			{
+				$model = new MultimediaNote;
+				$model->Id_note = $id;
+				$model->Id_multimedia = $item;
+				$model->save();
+			}
+			$transaction->commit();	
+		} catch (Exception $e) {
+			$transaction->rollback();
 		}
 	
 	}
