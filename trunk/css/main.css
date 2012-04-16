@@ -230,11 +230,22 @@ div.review-text-simple-note
 	position: relative;
 	width: 60%;
 	float:left;
-	margin-left: 10px;
+	margin-left: 5px;
 	margin-bottom: 5px;
 }
 
 div.review-text-images
+{
+	font-size: 13px;
+	line-height: 18px;
+	position: relative;
+	width: 35%;
+	float:left;
+	margin-left: 20px;
+	margin-bottom: 5px;
+	margin-top: 15px;
+}
+div.review-text-docs
 {
 	font-size: 13px;
 	line-height: 18px;
@@ -723,10 +734,7 @@ textarea.wall-action-add-note
 	padding: 5px 10px 5px;
 	outline: none;
 	background-color: #f4f6fb;
-	border-top: 1px solid #f4f6fb;
-	border-bottom: 1px solid #f4f6fb;
-	border-left: 1px solid #f4f6fb;
-	border-right: 1px solid #f4f6fb;
+	border: 1px solid #f4f6fb;
 	font-size: 13px;
 	line-height: 18px;
 	resize: none;
@@ -738,6 +746,26 @@ textarea.wall-action-add-note:focus
 	background-color: white;	
 }
 
+textarea.wall-action-edit-main-note
+{
+	z-index:10;
+	position: relative;
+	padding: 5px 10px 5px;
+	outline: none;
+	background-color: #f4f6fb;
+	border: 1px solid #f4f6fb;
+	font-size: 13px;
+	line-height: 18px;
+	resize: none;
+	width: 95%;
+	height: 280px;
+	font: inherit;
+	color: inherit;
+}
+textarea.wall-action-edit-main-note:FOCUS
+{
+	background-color: white;	
+}
 input.wall-action-submit-btn
 {
 	background-color: #afbad7;
@@ -973,7 +1001,6 @@ input.review-update-data-number
 input.review-update-data-number:FOCUS
 {
 	background-color: white;
-	border: solid #F4F6FB 1px;
 }
 textarea.review-update-data-text
 {
