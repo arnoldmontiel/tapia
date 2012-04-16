@@ -237,9 +237,10 @@ $('#btnNote').click(function(){
 
 $('#btnPublicNote').click(function(){
 	$('#loading').addClass('loading');
+	var id = $('#Note_Id_note').val()
 	$.post('".NoteController::createUrl('AjaxPublicNote')."', 
 		{
-			id: $('#Note_Id_note').val()
+			id: id
 		}
 	).success(
 	function(data){
@@ -251,6 +252,7 @@ $('#btnPublicNote').click(function(){
 			$('#Note_note').val('');
 			
 		});
+		bindEvents($('#noteContainer_'+id));
 	
 	});	
 
