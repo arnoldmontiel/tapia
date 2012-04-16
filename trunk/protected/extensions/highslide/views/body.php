@@ -10,15 +10,25 @@ hs.graphicsDir = '<?php echo '../..'. $this->graphics ?>/'
 <div class="highslide-gallery" style="display:inline-block;position: relative; <?php echo (isset($height))? 'height:'.$height.'px;':'';?> ">
 	<?php if (empty($images)):?>		
 		<?php 		
+			$options = array('title'=>'Click para ampliar');
+			if(isset($small_width))
+			{
+				$options['style']='width:'.$small_width.'px;';				
+			}
+			if(isset($small_height))
+			{
+				$options['style']=$options['style'].' height:'.$small_height.'px;';				
+			}
+				
 			echo CHtml::openTag('a',
-				array(
+			array(
 					'id'=>'thumb'.$Id,
 					'href'=>$image,
 					'class'=>'highslide',
 					'onclick'=>'return hs.expand(this, { thumbnailId: "thumb'.$Id.'", slideshowGroup: '.$Id.' })',
 				)
 			);
-			echo CHtml::image($smallImage,'Highslide JS',array('title'=>'Click para ampliar'));
+			echo CHtml::image($smallImage,'Highslide JS',$options);
 			echo CHtml::closeTag('a');
 		?>
 
