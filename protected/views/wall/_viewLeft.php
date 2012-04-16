@@ -50,6 +50,9 @@
 									'image'=>"images/".$data->multimedia->file_name,
 									'caption'=>$data->multimedia->description,
 									'Id'=>$data->Id,
+									'small_width'=>$data->multimedia->width_small,
+									'small_height'=>$data->multimedia->height_small,
+				
 			));
 		}
 		else

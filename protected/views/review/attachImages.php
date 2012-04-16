@@ -42,7 +42,7 @@ $('#btnPublic').click(function(){
 										'caption'=>$item->description,
 										'Id'=>$item->Id,
 										'small_width'=>240,
-										'small_height'=>240,
+										'small_height'=>180,
 			));
 			echo CHtml::checkBox('chkImage',true,array('id'=>$item->Id, 'value'=>$item->Id, 'class'=>'review-attach-image'));
 			
