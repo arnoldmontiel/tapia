@@ -191,7 +191,10 @@ div.view-single-right
 	position: relative;
 	clear: right;
 }
-
+div.review-container-single-view
+{
+	
+}
 div.review-single-view
 {
 	background-color: #FCFDFF;
@@ -1130,6 +1133,14 @@ div.review-attach-image-description
 	display: block;
 	position: relative;
 	font-size: 12px;
+}
+div.singles-notes-container
+{
+	padding-top:10px;
+	display: block;
+	position: relative;
+	float: left;
+	width: 100%;
 }
 
 
