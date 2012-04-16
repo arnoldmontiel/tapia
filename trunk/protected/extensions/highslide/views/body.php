@@ -28,7 +28,12 @@ hs.graphicsDir = '<?php echo '../..'. $this->graphics ?>/'
 					'onclick'=>'return hs.expand(this, { thumbnailId: "thumb'.$Id.'", slideshowGroup: '.$Id.' })',
 				)
 			);
-			echo CHtml::image($smallImage,'Highslide JS',$options);
+			//echo CHtml::image($smallImage,'Highslide JS',$options);
+			$options['style']=$options['style'].' background-image: url('.$smallImage.'); background-repeat: no-repeat;display: block;background-position: center 25%;';				
+			echo CHtml::openTag('i',$options
+			);echo ".";
+			echo CHtml::closeTag('i');
+				
 			echo CHtml::closeTag('a');
 		?>
 
