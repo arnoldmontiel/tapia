@@ -326,6 +326,36 @@ div.review-create-note-cancel:HOVER
 	filter:alpha(opacity=100); /* For IE8 and earlier */
 }
 
+div.review-create-note-btn
+{	
+	opacity:0.2;
+	filter:alpha(opacity=20); /* For IE8 and earlier */
+	position: absolute;
+	font-size: 10px;
+	line-height: 18px;
+	background: none repeat scroll 0 0 #AFBAD7;
+	z-index: 20;
+	padding: 0px 5px  0px 5px;
+	cursor: pointer;	
+	width:50px;
+	text-align: center;
+}
+div.review-create-note-btn:HOVER
+{
+	opacity:1;
+	filter:alpha(opacity=100); /* For IE8 and earlier */
+}
+div.review-create-note-btn-main
+{	
+	right:80px;
+	top: 260px;
+}
+div.review-create-note-btn-main-cancel
+{	
+	right:15px;
+	top: 260px;
+}
+
 div.review-edit-image
 {
 	position: absolute;
@@ -1262,4 +1292,8 @@ div.review-add-images-container
 div.review-add-docs-container
 {
 	margin-top: 10px;
+}
+textarea.review-white
+{
+	background-color: white;
 }
