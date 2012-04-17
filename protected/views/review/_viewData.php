@@ -23,6 +23,7 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#review-view-data'.$data->Id
 	<div class="review-text-simple-note">
 	<textarea id='main_note<?php echo $data->Id?>' class="wall-action-edit-main-note" placeholder='Escriba una nota...'><?php echo $data->note;?></textarea>
 	</div>		
+	<div class="review-multimedia-conteiner">
 	<div id='review_image<?php echo $data->Id?>' class="review-text-images">
 			
 	<?php
@@ -59,7 +60,9 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#review-view-data'.$data->Id
 			{
 				echo CHtml::openTag('div');
 				echo CHtml::link('Adjuntar Imagenes',
-					ReviewController::createUrl('AjaxAttachImage',array('id'=>$data->review->Id, 'idNote'=>$data->Id)));
+					ReviewController::createUrl('AjaxAttachImage',array('id'=>$data->review->Id, 'idNote'=>$data->Id)),
+					array('class'=>'review-text-docs')
+				);
 				echo CHtml::closeTag('div');
 			}
 			foreach($data->multimedias as $item)
@@ -67,16 +70,22 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#review-view-data'.$data->Id
 				if($item->Id_multimedia_type!=3
 					&&$item->Id_multimedia_type!=4) continue;
 				echo CHtml::openTag('div');
-				echo CHtml::link(CHtml::encode($item->file_name),Yii::app()->baseUrl.'/docs/'.$item->file_name,array('target'=>'_blank'));
+				echo CHtml::link(
+					CHtml::encode($item->file_name),
+					Yii::app()->baseUrl.'/docs/'.$item->file_name,
+					array('target'=>'_blank','class'=>'review-text-docs')
+				);
 				echo CHtml::closeTag('div');
 					
 			}
 			echo CHtml::openTag('div');				
 			echo CHtml::link('Adjuntar Documentos',
-			ReviewController::createUrl('AjaxAttachDoc',array('id'=>$data->review->Id, 'idNote'=>$data->Id)));
+				ReviewController::createUrl('AjaxAttachDoc',array('id'=>$data->review->Id, 'idNote'=>$data->Id)),
+				array('class'=>'review-text-docs'));
 			echo CHtml::closeTag('div');
 				
 		?>
+	</div>
 	</div>
 	<div id="singleNoteContainer" class="singles-notes-container">
 	<?php $notes=$data->notes;?>

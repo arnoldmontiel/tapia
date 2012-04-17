@@ -67,7 +67,7 @@ echo CHtml::checkBox('chkAll','',array('id'=>'chkAll'));?>
 	}
 	?>
 	</div>
-	<hr>
+	<hr style="clear:none">
 	<div class="album-action-area-images" id="images_container">
 		<?php
 		foreach ($modelMultimedia as $item)
