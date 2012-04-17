@@ -91,11 +91,14 @@ class ReviewController extends Controller
 // 			if($model->save())
 // 				$this->redirect(array('view','id'=>$model->Id));
 // 		}
+		$ddlPriority = Priority::model()->findAll();
+		
 		$this->modelTag = $model;
 		$modelNote = Note::model()->findByAttributes(array('in_progress'=>1, 'Id_review'=>$id));
 		$this->render('update',array(
 			'model'=>$model,
 			'idNote'=>$modelNote->Id,
+			'ddlPriority'=>$ddlPriority,
 		));
 	}
 
@@ -263,6 +266,18 @@ class ReviewController extends Controller
 			$model->description = $description;
 			$model->save();
 		}
+	
+	}
+	
+	public function actionAjaxSetPriority()
+	{
+		$idPriority = $_POST['idPriority'];
+		$id = $_POST['id'];
+	
+		$model=$this->loadModel($id);
+		$model->Id_priority = $idPriority;
+
+		$model->save();
 	
 	}
 	
