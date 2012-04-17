@@ -58,7 +58,7 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#review-view-data'.$data->Id
 		<?php 
 			if(sizeof($images)==0)
 			{
-				echo CHtml::openTag('div');
+				echo CHtml::openTag('div', array('class'=>'review-add-images-container'));				
 				echo CHtml::link('Adjuntar Imagenes',
 					ReviewController::createUrl('AjaxAttachImage',array('id'=>$data->review->Id, 'idNote'=>$data->Id)),
 					array('class'=>'review-text-docs')
@@ -75,10 +75,17 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#review-view-data'.$data->Id
 					Yii::app()->baseUrl.'/docs/'.$item->file_name,
 					array('target'=>'_blank','class'=>'review-text-docs')
 				);
+				echo CHtml::encode(' '.round(($item->size / 1024), 2));
+				echo CHtml::encode(' (Kb) ');
+				
+				echo CHtml::openTag('div',array('class'=>'review-area-single-files-description'));
+				echo CHtml::encode($item->description);
+				echo CHtml::closeTag('div');
+				
 				echo CHtml::closeTag('div');
 					
 			}
-			echo CHtml::openTag('div');				
+			echo CHtml::openTag('div', array('class'=>'review-add-docs-container'));				
 			echo CHtml::link('Adjuntar Documentos',
 				ReviewController::createUrl('AjaxAttachDoc',array('id'=>$data->review->Id, 'idNote'=>$data->Id)),
 				array('class'=>'review-text-docs'));
@@ -108,7 +115,14 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#review-view-data'.$data->Id
 	<?php endif?>
 	</div>
 	<div class="review-text-note-add">
-		<textarea id="note_<?php echo $data->Id?>" class="wall-action-add-note" placeholder='Escriba una nota...'></textarea>
+		<div id='create_note_<?php echo $data->Id?>' class="review-create-note div-hidden">
+			Grabar
+		</div>
+		<div id='create_note_cancel_<?php echo $data->Id?>' class="review-create-note-cancel div-hidden">
+			Cancelar
+		</div>
+			
+		<textarea id="note_<?php echo $data->Id?>" class="review-action-add-note" placeholder='Escriba una nota...'></textarea>
 	</div>
 </div>
 
