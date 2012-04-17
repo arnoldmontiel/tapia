@@ -410,6 +410,20 @@ $(':checkbox').click(function() {
  	 	}
 	});
 
+	$('#Review_Id_priority').change(function(){
+		if($(this).val()!= ''){
+			$.post('".ReviewController::createUrl('AjaxSetPriority')."', 
+			{
+				id: ".$model->Id.",
+				idPriority: $(this).val()	
+			}	
+			).success(
+			function(data){
+			
+			});		
+		}
+	});
+	
 ");
 ?>
 <div class="wall-action-area" id="wall-action-area">
@@ -489,6 +503,16 @@ $(':checkbox').click(function() {
 	</div>
 	<div class="review-update-data-info-descr">
 		<?php echo CHtml::activeTextArea($model,'description',array('class'=>'review-update-data-text','rows'=>2, 'cols'=>70)); ?>
+	</div>
+	
+	<div>
+		<?php
+			 
+			$prioritys = CHtml::listData($ddlPriority, 'Id', 'description');
+			echo CHtml::label('Prioridad: ','Id_priority'); 
+			echo CHtml::activeDropDownList($model, 'Id_priority', $prioritys);
+					
+		?>
 	</div>
 </div>
 	
