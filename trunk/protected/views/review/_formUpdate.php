@@ -44,16 +44,35 @@ function beginBind()
 	);
 }
 
+
 function bindEvents(item)
 {
 	var idMainNote = $(item).attr('id').split('_')[1];
 	$(item).find('#note_'+idMainNote).autoResize();
+
 	$(item).find('#note_'+idMainNote).focus(function()
 	{
 		$(item).find('#create_note_'+idMainNote).removeClass('div-hidden');
 		$(item).find('#create_note_cancel_'+idMainNote).removeClass('div-hidden');
 	}
 	);
+
+	$(item).find('#main_note'+idMainNote).focus(function()
+	{
+		$(this).addClass('review-white');
+		$(item).find('#edit_main_note_'+idMainNote).removeClass('div-hidden');
+		$(item).find('#edit_main_note_cancel_'+idMainNote).removeClass('div-hidden');
+	}
+	);
+		
+	$(item).find('#edit_main_note_cancel_'+idMainNote).click(function(){
+		$(item).find('#main_note'+idMainNote).removeClass('review-white');
+		var note = $(item).find('#main_note'+idMainNote);
+		$(item).find('#edit_main_note_'+idMainNote).addClass('div-hidden');
+		$(this).addClass('div-hidden');
+		$(note).val($(item).find('#main_original_note'+idMainNote).val());
+	})
+
 	$(item).find('#create_note_cancel_'+idMainNote).click(function(){
 		var note = $(item).find('#note_'+idMainNote);
 		$(note).height(55);
@@ -78,19 +97,22 @@ function bindEvents(item)
 					}
 			);
 	});
-	
-    
-	$(item).find('#main_note'+idMainNote).change(function(){
-		var value = $(this).val();
+	    
+	$(item).find('#edit_main_note_'+idMainNote).click(function(){
+		var note = $(item).find('#main_note'+idMainNote);
+		var value = $(note).val();
 		$.post(
 			'".NoteController::createUrl('note/AjaxUpdateNoteDesc')."',
 			{
 			 	id: idMainNote,
-				note: $(this).val(),
+				note: $(note).val(),
 			 }).success(
 					function(data) 
 					{ 
-						
+						$(item).find('#main_note'+idMainNote).removeClass('review-white');
+						$(item).find('#main_original_note'+idMainNote).val($(item).find('#main_note'+idMainNote).val());
+						$(item).find('#edit_main_note_'+idMainNote).addClass('div-hidden');
+						$(item).find('#edit_main_note_cancel_'+idMainNote).addClass('div-hidden');
 					}
 			);
  
