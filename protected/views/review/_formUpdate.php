@@ -48,14 +48,28 @@ function beginBind()
 function bindEvents(item)
 {
 	var idMainNote = $(item).attr('id').split('_')[1];
+	$(item).find('#note_'+idMainNote).autoResize();
+	$(item).find('#note_'+idMainNote).focus(function()
+	{
+		$(item).find('#create_note_'+idMainNote).removeClass('div-hidden');
+		$(item).find('#create_note_cancel_'+idMainNote).removeClass('div-hidden');
+	}
+	);
+	$(item).find('#create_note_cancel_'+idMainNote).click(function(){
+		var note = $(item).find('#note_'+idMainNote);
+		$(note).height(55);
+		$(item).find('#create_note_'+idMainNote).addClass('div-hidden');
+		$(this).addClass('div-hidden');
+		$(note).val('');
+	})
 
-	$(item).find('#note_'+idMainNote).change(function(){
-		var value = $(this).val();
+	$(item).find('#create_note_'+idMainNote).click(function(){
+		var value = $(item).find('#note_'+idMainNote).val();
 		$.post(
 			'".ReviewController::createUrl('AjaxAddNote')."',
 			{
 			 	id: idMainNote,
-				value: $(this).val(),
+				value: $(item).find('#note_'+idMainNote).val(),
 				idCustomer: ".$model->Id_customer."
 			 }).success(
 					function(data) 
