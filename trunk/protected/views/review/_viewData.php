@@ -21,7 +21,15 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#review-view-data'.$data->Id
 			array('id'=>'delete_'.$data->Id, 'class'=>'wall-action-remove', 'title'=>'Eliminar'));
 	?>
 	<div class="review-text-simple-note">
+		<div id='edit_main_note_<?php echo $data->Id?>' class="review-create-note-btn review-create-note-btn-main div-hidden">
+			Grabar
+		</div>
+		<div id='edit_main_note_cancel_<?php echo $data->Id?>' class="review-create-note-btn review-create-note-btn-main-cancel div-hidden">
+			Cancelar
+		</div>
+	
 	<textarea id='main_note<?php echo $data->Id?>' class="wall-action-edit-main-note" placeholder='Escriba una nota...'><?php echo $data->note;?></textarea>
+	<textarea id='main_original_note<?php echo $data->Id?>' class="wall-action-edit-main-note" style="display: none;" placeholder='Escriba una nota...'><?php echo $data->note;?></textarea>
 	</div>		
 	<div class="review-multimedia-conteiner">
 	<div id='review_image<?php echo $data->Id?>' class="review-text-images">
