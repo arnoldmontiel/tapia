@@ -91,6 +91,7 @@ class ReviewController extends Controller
 // 			if($model->save())
 // 				$this->redirect(array('view','id'=>$model->Id));
 // 		}
+		$this->modelTag = $model;
 		$modelNote = Note::model()->findByAttributes(array('in_progress'=>1, 'Id_review'=>$id));
 		$this->render('update',array(
 			'model'=>$model,
@@ -262,6 +263,27 @@ class ReviewController extends Controller
 			$model->description = $description;
 			$model->save();
 		}
+	
+	}
+	
+	public function actionAjaxAddTag()
+	{
+		$idTag = $_POST['idTag'];
+		$id = $_POST['id'];
+		
+		$model = new TagReview();
+		$model->Id_review = $id;
+		$model->Id_tag = $idTag;
+		$model->save();
+	
+	}
+	
+	public function actionAjaxRemoveTag()
+	{
+		$idTag = $_POST['idTag'];
+		$id = $_POST['id'];
+		
+		$model = TagReview::model()->deleteByPk(array('Id_review'=>$id,'Id_tag'=>$idTag));
 	
 	}
 	
