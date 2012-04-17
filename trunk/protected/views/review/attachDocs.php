@@ -65,7 +65,7 @@ echo CHtml::checkBox('chkAll','',array('id'=>'chkAll'));?>
 		?>
 		</div>
 	</div>
-	<hr>
+	<hr style="clear:none">
 	<div class="review-area-files" id="files_container">
 		<div class="review-action-area-files" >
 		<?php
