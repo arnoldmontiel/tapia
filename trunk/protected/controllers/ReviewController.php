@@ -396,6 +396,15 @@ class ReviewController extends Controller
 			$this->render('updateDocument',array('model'=>$model));
 	}
 	
+	public function actionUpdateAlbum($id)
+	{
+	
+		$model = Album::model()->findByPk($id);
+	
+		if(isset($model))
+			$this->render('updateAlbum',array('model'=>$model));
+	}
+	
 	public function actionAjaxPublicNote()
 	{
 		$id = $_POST['id'];

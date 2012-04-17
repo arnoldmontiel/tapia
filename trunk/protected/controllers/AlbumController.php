@@ -207,6 +207,23 @@ class AlbumController extends Controller
 	}
 	
 	
+	private function unlinkAlbumFiles($arrModel)
+	{
+		foreach ($arrModel as $model)
+		{
+			$this->unlinkFile($model);
+			//$model->delete();
+		}
+	}
+	
+	public function actionAjaxRemoveAlbum()
+	{
+		$id= isset($_GET['id'])?$_GET['id']:null;
+		$model=$this->loadModel($id);
+		$this->unlinkAlbumFiles(Multimedia::model()->findAllByAttributes(array('Id_album'=>$id)));
+		$model->delete();
+	}
+	
 	public function actionAjaxRemoveImage()
 	{	
 			
@@ -234,9 +251,9 @@ class AlbumController extends Controller
 		$imagePath = 'images/';
 		$docPath = 'docs/';
 		if($model->Id_multimedia_type == 1)
-		unlink($imagePath.$model->file_name);
+			unlink($imagePath.$model->file_name);
 		else
-		unlink($docPath.$model->file_name);
+			unlink($docPath.$model->file_name);
 	
 		unlink($imagePath.$model->file_name_small);
 	}
