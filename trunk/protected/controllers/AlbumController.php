@@ -217,14 +217,6 @@ class AlbumController extends Controller
 		
 	}
 	
-	public function actionAjaxRemoveImageFromNote()
-	{
-			
-		$idMultimedia = isset($_GET['IdMultimedia'])?$_GET['IdMultimedia']:null;
-		$idNote = isset($_GET['IdNote'])?$_GET['IdNote']:null;
-		MultimediaNote::model()->deleteByPk(array('Id_multimedia'=>$idMultimedia, 'Id_note'=>$idNote));
-	
-	}
 	
 	public function actionAjaxAddImageDescription()
 	{

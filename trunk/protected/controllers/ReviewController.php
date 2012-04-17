@@ -377,7 +377,7 @@ class ReviewController extends Controller
 					
 				
 				$transaction->commit();
-				$this->redirect(array('review/index','Id_customer'=>$model->Id_customer));
+				$this->redirect(array('update','id'=>$_POST['Id_review']));
 					
 			} catch (Exception $e) {
 				$transaction->rollback();
