@@ -30,22 +30,7 @@ $('#Album_description').change(function(){
 		}
 	);
 		
-$(document).keypress(function(e) {
-    if(e.keyCode == 13) 
-    {
-    	if($('*:focus').attr('id') == 'Album_title' && $('*:focus').val() != '')
-    	{
-    		$('#Album_title').blur();
-    		return false;
-    	}
-    	if($('*:focus').attr('id') == 'Album_description' && $('*:focus').val() != '')
-    	{
-    		$('#Album_description').blur();
-    		return false;
-    	}
-		return false; 
-    }
-});
+
 ");
 ?>
 

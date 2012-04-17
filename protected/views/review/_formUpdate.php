@@ -66,12 +66,6 @@ function bindEvents(item)
 			);
 	});
 	
-	$(item).find('#note_'+idMainNote).keypress(function(e) {
-    		if(e.keyCode == 13)
-    		{
-    			$(this).val(  $(this).val() + '". '\n'."');
-    		}
-    }); 
     
 	$(item).find('#main_note'+idMainNote).change(function(){
 		var value = $(this).val();
@@ -88,13 +82,6 @@ function bindEvents(item)
 			);
  
 	});
-	
-	$(item).find('#main_note'+idMainNote).keypress(function(e) {
-    		if(e.keyCode == 13)
-    		{
-    			$(this).val(  $(this).val() + '". '\n'."');
-    		}
-    }); 
 	
 	$(item).find('#singleNoteContainer').find('img').each(
 		function(i, imgItem){
@@ -474,5 +461,10 @@ $('#btnDoc').click(function(){
 			echo CHtml::closeTag('div');
 		}
 	?>
-</div>		
-	
+</div>
+<div id="resources-view">
+<?php
+		echo CHtml::link('Documentos',
+			ReviewController::createUrl('updateDocuments',array('id'=>$model->Id)));
+	?>
+</div>

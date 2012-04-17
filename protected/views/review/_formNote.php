@@ -17,17 +17,7 @@ $('#Note_note').change(function(){
 		}
 	);
 		
-$(document).keypress(function(e) {
-    if(e.keyCode == 13) 
-    {
-    	if($('*:focus').attr('id') == 'Note_note' && $('*:focus').val() != '')
-    	{
-    		$('#Note_note').blur();
-    		return false;
-    	}
-		return false; 
-    }
-});
+
 ");
 ?>
 
