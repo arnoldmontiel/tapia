@@ -95,6 +95,6 @@ echo CHtml::checkBox('chkAll','',array('id'=>'chkAll'));?>
 	</div>
 </div>
 <div class="row" style="text-align: center;">
-	<?php echo CHtml::button('Publicar',array('class'=>'wall-action-submit-btn','id'=>'btnPublic',));?>
+	<?php echo CHtml::button('Adjuntar',array('class'=>'wall-action-submit-btn','id'=>'btnPublic',));?>
 	<?php echo CHtml::button('Cancelar',array('class'=>'wall-action-submit-btn','id'=>'btnCancel',));?>
 </div>

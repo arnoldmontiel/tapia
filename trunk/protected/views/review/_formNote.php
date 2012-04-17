@@ -50,15 +50,34 @@ $(document).keypress(function(e) {
 	foreach ($model->multimedias as $item)
 	{
 		echo CHtml::openTag('div',array('id'=>'picture_'.$item->Id,'class'=>'album-action-area-image'));
-		$this->widget('ext.highslide.highslide', array(
-									'smallImage'=>"images/".$item->file_name_small,
-									'image'=>"images/".$item->file_name,
-									'caption'=>$item->description,
-									'Id'=>$item->Id,
-									'small_width'=>240,
-									'small_height'=>180,
 		
-		));
+		if($item->Id_multimedia_type == 1)
+		{
+			$this->widget('ext.highslide.highslide', array(
+										'smallImage'=>"images/".$item->file_name_small,
+										'image'=>"images/".$item->file_name,
+										'caption'=>$item->description,
+										'Id'=>$item->Id,
+										'small_width'=>240,
+										'small_height'=>180,
+			
+			));
+		}
+		else 
+		{
+			echo CHtml::openTag('div',array('id'=>'picture_'.$item->Id,'class'=>'review-area-single-files'));
+			echo CHtml::openTag('div',array('class'=>'review-area-single-files-name'));
+			echo CHtml::checkBox('chkDoc','',array('id'=>$item->Id, 'value'=>$item->Id));
+			echo CHtml::link(CHtml::encode($item->file_name),Yii::app()->baseUrl.'/docs/'.$item->file_name,array('target'=>'_blank'));
+			echo CHtml::encode(' '.round(($item->size / 1024), 2));
+			echo CHtml::encode(' (Kb) ');
+			echo CHtml::closeTag('div');
+			echo CHtml::openTag('div',array('class'=>'review-area-single-files-description'));
+			echo CHtml::encode($item->description);
+			echo CHtml::closeTag('div');
+			echo CHtml::closeTag('div');
+		}
+		
 		echo CHtml::imageButton(
 			                                'images/remove.png',
 		array(
@@ -67,9 +86,9 @@ $(document).keypress(function(e) {
 											'id'=>'delete_'.$item->Id,
 			                                	'ajax'=> array(
 													'type'=>'GET',
-													'url'=>AlbumController::createUrl('album/AjaxRemoveImageFromNote',array('IdMultimedia'=>$item->Id, 'IdNote'=>$model->Id)),
+													'url'=>NoteController::createUrl('note/AjaxRemoveResourceFromNote',array('IdMultimedia'=>$item->Id, 'IdNote'=>$model->Id)),
 													'beforeSend'=>'function(){
-																if(!confirm("\u00BFEst\u00e1 seguro de eliminar esta imagen?")) 
+																if(!confirm("\u00BFEst\u00e1 seguro de eliminar?")) 
 																	return false;
 																	}',
 													'success'=>'js:function(data)
