@@ -37,7 +37,6 @@ beginBind();
 
 function beginBind()
 {
-	
 	$('#review-view').children().each(
 		function(index, item){
 			bindEvents(item);
@@ -378,7 +377,38 @@ $('#btnDoc').click(function(){
 	});
 });
 
+$(':checkbox').click(function() {
+		if($(this).val() != '' && $(this).attr('name') == 'chklist-tag-review[]')
+ 	 	{
+ 	 		if($(this).is(':checked'))
+ 	 		{
+ 	 			$.post(
+					'".ReviewController::createUrl('AjaxAddTag')."',
+					{
+						id: ".$model->Id.",
+						idTag:$(this).val()
+					}).success(
+						function() 
+						{ 
+			
+					});
+ 	 		}
+ 	 		else
+ 	 		{
+ 	 			$.post(
+					'".ReviewController::createUrl('AjaxRemoveTag')."',
+					{
+						id: ".$model->Id.",
+						idTag:$(this).val()
+					}).success(
+						function() 
+						{ 
+			
+					});
+ 	 		}
 
+ 	 	}
+	});
 
 ");
 ?>
