@@ -464,6 +464,13 @@ $('#btnDoc').click(function(){
 </div>
 <div id="resources-view">
 <?php
+		foreach($model->albums as $item)
+		{
+			echo CHtml::link('Album '. $item->title,
+				ReviewController::createUrl('updateAlbum',array('id'=>$item->Id)));	
+			echo '<br>';
+		}
+		
 		echo CHtml::link('Documentos',
 			ReviewController::createUrl('updateDocuments',array('id'=>$model->Id)));
 	?>
