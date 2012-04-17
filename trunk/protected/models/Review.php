@@ -8,11 +8,15 @@
  * @property integer $review
  * @property integer $Id_customer
  * @property string $description
- *
+ * @property string $creation_date
+ * @property string $change_date
+ * @property integer $Id_priority
+ * @property integer $read
  * The followings are the available model relations:
  * @property Album[] $albums
  * @property Multimedia[] $multimedias
  * @property Note[] $notes
+ * @property Priority $idPriority
  * @property Customer $idCustomer
  * @property Tag[] $tags
  * @property Wall[] $walls
@@ -45,12 +49,12 @@ class Review extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('Id_customer', 'required'),
-			array('review, Id_customer', 'numerical', 'integerOnly'=>true),
+			array('Id_customer, Id_priority', 'required'),
+			array('review, Id_customer, Id_priority, read', 'numerical', 'integerOnly'=>true),
 			array('description', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id, review, Id_customer, description', 'safe', 'on'=>'search'),
+			array('Id, review, Id_customer, description, Id_priority', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -65,6 +69,7 @@ class Review extends CActiveRecord
 			'albums' => array(self::HAS_MANY, 'Album', 'Id_review'),
 			'multimedias' => array(self::HAS_MANY, 'Multimedia', 'Id_review'),
 			'notes' => array(self::HAS_MANY, 'Note', 'Id_review'),
+			'priority' => array(self::BELONGS_TO, 'Priority', 'Id_priority'),
 			'customer' => array(self::BELONGS_TO, 'Customer', 'Id_customer'),
 			'tags' => array(self::MANY_MANY, 'Tag', 'tag_review(Id_review, Id_tag)'),
 			'walls' => array(self::HAS_MANY, 'Wall', 'Id_review'),
@@ -81,6 +86,10 @@ class Review extends CActiveRecord
 			'review' => 'Revisión',
 			'Id_customer' => 'Id Customer',
 			'description' => 'Descripción',
+			'creation_date' => 'Creation Date',
+			'change_date' => 'Change Date',
+			'Id_priority' => 'Id Priority',
+			'read' => 'Read',
 		);
 	}
 
@@ -99,6 +108,10 @@ class Review extends CActiveRecord
 		$criteria->compare('review',$this->review);
 		$criteria->compare('Id_customer',$this->Id_customer);
 		$criteria->compare('description',$this->description,true);
+		$criteria->compare('creation_date',$this->creation_date,true);
+		$criteria->compare('change_date',$this->change_date,true);
+		$criteria->compare('Id_priority',$this->Id_priority);
+		$criteria->compare('read',$this->read);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
