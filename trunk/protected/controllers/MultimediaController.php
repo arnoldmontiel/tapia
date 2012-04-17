@@ -141,6 +141,36 @@ class MultimediaController extends Controller
 		));
 	}
 
+	public function actionAjaxAddResourceDescription()
+	{
+			
+		$id = isset($_GET['IdMultimedia'])?$_GET['IdMultimedia']:null;
+		$description = isset($_GET['description'])?$_GET['description']:'';
+		$model = $this->loadModel($id);
+		$model->description = $description;
+		$model->save();
+	
+	}
+	
+	public function actionAjaxRemoveResource()
+	{
+			
+		$id = isset($_GET['IdMultimedia'])?$_GET['IdMultimedia']:null;
+		$model = $this->loadModel($id);
+		$fileName = $model->file_name;
+		
+		$model->delete();
+		
+		$this->unlinkFile($fileName);
+	
+	}
+	
+	private function unlinkFile($fileName)
+	{
+		$docPath = 'docs/';	
+		unlink($docPath.$fileName);
+	}
+	
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.

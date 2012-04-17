@@ -386,6 +386,16 @@ class ReviewController extends Controller
 	
 	
 	}
+	
+	public function actionUpdateDocuments($id)
+	{
+		
+		$model=$this->loadModel($id);
+		
+		if(isset($model))	
+			$this->render('updateDocument',array('model'=>$model));
+	}
+	
 	public function actionAjaxPublicNote()
 	{
 		$id = $_POST['id'];
