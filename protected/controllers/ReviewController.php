@@ -81,20 +81,23 @@ class ReviewController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
-// 		if(isset($_POST['Review']))
-// 		{
-// 			$model->attributes=$_POST['Review'];
-// 			if($model->save())
-// 				$this->redirect(array('view','id'=>$model->Id));
-// 		}
+		$this->modelTag = $model;
+		
 		$ddlPriority = Priority::model()->findAll();
 		
-		$this->modelTag = $model;
+		$customer = User::getCustomer();
+		if(isset($customer))
+		{
+			if(!$model->read)
+			{
+				 $model->read = 1;
+				 $model->save();
+			}
+		}
+		
+		
 		$modelNote = Note::model()->findByAttributes(array('in_progress'=>1, 'Id_review'=>$id));
+		
 		$this->render('update',array(
 			'model'=>$model,
 			'idNote'=>$modelNote->Id,
