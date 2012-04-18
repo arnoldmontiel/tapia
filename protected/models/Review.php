@@ -24,6 +24,16 @@
 class Review extends CActiveRecord
 {
 	public $maxReview;
+	
+	public function beforeSave()
+	{
+		$customer = User::getCustomer();
+		if(!isset($customer))
+			$this->read = 0;
+		
+		return parent::beforeSave();
+	}
+	
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.

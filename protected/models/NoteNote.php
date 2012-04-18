@@ -13,6 +13,18 @@
  */
 class NoteNote extends CActiveRecord
 {
+	public function beforeSave()
+	{	
+		$modelReview = Review::model()->findByPk($this->idParent->Id_review);
+		if($modelReview->read)
+		{
+			$modelReview->read = 0;
+			$modelReview->save();
+		}	
+		
+		return parent::beforeSave();
+	}
+	
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
