@@ -552,10 +552,30 @@ $(':checkbox').click(function() {
 		}
 	?>
 </div>
-<div id="resources-view">
+<div id="resources-view" class="review-single-view">
 <?php
 		foreach($model->albums as $item)
-		{
+		{			
+			$images = array();
+			$height=0;
+			foreach($item->multimedias as $multi_item)
+			{
+				$image= array();
+				$image['image'] = "images/".$multi_item->file_name;
+				$image['small_image'] = "images/".$multi_item->file_name_small;
+				$image['caption'] = $multi_item->description;
+				if($multi_item->height_small>$height)
+				{
+					$height = $multi_item->height_small;
+				}
+				$images[]=$image;
+			}
+			$this->widget('ext.highslide.highslide', array(
+											'images'=>$images,
+											'Id'=>$item->Id,
+											'height'=>$height,
+			));
+						
 			echo CHtml::link('Album '. $item->title,
 				ReviewController::createUrl('updateAlbum',array('id'=>$item->Id)));	
 			echo '<br>';
