@@ -117,4 +117,31 @@ class Review extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+	
+	public function searchSummary($tagFilter=null, $typeFilter=null)
+	{
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
+	
+		$criteria=new CDbCriteria;
+		
+		if($tagFilter)
+			$criteria->addCondition('t.Id IN(select Id_review from tag_review where Id_tag IN ('. $tagFilter.'))');
+		
+		if($typeFilter)
+		{
+			$criteria->join =  	"LEFT OUTER JOIN multimedia m ON m.Id_review=t.Id";
+			$criteria->addCondition('m.Id IN(select mj.Id from multimedia mj where mj.Id_multimedia_type IN ('. $typeFilter.') group by Id_review)');	
+		}
+		
+		$criteria->addCondition('t.Id_customer = '. $this->Id_customer);
+		$criteria->with[]='priority';
+		
+		$criteria->order = 'priority.level DESC , t.review DESC';
+		
+			
+		return new CActiveDataProvider($this, array(
+				'criteria'=>$criteria,
+		));
+	}
 }
