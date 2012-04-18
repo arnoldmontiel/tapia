@@ -22,6 +22,11 @@
 		}
 		echo CHtml::closeTag('div');
 	?>
+	<?php	
+		echo CHtml::openTag('div',array('class'=>'index-review-priority-box'));
+		echo $data->priority->description;
+		echo CHtml::closeTag('div');
+	?>
 	<?php 
 		$multimedia = new Multimedia;
 		$multimedia->Id_review = $data->Id;
