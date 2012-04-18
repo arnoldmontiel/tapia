@@ -1,8 +1,12 @@
 <a href="<?php echo ReviewController::createUrl('update',array('id'=>$data->Id))?>" class="index-review-single-link">
 <div class="index-review-single" id='review_<?php echo $data->Id; ?>'>
 	
-	<div class="index-review-summary">
-
+	<?php
+		$classStyle = 'index-review-summary-unread';
+		if($data->read)
+			$classStyle = 'index-review-summary'; ?>
+	
+	<div class='<?php echo $classStyle ?>'>
 		#<?php echo CHtml::encode($data->review); ?>:
 		<?php echo CHtml::encode($data->description); ?>
 	</div>
