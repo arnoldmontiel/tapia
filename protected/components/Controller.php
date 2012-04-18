@@ -22,4 +22,6 @@ class Controller  extends  SBaseController
 	public $breadcrumbs=array();
 	
 	public $modelTag = null;
+	
+	public $showFilter = false;
 }
