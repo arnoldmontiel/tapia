@@ -23,6 +23,7 @@
  */
 class Review extends CActiveRecord
 {
+	public $maxReview;
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
