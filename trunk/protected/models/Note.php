@@ -10,6 +10,8 @@
  * @property integer $Id_customer
  * @property integer $Id_review
  * @property integer $in_progress
+ * @property integer $need_confirmation
+ * @property integer $confirmed
  *
  * The followings are the available model relations:
  * @property Review $idReview
@@ -62,11 +64,11 @@ class Note extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('Id_customer', 'required'),
-			array('Id_customer, Id_review, in_progress', 'numerical', 'integerOnly'=>true),
+			array('Id_customer, Id_review, in_progress, need_confirmation, confirmed', 'numerical', 'integerOnly'=>true),
 			array('note, creation_date', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id, note, creation_date, Id_customer, Id_review, in_progress', 'safe', 'on'=>'search'),
+			array('Id, note, creation_date, Id_customer, Id_review, in_progress, need_confirmation, confirmed', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -99,6 +101,8 @@ class Note extends CActiveRecord
 			'Id_customer' => 'Id Customer',
 			'Id_review' => 'Id Review',
 			'in_progress' => 'In Progress',
+			'need_confirmation' => 'Con confirmacion necesaria',
+			'confirmed' => 'Confirmed',
 		);
 	}
 
@@ -119,6 +123,7 @@ class Note extends CActiveRecord
 		$criteria->compare('Id_customer',$this->Id_customer);
 		$criteria->compare('Id_review',$this->Id_review);
 		$criteria->compare('in_progress',0);
+		
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

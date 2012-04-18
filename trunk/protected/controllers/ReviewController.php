@@ -342,6 +342,37 @@ class ReviewController extends Controller
 		}		
 	}
 	
+	public function actionAjaxUpdateNoteNeedConf()
+	{
+ 		$chk = $_POST['chk'];
+ 		$id = $_POST['id'];
+		$model= Note::model()->findByPk($id);
+		
+		if(isset($model))
+		{
+			$model->need_confirmation = $chk;
+			$model->save();
+		}
+		$this->renderPartial('_viewData',array('data'=>$model));
+	}
+	
+	public function actionAjaxConfirmNote()
+	{
+		if(Yii::app()->request->isPostRequest)
+		{
+			$id=$_POST['id'];
+			// we only allow deletion via POST request
+			$model= Note::model()->findByPk($id);
+				
+			$model->confirmed = 1;
+			$model->save();
+				
+			$this->renderPartial('_viewData',array('data'=>$model));
+		}
+		else
+		throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+	}
+	
 	public function actionAjaxAddNote()
 	{
 		$id = $_POST['id'];
