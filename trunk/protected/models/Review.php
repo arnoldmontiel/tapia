@@ -137,7 +137,7 @@ class Review extends CActiveRecord
 		$criteria->addCondition('t.Id_customer = '. $this->Id_customer);
 		$criteria->with[]='priority';
 		
-		$criteria->order = 'priority.level DESC , t.review DESC';
+		$criteria->order = 't.read ASC, priority.level DESC , t.review DESC';
 		
 			
 		return new CActiveDataProvider($this, array(
