@@ -16,7 +16,21 @@ $('#Note_note').change(function(){
 			});
 		}
 	);
-		
+
+$('#Note_need_confirmation').change(function(){
+	$.post(
+		'".ReviewController::createUrl('AjaxUpdateNoteNeedConf')."',
+		{
+			id: $('#Note_Id_note').val(),
+			chk:$(this).val()
+		}).success(
+			function() 
+			{ 
+				//$('#saveok2').animate({opacity: 'show'},2000);
+				//$('#saveok2').animate({opacity: 'hide'},2000);
+			});
+		}
+	);
 
 ");
 ?>
@@ -29,6 +43,11 @@ $('#Note_note').change(function(){
 ?>
 
 	<?php echo CHtml::hiddenField('Note_Id_note',$model->Id,array('id'=>'Note_Id_note')); ?>
+	
+	<div class="row">
+		<?php echo $formNote->labelEx($model,'need_confirmation'); ?>
+		<?php echo $formNote->checkBox($model,'need_confirmation'); ?>
+	</div>
 	<div class="row">
 		<?php echo $formNote->textArea($model,'note',array('rows'=>2, 'cols'=>110,'class'=>'wall-action-upload-file-description', 'placeholder'=>'Escriba una nota...')); ?>
 		<?php echo $formNote->error($model,'note'); ?>
