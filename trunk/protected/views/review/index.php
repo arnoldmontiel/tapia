@@ -23,7 +23,7 @@ function doFilter()
 		{
 			tagFilter: $('#tagFilter').val(),
 			Id_customer: $('#Id_customer').val(),
-			typeFilter: $('#typeFilter').val(),
+			typeFilter: $('#typeFilter').val()
 			
 		}	
 		).success(
