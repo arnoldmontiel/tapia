@@ -1204,6 +1204,12 @@ div.index-review-summary
 	float: left;
 	position:relative;
 }
+div.index-review-summary-unread
+{
+	float: left;
+	font-weight:bold;
+	position:relative;
+}
 div.index-review-tag-box
 {
 	margin:0px 0px 0px 5px;
