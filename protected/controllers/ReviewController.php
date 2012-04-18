@@ -193,6 +193,9 @@ class ReviewController extends Controller
 		}
 		$criteria=new CDbCriteria;
 		$criteria->order = 't.Id desc';
+		
+		$this->showFilter = true;
+		
 		$this->render('index',
 			array('modelMultimedia'=>$modelMultimedia,
 					'modelNote'=>$modelNote,
