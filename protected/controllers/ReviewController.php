@@ -67,9 +67,18 @@ class ReviewController extends Controller
 				$this->redirect(array('update','id'=>$model->Id));
 		}
 
+		$criteria=new CDbCriteria;
+
+		$criteria->select='MAX(review) as maxReview';
+		$criteria->condition='Id_customer = '.$model->Id_customer ;
+		
+		$modelMax = Review::model()->find($criteria);
+
+		$model->review = $modelMax->maxReview + 1;
+		
 		$this->render('create',array(
 			'model'=>$model,
-			'modelCustomer'=>$modelCustomer
+			'modelCustomer'=>$modelCustomer,
 		));
 	}
 
