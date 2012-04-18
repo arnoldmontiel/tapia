@@ -1371,3 +1371,42 @@ div.review-resources-title
 	padding: 18px 5px 0px 20px;
 	font-size: 18px;
 }
+div.review-update-files-name
+{
+	width: 300px;
+	float:left;
+	margin-top: 0px;
+}
+div.review-update-files-descr
+{
+	width: 600px;
+	float:left;	
+}
+textarea.review-update-files-descr
+{
+	width: 100%;
+	resize:none;
+	border: none;
+	background-color: #F4F6FB;
+}
+textarea.review-update-files-descr:FOCUS
+{
+	background-color: white;
+}
+
+div.review-update-single-files
+{
+	width: 100%;
+	position: relative;
+	float: left;		
+}
+input.album-action-remove-update-file
+{
+	right: 40px;	
+}
+div.review-priority
+{
+	float:left;
+	margin-top: 10px;
+	margin-left: 50px;
+}
