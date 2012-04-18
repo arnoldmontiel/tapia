@@ -1125,6 +1125,27 @@ textarea.review-update-data-text:focus
 {
 	background-color: white;	
 }
+div.review-update-image
+{
+	margin-bottom: 3px;
+}
+textarea.review-update-album-descr
+{
+	position: relative;
+	padding: 5px 10px 5px;
+	outline: none;
+	background-color: #f4f6fb;
+	border: 1px solid #f4f6fb;
+	font-size: 13px;
+	line-height: 18px;
+	resize: none;
+	width: 218px;
+	margin-top: 8px;
+}
+textarea.review-update-album-descr:focus
+{
+	background-color: white;	
+}
 
 div.review-update-data-info
 {
@@ -1323,13 +1344,13 @@ textarea.review-white
 }
 div.review-container-album
 {
-	width: 100%;
+	width: 45%;
 	float: left;
 	position: relative;
 }
 div.review-container-single-album
 {
-	width: 40%;
+	width: 90%;
 	float: left;
 	position: relative;
 	display: inline;
@@ -1337,7 +1358,16 @@ div.review-container-single-album
 }
 div.review-container-documents
 {
-	width: 100%;
+	width: 39%;
 	float: left;
 	position: relative;
+}
+div.review-resources-title
+{
+	width: 95%;
+	height: 40px;
+	background-color: #F4F6FB;
+	margin-bottom: 30px;
+	padding: 18px 5px 0px 20px;
+	font-size: 18px;
 }
