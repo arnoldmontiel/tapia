@@ -1,7 +1,11 @@
 <?php
+$cs = Yii::app()->getClientScript();
+$cs->registerScriptFile(Yii::app()->request->baseUrl.'/js/highslide-with-gallery.js',CClientScript::POS_HEAD);
+$cs->registerScriptFile(Yii::app()->request->baseUrl.'/js/highslide-exe.js',CClientScript::POS_HEAD);
+$cs->registerCssFile(Yii::app()->request->baseUrl.'/js/highslide.css');
 
 Yii::app()->clientScript->registerScript('updateAlbum-review', "
-
+$('#Album_description').autoResize();
 $('#Album_title').change(function(){
 	
 		$.post(
@@ -63,13 +67,6 @@ $(document).keypress(function(e) {
     		$('#Album_title').blur();
     		return false;
     	}
-    	
-    	if($('*:focus').attr('id') == 'Album_description' && $('*:focus').val() != '')
-    	{
-    		$('#Album_description').blur();
-    		return false;
-    	}
-		return false; 
     }
   });
 ");
@@ -114,31 +111,23 @@ echo CHtml::imageButton(
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'description'); ?>
-		<?php echo $form->textField($model,'description',array('size'=>45,'maxlength'=>45)); ?>
+		<?php echo $form->textArea($model,'description',array('style'=>'width:500px;resize:none;')); ?>
 		<?php echo CHtml::image("images/save_ok.png","",array("id"=>"saveok2", "style"=>"display:none", "width"=>"20px", "height"=>"20px")); ?>
 		<?php echo $form->error($model,'description'); ?>
 	</div>
 
-	<div class="album-action-area-images" id="images_container">
+	<div class="album-action-area-images" style="padding-left:70px;margin-top:40px;" id="images_container">
 	<?php 
 
 	foreach ($model->multimedias as $item)
 	{
-		echo CHtml::openTag('div',array('id'=>'picture_'.$item->Id,'class'=>'album-action-area-image'));
-		$this->widget('ext.highslide.highslide', array(
-								'smallImage'=>"images/".$item->file_name_small,
-								'image'=>"images/".$item->file_name,
-								'caption'=>'',
-								'Id'=>$item->Id,
-								'small_width'=>240,
-								'small_height'=>180,
-		
-		)); 
+		echo CHtml::openTag('div',array('id'=>'picture_'.$item->Id,'class'=>'review-attach-image'));
 		echo CHtml::imageButton(
 		                                'images/remove.png',
 								array(
 		                                'class'=>'album-action-remove',
-		                                'title'=>'Borrar imagen',
+		                                'style'=>'right:10px;top:5px;z-index:10;',
+										'title'=>'Borrar imagen',
 										'id'=>'delete_'.$item->Id,
 		                                	'ajax'=> array(
 												'type'=>'GET',
@@ -155,15 +144,27 @@ echo CHtml::imageButton(
 								)
 		 
 			);
-		echo '<br>';
+		echo CHtml::openTag('div',array('class'=>'review-update-image'));
+		$this->widget('ext.highslide.highslide', array(
+								'smallImage'=>"images/".$item->file_name_small,
+								'image'=>"images/".$item->file_name,
+								'caption'=>'',
+								'Id'=>$item->Id,
+								'small_width'=>240,
+								'small_height'=>180,
+		
+		)); 
+		echo CHtml::closeTag('div');
+		echo CHtml::openTag('div',array());
 		echo CHtml::textArea('photo_description',$item->description,
 							array(
 								'id'=>$item->Id,
 								'placeholder'=>'Escriba una description...',
+								'class'=>'review-update-album-descr',
 							)
 						
 			);
-		
+		echo CHtml::closeTag('div');		
 		echo CHtml::closeTag('div');
 	}
 	?>	

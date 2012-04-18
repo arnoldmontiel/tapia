@@ -553,6 +553,9 @@ $(':checkbox').click(function() {
 	?>
 </div>
 <div id="resources-view" class="review-single-view">
+	<div class="review-resources-title">
+	Recursos Multimedias
+	</div>
 <?php
 	
 		echo CHtml::openTag('div',array('class'=>'review-container-album'));
@@ -587,16 +590,44 @@ $(':checkbox').click(function() {
 											'height'=>$height,
 			));
 						
-			echo CHtml::openTag('div');
+			echo CHtml::openTag('div',array('style'=>'margin-top:10px;font-weight:bold;'));
 			echo $item->title;	
 			echo CHtml::closeTag('div');
+			echo CHtml::openTag('p',array('class'=>'single-formated-text'));
+			echo $item->description;	
+			echo CHtml::closeTag('p');
 			echo CHtml::closeTag('div');
 		}
 		echo CHtml::closeTag('div');
 
 		echo CHtml::openTag('div',array('class'=>'review-container-documents'));	
-		echo CHtml::link('Documentos',
-			ReviewController::createUrl('updateDocuments',array('id'=>$model->Id)));
-		echo CHtml::closeTag('div');
 		?>
+		<div class="review-text-docs">
+		<?php 
+			echo CHtml::link('Editar documentos',
+			ReviewController::createUrl('updateDocuments',array('id'=>$model->Id)),array('class'=>'review-text-docs'));
+			foreach($model->multimedias as $item)
+			{
+				if($item->Id_multimedia_type!=3
+					&&$item->Id_multimedia_type!=4) continue;
+				echo CHtml::openTag('div');
+				echo CHtml::link(
+					CHtml::encode($item->file_name),
+					Yii::app()->baseUrl.'/docs/'.$item->file_name,
+					array('target'=>'_blank','class'=>'review-text-docs')
+				);
+				echo CHtml::encode(' '.round(($item->size / 1024), 2));
+				echo CHtml::encode(' (Kb) ');
+				
+				echo CHtml::openTag('div',array('class'=>'review-area-single-files-description'));
+				echo CHtml::encode($item->description);
+				echo CHtml::closeTag('div');
+				
+				echo CHtml::closeTag('div');
+					
+			}
+			echo CHtml::closeTag('div');
+		?>
+	</div>
+		
 </div>
