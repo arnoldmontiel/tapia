@@ -172,6 +172,42 @@ function bindEvents(item)
 		function(){
 			$('#edit_image'+idMainNote).addClass('div-hidden');
 	});
+	
+	$('#chkNeedConf_'+idMainNote).change(function(){
+		
+		var chk = 0;
+		if($(this).is(':checked'))
+			chk = 1;
+			
+		$.post(
+		'".ReviewController::createUrl('AjaxUpdateNoteNeedConf')."',
+		{
+			id: idMainNote,
+			chk: chk
+		}).success(
+			function(data) 
+			{ 
+				$('#noteContainer_'+idMainNote).html(data);
+				bindEvents($('#noteContainer_'+idMainNote))
+			});
+	});
+	
+	$('#confirm_note_'+idMainNote).click(function(){
+		$.ajax({
+				type : 'POST',
+				data : 'id='+idMainNote,
+				url : '" . ReviewController::createUrl('AjaxConfirmNote') ."',
+				beforeSend : function(){
+							if(!confirm('Esta de acuerdo en confirmar?')) 
+								return false;
+								},
+				success : function(data)
+				{
+					$('#noteContainer_'+idMainNote).html(data);
+					bindEvents($('#noteContainer_'+idMainNote))
+				}
+		});
+	});
 
 }
 

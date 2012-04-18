@@ -27,7 +27,24 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#review-view-data'.$data->Id
 		<div id='edit_main_note_cancel_<?php echo $data->Id?>' class="review-create-note-btn review-create-note-btn-main-cancel div-hidden">
 			Cancelar
 		</div>
-	
+		<?php
+			if($data->confirmed)
+	 			echo CHtml::checkBox('chkNeedConf_'.$data->Id,$data->need_confirmation,array('disabled'=>'disabled'));
+			else
+				echo CHtml::checkBox('chkNeedConf_'.$data->Id,$data->need_confirmation);
+	 		
+	 		if($data->need_confirmation)
+	 		{
+	 			if($data->confirmed)
+	 				echo 'Confirmado!!';
+	 			else 
+	 			{
+	 				echo "<div id='confirm_note_". $data->Id."'>";
+	 				echo "Confirmar";
+	 				echo "</div>";
+	 			}
+	 		}
+	 	?>
 	<textarea id='main_note<?php echo $data->Id?>' class="wall-action-edit-main-note" placeholder='Escriba una nota...'><?php echo $data->note;?></textarea>
 	<textarea id='main_original_note<?php echo $data->Id?>' class="wall-action-edit-main-note" style="display: none;" placeholder='Escriba una nota...'><?php echo $data->note;?></textarea>
 	</div>		
