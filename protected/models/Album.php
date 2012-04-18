@@ -48,8 +48,8 @@ class Album extends CActiveRecord
 		return array(
 			array('Id_customer, Id_review', 'required'),
 			array('Id_customer, Id_review', 'numerical', 'integerOnly'=>true),
-			array('title, description', 'length', 'max'=>45),
-			array('creation_date', 'safe'),
+			array('title', 'length', 'max'=>45),
+			array('creation_date, description', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('Id, title, description, creation_date, Id_customer', 'safe', 'on'=>'search'),
