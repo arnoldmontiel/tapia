@@ -470,6 +470,11 @@ $(':checkbox').click(function() {
 		echo CHtml::openTag('div',array('class'=>'wall-action-btn','id'=>'btnDoc'));
 			echo 'Documentos';
 		echo CHtml::closeTag('div');
+		echo CHtml::openTag('div',array('class'=>'review-priority'));
+			$prioritys = CHtml::listData($ddlPriority, 'Id', 'description');
+			echo CHtml::label('Prioridad: ','Id_priority'); 
+			echo CHtml::activeDropDownList($model, 'Id_priority', $prioritys);
+		echo CHtml::closeTag('div');
 	echo CHtml::closeTag('div');	
 ?> 
 </div>
@@ -525,16 +530,6 @@ $(':checkbox').click(function() {
 	</div>
 	<div class="review-update-data-info-descr">
 		<?php echo CHtml::activeTextArea($model,'description',array('class'=>'review-update-data-text','rows'=>2, 'cols'=>70)); ?>
-	</div>
-	
-	<div>
-		<?php
-			 
-			$prioritys = CHtml::listData($ddlPriority, 'Id', 'description');
-			echo CHtml::label('Prioridad: ','Id_priority'); 
-			echo CHtml::activeDropDownList($model, 'Id_priority', $prioritys);
-					
-		?>
 	</div>
 </div>
 	
@@ -604,9 +599,13 @@ $(':checkbox').click(function() {
 		?>
 		<div class="review-text-docs">
 		<?php 
-			echo CHtml::link('Editar documentos',
-			ReviewController::createUrl('updateDocuments',array('id'=>$model->Id)),array('class'=>'review-text-docs'));
-			foreach($model->multimedias as $item)
+			$multimedias = $model->multimedias;
+			if(sizeof($multimedias)>0)
+			{
+				echo CHtml::link('Editar documentos',
+				ReviewController::createUrl('updateDocuments',array('id'=>$model->Id)),array('class'=>'review-text-docs'));
+			}
+			foreach($multimedias as $item)
 			{
 				if($item->Id_multimedia_type!=3
 					&&$item->Id_multimedia_type!=4) continue;
