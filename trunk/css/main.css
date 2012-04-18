@@ -367,6 +367,12 @@ div.review-edit-image
 	z-index: 20;
 	padding: 0px 5px  0px 5px;
 }
+div.review-edit-image-album
+{
+	right:70px;
+	top: 20px;
+}
+
 a.review-edit-image
 {
 	color: #b6b6b6;
@@ -1308,4 +1314,24 @@ div.review-add-docs-container
 textarea.review-white
 {
 	background-color: white;
+}
+div.review-container-album
+{
+	width: 100%;
+	float: left;
+	position: relative;
+}
+div.review-container-single-album
+{
+	width: 40%;
+	float: left;
+	position: relative;
+	display: inline;
+	margin-bottom: 20px;
+}
+div.review-container-documents
+{
+	width: 100%;
+	float: left;
+	position: relative;
 }
