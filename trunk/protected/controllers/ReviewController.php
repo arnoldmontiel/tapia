@@ -304,25 +304,14 @@ class ReviewController extends Controller
 	
 	private function fillIndex($Id_customer, $tagFilter=null, $typeFilter=null)
 	{
-		$criteria=new CDbCriteria;
-		
-		if($tagFilter)
-			$criteria->addCondition('t.Id IN(select Id_review from tag_review where Id_tag IN ('. $tagFilter.'))');
-		
-		if($typeFilter)
-		{
-			$criteria->join =  	"LEFT OUTER JOIN multimedia m ON m.Id_review=t.Id";
-			$criteria->addCondition('m.Id IN(select mj.Id from multimedia mj where mj.Id_multimedia_type IN ('. $typeFilter.') group by Id_review)');	
-		}
-		
-		$criteria->addCondition('t.Id_customer = '. $Id_customer);
-		
 		
 		$review = new Review;
-		$dataProvider = new CActiveDataProvider($review, array(
-					'criteria'=>$criteria,
-		));
+		$review->Id_customer = $Id_customer;
+
+		$dataProvider = $review->searchSummary($tagFilter, $typeFilter);
+		
 		$dataProvider->pagination->pageSize= 10;
+		
 		$data = $dataProvider->getData();
 			
 		foreach ($data as $item){
