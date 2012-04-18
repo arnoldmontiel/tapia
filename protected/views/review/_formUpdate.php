@@ -554,8 +554,19 @@ $(':checkbox').click(function() {
 </div>
 <div id="resources-view" class="review-single-view">
 <?php
+	
+		echo CHtml::openTag('div',array('class'=>'review-container-album'));
 		foreach($model->albums as $item)
-		{			
+		{
+				
+			echo CHtml::openTag('div',array('class'=>'review-container-single-album'));	
+			echo CHtml::openTag('div',array('id'=>'edit_image'.$data->Id,'class'=>"review-edit-image review-edit-image-album"));
+						
+			echo CHtml::link('Editar Album',
+			ReviewController::createUrl('updateAlbum',array('id'=>$item->Id)),
+			array('class'=>'review-edit-image')
+			);
+			echo CHtml::closeTag('div');
 			$images = array();
 			$height=0;
 			foreach($item->multimedias as $multi_item)
@@ -576,12 +587,16 @@ $(':checkbox').click(function() {
 											'height'=>$height,
 			));
 						
-			echo CHtml::link('Album '. $item->title,
-				ReviewController::createUrl('updateAlbum',array('id'=>$item->Id)));	
-			echo '<br>';
+			echo CHtml::openTag('div');
+			echo $item->title;	
+			echo CHtml::closeTag('div');
+			echo CHtml::closeTag('div');
 		}
-		
+		echo CHtml::closeTag('div');
+
+		echo CHtml::openTag('div',array('class'=>'review-container-documents'));	
 		echo CHtml::link('Documentos',
 			ReviewController::createUrl('updateDocuments',array('id'=>$model->Id)));
-	?>
+		echo CHtml::closeTag('div');
+		?>
 </div>
