@@ -34,15 +34,7 @@ class SiteController extends Controller
 		$customer = User::getCustomer();
 		if(isset($customer))
 		{
-			$modelWall->Id_customer = $customer->Id;
-			$dataProvider = $modelWall->searchOrderedByIndex();
-			
-			$dataProvider->pagination->pageSize= 12;
-			
-			
-			$this->render('index',array(
-								'dataProvider'=>$dataProvider,
-			));
+			Yii::app()->controller->redirect(array('review/index','Id_customer'=>$customer->Id));
 				
 		}
 		else
