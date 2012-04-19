@@ -93,6 +93,11 @@ $('#Note_need_confirmation').change(function(){
 			
 			));
 			echo $imgBtn;
+			echo CHtml::openTag('div',array('class'=>'review-attach-image-description'));
+			echo CHtml::openTag('p',array('class'=>'review-attach-image-description'));
+			echo CHtml::encode($item->description).'&nbsp;';
+			echo CHtml::closeTag('p');				
+			echo CHtml::closeTag('div');				
 			echo CHtml::closeTag('div');			
 		}
 		else 
