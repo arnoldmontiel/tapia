@@ -353,6 +353,7 @@ $('#btnCancelNote').click(function(){
 			function(){		
 			RestoreButtons();
 			$('#Note_note').val('');
+			$('#note-images').html('');
 		});
 	});
 });
@@ -484,6 +485,17 @@ $(':checkbox').click(function() {
 	
 ");
 ?>
+<div class="review-update-data">
+
+	<div class="review-update-data-info">
+		<?php echo CHtml::label('Revis&oacute;n', 'Review_review');?>
+		<?php echo CHtml::activeTextField($model,'review',array('class'=>'review-update-data-number')); ?>
+	</div>
+	<div class="review-update-data-info-descr">
+		<?php echo CHtml::activeTextArea($model,'description',array('class'=>'review-update-data-text','rows'=>2, 'cols'=>70)); ?>
+	</div>
+</div>
+
 <div class="wall-action-area" id="wall-action-area">
 <div id="customer" class="review-action-back" >
 	<?php echo CHtml::link($model->customer->name.' '.$model->customer->last_name,
@@ -558,16 +570,6 @@ $(':checkbox').click(function() {
 		$this->renderPartial('_formDocument',array('model'=>$modelMulti, 'Id_review'=>$model->Id, 'Id_customer'=>$model->Id_customer));
 	?>
 </div>
-<div class="review-update-data">
-
-	<div class="review-update-data-info">
-		<?php echo CHtml::label('Revis&oacute;n', 'Review_review');?>
-		<?php echo CHtml::activeTextField($model,'review',array('class'=>'review-update-data-number')); ?>
-	</div>
-	<div class="review-update-data-info-descr">
-		<?php echo CHtml::activeTextArea($model,'description',array('class'=>'review-update-data-text','rows'=>2, 'cols'=>70)); ?>
-	</div>
-</div>
 	
 <div id="review-view">
 	<?php 
@@ -576,6 +578,8 @@ $(':checkbox').click(function() {
 		$dataProviderNote = $modelNote->search();
 		$dataProviderNote->criteria->order= 'creation_date DESC';
 		$noteData = $dataProviderNote->data;
+		echo CHtml::openTag('div',array('class'=>'review-container-single-view','style'=>'display:none;','id'=>'noteContainer_place_holder'));
+		echo CHtml::closeTag('div');
 		foreach ($noteData as $item) {
 			echo CHtml::openTag('div',array('class'=>'review-container-single-view','id'=>'noteContainer_'.$item->Id));
 			$this->renderPartial('_viewData',array('data'=>$item));
