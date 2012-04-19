@@ -317,13 +317,13 @@ class ReviewController extends Controller
 	
 	}
 	
-	private function fillIndex($Id_customer, $tagFilter=null, $typeFilter=null)
+	private function fillIndex($Id_customer, $arrFilters)
 	{
 		
 		$review = new Review;
 		$review->Id_customer = $Id_customer;
 
-		$dataProvider = $review->searchSummary($tagFilter, $typeFilter);
+		$dataProvider = $review->searchSummary($arrFilters);
 		
 		$dataProvider->pagination->pageSize= 10;
 		
@@ -338,7 +338,12 @@ class ReviewController extends Controller
 	{
 		if(isset($_POST['Id_customer']))
 		{
-			$this->fillIndex($_POST['Id_customer'], $_POST['tagFilter'], $_POST['typeFilter']);
+			$arrFilters = array('tagFilter'=>$_POST['tagFilter'], 
+							 'typeFilter'=>$_POST['typeFilter'],
+							 'dateFromFilter'=>$_POST['dateFromFilter'],
+							 'dateToFilter'=>$_POST['dateToFilter']);
+			
+			$this->fillIndex($_POST['Id_customer'], $arrFilters);
 		}		
 	}
 	
