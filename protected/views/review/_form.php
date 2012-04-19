@@ -14,6 +14,15 @@
 	</div>
 
 	<div class="row">
+		<?php echo CHtml::label('Prioridad', 'Review_Id_priority'); ?>
+		<?php 
+		$prioritys = CHtml::listData($modelPriority, 'Id', 'description');
+		echo $form->dropDownList($model, 'Id_priority', $prioritys);
+		?>
+		<?php echo $form->error($model,'priority'); ?>
+	</div>
+
+	<div class="row">
 		<?php echo CHtml::label('Descripci&oacute;n', 'Review[description]'); ?>
 		<?php echo $form->textArea($model,'description',array('rows'=>6, 'cols'=>50,'style'=>'resize:none;')); ?>
 		<?php echo $form->error($model,'description'); ?>

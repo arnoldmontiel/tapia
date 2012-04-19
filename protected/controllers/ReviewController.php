@@ -51,6 +51,7 @@ class ReviewController extends Controller
 	{
 		$model=new Review;
 		$modelCustomer=new Customer;
+		$modelPriority=Priority::model()->findAll();
 		
 		// Uncomment the following line if AJAX validation is needed
 		$this->performAjaxValidation($model);
@@ -79,6 +80,7 @@ class ReviewController extends Controller
 		$this->render('create',array(
 			'model'=>$model,
 			'modelCustomer'=>$modelCustomer,
+			'modelPriority'=>$modelPriority,
 		));
 	}
 
