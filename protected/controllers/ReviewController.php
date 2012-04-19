@@ -373,7 +373,11 @@ class ReviewController extends Controller
 				
 			$model->confirmed = 1;
 			$model->save();
-				
+
+			if($_POST['parentId'])
+				$model= Note::model()->findByPk($_POST['parentId']);
+			
+			
 			$this->renderPartial('_viewData',array('data'=>$model));
 		}
 		else
@@ -385,7 +389,8 @@ class ReviewController extends Controller
 		$id = $_POST['id'];
 		$value = $_POST['value'];
 		$idCustomer = $_POST['idCustomer'];
-	
+		$chk = $_POST['chk'];
+		
 		$modelNote = new Note;
 	
 		$transaction = $modelNote->dbConnection->beginTransaction();
@@ -393,6 +398,7 @@ class ReviewController extends Controller
 			$modelNote->note = $value;
 			$modelNote->Id_customer = $idCustomer;
 			$modelNote->in_progress = 0;
+			$modelNote->need_confirmation = $chk;
 			$modelNote->save();
 				
 			$modelNoteNote = new NoteNote;
