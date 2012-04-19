@@ -1024,6 +1024,7 @@ div.review-action-area-files
 div.review-area-single-files
 {
 	width: 100%;	
+	position: relative;
 	
 }
 div.review-area-single-files-name
