@@ -129,20 +129,30 @@ class Review extends CActiveRecord
 		));
 	}
 	
-	public function searchSummary($tagFilter=null, $typeFilter=null)
+	public function searchSummary($arrFilters)
 	{
 		// Warning: Please modify the following code to remove attributes that
 		// should not be searched.
 	
 		$criteria=new CDbCriteria;
 		
-		if($tagFilter)
-			$criteria->addCondition('t.Id IN(select Id_review from tag_review where Id_tag IN ('. $tagFilter.'))');
+		if($arrFilters['tagFilter'])
+			$criteria->addCondition('t.Id IN(select Id_review from tag_review where Id_tag IN ('. $arrFilters['tagFilter'].'))');
 		
-		if($typeFilter)
+		if($arrFilters['typeFilter'])
 		{
 			$criteria->join =  	"LEFT OUTER JOIN multimedia m ON m.Id_review=t.Id";
-			$criteria->addCondition('m.Id IN(select mj.Id from multimedia mj where mj.Id_multimedia_type IN ('. $typeFilter.') group by Id_review)');	
+			$criteria->addCondition('m.Id IN(select mj.Id from multimedia mj where mj.Id_multimedia_type IN ('. $arrFilters['typeFilter'].') group by Id_review)');	
+		}
+		
+		if($arrFilters['dateFromFilter'])
+		{
+			$criteria->addCondition('t.creation_date >= "'. date("Y-m-d H:i:s",strtotime($arrFilters['dateFromFilter'])) . '"');
+		}
+
+		if($arrFilters['dateToFilter'])
+		{
+			$criteria->addCondition('t.creation_date <= "'. date("Y-m-d H:i:s",strtotime($arrFilters['dateToFilter'] . " + 1 day")) . '"');
 		}
 		
 		$criteria->addCondition('t.Id_customer = '. $this->Id_customer);
