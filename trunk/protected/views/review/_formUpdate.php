@@ -83,12 +83,16 @@ function bindEvents(item)
 
 	$(item).find('#create_note_'+idMainNote).click(function(){
 		var value = $(item).find('#note_'+idMainNote).val();
+		var chk = 0;
+		if($('#chkNoteNeedConf_'+idMainNote).is(':checked'))
+			chk = 1;
 		$.post(
 			'".ReviewController::createUrl('AjaxAddNote')."',
 			{
 			 	id: idMainNote,
 				value: $(item).find('#note_'+idMainNote).val(),
-				idCustomer: ".$model->Id_customer."
+				idCustomer: ".$model->Id_customer.",
+				chk: chk
 			 }).success(
 					function(data) 
 					{ 
@@ -120,6 +124,26 @@ function bindEvents(item)
 	
 	$(item).find('#singleNoteContainer').find('img').each(
 		function(i, imgItem){
+		
+			$(imgItem).parent().find('#confirm_note').click(function(){
+				var id= $(this).attr('idNote');
+				$.ajax({
+						type : 'POST',
+						data : {'id':id, 'parentId':idMainNote},
+						url : '" . ReviewController::createUrl('AjaxConfirmNote') ."',
+						beforeSend : function(){
+									if(!confirm('\u00BFEst\u00e1 de acuerdo en confirmar?')) 
+										return false;
+										},
+						success : function(data)
+						{
+							$('#noteContainer_'+idMainNote).html(data);
+							bindEvents($('#noteContainer_'+idMainNote))
+						}
+				});
+			});
+			
+			
 			$(imgItem).click(function(){
 				var id = $(imgItem).attr('id');								
 				var idNote = id.split('_')[2];
