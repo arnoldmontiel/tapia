@@ -131,7 +131,7 @@ function bindEvents(item)
 						type : 'GET',
 						url : '" . ReviewController::createUrl('AjaxRemoveSingleNote') ."' + getParam,
 						beforeSend : function(){
-									if(!confirm('Seguro que quiere borrar esta nota?')) 
+									if(!confirm('\u00BFSeguro que quiere borrar esta nota?')) 
 										return false;
 										},
 						success : function(data)
@@ -149,7 +149,7 @@ function bindEvents(item)
 				data : 'id='+idMainNote,
 				url : '" . NoteController::createUrl('note/AjaxDelete') ."',
 				beforeSend : function(){
-							if(!confirm('Seguro que quiere borrar la nota entera?')) 
+							if(!confirm('\u00BFSeguro que quiere borrar la nota entera?')) 
 								return false;
 								},
 				success : function(data)
@@ -198,7 +198,7 @@ function bindEvents(item)
 				data : 'id='+idMainNote,
 				url : '" . ReviewController::createUrl('AjaxConfirmNote') ."',
 				beforeSend : function(){
-							if(!confirm('Esta de acuerdo en confirmar?')) 
+							if(!confirm('\u00BFEst\u00e1 de acuerdo en confirmar?')) 
 								return false;
 								},
 				success : function(data)
@@ -332,11 +332,13 @@ $('#btnPublicNote').click(function(){
 });
 
 $('#btnPublicAlbum').click(function(){
-
-	var url = '".ReviewController::createUrl('update',array('id'=>$model->Id))."';
-	window.location = url;
-	return false;
-	
+	$('#wall-action-album').animate({opacity: 'hide'},240,
+		function(){		
+			RestoreButtons();
+			$('#files').html('');
+			$('#Album_description').val('');
+			$('#Album_title').val('');
+	});
 });
 
 
