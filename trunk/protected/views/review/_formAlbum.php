@@ -45,14 +45,14 @@ echo $formAlbum->hiddenField($model,'Id_customer');
 
 	<?php echo CHtml::hiddenField('Album_Id_album',$model->Id,array('id'=>'Album_Id_album')); ?>
 	<div class="row">
-		<?php echo $formAlbum->labelEx($model,'title'); ?>
+		<?php echo CHtml::label('T&iacute;tulo', 'Album_Title'); ?>
 		<?php echo $formAlbum->textField($model,'title',array('size'=>45,'maxlength'=>45)); ?>
 		<?php echo $formAlbum->error($model,'title'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $formAlbum->labelEx($model,'description'); ?>
-		<?php echo $formAlbum->textField($model,'description',array('size'=>45,'maxlength'=>45)); ?>
+		<?php echo CHtml::label('Descripci&oacute;n', 'Album_Title'); ?>
+		<?php echo $formAlbum->textArea($model,'description',array('style'=>'width:500px;resize:none;')); ?>
 		<?php echo $formAlbum->error($model,'description'); ?>
 	</div>
 		

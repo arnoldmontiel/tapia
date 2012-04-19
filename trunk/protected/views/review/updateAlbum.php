@@ -103,14 +103,14 @@ echo CHtml::imageButton(
 			);
 ?>
 	<div class="row">
-		<?php echo $form->labelEx($model,'title'); ?>
+		<?php echo CHtml::label('T&iacute;tulo', 'Album_Title'); ?>
 		<?php echo $form->textField($model,'title',array('size'=>45,'maxlength'=>45)); ?>
 		<?php echo CHtml::image("images/save_ok.png","",array("id"=>"saveok", "style"=>"display:none", "width"=>"20px", "height"=>"20px")); ?>
 		<?php echo $form->error($model,'title'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'description'); ?>
+		<?php echo CHtml::label('Descripci&oacute;n', 'Album_Title'); ?>
 		<?php echo $form->textArea($model,'description',array('style'=>'width:500px;resize:none;')); ?>
 		<?php echo CHtml::image("images/save_ok.png","",array("id"=>"saveok2", "style"=>"display:none", "width"=>"20px", "height"=>"20px")); ?>
 		<?php echo $form->error($model,'description'); ?>

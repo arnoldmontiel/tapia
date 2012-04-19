@@ -21,6 +21,7 @@ $('#btnCancelDoc').click(function(){
 	$('#wall-action-doc').animate({opacity: 'hide'},240);
 	$('#uploadFile').val('');
 	$('#Multimedia_description').val('');
+	$('#fake-uploadFile').val('');
 	RestoreButtons();
 
 });
