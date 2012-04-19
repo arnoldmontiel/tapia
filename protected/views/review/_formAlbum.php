@@ -1,5 +1,5 @@
 <?php
-Yii::app()->clientScript->registerScript('form-album', "
+Yii::app()->clientScript->registerScript('form-album-create', "
 
 $('#Album_title').change(function(){	
 	$.post(
