@@ -60,7 +60,9 @@ echo CHtml::checkBox('chkAll','',array('id'=>'chkAll'));?>
 				echo CHtml::checkBox('chkImage',true,array('id'=>$item->Id, 'value'=>$item->Id, 'class'=>'review-attach-image'));
 				
 				echo CHtml::openTag('div',array('class'=>'review-attach-image-description'));
-						echo CHtml::encode($item->description).'&nbsp;';
+					echo CHtml::openTag('p',array('class'=>'review-attach-image-description'));
+					echo CHtml::encode($item->description).'&nbsp;';
+					echo CHtml::closeTag('p');				
 				echo CHtml::closeTag('div');				
 			echo CHtml::closeTag('div');
 		}
@@ -86,7 +88,9 @@ echo CHtml::checkBox('chkAll','',array('id'=>'chkAll'));?>
 				echo CHtml::checkBox('chkImage','',array('id'=>$item->Id, 'value'=>$item->Id, 'class'=>'review-attach-image'));
 				
 					echo CHtml::openTag('div',array('class'=>'review-attach-image-description'));
-						echo CHtml::encode($item->description).'&nbsp;';
+					echo CHtml::openTag('p',array('class'=>'review-attach-image-description'));
+					echo CHtml::encode($item->description).'&nbsp;';
+					echo CHtml::closeTag('p');				
 					echo CHtml::closeTag('div');				
 				echo CHtml::closeTag('div');
 			}
