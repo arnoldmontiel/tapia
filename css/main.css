@@ -348,12 +348,12 @@ div.review-create-note-btn:HOVER
 div.review-create-note-btn-main
 {	
 	right:80px;
-	top: 260px;
+	top: 290px;
 }
 div.review-create-note-btn-main-cancel
 {	
 	right:15px;
-	top: 260px;
+	top: 290px;
 }
 
 div.review-edit-image
@@ -1471,4 +1471,12 @@ div.review-confirmed-note-btn
 	cursor: default;	
 	width:60px;
 	text-align: center;
+}
+p.review-attach-image-description
+{
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	width: 240px;
+	margin: 0px;
 }
