@@ -23,7 +23,9 @@ function doFilter()
 		{
 			tagFilter: $('#tagFilter').val(),
 			Id_customer: $('#Id_customer').val(),
-			typeFilter: $('#typeFilter').val()
+			typeFilter: $('#typeFilter').val(),
+			dateFromFilter: $('#dateFromFilter').val(),
+			dateToFilter: $('#dateToFilter').val()
 			
 		}	
 		).success(
@@ -60,9 +62,30 @@ $('#btn-filter').click(function(){
 	$('#tagFilter').val('');
 	$('#tagFilter').val(getCheck('chklist-tag[]'));
 	
+	$('#dateFromFilter').val('');
+	$('#dateFromFilter').val($('#dateFrom').val());
+	
+	$('#dateToFilter').val('');
+	$('#dateToFilter').val($('#dateTo').val());
+	
 	doFilter();
 });
 
+$('#btn-clear-filter').click(function(){
+	$('#typeFilter').val('');
+	
+	$('#tagFilter').val('');
+	
+	$('input:checked').attr('checked', false);
+	
+	$('#dateFromFilter').val('');
+	$('#dateFrom').val('')
+	
+	$('#dateToFilter').val('');
+	$('#dateTo').val('')
+	
+	doFilter();
+});
 
 function getCheck(checkName)
 {
@@ -103,6 +126,8 @@ function getCheck(checkName)
 <?php
 	echo CHtml::hiddenField('tagFilter','',array('id'=>'tagFilter'));	
 	echo CHtml::hiddenField('typeFilter','',array('id'=>'typeFilter'));
+	echo CHtml::hiddenField('dateFromFilter','',array('id'=>'dateFromFilter'));
+	echo CHtml::hiddenField('dateToFilter','',array('id'=>'dateToFilter'));
 ?>
 <div id="review-area" class="index-review-area div-hidden" >
 </div>
