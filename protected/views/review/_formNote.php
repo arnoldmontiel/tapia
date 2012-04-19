@@ -45,7 +45,7 @@ $('#Note_need_confirmation').change(function(){
 	<?php echo CHtml::hiddenField('Note_Id_note',$model->Id,array('id'=>'Note_Id_note')); ?>
 	
 	<div class="row">
-		<?php echo $formNote->labelEx($model,'need_confirmation'); ?>
+		<?php echo CHtml::label('Requiere Confirmaci&oacute;n', 'Note_need_confirmation',array('style'=>'width:135px;')) ; ?>
 		<?php echo $formNote->checkBox($model,'need_confirmation'); ?>
 	</div>
 	<div class="row">

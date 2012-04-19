@@ -21,30 +21,44 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#review-view-data'.$data->Id
 			array('id'=>'delete_'.$data->Id, 'class'=>'wall-action-remove', 'title'=>'Eliminar'));
 	?>
 	<div class="review-text-simple-note">
+		<div class="review-single-view-actions">
+		<div class="review-single-view-actions-need-conf">
+			<?php
+			if($data->confirmed)
+	 			echo CHtml::checkBox('chkNeedConf_'.$data->Id,$data->need_confirmation,array('disabled'=>'disabled'));
+			else
+				echo CHtml::checkBox('chkNeedConf_'.$data->Id,$data->need_confirmation);
+			echo CHtml::decode('  Requiere Confirmaci&oacute;n');
+			?>
+		</div>
+		<div class="review-single-view-actions-conf">
+			<?php 	 		
+	 		if($data->need_confirmation)
+	 		{
+	 			if($data->confirmed)
+	 			{
+	 				echo CHtml::openTag('div',array('class'=>'review-confirmed-note-btn review-confirm-note-btn-pos'));
+	 				echo 'Confirmardo';
+	 				echo CHtml::closeTag('div');	 				
+	 			}
+	 			else 
+	 			{
+	 				echo CHtml::openTag('div',array('class'=>'review-confirm-note-btn review-confirm-note-btn-pos','id'=>'confirm_note_'.$data->Id));
+	 				echo 'Confirmar';
+	 				echo CHtml::closeTag('div');
+	 					 				
+	 			}
+	 		}
+	 	?>
+		</div>
+		</div>
 		<div id='edit_main_note_<?php echo $data->Id?>' class="review-create-note-btn review-create-note-btn-main div-hidden">
 			Grabar
 		</div>
 		<div id='edit_main_note_cancel_<?php echo $data->Id?>' class="review-create-note-btn review-create-note-btn-main-cancel div-hidden">
 			Cancelar
 		</div>
-		<?php
-			if($data->confirmed)
-	 			echo CHtml::checkBox('chkNeedConf_'.$data->Id,$data->need_confirmation,array('disabled'=>'disabled'));
-			else
-				echo CHtml::checkBox('chkNeedConf_'.$data->Id,$data->need_confirmation);
-	 		
-	 		if($data->need_confirmation)
-	 		{
-	 			if($data->confirmed)
-	 				echo 'Confirmado!!';
-	 			else 
-	 			{
-	 				echo "<div id='confirm_note_". $data->Id."'>";
-	 				echo "Confirmar";
-	 				echo "</div>";
-	 			}
-	 		}
-	 	?>
+	
 	<textarea id='main_note<?php echo $data->Id?>' class="wall-action-edit-main-note" placeholder='Escriba una nota...'><?php echo $data->note;?></textarea>
 	<textarea id='main_original_note<?php echo $data->Id?>' class="wall-action-edit-main-note" style="display: none;" placeholder='Escriba una nota...'><?php echo $data->note;?></textarea>
 	</div>		

@@ -863,10 +863,11 @@ textarea.wall-action-edit-main-note
 	font-size: 13px;
 	line-height: 18px;
 	resize: none;
-	width: 95%;
+	width: 540px;
 	height: 280px;
 	font: inherit;
 	color: inherit;
+	margin: 0px;
 }
 textarea.wall-action-edit-main-note:FOCUS
 {
@@ -1410,4 +1411,64 @@ div.review-priority
 	float:left;
 	margin-top: 10px;
 	margin-left: 50px;
+}
+div.review-single-view-actions
+{
+	width: 562px;
+	margin: 0px;
+	height: 30px;
+	background-color: #D7DDEB;
+}
+div.review-single-view-actions-need-conf
+{
+	float:left;
+	margin-top: 5px;
+	padding-left: 15px;
+	display: inline-block;
+	
+}
+div.review-single-view-actions-conf
+{
+	float:left;
+	margin-top: 5px;
+	display: inline-block;
+}
+div.review-confirm-note-btn-pos
+{	
+	right:30px;
+	top: 7px;
+}
+div.review-confirm-note-btn
+{	
+	opacity:0.7;
+	filter:alpha(opacity=70); /* For IE8 and earlier */
+	position: absolute;
+	font-size: 10px;
+	line-height: 18px;
+	background: none repeat scroll 0 0 #AFBAD7;
+	z-index: 20;
+	padding: 0px 5px  0px 5px;
+	cursor: pointer;	
+	width:60px;
+	text-align: center;
+}
+div.review-confirm-note-btn:HOVER
+{	
+	opacity:1;
+	filter:alpha(opacity=100); /* For IE8 and earlier */
+}
+
+div.review-confirmed-note-btn
+{	
+	opacity:1;
+	filter:alpha(opacity=100); /* For IE8 and earlier */
+	position: absolute;
+	font-size: 10px;
+	line-height: 18px;
+	background: none repeat scroll 0 0 #AFBAD7;
+	z-index: 20;
+	padding: 0px 5px  0px 5px;
+	cursor: default;	
+	width:60px;
+	text-align: center;
 }
