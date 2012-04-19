@@ -61,6 +61,12 @@
 					    'options'=>array(
 					        'showAnim'=>'fold',
 							'dateFormat'=>'yy-mm-dd',
+							'changeYear'=>true,
+							'yearRange'=>'1999:2020',
+							'beforeShow'=>"js:function() {
+				                    $('.ui-datepicker').css('font-size', '0.8em');
+				                    $('.ui-datepicker').css('z-index', parseInt($(this).parents('.ui-dialog').css('z-index'))+1);
+				                }",
 					    ),
 					    'htmlOptions'=>array(
 					        'style'=>'height:20px;'
@@ -71,10 +77,17 @@
 				<?php 
 					$this->widget('zii.widgets.jui.CJuiDatePicker', array(
 					    'name'=>'dateTo',
+						
 					    // additional javascript options for the date picker plugin
 					    'options'=>array(
 					        'showAnim'=>'fold',
 							'dateFormat'=>'yy-mm-dd',
+							'changeYear'=>true,
+							'yearRange'=>'1999:2020',
+							'beforeShow'=>"js:function() {
+					                    $('.ui-datepicker').css('font-size', '0.8em');
+					                    $('.ui-datepicker').css('z-index', parseInt($(this).parents('.ui-dialog').css('z-index'))+1);
+					                }",
 					    ),
 					    'htmlOptions'=>array(
 					        'style'=>'height:20px;'
