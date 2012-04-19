@@ -1388,7 +1388,7 @@ textarea.review-update-files-descr
 {
 	width: 100%;
 	resize:none;
-	border: none;
+	border: 1px solid #AFBAD7;
 	background-color: #F4F6FB;
 }
 textarea.review-update-files-descr:FOCUS
@@ -1404,7 +1404,7 @@ div.review-update-single-files
 }
 input.album-action-remove-update-file
 {
-	right: 40px;	
+	right: 0px;	
 }
 div.review-priority
 {
