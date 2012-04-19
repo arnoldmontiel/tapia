@@ -37,7 +37,7 @@
 		
 		<div class="search-box">
 			<div class="search-box-title">
-			Documents
+			Documentos
 			</div>
 			<div class="search-box-list">
 			<?php
@@ -49,10 +49,50 @@
 		</div>
 		
 		<div class="search-box">
+			<div class="search-box-title">
+				Fecha de creacion
+			</div>
+			<div class="search-box-list">
+				Desde
+				<?php 
+					$this->widget('zii.widgets.jui.CJuiDatePicker', array(
+					    'name'=>'dateFrom',
+					    // additional javascript options for the date picker plugin
+					    'options'=>array(
+					        'showAnim'=>'fold',
+							'dateFormat'=>'yy-mm-dd',
+					    ),
+					    'htmlOptions'=>array(
+					        'style'=>'height:20px;'
+					    ),
+					));
+				?>
+				Hasta
+				<?php 
+					$this->widget('zii.widgets.jui.CJuiDatePicker', array(
+					    'name'=>'dateTo',
+					    // additional javascript options for the date picker plugin
+					    'options'=>array(
+					        'showAnim'=>'fold',
+							'dateFormat'=>'yy-mm-dd',
+					    ),
+					    'htmlOptions'=>array(
+					        'style'=>'height:20px;'
+					    ),
+					));
+				?>
+			</div>
+		</div>
+		
+		<div class="search-box">
 			<?php
 				echo CHtml::openTag('div',array('class'=>'wall-action-box-btn','id'=>'filter-btn-box'));	
 				echo CHtml::link('Filtrar','',array('id'=>'btn-filter','class'=>'submit-btn'));
 				echo CHtml::closeTag('div');	
+				echo '<br>';
+				echo CHtml::openTag('div',array('class'=>'wall-action-box-btn','id'=>'clear-filter-btn-box'));
+				echo CHtml::link('Limpiar filtros','',array('id'=>'btn-clear-filter','class'=>'submit-btn'));
+				echo CHtml::closeTag('div');
 			?>
 		</div>		
 	<?php endif?>
