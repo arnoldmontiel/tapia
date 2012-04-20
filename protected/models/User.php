@@ -36,6 +36,11 @@ class User extends CActiveRecord
 	{
 		return self::getCurrentUserGroup()->is_administrator;
 	}
+	public static function isAdministartor($modelNote)
+	{
+		return self::getCurrentUserGroup()->Id==$modelNote->Id_user_group_owner;
+	}
+	
 	public static function getCustomer()
 	{
 		if(!isset(self::$_customer))
