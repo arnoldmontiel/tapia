@@ -374,10 +374,6 @@ class ReviewController extends Controller
 			$model->confirmed = 1;
 			$model->save();
 
-			if($_POST['parentId'])
-				$model= Note::model()->findByPk($_POST['parentId']);
-			
-			
 			$this->renderPartial('_viewData',array('data'=>$model));
 		}
 		else
