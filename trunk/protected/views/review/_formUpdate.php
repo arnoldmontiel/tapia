@@ -124,25 +124,6 @@ function bindEvents(item)
 	
 	$(item).find('#singleNoteContainer').find('img').each(
 		function(i, imgItem){
-		
-			$(imgItem).parent().find('#confirm_note').click(function(){
-				var id= $(this).attr('idNote');
-				$.ajax({
-						type : 'POST',
-						data : {'id':id, 'parentId':idMainNote},
-						url : '" . ReviewController::createUrl('AjaxConfirmNote') ."',
-						beforeSend : function(){
-									if(!confirm('\u00BFEst\u00e1 de acuerdo en confirmar?')) 
-										return false;
-										},
-						success : function(data)
-						{
-							$('#noteContainer_'+idMainNote).html(data);
-							bindEvents($('#noteContainer_'+idMainNote))
-						}
-				});
-			});
-			
 			
 			$(imgItem).click(function(){
 				var id = $(imgItem).attr('id');								

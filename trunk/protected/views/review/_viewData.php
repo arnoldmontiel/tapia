@@ -148,28 +148,7 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#review-view-data'.$data->Id
 				echo CHtml::openTag('p',array('class'=>'single-formated-text'));
 					echo $item->note;
 				echo CHtml::closeTag('p');
-				
-				echo CHtml::openTag('div',array('class'=>'view-text-note'));
-				if($item->need_confirmation)
-				{
-					if($item->confirmed)
-					{
-						echo CHtml::openTag('div',array('class'=>'review-confirmed-note-btn review-confirm-note-btn-pos'));
-						echo 'Confirmardo';
-						echo CHtml::closeTag('div');
-					}
-					else
-					{
-						echo CHtml::openTag('div',array('class'=>'review-confirm-note-btn review-confirm-note-btn-pos','id'=>'confirm_note', 'idNote'=>$item->Id));
-						echo 'Confirmar';
-						echo CHtml::closeTag('div');
-							
-					}
-				}
-				echo CHtml::closeTag('div');
-				
 			echo CHtml::closeTag('div');
-				
 		}
 		?>		
 	<?php endif?>
@@ -182,15 +161,7 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#review-view-data'.$data->Id
 		<div id='create_note_cancel_<?php echo $data->Id?>' class="review-create-note-cancel div-hidden">
 			Cancelar
 		</div>
-		
-	
-			<?php
-				echo CHtml::checkBox('chkNoteNeedConf_'.$data->Id,'');
-				echo CHtml::decode('  Requiere Confirmaci&oacute;n');
-			?>
-			
-		
-						
+				
 		<textarea id="note_<?php echo $data->Id?>" class="review-action-add-note" placeholder='Escriba una nota...'></textarea>
 	</div>
 </div>
