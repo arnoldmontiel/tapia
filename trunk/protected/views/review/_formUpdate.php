@@ -505,6 +505,7 @@ $(':checkbox').click(function() {
 		);
 	 ?>
 </div>
+<?php if(User::canCreate()):?>
 
 <div id="loading" class="loading-place-holder" >
 </div>
@@ -526,6 +527,7 @@ $(':checkbox').click(function() {
 		echo CHtml::closeTag('div');
 	echo CHtml::closeTag('div');	
 ?> 
+<?php endif;?>
 </div>
 <!-- *************** NOTE ******************************* -->
 
