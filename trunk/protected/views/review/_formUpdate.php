@@ -576,16 +576,17 @@ $(':checkbox').click(function() {
 	
 <div id="review-view">
 	<?php 
-		$modelNote = new Note;
-		$modelNote->Id_review = $model->Id;
-		$dataProviderNote = $modelNote->search();
-		$dataProviderNote->criteria->order= 'creation_date DESC';
-		$noteData = $dataProviderNote->data;
+		$modelUserGroupNote = new UserGroupNote();
+		$modelUserGroupNote->Id_review = $model->Id;
+		$dataProviderUserGroupNote = $modelUserGroupNote->search();
+		$dataProviderUserGroupNote->criteria->order= 'note.creation_date DESC';
+		
+		$noteData = $dataProviderUserGroupNote->data;
 		echo CHtml::openTag('div',array('class'=>'review-container-single-view','style'=>'display:none;','id'=>'noteContainer_place_holder'));
 		echo CHtml::closeTag('div');
 		foreach ($noteData as $item) {
-			echo CHtml::openTag('div',array('class'=>'review-container-single-view','id'=>'noteContainer_'.$item->Id));
-			$this->renderPartial('_viewData',array('data'=>$item));
+			echo CHtml::openTag('div',array('class'=>'review-container-single-view','id'=>'noteContainer_'.$item->note->Id));
+			$this->renderPartial('_viewData',array('data'=>$item->note,'dataUserGroupNote'=>$item));
 			echo CHtml::closeTag('div');
 		}
 	?>
