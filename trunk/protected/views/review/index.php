@@ -115,12 +115,14 @@ function getCheck(checkName)
 		);
 		?>
 </div>
+<?php if(User::canCreate()):?>
 
 <?php
 	echo CHtml::openTag('div',array('class'=>'review-action-box-btn div-hidden','id'=>'btn-actions-box'));	
 		echo CHtml::link('Nuevo','',array('id'=>'btn-create','class'=>'submit-btn'));
 	echo CHtml::closeTag('div');	
 ?>
+<?php endif;?>
 
 </div>
 <?php
