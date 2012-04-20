@@ -7,9 +7,12 @@
  * @property string $username
  * @property string $password
  * @property string $email
+ * @property integer $Id_user_group
  *
  * The followings are the available model relations:
  * @property Customer[] $customers
+ * @property Note[] $notes
+ * @property UserGroup $idUserGroup
  */
 class User extends CActiveRecord
 {
@@ -50,11 +53,12 @@ class User extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('username, password, email', 'required'),
+			array('username, password, email, Id_user_group', 'required'),
+			array('Id_user_group', 'numerical', 'integerOnly'=>true),
 			array('username, password, email', 'length', 'max'=>128),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('username, password, email', 'safe', 'on'=>'search'),
+			array('username, password, email, Id_user_group', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -67,6 +71,8 @@ class User extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'customers' => array(self::HAS_MANY, 'Customer', 'username'),
+			'notes' => array(self::HAS_MANY, 'Note', 'username'),
+			'userGroup' => array(self::BELONGS_TO, 'UserGroup', 'Id_user_group'),
 		);
 	}
 
@@ -79,6 +85,7 @@ class User extends CActiveRecord
 			'username' => 'Usuario',
 			'password' => 'Contraseña',
 			'email' => 'Email',
+			'Id_user_group' => 'Id User Group',
 		);
 	}
 
@@ -96,6 +103,7 @@ class User extends CActiveRecord
 		$criteria->compare('username',$this->username,true);
 		$criteria->compare('password',$this->password,true);
 		$criteria->compare('email',$this->email,true);
+		$criteria->compare('Id_user_group',$this->Id_user_group);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
