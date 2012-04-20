@@ -1,9 +1,10 @@
 <?php 
 Yii::app()->clientScript->registerScript(__CLASS__.'#review-view-data'.$data->Id, "
 
-
-
 ");
+$canDoFeeback = $dataUserGroupNote->can_feedback;
+$isAdministrator = User::isAdministartor();
+$isOwner = User::isOwnerOf($data);
 ?>
 
 <div class="review-single-view" id="<?php echo $data->Id?>" >
