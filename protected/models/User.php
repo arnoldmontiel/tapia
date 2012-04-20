@@ -17,7 +17,8 @@
 class User extends CActiveRecord
 {
 	private $_customer = null;
-	private $_groupUser = null;
+	private $_userGroup = null;
+	private $_user = null;
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -38,15 +39,23 @@ class User extends CActiveRecord
 		}
 		return $_customer;		
 	}
-	public static function getCurrentGroupUser()
+	public static function getCurrentUserGroup()
 	{
-		if(!isset($this->_groupUser))
+		if(!isset($this->_userGroup))
 		{
 			$user = User::model()->findByPk(Yii::app()->user->Id);
-			if(isset($user)&&isset($user->groupUustomers))
-				$this->_groupUser = $user->groupUustomers;				
+			if(isset($user)&&isset($user->userGroup))
+				$this->_userGroup = $user->userGroup;				
 		}
-		return $this->_groupUser;		
+		return $this->_userGroup;		
+	}
+	public static function getCurrentUser()
+	{
+		if(!isset($this->_user))
+		{
+			$this->_user = User::model()->findByPk(Yii::app()->user->Id);
+		}
+		return $this->_user;		
 	}
 	/**
 	 * @return string the associated database table name
