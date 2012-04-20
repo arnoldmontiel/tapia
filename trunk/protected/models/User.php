@@ -51,7 +51,7 @@ class User extends CActiveRecord
 	}
 	public static function getCurrentUser()
 	{
-		if(!isset($this->_user))
+		if(!isset(self::$_user))
 		{
 			self::$_user = User::model()->findByPk(Yii::app()->user->Id);
 		}
