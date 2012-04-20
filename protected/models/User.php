@@ -16,9 +16,9 @@
  */
 class User extends CActiveRecord
 {
-	private $_customer = null;
-	private $_userGroup = null;
-	private $_user = null;
+	static private $_customer = null;
+	static private $_userGroup = null;
+	static private $_user = null;
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -31,31 +31,31 @@ class User extends CActiveRecord
 	
 	public static function getCustomer()
 	{
-		if(!isset($_customer))
+		if(!isset(self::$_customer))
 		{
 			$user = User::model()->findByPk(Yii::app()->user->Id);
 			if(isset($user)&&isset($user->customers[0]))
-				$_customer = $user->customers[0];				
+				self::$_customer = $user->customers[0];				
 		}
-		return $_customer;		
+		return self::$_customer;		
 	}
 	public static function getCurrentUserGroup()
 	{
-		if(!isset($this->_userGroup))
+		if(!isset(self::$_userGroup))
 		{
 			$user = User::model()->findByPk(Yii::app()->user->Id);
 			if(isset($user)&&isset($user->userGroup))
-				$this->_userGroup = $user->userGroup;				
+				self::$_userGroup = $user->userGroup;				
 		}
-		return $this->_userGroup;		
+		return self::$_userGroup;		
 	}
 	public static function getCurrentUser()
 	{
 		if(!isset($this->_user))
 		{
-			$this->_user = User::model()->findByPk(Yii::app()->user->Id);
+			self::$_user = User::model()->findByPk(Yii::app()->user->Id);
 		}
-		return $this->_user;		
+		return self::$_user;		
 	}
 	/**
 	 * @return string the associated database table name
