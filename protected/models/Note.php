@@ -12,10 +12,14 @@
  * @property integer $in_progress
  * @property integer $need_confirmation
  * @property integer $confirmed
+ * @property string $username
+ * @property integer $Id_user_group_owner
  *
  * The followings are the available model relations:
  * @property Review $idReview
  * @property Album[] $albums
+ * @property User $username0
+ * @property UserGroup $idUserGroupOwner
  * @property Multimedia[] $multimedias
  * @property Customer $idCustomer
  * @property Wall[] $walls
@@ -63,12 +67,12 @@ class Note extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('Id_customer', 'required'),
-			array('Id_customer, Id_review, in_progress, need_confirmation, confirmed', 'numerical', 'integerOnly'=>true),
+			array('Id_customer, username, Id_user_group_owner', 'required'),
+			array('Id_customer, Id_review, in_progress, need_confirmation, confirmed, username, Id_user_group_owner', 'numerical', 'integerOnly'=>true),
 			array('note, creation_date', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id, note, creation_date, Id_customer, Id_review, in_progress, need_confirmation, confirmed', 'safe', 'on'=>'search'),
+			array('Id, note, creation_date, Id_customer, Id_review, in_progress, need_confirmation, confirmed, username, Id_user_group_owner', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -86,6 +90,8 @@ class Note extends CActiveRecord
 			'walls' => array(self::HAS_MANY, 'Wall', 'Id_note'),
 			'notes' => array(self::MANY_MANY, 'Note', 'note_note(Id_parent, Id_child)'),
 			'review' => array(self::BELONGS_TO, 'Review', 'Id_review'),
+			'userGroupOwner' => array(self::BELONGS_TO, 'UserGroup', 'Id_user_group_owner'),
+			'username0' => array(self::BELONGS_TO, 'User', 'username'),
 		);
 	}
 
@@ -103,6 +109,8 @@ class Note extends CActiveRecord
 			'in_progress' => 'In Progress',
 			'need_confirmation' => 'Con confirmacion necesaria',
 			'confirmed' => 'Confirmed',
+			'username' => 'Username',
+			'Id_user_group_owner' => 'Id User Group Owner',
 		);
 	}
 
