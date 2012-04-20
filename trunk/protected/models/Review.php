@@ -12,13 +12,15 @@
  * @property string $change_date
  * @property integer $Id_priority
  * @property integer $read
+ * @property integer $Id_review_type
  * The followings are the available model relations:
  * @property Album[] $albums
  * @property Multimedia[] $multimedias
  * @property Note[] $notes
  * @property Priority $idPriority
+ * @property ReviewType $idReviewType
  * @property Customer $idCustomer
- * @property Tag[] $tags
+ *  @property Tag[] $tags
  * @property Wall[] $walls
  */
 class Review extends CActiveRecord
@@ -60,12 +62,12 @@ class Review extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('Id_customer, Id_priority', 'required'),
-			array('review, Id_customer, Id_priority, read', 'numerical', 'integerOnly'=>true),
-			array('description', 'safe'),
+			array('Id_customer, Id_priority,Id_review_type', 'required'),
+			array('review, Id_customer, Id_priority, read, Id_review_type', 'numerical', 'integerOnly'=>true),
+			array('description, creation_date, change_date', 'safe'),		
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id, review, Id_customer, description, Id_priority', 'safe', 'on'=>'search'),
+			array('Id, review, Id_customer, description,creation_date, change_date, Id_priority, read, Id_review_type', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -81,6 +83,7 @@ class Review extends CActiveRecord
 			'multimedias' => array(self::HAS_MANY, 'Multimedia', 'Id_review'),
 			'notes' => array(self::HAS_MANY, 'Note', 'Id_review'),
 			'priority' => array(self::BELONGS_TO, 'Priority', 'Id_priority'),
+			'reviewType' => array(self::BELONGS_TO, 'ReviewType', 'Id_review_type'),
 			'customer' => array(self::BELONGS_TO, 'Customer', 'Id_customer'),
 			'tags' => array(self::MANY_MANY, 'Tag', 'tag_review(Id_review, Id_tag)'),
 			'walls' => array(self::HAS_MANY, 'Wall', 'Id_review'),
@@ -101,6 +104,7 @@ class Review extends CActiveRecord
 			'change_date' => 'Change Date',
 			'Id_priority' => 'Id Priority',
 			'read' => 'Read',
+			'Id_review_type' => 'Id Review Type',
 		);
 	}
 
@@ -123,6 +127,7 @@ class Review extends CActiveRecord
 		$criteria->compare('change_date',$this->change_date,true);
 		$criteria->compare('Id_priority',$this->Id_priority);
 		$criteria->compare('read',$this->read);
+		$criteria->compare('Id_review_type',$this->Id_review_type);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
