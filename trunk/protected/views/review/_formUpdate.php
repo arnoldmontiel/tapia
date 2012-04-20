@@ -356,13 +356,9 @@ $('#btnPublicNote').click(function(){
 });
 
 $('#btnPublicAlbum').click(function(){
-	$('#wall-action-album').animate({opacity: 'hide'},240,
-		function(){		
-			RestoreButtons();
-			$('#files').html('');
-			$('#Album_description').val('');
-			$('#Album_title').val('');
-	});
+	var url = '".ReviewController::createUrl('update',array('id'=>$model->Id))."';
+	window.location = url;
+	return false;
 });
 
 
