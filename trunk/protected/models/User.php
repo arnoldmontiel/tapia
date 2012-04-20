@@ -28,7 +28,14 @@ class User extends CActiveRecord
 	{
 		return parent::model($className);
 	}
-	
+	public static function canCreate()
+	{
+		return self::getCurrentUserGroup()->can_create;
+	}
+	public static function isAdministartor()
+	{
+		return self::getCurrentUserGroup()->is_administrator;
+	}
 	public static function getCustomer()
 	{
 		if(!isset(self::$_customer))
