@@ -3,6 +3,9 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#review-view-data'.$data->Id
 
 ");
 $canDoFeeback = $dataUserGroupNote->can_feedback;
+$needConfirmation = $dataUserGroupNote->need_confirmation;
+$confirmed = $dataUserGroupNote->confirmed;
+$declined = $dataUserGroupNote->declined;
 $isAdministrator = User::isAdministartor();
 $isOwner = User::isOwnerOf($data);
 $editable = $isAdministrator||$isOwner; 
@@ -58,6 +61,28 @@ $editable = $isAdministrator||$isOwner;
 					}
 				}
 				?>
+			</div>
+			<div class="review-single-view-actions-conf">
+				<?php 	 		
+		 		if($needConfirmation)
+		 		{
+		 			if($confirmed || $declined)
+		 			{
+		 				echo CHtml::openTag('div',array('class'=>'review-confirmed-note-btn review-confirm-note-btn-pos'));
+		 				echo ($confirmed)?'Confirmardo':'Rechazado';
+		 				echo CHtml::closeTag('div');	 				
+		 			}
+		 			else 
+		 			{
+		 				echo CHtml::openTag('div',array('class'=>'review-confirm-note-btn review-confirm-note-btn-pos','id'=>'confirm_note_'.$data->Id));
+		 				echo 'Confirmar';
+		 				echo CHtml::closeTag('div');
+		 				echo CHtml::openTag('div',array('class'=>'review-decline-note-btn review-decline-note-btn-pos','id'=>'decline_note_'.$data->Id));
+		 				echo 'Rechazar';
+		 				echo CHtml::closeTag('div');
+		 			}
+		 		}
+		 	?>
 			</div>
 		</div>
 		<div id='edit_main_note_<?php echo $data->Id?>' class="review-create-note-btn review-create-note-btn-main div-hidden">
