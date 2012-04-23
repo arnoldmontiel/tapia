@@ -28,10 +28,34 @@ $editable = $isAdministrator||$isOwner;
 		<div class="review-single-view-actions">
 			<div class="review-single-view-actions-need-conf">
 				<?php
+				echo CHtml::decode('De : ');
+				echo CHtml::encode($data->user->username);								
+				?>
+			</div>
+		</div>
+		<div class="review-single-view-actions">
+			<div class="review-single-view-actions-need-conf">
+				<?php
 				echo CHtml::decode('Para:');
+				$first = true;
 				foreach ($data->userGroupNotes as $item){
-					if($item->addressed)
-						echo $item->userGroup->description;
+					if($item->addressed){
+						if(!$first)
+						{
+							echo CHtml::encode(',');								
+						}
+						$first = false;;								
+						$group = User::getCurrentUserGroup();
+						if($item->Id_user_group==$group->Id)
+						{
+							$user=User::getCurrentUser();
+							echo CHtml::encode(' '.$user->username);								
+						}
+						else 
+						{
+							echo CHtml::encode(' '.$item->userGroup->description);								
+						}
+					}
 				}
 				?>
 			</div>
@@ -46,7 +70,9 @@ $editable = $isAdministrator||$isOwner;
 			<textarea id='main_note<?php echo $data->Id?>' class="wall-action-edit-main-note" placeholder='Escriba una nota...'><?php echo $data->note;?></textarea>
 			<textarea id='main_original_note<?php echo $data->Id?>' class="wall-action-edit-main-note" style="display: none;" placeholder='Escriba una nota...'><?php echo $data->note;?></textarea>
 		<?php else:?>
-			<div class="wall-action-edit-main-note" ><?php echo $data->note;?></div>
+			<div class="wall-action-edit-main-note" >
+			<p class="single-formated-text"><?php echo $data->note;?></p>
+			</div>
 		<?php endif;?>
 		
 	</div>		
