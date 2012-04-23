@@ -44,10 +44,7 @@ $('#Note_need_confirmation').change(function(){
 
 	<?php echo CHtml::hiddenField('Note_Id_note',$model->Id,array('id'=>'Note_Id_note')); ?>
 	
-	<div class="row">
-		<?php echo CHtml::label('Requiere Confirmaci&oacute;n', 'Note_need_confirmation',array('style'=>'width:135px;')) ; ?>
-		<?php echo $formNote->checkBox($model,'need_confirmation'); ?>
-	</div>
+	
 	<div class="row">
 		<?php echo $formNote->textArea($model,'note',array('rows'=>2, 'cols'=>110,'class'=>'wall-action-upload-file-description', 'placeholder'=>'Escriba una nota...')); ?>
 		<?php echo $formNote->error($model,'note'); ?>
