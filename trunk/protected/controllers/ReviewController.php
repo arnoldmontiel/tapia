@@ -370,11 +370,32 @@ class ReviewController extends Controller
 			$id=$_POST['id'];
 			// we only allow deletion via POST request
 			$model= Note::model()->findByPk($id);
-				
-			$model->confirmed = 1;
-			$model->save();
 
-			$this->renderPartial('_viewData',array('data'=>$model));
+			$modelUserGroupNote = UserGroupNote::model()->findByAttributes(array('Id_user_group'=>User::getCurrentUserGroup()->Id, 'Id_note'=>$id));
+			$modelUserGroupNote->confirmed = 1;
+			$modelUserGroupNote->save();
+			
+			$this->renderPartial('_viewData',array('data'=>$model,'dataUserGroupNote'=>$modelUserGroupNote));
+			
+		}
+		else
+		throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+	}
+	
+	public function actionAjaxDeclineNote()
+	{
+		if(Yii::app()->request->isPostRequest)
+		{
+			$id=$_POST['id'];
+			// we only allow deletion via POST request
+			$model= Note::model()->findByPk($id);
+	
+			$modelUserGroupNote = UserGroupNote::model()->findByAttributes(array('Id_user_group'=>User::getCurrentUserGroup()->Id, 'Id_note'=>$id));
+			$modelUserGroupNote->declined = 1;
+			$modelUserGroupNote->save();
+				
+			$this->renderPartial('_viewData',array('data'=>$model,'dataUserGroupNote'=>$modelUserGroupNote));
+				
 		}
 		else
 		throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
