@@ -494,6 +494,7 @@ class ReviewController extends Controller
 		$userGroup = $_POST['userGroup'];
 		$canFeedback = $_POST['canFeedback'];
 		$addressed = $_POST['addressed'];
+		$needConf = $_POST['needConf'];
 		$idNote = $_POST['idNote'];
 		$idCustomer = $_POST['idCustomer'];
 		
@@ -524,6 +525,9 @@ class ReviewController extends Controller
 					if(isset($addressed) && in_array($item,$addressed))
 						$model->addressed = 1;
 						
+					if(isset($needConf) && in_array($item,$needConf))
+						$model->need_confirmation = 1;
+					
 					$model->save();
 				}
 			}
