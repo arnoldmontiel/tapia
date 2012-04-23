@@ -219,6 +219,23 @@ function bindEvents(item)
 		});
 	});
 
+	$('#decline_note_'+idMainNote).click(function(){
+		$.ajax({
+				type : 'POST',
+				data : 'id='+idMainNote,
+				url : '" . ReviewController::createUrl('AjaxDeclineNote') ."',
+				beforeSend : function(){
+							if(!confirm('\u00BFEst\u00e1 de acuerdo en rechazar?')) 
+								return false;
+								},
+				success : function(data)
+				{
+					$('#noteContainer_'+idMainNote).html(data);
+					bindEvents($('#noteContainer_'+idMainNote))
+				}
+		});
+	});
+	
 	$('#publicArea_'+idMainNote).children().each(function(){
 		var parent = $(this);
 		$(this).find('#chkUserGroup').change(function(){
