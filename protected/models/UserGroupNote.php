@@ -11,6 +11,8 @@
  * @property integer $can_feedback
  * @property integer $addressed
  * @property integer $need_confirmation
+ * @property integer $confirmed
+ * @property integer $declined
  */
 class UserGroupNote extends CActiveRecord
 {
@@ -42,10 +44,10 @@ class UserGroupNote extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('Id_user_group, Id_note, Id_customer', 'required'),
-			array('Id_user_group, Id_note, Id_customer, can_read, can_feedback,addressed, need_confirmation', 'numerical', 'integerOnly'=>true),
+			array('Id_user_group, Id_note, Id_customer, can_read, can_feedback,addressed, need_confirmation, confirmed, declined', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id_user_group, Id_note, Id_customer, can_read, can_feedback, addressed, need_confirmation', 'safe', 'on'=>'search'),
+			array('Id_user_group, Id_note, Id_customer, can_read, can_feedback, addressed, need_confirmation, confirmed, declined', 'safe', 'on'=>'search'),
 		);
 	}
 
