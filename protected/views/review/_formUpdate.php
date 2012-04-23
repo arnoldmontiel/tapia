@@ -233,6 +233,10 @@ function bindEvents(item)
 			if($(this).is(':checked'))
 				$(parent).find('#chkUserGroup').attr('checked',true);	
 		});
+		$(this).find('#chkNeedConfirmation').change(function(){
+			if($(this).is(':checked'))
+				$(parent).find('#chkUserGroup').attr('checked',true);	
+		});
 	});
 	
 	$('#loco'+idMainNote).click(function(){
@@ -240,6 +244,7 @@ function bindEvents(item)
 		var dataUserGroup = { 'value[]' : []};
 		var dataFeedback = { 'value[]' : []};
 		var dataAddressed = { 'value[]' : []};
+		var dataNeedConf = { 'value[]' : []};
 		
 		$('#publicArea_'+idMainNote).children().each(function(){
 			var chkGroup = $(this).find('#chkUserGroup');
@@ -253,6 +258,10 @@ function bindEvents(item)
 			var chkAddress = $(this).find('#chkAddressed');
 			if($(chkAddress).is(':checked'))
 				dataAddressed['value[]'].push($(chkAddress).val());
+			
+			var chkNeedConf = $(this).find('#chkNeedConfirmation');
+			if($(chkNeedConf).is(':checked'))
+				dataNeedConf['value[]'].push($(chkNeedConf).val());
 		});
 		
 			$.post('".ReviewController::createUrl('AjaxPublicNote')."', 
@@ -261,7 +270,8 @@ function bindEvents(item)
 				idCustomer: ".$model->Id_customer.",
 				userGroup: dataUserGroup['value[]'],
 				canFeedback: dataFeedback['value[]'],
-				addressed: dataAddressed['value[]']
+				addressed: dataAddressed['value[]'],
+				needConf: dataNeedConf['value[]'],
 			}
 			).success(
 			function(data){

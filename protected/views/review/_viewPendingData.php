@@ -159,6 +159,9 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#review-view-pending-data'.$
 					echo CHtml::openTag('div', array('style'=>'display: inline-block;'));
 						echo CHtml::checkBox('chkCanFeedback','',array('value'=>$item->Id));
 					echo CHtml::closeTag('div');
+					echo CHtml::openTag('div', array('style'=>'display: inline-block;'));
+						echo CHtml::checkBox('chkNeedConfirmation','',array('value'=>$item->Id));
+					echo CHtml::closeTag('div');
 				echo CHtml::closeTag('div');
 			}
 			
