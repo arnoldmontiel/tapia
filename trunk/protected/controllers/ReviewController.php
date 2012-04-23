@@ -527,7 +527,6 @@ class ReviewController extends Controller
 			$model->Id_customer = $idCustomer;
 			$model->Id_user_group = User::getCurrentUserGroup()->Id;
 			$model->can_feedback = 1;
-			$model->addressed = 1;
 			$model->save();
 			
 			if($userGroup)
