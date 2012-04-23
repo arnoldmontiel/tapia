@@ -391,6 +391,8 @@ class ReviewController extends Controller
 	
 		$transaction = $modelNote->dbConnection->beginTransaction();
 		try {
+			$modelNote->username = User::getCurrentUser()->username;
+			$modelNote->Id_user_group_owner = User::getCurrentUserGroup()->Id;
 			$modelNote->note = $value;
 			$modelNote->Id_customer = $idCustomer;
 			$modelNote->in_progress = 0;
@@ -538,7 +540,7 @@ class ReviewController extends Controller
 		$model= Note::model()->findByPk($id);
 		
 		if(isset($model))
-		{
+		{				
 			$model->in_progress = 0;
 			$model->save();
 			echo CHtml::openTag('div', array('class'=>'review-container-single-view','id'=>'noteContainer_'.$id));
