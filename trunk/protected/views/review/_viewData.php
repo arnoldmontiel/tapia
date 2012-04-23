@@ -28,32 +28,12 @@ $editable = $isAdministrator||$isOwner;
 		<div class="review-single-view-actions">
 			<div class="review-single-view-actions-need-conf">
 				<?php
-				if($data->confirmed)
-		 			echo CHtml::checkBox('chkNeedConf_'.$data->Id,$data->need_confirmation,array('disabled'=>'disabled'));
-				else
-					echo CHtml::checkBox('chkNeedConf_'.$data->Id,$data->need_confirmation);
-				echo CHtml::decode('  Requiere Confirmaci&oacute;n');
+				echo CHtml::decode('Para:');
+				foreach ($data->userGroupNotes as $item){
+					if($item->addressed)
+						echo $item->userGroup->description;
+				}
 				?>
-			</div>
-			<div class="review-single-view-actions-conf">
-				<?php 	 		
-		 		if($data->need_confirmation)
-		 		{
-		 			if($data->confirmed)
-		 			{
-		 				echo CHtml::openTag('div',array('class'=>'review-confirmed-note-btn review-confirm-note-btn-pos'));
-		 				echo 'Confirmardo';
-		 				echo CHtml::closeTag('div');	 				
-		 			}
-		 			else 
-		 			{
-		 				echo CHtml::openTag('div',array('class'=>'review-confirm-note-btn review-confirm-note-btn-pos','id'=>'confirm_note_'.$data->Id));
-		 				echo 'Confirmar';
-		 				echo CHtml::closeTag('div');
-		 					 				
-		 			}
-		 		}
-		 	?>
 			</div>
 		</div>
 		<div id='edit_main_note_<?php echo $data->Id?>' class="review-create-note-btn review-create-note-btn-main div-hidden">
@@ -105,11 +85,13 @@ $editable = $isAdministrator||$isOwner;
 		<?php 
 			if(sizeof($images)==0)
 			{
-				echo CHtml::openTag('div', array('class'=>'review-add-images-container'));				
-				echo CHtml::link('Adjuntar Imagenes',
-					ReviewController::createUrl('AjaxAttachImage',array('id'=>$data->review->Id, 'idNote'=>$data->Id)),
-					array('class'=>'review-text-docs')
-				);
+				echo CHtml::openTag('div', array('class'=>'review-add-images-container'));
+				if($editable){
+					echo CHtml::link('Adjuntar Imagenes',
+						ReviewController::createUrl('AjaxAttachImage',array('id'=>$data->review->Id, 'idNote'=>$data->Id)),
+						array('class'=>'review-text-docs')
+					);
+				}
 				echo CHtml::closeTag('div');
 			}
 			foreach($data->multimedias as $item)
@@ -132,10 +114,12 @@ $editable = $isAdministrator||$isOwner;
 				echo CHtml::closeTag('div');
 					
 			}
-			echo CHtml::openTag('div', array('class'=>'review-add-docs-container'));				
-			echo CHtml::link('Adjuntar Documentos',
-				ReviewController::createUrl('AjaxAttachDoc',array('id'=>$data->review->Id, 'idNote'=>$data->Id)),
-				array('class'=>'review-text-docs'));
+			echo CHtml::openTag('div', array('class'=>'review-add-docs-container'));
+			if($editable){
+				echo CHtml::link('Adjuntar Documentos',
+					ReviewController::createUrl('AjaxAttachDoc',array('id'=>$data->review->Id, 'idNote'=>$data->Id)),
+					array('class'=>'review-text-docs'));
+			}
 			echo CHtml::closeTag('div');
 				
 		?>
@@ -162,6 +146,7 @@ $editable = $isAdministrator||$isOwner;
 	<?php endif?>
 	</div>
 	<div class="review-text-note-add">
+	<?php if($canDoFeeback):?>
 
 		<div id='create_note_<?php echo $data->Id?>' class="review-create-note div-hidden">
 			Grabar
@@ -171,6 +156,7 @@ $editable = $isAdministrator||$isOwner;
 		</div>
 				
 		<textarea id="note_<?php echo $data->Id?>" class="review-action-add-note" placeholder='Escriba una nota...'></textarea>
+		<?php endif;?>
 	</div>
 </div>
 
