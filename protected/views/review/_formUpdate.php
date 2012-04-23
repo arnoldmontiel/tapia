@@ -37,6 +37,11 @@ beginBind();
 
 function beginBind()
 {
+	$('#review-pending-view').children().each(
+		function(index, item){
+			bindEvents(item);
+		}
+	);
 	$('#review-view').children().each(
 		function(index, item){
 			bindEvents(item);
@@ -109,7 +114,7 @@ function bindEvents(item)
 			'".NoteController::createUrl('note/AjaxUpdateNoteDesc')."',
 			{
 			 	id: idMainNote,
-				note: $(note).val(),
+				note: $(note).val()
 			 }).success(
 					function(data) 
 					{ 
@@ -214,6 +219,57 @@ function bindEvents(item)
 		});
 	});
 
+	$('#publicArea_'+idMainNote).children().each(function(){
+		var parent = $(this);
+		$(this).find('#chkUserGroup').change(function(){
+			if(!$(this).is(':checked'))
+				$(parent).find(':checkbox').attr('checked',false);	
+		});
+		$(this).find('#chkAddressed').change(function(){
+			if($(this).is(':checked'))
+				$(parent).find('#chkUserGroup').attr('checked',true);	
+		});
+		$(this).find('#chkCanFeedback').change(function(){
+			if($(this).is(':checked'))
+				$(parent).find('#chkUserGroup').attr('checked',true);	
+		});
+	});
+	
+	$('#loco'+idMainNote).click(function(){
+
+		var dataUserGroup = { 'value[]' : []};
+		var dataFeedback = { 'value[]' : []};
+		var dataAddressed = { 'value[]' : []};
+		
+		$('#publicArea_'+idMainNote).children().each(function(){
+			var chkGroup = $(this).find('#chkUserGroup');
+			if($(chkGroup).is(':checked'))
+				dataUserGroup['value[]'].push($(chkGroup).val());
+				
+			var chkFeedback = $(this).find('#chkCanFeedback');
+			if($(chkFeedback).is(':checked'))
+				dataFeedback['value[]'].push($(chkFeedback).val());
+				
+			var chkAddress = $(this).find('#chkAddressed');
+			if($(chkAddress).is(':checked'))
+				dataAddressed['value[]'].push($(chkAddress).val());
+		});
+		
+			$.post('".ReviewController::createUrl('AjaxPublicNote')."', 
+			{
+				idNote: idMainNote,
+				idCustomer: ".$model->Id_customer.",
+				userGroup: dataUserGroup['value[]'],
+				canFeedback: dataFeedback['value[]'],
+				addressed: dataAddressed['value[]']
+			}
+			).success(
+			function(data){
+				window.location = '".ReviewController::createUrl('update',array('id'=>$model->Id))."';
+				return false;
+		});
+
+	});
 }
 
 $('#btnAlbum').hover(function(){
@@ -313,10 +369,10 @@ $('#btnNote').click(function(){
 	
 });
 
-$('#btnPublicNote').click(function(){
+$('#btnSaveNote').click(function(){
 	$('#loading').addClass('loading');
 	var id = $('#Note_Id_note').val()
-	$.post('".NoteController::createUrl('AjaxPublicNote')."', 
+	$.post('".ReviewController::createUrl('AjaxSaveNote')."', 
 		{
 			id: id
 		}
@@ -540,7 +596,7 @@ $(':checkbox').click(function() {
 		$this->renderPartial('_formNote',array('model'=>$modelNote));
 	?>		
 	<div class="row" style="text-align: center;">
-		<?php echo CHtml::button('Publicar',array('class'=>'wall-action-submit-btn','id'=>'btnPublicNote'));?>
+		<?php echo CHtml::button('Guardar',array('class'=>'wall-action-submit-btn','id'=>'btnSaveNote'));?>
 		<?php echo CHtml::button('Adjuntar Imagen',array('class'=>'wall-action-submit-btn','id'=>'btnAttachImgToNote', 'style'=>'width:150px'));?>
 		<?php echo CHtml::button('Adjuntar Docs',array('class'=>'wall-action-submit-btn','id'=>'btnAttachDocToNote', 'style'=>'width:150px'));?>
 		<?php echo CHtml::button('Cancelar',array('class'=>'wall-action-submit-btn','id'=>'btnCancelNote'));?>
@@ -571,6 +627,24 @@ $(':checkbox').click(function() {
 	<?php 
 		$modelMulti = new Multimedia;
 		$this->renderPartial('_formDocument',array('model'=>$modelMulti, 'Id_review'=>$model->Id, 'Id_customer'=>$model->Id_customer));
+	?>
+</div>
+
+<div id="review-pending-view">
+	<?php 
+		$modelNote = new Note;
+		$modelNote->Id_review = $model->Id;
+		$modelNote->Id_user_group_owner = User::getCurrentUserGroup()->Id;
+		$dataProviderNote = $modelNote->search();
+		$dataProviderNote->criteria->order= 'creation_date DESC';
+		$noteData = $dataProviderNote->data;
+		echo CHtml::openTag('div',array('class'=>'review-container-single-view','style'=>'display:none;','id'=>'noteContainer_place_holder'));
+		echo CHtml::closeTag('div');
+		foreach ($noteData as $item) {
+			echo CHtml::openTag('div',array('class'=>'review-container-single-view','id'=>'noteContainer_'.$item->Id));
+			$this->renderPartial('_viewPendingData',array('data'=>$item));
+			echo CHtml::closeTag('div');
+		}
 	?>
 </div>
 	
