@@ -5,11 +5,13 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#review-view-data'.$data->Id
 $canDoFeeback = $dataUserGroupNote->can_feedback;
 $isAdministrator = User::isAdministartor();
 $isOwner = User::isOwnerOf($data);
+$editable = $isAdministrator||$isOwner; 
 ?>
 
 <div class="review-single-view" id="<?php echo $data->Id?>" >
 	<div class="view-text-date"><?php echo $data->creation_date;?></div>
-	<div id='edit_image<?php echo $data->Id?>' class="review-edit-image div-hidden">
+	<?php if($editable):?>
+	<div id='edit_image<?php echo $data->Id?>' class="review-edit-image div-hidden">	
 	<?php
 		echo CHtml::link('Editar Imagenes',
 			ReviewController::createUrl('AjaxAttachImage',array('id'=>$data->review->Id, 'idNote'=>$data->Id)),
@@ -21,6 +23,7 @@ $isOwner = User::isOwnerOf($data);
 	 echo CHtml::image('images/remove.png','',
 			array('id'=>'delete_'.$data->Id, 'class'=>'wall-action-remove', 'title'=>'Eliminar'));
 	?>
+	<?php endif;?>
 	<div class="review-text-simple-note">
 		<div class="review-single-view-actions">
 			<div class="review-single-view-actions-need-conf">
@@ -59,9 +62,13 @@ $isOwner = User::isOwnerOf($data);
 		<div id='edit_main_note_cancel_<?php echo $data->Id?>' class="review-create-note-btn review-create-note-btn-main-cancel div-hidden">
 			Cancelar
 		</div>
-	
-	<textarea id='main_note<?php echo $data->Id?>' class="wall-action-edit-main-note" placeholder='Escriba una nota...'><?php echo $data->note;?></textarea>
-	<textarea id='main_original_note<?php echo $data->Id?>' class="wall-action-edit-main-note" style="display: none;" placeholder='Escriba una nota...'><?php echo $data->note;?></textarea>
+		<?php if($editable):?>
+			<textarea id='main_note<?php echo $data->Id?>' class="wall-action-edit-main-note" placeholder='Escriba una nota...'><?php echo $data->note;?></textarea>
+			<textarea id='main_original_note<?php echo $data->Id?>' class="wall-action-edit-main-note" style="display: none;" placeholder='Escriba una nota...'><?php echo $data->note;?></textarea>
+		<?php else:?>
+			<div class="wall-action-edit-main-note" ><?php echo $data->note;?></div>
+		<?php endif;?>
+		
 	</div>		
 	<div class="review-multimedia-conteiner">
 	<div id='review_image<?php echo $data->Id?>' class="review-text-images">
