@@ -254,9 +254,11 @@ class NoteController extends Controller
 		if(isset($_POST['idCustomer']))
 		{
 			$modelNote = new Note;
+			
 			$modelNote->Id_customer = $_POST['idCustomer'];
 			$modelNote->Id_review = $_POST['idReview'];
-			
+			$modelNote->username = User::getCurrentUser()->username;
+			$modelNote->Id_user_group_owner = User::getCurrentUserGroup()->Id;
 			$modelNote->save();
 	
 			

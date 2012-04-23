@@ -486,7 +486,53 @@ class ReviewController extends Controller
 			$this->render('updateAlbum',array('model'=>$model));
 	}
 	
+	
 	public function actionAjaxPublicNote()
+	{
+		$userGroup = $_POST['userGroup'];
+		$canFeedback = $_POST['canFeedback'];
+		$addressed = $_POST['addressed'];
+		$idNote = $_POST['idNote'];
+		$idCustomer = $_POST['idCustomer'];
+		
+		$model = new UserGroupNote;
+		$transaction = $model->dbConnection->beginTransaction();
+		try {
+			
+			$model->Id_note = $idNote;
+			$model->Id_customer = $idCustomer;
+			$model->Id_user_group = User::getCurrentUserGroup()->Id;
+			$model->can_feedback = 1;
+			$model->addressed = 1;
+			$model->save();
+			
+			if($userGroup)
+			{
+				foreach($userGroup as $item)
+				{
+					$model = new UserGroupNote;
+						
+					$model->Id_note = $idNote;
+					$model->Id_customer = $idCustomer;
+					$model->Id_user_group = $item;
+						
+					if(isset($canFeedback) && in_array($item,$canFeedback))
+						$model->can_feedback = 1;
+			
+					if(isset($addressed) && in_array($item,$addressed))
+						$model->addressed = 1;
+						
+					$model->save();
+				}
+			}
+			$transaction->commit();
+		} catch (Exception $e) {
+			$transaction->rollback();
+		}
+		
+	}
+	
+	public function actionAjaxSaveNote()
 	{
 		$id = $_POST['id'];
 		$model= Note::model()->findByPk($id);
@@ -496,7 +542,7 @@ class ReviewController extends Controller
 			$model->in_progress = 0;
 			$model->save();
 			echo CHtml::openTag('div', array('class'=>'review-container-single-view','id'=>'noteContainer_'.$id));
-			$this->renderPartial('_viewData',array('data'=>$model));
+			$this->renderPartial('_viewPendingData',array('data'=>$model));
 			echo CHtml::closeTag('div');
 		}
 	}

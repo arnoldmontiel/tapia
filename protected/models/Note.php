@@ -68,7 +68,7 @@ class Note extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('Id_customer, username, Id_user_group_owner', 'required'),
-			array('Id_customer, Id_review, in_progress, need_confirmation, confirmed, username, Id_user_group_owner', 'numerical', 'integerOnly'=>true),
+			array('Id_customer, Id_review, in_progress, need_confirmation, confirmed, Id_user_group_owner', 'numerical', 'integerOnly'=>true),
 			array('note, creation_date', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -131,7 +131,9 @@ class Note extends CActiveRecord
 		$criteria->compare('Id_customer',$this->Id_customer);
 		$criteria->compare('Id_review',$this->Id_review);
 		$criteria->compare('in_progress',0);
+		$criteria->compare('Id_user_group_owner',$this->Id_user_group_owner);
 		
+		$criteria->addCondition('t.Id NOT IN(select Id_note from user_group_note)');
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
