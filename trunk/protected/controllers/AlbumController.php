@@ -266,6 +266,8 @@ class AlbumController extends Controller
 			$modelAlbum = new Album;
 			$modelAlbum->Id_customer = $_POST['idCustomer'];
 			$modelAlbum->Id_review = $_POST['idReview'];
+			$modelAlbum->username = User::getCurrentUser()->username;
+			$modelAlbum->Id_user_group_owner = User::getCurrentUserGroup()->Id;
 			$transaction = $modelAlbum->dbConnection->beginTransaction();
 			try {
 	

@@ -19,9 +19,13 @@
  * @property integer $width_small
  * @property integer $height_small
  * @property integer $Id_review
- *
+ * @property string $username
+ * @property integer $Id_user_group
+ * 
  * The followings are the available model relations:
  * @property Album $idAlbum
+ * @property User $username0
+ * @property UserGroup $idUserGroup
  * @property Customer $idCustomer
  * @property MultimediaType $idMultimediaType
  * @property Review $idReview
@@ -37,6 +41,9 @@ class Multimedia extends CActiveRecord
 	public function beforeSave()
 	{
 	
+		$this->username = User::getCurrentUser()->username;
+		$this->Id_user_group = User::getCurrentUserGroup()->Id;
+		
 		if(isset($this->uploadedFile))
 		{
 			if(strstr($this->uploadedFile["type"],'image'))
@@ -204,8 +211,9 @@ class Multimedia extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('Id_customer, Id_review', 'required'),
-			array('Id_multimedia_type, Id_customer, Id_album, width, height, width_small, height_small, Id_review', 'numerical', 'integerOnly'=>true),
+			array('Id_multimedia_type, Id_customer, Id_album, width, height, width_small, height_small, Id_review, Id_user_group', 'numerical', 'integerOnly'=>true),
 			array('size, size_small', 'numerical'),
+			array('username', 'length', 'max'=>128),
 			array('file_name, description, file_name_small', 'length', 'max'=>255),
 			array('creation_date', 'safe'),
 			// The following rule is used by search().
@@ -223,6 +231,8 @@ class Multimedia extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'album' => array(self::BELONGS_TO, 'Album', 'Id_album'),
+			'username0' => array(self::BELONGS_TO, 'User', 'username'),
+			'idUserGroup' => array(self::BELONGS_TO, 'UserGroup', 'Id_user_group'),
 			'customer' => array(self::BELONGS_TO, 'Customer', 'Id_customer'),
 			'multimediaType' => array(self::BELONGS_TO, 'MultimediaType', 'Id_multimedia_type'),
 			'review' => array(self::BELONGS_TO, 'Review', 'Id_review'),
@@ -277,6 +287,8 @@ class Multimedia extends CActiveRecord
 		$criteria->compare('creation_date',$this->creation_date,true);
 		$criteria->compare('Id_album',$this->Id_album);
 		$criteria->compare('Id_review',$this->Id_review);
+		$criteria->compare('username',$this->username,true);
+		$criteria->compare('Id_user_group',$this->Id_user_group);
 		
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

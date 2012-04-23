@@ -10,9 +10,13 @@
  * @property string $creation_date
  * @property integer $Id_customer
  * @property integer $Id_review
+ * @property string $username
+ * @property integer $Id_user_group_owner
  * 
  *
  * The followings are the available model relations:
+ * @property User $username0
+ * @property UserGroup $idUserGroupOwner
  * @property Review $idReview
  * @property Customer $idCustomer
  * @property Note[] $notes
@@ -46,13 +50,13 @@ class Album extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('Id_customer, Id_review', 'required'),
+			array('Id_customer, Id_review, username, Id_user_group_owner', 'required'),
 			array('Id_customer, Id_review', 'numerical', 'integerOnly'=>true),
-			array('title', 'length', 'max'=>45),
+			array('title, username', 'length', 'max'=>45),
 			array('creation_date, description', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id, title, description, creation_date, Id_customer', 'safe', 'on'=>'search'),
+			array('Id, title, description, creation_date, Id_customer, Id_review, username, Id_user_group_owner', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -68,6 +72,8 @@ class Album extends CActiveRecord
 			'customer' => array(self::BELONGS_TO, 'Customer', 'Id_customer'),
 			'notes' => array(self::MANY_MANY, 'Note', 'album_note(Id_album, Id_note)'),
 			'multimedias' => array(self::HAS_MANY, 'Multimedia', 'Id_album'),
+			'userGroupOwner' => array(self::BELONGS_TO, 'UserGroup', 'Id_user_group_owner'),
+			'username0' => array(self::BELONGS_TO, 'User', 'username'),
 		);
 	}
 
@@ -103,6 +109,8 @@ class Album extends CActiveRecord
 		$criteria->compare('creation_date',$this->creation_date,true);
 		$criteria->compare('Id_customer',$this->Id_customer);
 		$criteria->compare('Id_review',$this->Id_review);
+		$criteria->compare('username',$this->username,true);
+		$criteria->compare('Id_user_group_owner',$this->Id_user_group_owner);
 		
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
