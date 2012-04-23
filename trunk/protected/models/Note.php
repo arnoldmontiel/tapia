@@ -93,7 +93,7 @@ class Note extends CActiveRecord
 			'userGroupOwner' => array(self::BELONGS_TO, 'UserGroup', 'Id_user_group_owner'),
 			'userGroups' => array(self::MANY_MANY, 'UserGroup', 'user_group_note(Id_note,Id_user_group)'),
 			'userGroupNotes' => array(self::HAS_MANY, 'UserGroupNote', 'Id_note'),
-			'username0' => array(self::BELONGS_TO, 'User', 'username'),
+			'user' => array(self::BELONGS_TO, 'User', 'username'),
 		);
 	}
 
