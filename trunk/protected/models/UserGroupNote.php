@@ -44,7 +44,7 @@ class UserGroupNote extends CActiveRecord
 			array('Id_user_group, Id_note, Id_customer, can_read, can_feedback, addressed', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id_user_group, Id_note, Id_customer, can_read, can_feedback, addressed', 'safe', 'on'=>'search'),
+			array('Id_user_group, Id_note, Id_customer', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -90,9 +90,6 @@ class UserGroupNote extends CActiveRecord
 		$criteria->compare('Id_user_group',$this->Id_user_group);
 		$criteria->compare('Id_note',$this->Id_note);
 		$criteria->compare('Id_customer',$this->Id_customer);
-		$criteria->compare('can_read',$this->can_read);
-		$criteria->compare('can_feedback',$this->can_feedback);
-		$criteria->compare('addressed',$this->addressed);
 		$criteria->with[]='note';
 		$criteria->compare('note.Id_review',$this->Id_review);	
 
