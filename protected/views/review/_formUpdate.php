@@ -652,6 +652,7 @@ $(':checkbox').click(function() {
 	<?php 
 		$modelUserGroupNote = new UserGroupNote();
 		$modelUserGroupNote->Id_review = $model->Id;
+		$modelUserGroupNote->Id_user_group = User::getCurrentUserGroup()->Id;
 		$dataProviderUserGroupNote = $modelUserGroupNote->search();
 		$dataProviderUserGroupNote->criteria->order= 'note.creation_date DESC';
 		
