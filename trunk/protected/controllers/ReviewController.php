@@ -370,32 +370,11 @@ class ReviewController extends Controller
 			$id=$_POST['id'];
 			// we only allow deletion via POST request
 			$model= Note::model()->findByPk($id);
+				
+			$model->confirmed = 1;
+			$model->save();
 
-			$modelUserGroupNote = UserGroupNote::model()->findByAttributes(array('Id_user_group'=>User::getCurrentUserGroup()->Id, 'Id_note'=>$id));
-			$modelUserGroupNote->confirmed = 1;
-			$modelUserGroupNote->save();
-			
-			$this->renderPartial('_viewData',array('data'=>$model,'dataUserGroupNote'=>$modelUserGroupNote));
-			
-		}
-		else
-		throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
-	}
-	
-	public function actionAjaxDeclineNote()
-	{
-		if(Yii::app()->request->isPostRequest)
-		{
-			$id=$_POST['id'];
-			// we only allow deletion via POST request
-			$model= Note::model()->findByPk($id);
-	
-			$modelUserGroupNote = UserGroupNote::model()->findByAttributes(array('Id_user_group'=>User::getCurrentUserGroup()->Id, 'Id_note'=>$id));
-			$modelUserGroupNote->declined = 1;
-			$modelUserGroupNote->save();
-				
-			$this->renderPartial('_viewData',array('data'=>$model,'dataUserGroupNote'=>$modelUserGroupNote));
-				
+			$this->renderPartial('_viewData',array('data'=>$model));
 		}
 		else
 		throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
@@ -412,6 +391,7 @@ class ReviewController extends Controller
 	
 		$transaction = $modelNote->dbConnection->beginTransaction();
 		try {
+			
 			$modelNote->username = User::getCurrentUser()->username;
 			$modelNote->Id_user_group_owner = User::getCurrentUserGroup()->Id;
 			$modelNote->note = $value;
@@ -428,8 +408,9 @@ class ReviewController extends Controller
 			$transaction->commit();
 				
 			$model = Note::model()->findByPk($id);
-	
-			$this->renderPartial('_viewData',array('data'=>$model));
+			$userGroupNote = UserGroupNote::model()->findByPk(array('Id_note'=>$id,'Id_user_group'=>$modelNote->Id_user_group_owner));				
+			$this->renderPartial('_viewData',array('data'=>$model,'dataUserGroupNote'=>$userGroupNote));
+			
 		} catch (Exception $e) {
 			$transaction->rollback();
 		}
@@ -527,6 +508,7 @@ class ReviewController extends Controller
 			$model->Id_customer = $idCustomer;
 			$model->Id_user_group = User::getCurrentUserGroup()->Id;
 			$model->can_feedback = 1;
+			$model->addressed = 1;
 			$model->save();
 			
 			if($userGroup)
