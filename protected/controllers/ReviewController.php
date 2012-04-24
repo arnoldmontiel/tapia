@@ -109,10 +109,15 @@ class ReviewController extends Controller
 		
 		$modelNote = Note::model()->findByAttributes(array('in_progress'=>1, 'Id_review'=>$id));
 		
+		$modelMultimedia = Multimedia::model()->findAllByAttributes(array('Id_review'=>$id, 'Id_user_group'=>User::getCurrentUserGroup()->Id ));
+		$modelAlbum = Album::model()->findAllByAttributes(array('Id_review'=>$id, 'Id_user_group_owner'=>User::getCurrentUserGroup()->Id ));
+		
 		$this->render('update',array(
 			'model'=>$model,
 			'idNote'=>$modelNote->Id,
 			'ddlPriority'=>$ddlPriority,
+			'modelMultimedia'=>$modelMultimedia,
+			'modelAlbum'=>$modelAlbum,
 		));
 	}
 
@@ -508,25 +513,48 @@ class ReviewController extends Controller
 			$model->Id_customer = $idCustomer;
 			$model->Id_user_group = User::getCurrentUserGroup()->Id;
 			$model->can_feedback = 1;
-			$model->addressed = 1;
 			$model->save();
 			
 			if($userGroup)
 			{
+				if( in_array(User::getAdminUserGroupId(),$userGroup))
+				{
+					$model = new UserGroupNote;
+					$model->Id_note = $idNote;
+					$model->Id_customer = $idCustomer;
+					$model->Id_user_group = User::getAdminUserGroupId();
+					$model->can_feedback = 1;
+					if(isset($addressed) && in_array(User::getAdminUserGroupId(),$addressed))
+						$model->addressed = 1;
+					
+					$model->save();
+					$userGroup = array_diff($userGroup, array(User::getAdminUserGroupId()));
+	
+				}
+				elseif( ! User::isAdministartor())
+				{
+					$model = new UserGroupNote;
+					$model->Id_note = $idNote;
+					$model->Id_customer = $idCustomer;
+					$model->Id_user_group = User::getAdminUserGroupId();
+					$model->can_feedback = 1;
+					$model->save();
+				}
+				
 				foreach($userGroup as $item)
 				{
 					$model = new UserGroupNote;
-						
+		
 					$model->Id_note = $idNote;
 					$model->Id_customer = $idCustomer;
 					$model->Id_user_group = $item;
-						
+					
 					if(isset($canFeedback) && in_array($item,$canFeedback))
 						$model->can_feedback = 1;
-			
+						
 					if(isset($addressed) && in_array($item,$addressed))
 						$model->addressed = 1;
-						
+					
 					if(isset($needConf) && in_array($item,$needConf))
 						$model->need_confirmation = 1;
 					
