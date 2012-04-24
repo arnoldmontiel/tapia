@@ -46,7 +46,7 @@ $editable = $isAdministrator||$isOwner;
 						{
 							echo CHtml::encode(',');								
 						}
-						$first = false;;								
+						$first = false;							
 						$group = User::getCurrentUserGroup();
 						if($item->Id_user_group==$group->Id)
 						{
