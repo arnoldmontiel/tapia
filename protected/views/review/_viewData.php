@@ -31,7 +31,6 @@ $editable = $isAdministrator||$isOwner;
 		<div class="review-single-view-actions">
 			<div class="review-single-view-actions-need-conf">
 				<?php
-				echo CHtml::decode('De : ');
 				echo CHtml::encode($data->user->username);								
 				?>
 			</div>
@@ -186,8 +185,11 @@ $editable = $isAdministrator||$isOwner;
 				echo CHtml::openTag('div',array('class'=>'view-text-date'));
 					echo $item->creation_date;
 				echo CHtml::closeTag('div');
-				echo CHtml::image('images/remove.png','',
-					array('id'=>'left_note_'.$item->Id.'_'.$data->Id, 'class'=>'wall-action-remove-small','title'=>'Remove'));
+				if($editable)
+				{
+					echo CHtml::image('images/remove.png','',
+					array('id'=>'left_note_'.$item->Id.'_'.$data->Id, 'class'=>'wall-action-remove-small','title'=>'Remove'));						
+				}
 				echo CHtml::openTag('p',array('class'=>'single-formated-text'));
 					echo $item->note;
 				echo CHtml::closeTag('p');
@@ -196,8 +198,8 @@ $editable = $isAdministrator||$isOwner;
 		?>		
 	<?php endif?>
 	</div>
-	<div class="review-text-note-add">
 	<?php if($canDoFeeback):?>
+	<div class="review-text-note-add">
 
 		<div id='create_note_<?php echo $data->Id?>' class="review-create-note div-hidden">
 			Grabar
@@ -207,8 +209,8 @@ $editable = $isAdministrator||$isOwner;
 		</div>
 				
 		<textarea id="note_<?php echo $data->Id?>" class="review-action-add-note" placeholder='Escriba una nota...'></textarea>
-		<?php endif;?>
 	</div>
+		<?php endif;?>
 </div>
 
 

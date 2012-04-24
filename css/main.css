@@ -851,6 +851,22 @@ textarea.review-action-add-note:focus
 {
 	background-color: white;	
 }
+div.wall-action-edit-main-note
+{
+	z-index:10;
+	position: relative;
+	padding: 5px 10px 5px;
+	outline: none;
+	background-color: #f4f6fb;
+	border: 1px solid #f4f6fb;
+	font-size: 13px;
+	line-height: 18px;
+	width: 540px;
+	height: 280px;
+	font: inherit;
+	color: inherit;
+	margin: 0px;
+}
 
 textarea.wall-action-edit-main-note
 {
