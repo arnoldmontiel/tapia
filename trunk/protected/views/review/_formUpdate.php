@@ -693,6 +693,7 @@ $(':checkbox').click(function() {
 		}
 	?>
 </div>
+<?php if(User::canCreate()):?>
 <div id="resources-view" class="review-single-view">
 	<div class="review-resources-title">
 	Recursos Multimedias
@@ -774,5 +775,5 @@ $(':checkbox').click(function() {
 			echo CHtml::closeTag('div');
 		?>
 	</div>
-		
+<?php endif;?>		
 </div>
