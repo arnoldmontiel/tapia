@@ -636,8 +636,8 @@ $(':checkbox').click(function() {
 	<div class="review-action-area-dialog" style="left: 190px;">
 	</div>
 	<?php 
-		$modelAlbum = new Album;
-		$this->renderPartial('_formAlbum',array('model'=>$modelAlbum));
+		$modeNewlAlbum = new Album;
+		$this->renderPartial('_formAlbum',array('model'=>$modeNewlAlbum));
 	?>
 	<div class="row" style="text-align: center;">
 		<?php echo CHtml::button('Publicar',array('class'=>'wall-action-submit-btn','id'=>'btnPublicAlbum'));?>
@@ -701,7 +701,7 @@ $(':checkbox').click(function() {
 <?php
 	
 		echo CHtml::openTag('div',array('class'=>'review-container-album'));
-		foreach($model->albums as $item)
+		foreach($modelAlbum as $item)
 		{
 				
 			echo CHtml::openTag('div',array('class'=>'review-container-single-album'));	
@@ -746,7 +746,8 @@ $(':checkbox').click(function() {
 		?>
 		<div class="review-text-docs">
 		<?php 
-			$multimedias = $model->multimedias;
+			$multimedias = $modelMultimedia;
+ 
 			if(sizeof($multimedias)>0)
 			{
 				echo CHtml::link('Editar documentos',
