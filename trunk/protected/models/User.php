@@ -61,6 +61,13 @@ class User extends CActiveRecord
 		}
 		return self::$_userGroup;		
 	}
+	
+	public static function getAdminUserGroupId()
+	{
+		$model = UserGroup::model()->findByAttributes(array('is_administrator'=>1));
+		return $model->Id;
+	}
+	
 	public static function getCurrentUser()
 	{
 		if(!isset(self::$_user))
