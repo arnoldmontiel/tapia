@@ -54,6 +54,8 @@ class UserController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
+		$ddlUserGroup = UserGroup::model()->findAll();
+		
 		if(isset($_POST['User']))
 		{
 			$model->attributes=$_POST['User'];
@@ -63,6 +65,7 @@ class UserController extends Controller
 
 		$this->render('create',array(
 			'model'=>$model,
+			'ddlUserGroup'=>$ddlUserGroup,
 		));
 	}
 
