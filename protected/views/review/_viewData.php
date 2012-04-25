@@ -111,7 +111,7 @@ $editable = $isAdministrator||$isOwner;
 			
 				$modelUserGroupNote = UserGroupNote::model()->findAllByAttributes(array('Id_note'=>$data->Id));
 				
-				//$modelNoteNote = NoteNote::model()->findByAttributes(array('Id_parent'=>$data->Id));
+				$modelNoteNote = NoteNote::model()->findAllByAttributes(array('Id_parent'=>$data->Id));
 				
 				echo CHtml::openTag('div', array('id'=>'publicArea_'.$data->Id, 'class'=>'review-public-permission-area'));
 				echo CHtml::decode('Editar Permisos');
@@ -123,7 +123,16 @@ $editable = $isAdministrator||$isOwner;
 					{
 						if($itemGroupNote->Id_user_group == $item->Id)
 							$modelUserGroupNoteInstance = $itemGroupNote;
-					}
+					}	
+					
+					
+					$canEditFeedback = true;
+					foreach($modelNoteNote as $itemNoteNote)
+					{
+						if($itemNoteNote->idChild->Id_user_group_owner == $item->Id)
+							$canEditFeedback = false;
+					}	
+					
 					
 					
 					$canEditNeedConf = !($modelUserGroupNoteInstance->confirmed || $modelUserGroupNoteInstance->declined);
@@ -134,7 +143,7 @@ $editable = $isAdministrator||$isOwner;
 							if($modelUserGroupNoteInstance)
 							{
 								echo CHtml::checkBox('chkUserGroup',true,array('id'=>'chkUserGroup','value'=>$item->Id,'style'=>'display:none'));
-								echo CHtml::openTag('div',array('id'=>($canEditNeedConf)?'divChkUserGroup':'noEditUserGroup','class'=>'review-permission-chk-decoration review-permission-chk-decoration-chk'));
+								echo CHtml::openTag('div',array('id'=>($canEditNeedConf && $canEditFeedback)?'divChkUserGroup':'noEditUserGroup','class'=>'review-permission-chk-decoration review-permission-chk-decoration-chk'));
 							}
 							else 
 							{
@@ -162,7 +171,7 @@ $editable = $isAdministrator||$isOwner;
 							if($modelUserGroupNoteInstance && $modelUserGroupNoteInstance->can_feedback )
 							{
 								echo CHtml::checkBox('chkCanFeedback',true,array('id'=>'chkCanFeedback','value'=>$item->Id,'style'=>'display:none'));
-								echo CHtml::openTag('div',array('id'=>($canEditNeedConf)?'divChkCanFeedback':'noEditCanFeedback','class'=>'review-permission-chk-decoration review-permission-chk-decoration-chk'));
+								echo CHtml::openTag('div',array('id'=>($canEditFeedback)?'divChkCanFeedback':'noEditCanFeedback','class'=>'review-permission-chk-decoration review-permission-chk-decoration-chk'));
 							}
 							else
 							{
