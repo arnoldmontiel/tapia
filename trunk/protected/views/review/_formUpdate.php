@@ -238,21 +238,62 @@ function bindEvents(item)
 	
 	$('#publicArea_'+idMainNote).children().each(function(){
 		var parent = $(this);
-		$(this).find('#chkUserGroup').change(function(){
-			if(!$(this).is(':checked'))
-				$(parent).find(':checkbox').attr('checked',false);	
+		$(this).find('#divChkUserGroup').click(function(){
+			if(!$(parent).find('#chkUserGroup').is(':checked'))
+			{
+				$(parent).find('#chkUserGroup').attr('checked',true);
+				$(this).addClass('review-permission-chk-decoration-chk');
+			}
+			else
+			{
+				$(parent).find(':checkbox').attr('checked',false);
+				$(this).removeClass('review-permission-chk-decoration-chk');
+				$(parent).find('#divChkAddressed').removeClass('review-permission-chk-decoration-chk');
+				$(parent).find('#divChkCanFeedback').removeClass('review-permission-chk-decoration-chk');
+				$(parent).find('#divChkNeedConfirmation').removeClass('review-permission-chk-decoration-chk');
+			}	
 		});
-		$(this).find('#chkAddressed').change(function(){
-			if($(this).is(':checked'))
+		$(this).find('#divChkAddressed').click(function(){
+			if(!$(parent).find('#chkAddressed').is(':checked'))
+			{
+				$(parent).find('#chkAddressed').attr('checked',true);	
 				$(parent).find('#chkUserGroup').attr('checked',true);	
+				$(parent).find('#divChkUserGroup').addClass('review-permission-chk-decoration-chk');
+				$(this).addClass('review-permission-chk-decoration-chk');
+			}
+			else
+			{
+				$(parent).find('#chkAddressed').attr('checked',false);	
+				$(this).removeClass('review-permission-chk-decoration-chk');
+			}
 		});
-		$(this).find('#chkCanFeedback').change(function(){
-			if($(this).is(':checked'))
+		$(this).find('#divChkCanFeedback').click(function(){
+			if(!$(parent).find('#chkCanFeedback').is(':checked'))
+			{
+				$(parent).find('#chkCanFeedback').attr('checked',true);	
 				$(parent).find('#chkUserGroup').attr('checked',true);	
+				$(parent).find('#divChkUserGroup').addClass('review-permission-chk-decoration-chk');
+				$(this).addClass('review-permission-chk-decoration-chk');
+			}
+			else
+			{
+				$(parent).find('#chkCanFeedback').attr('checked',false);	
+				$(this).removeClass('review-permission-chk-decoration-chk');
+			}
 		});
-		$(this).find('#chkNeedConfirmation').change(function(){
-			if($(this).is(':checked'))
+		$(this).find('#divChkNeedConfirmation').click(function(){
+			if(!$(parent).find('#chkNeedConfirmation').is(':checked'))
+			{
+				$(parent).find('#chkNeedConfirmation').attr('checked',true);	
 				$(parent).find('#chkUserGroup').attr('checked',true);	
+				$(parent).find('#divChkUserGroup').addClass('review-permission-chk-decoration-chk');
+				$(this).addClass('review-permission-chk-decoration-chk');
+			}
+			else
+			{
+				$(parent).find('#chkNeedConfirmation').attr('checked',false);	
+				$(this).removeClass('review-permission-chk-decoration-chk');
+			}
 		});
 	});
 	
@@ -636,8 +677,8 @@ $(':checkbox').click(function() {
 	<div class="review-action-area-dialog" style="left: 190px;">
 	</div>
 	<?php 
-		$modeNewlAlbum = new Album;
-		$this->renderPartial('_formAlbum',array('model'=>$modeNewlAlbum));
+		$modelAlbum = new Album;
+		$this->renderPartial('_formAlbum',array('model'=>$modelAlbum));
 	?>
 	<div class="row" style="text-align: center;">
 		<?php echo CHtml::button('Publicar',array('class'=>'wall-action-submit-btn','id'=>'btnPublicAlbum'));?>
@@ -701,7 +742,7 @@ $(':checkbox').click(function() {
 <?php
 	
 		echo CHtml::openTag('div',array('class'=>'review-container-album'));
-		foreach($modelAlbum as $item)
+		foreach($model->albums as $item)
 		{
 				
 			echo CHtml::openTag('div',array('class'=>'review-container-single-album'));	
@@ -746,8 +787,7 @@ $(':checkbox').click(function() {
 		?>
 		<div class="review-text-docs">
 		<?php 
-			$multimedias = $modelMultimedia;
- 
+			$multimedias = $model->multimedias;
 			if(sizeof($multimedias)>0)
 			{
 				echo CHtml::link('Editar documentos',
