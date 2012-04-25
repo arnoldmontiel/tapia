@@ -54,6 +54,8 @@ class CustomerController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
+		$ddlUsername = User::model()->findAll();
+		
 		if(isset($_POST['Customer']))
 		{
 			$model->attributes=$_POST['Customer'];
@@ -63,9 +65,92 @@ class CustomerController extends Controller
 
 		$this->render('create',array(
 			'model'=>$model,
+			'ddlUsername'=>$ddlUsername,
 		));
 	}
 
+	public function actionAssignment()
+	{
+		$model = new Customer;
+		$modelUserGroup = new UserGroup;
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+	
+		$ddlCustomer = Customer::model()->findAll();
+		
+	
+		$criteria=new CDbCriteria;
+			
+		$criteria->addCondition('t.Id <> '. User::getAdminUserGroupId());
+		$criteria->addCondition('t.Id <> 3');
+		
+		$ddlUserGroup = UserGroup::model()->findAll($criteria);
+		
+		$modelUser = new User;
+		if(isset($_GET['UserGroup']))
+			$modelUser->Id_user_group = $_GET['UserGroup']['Id'];
+			 
+		
+		$modelUserCustomer = new UserCustomer;
+		if(isset($_GET['Customer']))
+			$modelUserCustomer->Id_customer = $_GET['Customer']['Id'];
+		
+		if(isset($_GET['User']))
+			$modelUser->attributes = $_GET['User'];
+		
+		if(isset($_GET['UserCustomer']))
+			$modelUserCustomer->attributes = $_GET['UserCustomer'];
+		
+		$this->render('customerAssign',array(
+				'model'=>$model,
+				'ddlCustomer'=>$ddlCustomer,
+				'ddlUserGroup'=>$ddlUserGroup,
+				'modelUserGroup'=>$modelUserGroup,
+				'modelUser'=>$modelUser,
+				'modelUserCustomer'=>$modelUserCustomer,
+		));
+	}
+	
+	public function actionAjaxAddUserCustomer()
+	{
+		
+		$idCustomer = isset($_GET['IdCustomer'])?$_GET['IdCustomer']:'';
+		$idUser = isset($_GET['username'])?$_GET['username'][0]:'';
+	
+		if(!empty($idCustomer)&&!empty($idUser))
+		{
+			$userCustomerDb = UserCustomer::model()->findByAttributes(array('Id_customer'=>(int) $idCustomer,'username'=>$idUser));
+			if($userCustomerDb==null)
+			{
+				$userCustomer = new UserCustomer;
+				$userCustomer->attributes =  array('Id_customer'=>$idCustomer,
+													'username'=>$idUser,
+												);
+				$userCustomer->save();
+			}
+			else
+			{
+				throw new CDbException('El usuario ya esta asignado');
+			}
+		}
+	}
+	
+	public function actionAjaxRemoveUserCustomer()
+	{
+	
+		$idCustomer = isset($_GET['IdCustomer'])?$_GET['IdCustomer']:'';
+		$idUser = isset($_GET['username'])?$_GET['username']:'';
+	
+		if(!empty($idCustomer)&&!empty($idUser))
+		{
+			$userCustomerDb = UserCustomer::model()->findByAttributes(array('Id_customer'=>(int) $idCustomer,'username'=>$idUser));
+			if($userCustomerDb)
+			{
+				$userCustomerDb->delete();
+			}
+		}
+	}
+	
 	/**
 	 * Updates a particular model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
