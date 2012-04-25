@@ -529,6 +529,26 @@ class ReviewController extends Controller
 		$transaction = $model->dbConnection->beginTransaction();
 		try {
 			
+			UserGroupNote::model()->deleteAllByAttributes(array('Id_note'=>$idNote, 'confirmed'=>0, 'declined'=>0));
+			
+			$arrUserGroupNote = UserGroupNote::model()->findAllByAttributes(array('Id_note'=>$idNote));
+			
+			foreach ($arrUserGroupNote as $userGroupItem)
+			{
+				if(isset($canFeedback) && in_array($userGroupItem->Id_user_group,$canFeedback))
+					$userGroupItem->can_feedback = 1;
+				
+				if(isset($addressed) && in_array($userGroupItem->Id_user_group,$addressed))
+					$userGroupItem->addressed = 1;
+					
+				if(isset($needConf) && in_array($userGroupItem->Id_user_group,$needConf))
+					$userGroupItem->need_confirmation = 1;
+					
+				$userGroupItem->save();
+				
+				$userGroup = array_diff($userGroup, array($userGroupItem->Id_user_group));
+			}
+			
 			$model->Id_note = $idNote;
 			$model->Id_customer = $idCustomer;
 			$model->Id_user_group = User::getCurrentUserGroup()->Id;
