@@ -111,6 +111,7 @@ class User extends CActiveRecord
 		return array(
 			'customers' => array(self::HAS_MANY, 'Customer', 'username'),
 			'notes' => array(self::HAS_MANY, 'Note', 'username'),
+			'multimedias' => array(self::HAS_MANY, 'Multimedia', 'username'),
 			'userGroup' => array(self::BELONGS_TO, 'UserGroup', 'Id_user_group'),
 		);
 	}
