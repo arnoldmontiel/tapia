@@ -1583,3 +1583,9 @@ div.review-permission-row
 	display: inline-block;
 	margin-top: 3px;
 }
+.messageError
+{
+	color: red;
+	font-style: italic;
+	display: none;
+}
