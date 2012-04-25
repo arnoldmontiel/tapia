@@ -1,5 +1,10 @@
 <?php 
 Yii::app()->clientScript->registerScript(__CLASS__.'#review-view-pending-data'.$data->Id, "
+$('#publicArea_".$data->Id."').children().each(
+	function(index, item){
+
+	}
+);
 
 ");
 ?>
@@ -108,33 +113,45 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#review-view-pending-data'.$
 			
 			$modelUserGroup = UserGroup::model()->findAll($criteria);
 		
-			echo CHtml::openTag('div', array('id'=>'loco'.$data->Id));
-			echo "aaaaaaaaaaaaaaaaaaa";
-			echo CHtml::closeTag('div');
-			
-			
-			echo CHtml::openTag('div', array('id'=>'publicArea_'.$data->Id, 'style'=>'width:500px;'));
+			echo CHtml::openTag('div', array('id'=>'publicArea_'.$data->Id, 'class'=>'review-public-permission-area'));
+			echo CHtml::decode('Permisos');
 			
 			foreach($modelUserGroup as $item)
 			{
 				echo CHtml::openTag('div', array('id'=>'userGroup_'.$item->Id));
-					echo CHtml::openTag('div', array('style'=>'display: inline-block; width:50%;'));
-						echo CHtml::label($item->description, 'chkUserGroup');
-						echo CHtml::checkBox('chkUserGroup','',array('value'=>$item->Id));
+					echo CHtml::openTag('div', array('class'=>'review-permission-row','style'=>'display: inline-block; width:50%;'));
+						echo CHtml::checkBox('chkUserGroup','',array('id'=>'chkUserGroup','value'=>$item->Id,'style'=>'display:none'));
+						echo CHtml::openTag('div',array('id'=>'divChkUserGroup','class'=>'review-permission-chk-decoration'));
+							echo CHtml::encode($item->description);
+						echo CHtml::closeTag('div');
 					echo CHtml::closeTag('div');
-					echo CHtml::openTag('div', array('style'=>'display: inline-block;'));
-						echo CHtml::checkBox('chkAddressed','',array('value'=>$item->Id));
+					echo CHtml::openTag('div', array('class'=>'review-permission-row'));
+						echo CHtml::checkBox('chkAddressed','',array('id'=>'chkAddressed','value'=>$item->Id,'style'=>'display:none'));
+						echo CHtml::openTag('div',array('id'=>'divChkAddressed','class'=>'review-permission-chk-decoration'));
+							echo CHtml::encode('Para');
+						echo CHtml::closeTag('div');						
 					echo CHtml::closeTag('div');
-					echo CHtml::openTag('div', array('style'=>'display: inline-block;'));
-						echo CHtml::checkBox('chkCanFeedback','',array('value'=>$item->Id));
+					echo CHtml::openTag('div', array('class'=>'review-permission-row'));
+						echo CHtml::checkBox('chkCanFeedback','',array('id'=>'chkCanFeedback','value'=>$item->Id,'style'=>'display:none'));
+						echo CHtml::openTag('div',array('id'=>'divChkCanFeedback','class'=>'review-permission-chk-decoration'));
+							echo CHtml::encode('Respuesta');
+						echo CHtml::closeTag('div');						
 					echo CHtml::closeTag('div');
-					echo CHtml::openTag('div', array('style'=>'display: inline-block;'));
-						echo CHtml::checkBox('chkNeedConfirmation','',array('value'=>$item->Id));
+					echo CHtml::openTag('div', array('class'=>'review-permission-row'));
+						echo CHtml::checkBox('chkNeedConfirmation','',array('id'=>'chkNeedConfirmation','value'=>$item->Id,'style'=>'display:none'));
+						echo CHtml::openTag('div',array('id'=>'divChkNeedConfirmation','class'=>'review-permission-chk-decoration','style'=>'width:70px;'));
+							echo CHtml::decode('Confirmaci&oacute;n');
+						echo CHtml::closeTag('div');												
 					echo CHtml::closeTag('div');
 				echo CHtml::closeTag('div');
 			}
-			
+			echo CHtml::openTag('div', array('class'=>'review-action-permissions-box-btn'));
+			echo CHtml::openTag('div', array('id'=>'loco'.$data->Id,'class'=>'review-action-btn'));
+			echo "Publicar";
 			echo CHtml::closeTag('div');
+			echo CHtml::closeTag('div');
+			echo CHtml::closeTag('div');
+				
 		?>
 	</div>
 </div>
