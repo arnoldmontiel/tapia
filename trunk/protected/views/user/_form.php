@@ -14,15 +14,6 @@
 		<?php echo $form->textField($model,'username',array('size'=>60,'maxlength'=>128)); ?>
 		<?php echo $form->error($model,'username'); ?>
 	</div>
-	<div class="row">
-		<?php echo CHtml::label('Grupo', 'User_Id_user_group'); ?>
-		<?php 
-		$modelUserGroup = UserGroup::model()->findAll();
-		$userGroups = CHtml::listData($modelUserGroup, 'Id', 'description');
-		echo $form->dropDownList($model, 'Id_user_group', $userGroups);
-		?>
-		<?php echo $form->error($model,'priority'); ?>
-	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'password'); ?>
@@ -36,6 +27,14 @@
 		<?php echo $form->error($model,'email'); ?>
 	</div>
 
+	<div class="row">
+		<?php echo $form->labelEx($model,'Id_user_group'); ?>
+		<?php 
+			$userGroups = CHtml::listData($ddlUserGroup, 'Id', 'description');
+			echo $form->dropDownList($model,'Id_user_group',$userGroups); ?>
+		<?php echo $form->error($model,'Id_user_group'); ?>
+	</div>
+			
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 	</div>
