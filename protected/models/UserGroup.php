@@ -8,8 +8,14 @@
  * @property string $description
  * @property integer $can_create
  * @property integer $is_administrator
+ * @property integer $can_read
+ * @property integer $addressed
+ * @property integer $need_confirmation
+ * @property integer $can_feedback
  *
  * The followings are the available model relations:
+ * @property Album[] $albums
+ * @property Multimedia[] $multimedias
  * @property Note[] $notes
  * @property User[] $users
  */
@@ -41,7 +47,7 @@ class UserGroup extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('can_create, is_administrator', 'numerical', 'integerOnly'=>true),
+			array('can_create, is_administrator, can_read, addressed, need_confirmation, can_feedback', 'numerical', 'integerOnly'=>true),
 			array('description', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -57,6 +63,8 @@ class UserGroup extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'albums' => array(self::HAS_MANY, 'Album', 'Id_user_group_owner'),
+			'multimedias' => array(self::HAS_MANY, 'Multimedia', 'Id_user_group'),
 			'notes' => array(self::MANY_MANY, 'Note', 'user_group_note(Id_user_group, Id_note)'),
 			'users' => array(self::HAS_MANY, 'User', 'Id_user_group'),
 		);
@@ -72,6 +80,10 @@ class UserGroup extends CActiveRecord
 			'description' => 'Description',
 			'can_create' => 'Can Create',
 			'is_administrator' => 'Is Administrator',
+			'can_read' => 'Can Read',
+			'addressed' => 'Addressed',
+			'need_confirmation' => 'Need Confirmation',
+			'can_feedback' => 'Can Feedback',
 		);
 	}
 
