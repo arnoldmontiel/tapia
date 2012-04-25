@@ -99,6 +99,105 @@ $editable = $isAdministrator||$isOwner;
 			</div>
 		<?php endif;?>
 		
+	
+	<?php if($isOwner):?>
+		<div>
+			<?php
+				$criteria=new CDbCriteria;
+				
+				$criteria->addCondition('t.Id <> '. User::getCurrentUserGroup()->Id);
+				
+				$modelUserGroup = UserGroup::model()->findAll($criteria);
+			
+				$modelUserGroupNote = UserGroupNote::model()->findAllByAttributes(array('Id_note'=>$data->Id));
+				
+				//$modelNoteNote = NoteNote::model()->findByAttributes(array('Id_parent'=>$data->Id));
+				
+				echo CHtml::openTag('div', array('id'=>'publicArea_'.$data->Id, 'class'=>'review-public-permission-area'));
+				echo CHtml::decode('Editar Permisos');
+				
+				foreach($modelUserGroup as $item)
+				{
+					$modelUserGroupNoteInstance = null;
+					foreach($modelUserGroupNote as $itemGroupNote)
+					{
+						if($itemGroupNote->Id_user_group == $item->Id)
+							$modelUserGroupNoteInstance = $itemGroupNote;
+					}
+					
+					
+					$canEditNeedConf = !($modelUserGroupNoteInstance->confirmed || $modelUserGroupNoteInstance->declined);
+					
+					echo CHtml::openTag('div', array('id'=>'userGroup_'.$item->Id));
+					
+						echo CHtml::openTag('div', array('class'=>'review-permission-row','style'=>'display: inline-block; width:50%;'));
+							if($modelUserGroupNoteInstance)
+							{
+								echo CHtml::checkBox('chkUserGroup',true,array('id'=>'chkUserGroup','value'=>$item->Id,'style'=>'display:none'));
+								echo CHtml::openTag('div',array('id'=>($canEditNeedConf)?'divChkUserGroup':'noEditUserGroup','class'=>'review-permission-chk-decoration review-permission-chk-decoration-chk'));
+							}
+							else 
+							{
+								echo CHtml::checkBox('chkUserGroup','',array('id'=>'chkUserGroup','value'=>$item->Id,'style'=>'display:none'));
+								echo CHtml::openTag('div',array('id'=>'divChkUserGroup','class'=>'review-permission-chk-decoration'));
+							}
+								echo CHtml::encode($item->description);
+							echo CHtml::closeTag('div');
+						echo CHtml::closeTag('div');
+						echo CHtml::openTag('div', array('class'=>'review-permission-row'));
+							if($modelUserGroupNoteInstance && $modelUserGroupNoteInstance->addressed )
+							{
+								echo CHtml::checkBox('chkAddressed',true,array('id'=>'chkAddressed','value'=>$item->Id,'style'=>'display:none'));
+								echo CHtml::openTag('div',array('id'=>'divChkAddressed','class'=>'review-permission-chk-decoration review-permission-chk-decoration-chk'));
+							}
+							else
+							{
+								echo CHtml::checkBox('chkAddressed','',array('id'=>'chkAddressed','value'=>$item->Id,'style'=>'display:none'));
+								echo CHtml::openTag('div',array('id'=>'divChkAddressed','class'=>'review-permission-chk-decoration'));
+							}
+								echo CHtml::encode('Para');
+							echo CHtml::closeTag('div');						
+						echo CHtml::closeTag('div');
+						echo CHtml::openTag('div', array('class'=>'review-permission-row'));
+							if($modelUserGroupNoteInstance && $modelUserGroupNoteInstance->can_feedback )
+							{
+								echo CHtml::checkBox('chkCanFeedback',true,array('id'=>'chkCanFeedback','value'=>$item->Id,'style'=>'display:none'));
+								echo CHtml::openTag('div',array('id'=>($canEditNeedConf)?'divChkCanFeedback':'noEditCanFeedback','class'=>'review-permission-chk-decoration review-permission-chk-decoration-chk'));
+							}
+							else
+							{
+								echo CHtml::checkBox('chkCanFeedback','',array('id'=>'chkCanFeedback','value'=>$item->Id,'style'=>'display:none'));
+								echo CHtml::openTag('div',array('id'=>'divChkCanFeedback','class'=>'review-permission-chk-decoration'));
+							}
+								echo CHtml::encode('Respuesta');
+							echo CHtml::closeTag('div');						
+						echo CHtml::closeTag('div');
+						echo CHtml::openTag('div', array('class'=>'review-permission-row'));
+							if($modelUserGroupNoteInstance && $modelUserGroupNoteInstance->need_confirmation )
+							{
+								echo CHtml::checkBox('chkNeedConfirmation',true,array('id'=>'chkNeedConfirmation','value'=>$item->Id,'style'=>'display:none'));
+								echo CHtml::openTag('div',array('id'=>($canEditNeedConf)?'divChkNeedConfirmation':'noEditNeedConfirmation','class'=>'review-permission-chk-decoration review-permission-chk-decoration-chk','style'=>'width:70px;'));
+							}
+							else
+							{
+								echo CHtml::checkBox('chkNeedConfirmation','',array('id'=>'chkNeedConfirmation','value'=>$item->Id,'style'=>'display:none'));
+								echo CHtml::openTag('div',array('id'=>'divChkNeedConfirmation','class'=>'review-permission-chk-decoration','style'=>'width:70px;'));
+							}
+								echo CHtml::decode('Confirmaci&oacute;n');
+							echo CHtml::closeTag('div');												
+						echo CHtml::closeTag('div');
+					echo CHtml::closeTag('div');
+				}
+				echo CHtml::openTag('div', array('class'=>'review-action-permissions-box-btn'));
+				echo CHtml::openTag('div', array('id'=>'loco'.$data->Id,'class'=>'review-action-btn'));
+				echo "Aplicar";
+				echo CHtml::closeTag('div');
+				echo CHtml::closeTag('div');
+				echo CHtml::closeTag('div');
+					
+			?>
+		</div>	
+		<?php endif;?>
 	</div>		
 	<div class="review-multimedia-conteiner">
 	<div id='review_image<?php echo $data->Id?>' class="review-text-images">

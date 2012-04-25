@@ -253,6 +253,11 @@ function bindEvents(item)
 				$(parent).find('#divChkNeedConfirmation').removeClass('review-permission-chk-decoration-chk');
 			}	
 		});
+		
+		$(this).find('#noEditUserGroup').click(function(){
+			alert('Este permiso no se puede editar');
+		});
+		
 		$(this).find('#divChkAddressed').click(function(){
 			if(!$(parent).find('#chkAddressed').is(':checked'))
 			{
@@ -267,6 +272,11 @@ function bindEvents(item)
 				$(this).removeClass('review-permission-chk-decoration-chk');
 			}
 		});
+		
+		$(this).find('#noEditAddressed').click(function(){
+			alert('Este permiso no se puede editar');
+		});
+		
 		$(this).find('#divChkCanFeedback').click(function(){
 			if(!$(parent).find('#chkCanFeedback').is(':checked'))
 			{
@@ -281,6 +291,11 @@ function bindEvents(item)
 				$(this).removeClass('review-permission-chk-decoration-chk');
 			}
 		});
+		
+		$(this).find('#noEditCanFeedback').click(function(){
+			alert('Este permiso no se puede editar');
+		});
+		
 		$(this).find('#divChkNeedConfirmation').click(function(){
 			if(!$(parent).find('#chkNeedConfirmation').is(':checked'))
 			{
@@ -295,6 +310,11 @@ function bindEvents(item)
 				$(this).removeClass('review-permission-chk-decoration-chk');
 			}
 		});
+		
+		$(this).find('#noEditNeedConfirmation').click(function(){
+			alert('Este permiso no se puede editar');
+		});
+		
 	});
 	
 	$('#loco'+idMainNote).click(function(){
