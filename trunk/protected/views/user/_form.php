@@ -14,6 +14,15 @@
 		<?php echo $form->textField($model,'username',array('size'=>60,'maxlength'=>128)); ?>
 		<?php echo $form->error($model,'username'); ?>
 	</div>
+	<div class="row">
+		<?php echo CHtml::label('Grupo', 'User_Id_user_group'); ?>
+		<?php 
+		$modelUserGroup = UserGroup::model()->findAll();
+		$userGroups = CHtml::listData($modelUserGroup, 'Id', 'description');
+		echo $form->dropDownList($model, 'Id_user_group', $userGroups);
+		?>
+		<?php echo $form->error($model,'priority'); ?>
+	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'password'); ?>
