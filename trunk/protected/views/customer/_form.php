@@ -23,7 +23,9 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'username'); ?>
-		<?php echo $form->textField($model,'username',array('size'=>60,'maxlength'=>128)); ?>
+		<?php 
+			$usernames = CHtml::listData($ddlUsername, 'username', 'username');
+			echo $form->dropDownList($model,'username',$usernames); ?>
 		<?php echo $form->error($model,'username'); ?>
 	</div>
 
