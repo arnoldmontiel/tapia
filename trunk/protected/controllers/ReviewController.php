@@ -350,6 +350,7 @@ class ReviewController extends Controller
 		{
 			$arrFilters = array('tagFilter'=>$_POST['tagFilter'], 
 							 'typeFilter'=>$_POST['typeFilter'],
+							 'reviewTypeFilter'=>$_POST['reviewTypeFilter'],
 							 'dateFromFilter'=>$_POST['dateFromFilter'],
 							 'dateToFilter'=>$_POST['dateToFilter']);
 			
