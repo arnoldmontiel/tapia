@@ -118,28 +118,65 @@ $('#publicArea_".$data->Id."').children().each(
 			
 			foreach($modelUserGroup as $item)
 			{
+				$dafaultFeedback = $item->can_feedback;
+				$dafaultRead = $item->can_read;
+				$dafaultAddressed = $item->addressed;
+				$dafaultConfirmation = $item->need_confirmation;
+				
 				echo CHtml::openTag('div', array('id'=>'userGroup_'.$item->Id));
 					echo CHtml::openTag('div', array('class'=>'review-permission-row','style'=>'display: inline-block; width:50%;'));
-						echo CHtml::checkBox('chkUserGroup','',array('id'=>'chkUserGroup','value'=>$item->Id,'style'=>'display:none'));
-						echo CHtml::openTag('div',array('id'=>'divChkUserGroup','class'=>'review-permission-chk-decoration'));
+						if($dafaultFeedback || $dafaultRead || $dafaultAddressed || $dafaultConfirmation)
+						{
+							echo CHtml::checkBox('chkUserGroup',true,array('id'=>'chkUserGroup','value'=>$item->Id,'style'=>'display:none'));
+							echo CHtml::openTag('div',array('id'=>'divChkUserGroup','class'=>'review-permission-chk-decoration review-permission-chk-decoration-chk'));
+						}
+						else
+						{
+							echo CHtml::checkBox('chkUserGroup','',array('id'=>'chkUserGroup','value'=>$item->Id,'style'=>'display:none'));
+							echo CHtml::openTag('div',array('id'=>'divChkUserGroup','class'=>'review-permission-chk-decoration'));
+						}
 							echo CHtml::encode($item->description);
 						echo CHtml::closeTag('div');
 					echo CHtml::closeTag('div');
 					echo CHtml::openTag('div', array('class'=>'review-permission-row'));
-						echo CHtml::checkBox('chkAddressed','',array('id'=>'chkAddressed','value'=>$item->Id,'style'=>'display:none'));
-						echo CHtml::openTag('div',array('id'=>'divChkAddressed','class'=>'review-permission-chk-decoration'));
+						if($dafaultAddressed)
+						{
+							echo CHtml::checkBox('chkAddressed',true,array('id'=>'chkAddressed','value'=>$item->Id,'style'=>'display:none'));
+							echo CHtml::openTag('div',array('id'=>'divChkAddressed','class'=>'review-permission-chk-decoration review-permission-chk-decoration-chk'));
+						}
+						else
+						{
+							echo CHtml::checkBox('chkAddressed','',array('id'=>'chkAddressed','value'=>$item->Id,'style'=>'display:none'));
+							echo CHtml::openTag('div',array('id'=>'divChkAddressed','class'=>'review-permission-chk-decoration'));
+						}	
 							echo CHtml::encode('Para');
 						echo CHtml::closeTag('div');						
 					echo CHtml::closeTag('div');
 					echo CHtml::openTag('div', array('class'=>'review-permission-row'));
-						echo CHtml::checkBox('chkCanFeedback','',array('id'=>'chkCanFeedback','value'=>$item->Id,'style'=>'display:none'));
-						echo CHtml::openTag('div',array('id'=>'divChkCanFeedback','class'=>'review-permission-chk-decoration'));
+						if($dafaultFeedback)
+						{
+							echo CHtml::checkBox('chkCanFeedback',true,array('id'=>'chkCanFeedback','value'=>$item->Id,'style'=>'display:none'));
+							echo CHtml::openTag('div',array('id'=>'divChkCanFeedback','class'=>'review-permission-chk-decoration review-permission-chk-decoration-chk'));
+						}
+						else
+						{
+							echo CHtml::checkBox('chkCanFeedback','',array('id'=>'chkCanFeedback','value'=>$item->Id,'style'=>'display:none'));
+							echo CHtml::openTag('div',array('id'=>'divChkCanFeedback','class'=>'review-permission-chk-decoration'));
+						}
 							echo CHtml::encode('Respuesta');
 						echo CHtml::closeTag('div');						
 					echo CHtml::closeTag('div');
 					echo CHtml::openTag('div', array('class'=>'review-permission-row'));
-						echo CHtml::checkBox('chkNeedConfirmation','',array('id'=>'chkNeedConfirmation','value'=>$item->Id,'style'=>'display:none'));
-						echo CHtml::openTag('div',array('id'=>'divChkNeedConfirmation','class'=>'review-permission-chk-decoration','style'=>'width:70px;'));
+						if($dafaultConfirmation)
+						{
+							echo CHtml::checkBox('chkNeedConfirmation',true,array('id'=>'chkNeedConfirmation','value'=>$item->Id,'style'=>'display:none'));
+							echo CHtml::openTag('div',array('id'=>'divChkNeedConfirmation','class'=>'review-permission-chk-decoration review-permission-chk-decoration-chk','style'=>'width:70px;'));
+						}
+						else
+						{
+							echo CHtml::checkBox('chkNeedConfirmation','',array('id'=>'chkNeedConfirmation','value'=>$item->Id,'style'=>'display:none'));
+							echo CHtml::openTag('div',array('id'=>'divChkNeedConfirmation','class'=>'review-permission-chk-decoration','style'=>'width:70px;'));
+						}
 							echo CHtml::decode('Confirmaci&oacute;n');
 						echo CHtml::closeTag('div');												
 					echo CHtml::closeTag('div');
