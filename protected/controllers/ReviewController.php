@@ -52,6 +52,7 @@ class ReviewController extends Controller
 		$model=new Review;
 		$modelCustomer=new Customer;
 		$modelPriority=Priority::model()->findAll();
+		$modelReviewType=ReviewType::model()->findAll();
 		
 		// Uncomment the following line if AJAX validation is needed
 		$this->performAjaxValidation($model);
@@ -81,6 +82,7 @@ class ReviewController extends Controller
 			'model'=>$model,
 			'modelCustomer'=>$modelCustomer,
 			'modelPriority'=>$modelPriority,
+			'modelReviewType'=>$modelReviewType,
 		));
 	}
 
@@ -96,13 +98,14 @@ class ReviewController extends Controller
 		
 		$ddlPriority = Priority::model()->findAll();
 		
-		$customer = User::getCustomer();
-		if(isset($customer))
+	    $modelReviewUser = ReviewUser::model()->findByPk(array('Id_review'=>$id,'username'=>User::getCurrentUser()->username));
+		
+		if($modelReviewUser)
 		{
-			if(!$model->read)
+			if(!$modelReviewUser->read)
 			{
-				 $model->read = 1;
-				 $model->save();
+				 $modelReviewUser->read = 1;
+				 $modelReviewUser->save();
 			}
 		}
 		
@@ -604,6 +607,20 @@ class ReviewController extends Controller
 			$transaction->commit();
 		} catch (Exception $e) {
 			$transaction->rollback();
+		}
+		
+		$arrUserGroupNote = UserGroupNote::model()->findAllByAttributes(array('Id_note'=>$idNote));
+		foreach($arrUserGroupNote as $item)
+		{
+			$modelReviewUser = ReviewUser::model()->findAllByAttributes(array('Id_review'=>$item->note->review->Id));
+			foreach($modelReviewUser as $itemReviewUser)
+			{
+				if($itemReviewUser->username0->userGroup->Id == $item->Id_user_group)
+				{
+					$itemReviewUser->read = 0;
+					$itemReviewUser->save();
+				}
+			}	
 		}
 		
 	}
