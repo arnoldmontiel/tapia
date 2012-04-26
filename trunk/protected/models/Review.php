@@ -26,14 +26,26 @@
 class Review extends CActiveRecord
 {
 	public $maxReview;
+
 	
-	public function beforeSave()
+	protected function afterSave() 
 	{
-		$customer = User::getCustomer();
-		if(!isset($customer))
-			$this->read = 0;
+		parent::afterSave();
 		
-		return parent::beforeSave();
+		ReviewUser::model()->deleteAllByAttributes(array('Id_review'=>$this->Id));
+		
+		$modelUserCustomer = UserCustomer::model()->findAllByAttributes(array('Id_customer'=>$this->Id_customer));
+		foreach($modelUserCustomer as $item)
+		{
+			$modelReviewUser = new ReviewUser;
+			$modelReviewUser->Id_review = $this->Id;
+			$modelReviewUser->username = $item->username;
+			$modelReviewUser->save();
+		}		
+		$modelReviewUser = new ReviewUser;
+		$modelReviewUser->Id_review = $this->Id;
+		$modelReviewUser->username = $this->customer->user->username;
+		$modelReviewUser->save();
 	}
 	
 	/**
@@ -65,6 +77,9 @@ class Review extends CActiveRecord
 			array('Id_customer, Id_priority,Id_review_type', 'required'),
 			array('review, Id_customer, Id_priority, read, Id_review_type', 'numerical', 'integerOnly'=>true),
 			array('description, creation_date, change_date', 'safe'),		
+			array('change_date','default',
+				              'value'=>new CDbExpression('NOW()'),
+				              'setOnEmpty'=>false,'on'=>'insert,update'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('Id, review, Id_customer, description,creation_date, change_date, Id_priority, read, Id_review_type', 'safe', 'on'=>'search'),
