@@ -50,6 +50,19 @@
 		
 		<div class="search-box">
 			<div class="search-box-title">
+			Tipo de agrupador
+			</div>
+			<div class="search-box-list">
+			<?php
+				$modelReviewType = ReviewType::model()->findAll();
+				$checkReviewType = CHtml::listData($modelReviewType, 'Id', 'description');		
+				echo CHtml::checkBoxList('chklist-reviewType', '', $checkReviewType);
+			?>
+			</div>
+		</div>
+		
+		<div class="search-box">
+			<div class="search-box-title">
 				Fecha de creacion
 			</div>
 			<div class="search-box-list">
