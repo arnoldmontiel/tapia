@@ -213,8 +213,8 @@ class ReviewController extends Controller
 		{
 			$Id_customer =$_GET['Id_customer'];
 		}
-		$criteria=new CDbCriteria;
-		$criteria->order = 't.Id desc';
+// 		$criteria=new CDbCriteria;
+// 		$criteria->order = 't.change_date desc';
 		
 		$this->showFilter = true;
 		
