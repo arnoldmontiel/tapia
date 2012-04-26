@@ -1330,7 +1330,17 @@ div.index-review-priority-box
 	border: 1px solid white;
 	background-color: #9AA7F5;
 }
-
+div.index-review-type-box
+{
+	margin:0px 0px 0px 5px;
+	padding: 0px 2px 0px 2px;
+	float: left;
+	position:relative;
+	display: inline-block;
+	font-size: 12px;
+	border: 1px solid white;
+	background-color: #96CDCD;
+}
 div.index-review-resource-box
 {
 	margin:0px 0px 0px 5px;
