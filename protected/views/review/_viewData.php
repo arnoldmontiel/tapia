@@ -122,15 +122,20 @@ $editable = $isAdministrator||$isOwner;
 					foreach($modelUserGroupNote as $itemGroupNote)
 					{
 						if($itemGroupNote->Id_user_group == $item->Id)
+						{
 							$modelUserGroupNoteInstance = $itemGroupNote;
+							break;
+						}
 					}	
-					
 					
 					$canEditFeedback = true;
 					foreach($modelNoteNote as $itemNoteNote)
 					{
 						if($itemNoteNote->idChild->Id_user_group_owner == $item->Id)
+						{
 							$canEditFeedback = false;
+							break;
+						}
 					}	
 					
 					
@@ -182,7 +187,7 @@ $editable = $isAdministrator||$isOwner;
 							echo CHtml::closeTag('div');						
 						echo CHtml::closeTag('div');
 						echo CHtml::openTag('div', array('class'=>'review-permission-row'));
-							if($modelUserGroupNoteInstance && $modelUserGroupNoteInstance->need_confirmation )
+							if($modelUserGroupNoteInstance && $modelUserGroupNoteInstance->need_confirmation)
 							{
 								echo CHtml::checkBox('chkNeedConfirmation',true,array('id'=>'chkNeedConfirmation','value'=>$item->Id,'style'=>'display:none'));
 								echo CHtml::openTag('div',array('id'=>($canEditNeedConf)?'divChkNeedConfirmation':'noEditNeedConfirmation','class'=>'review-permission-chk-decoration review-permission-chk-decoration-chk','style'=>'width:70px;'));
@@ -192,7 +197,21 @@ $editable = $isAdministrator||$isOwner;
 								echo CHtml::checkBox('chkNeedConfirmation','',array('id'=>'chkNeedConfirmation','value'=>$item->Id,'style'=>'display:none'));
 								echo CHtml::openTag('div',array('id'=>'divChkNeedConfirmation','class'=>'review-permission-chk-decoration','style'=>'width:70px;'));
 							}
+							if($canEditNeedConf)
+							{
 								echo CHtml::decode('Confirmaci&oacute;n');
+							}
+							else
+							{
+								if($modelUserGroupNoteInstance->confirmed)
+								{
+									echo CHtml::decode('Confirmado');										
+								}
+								else 
+								{
+									echo CHtml::decode('Declinado');										
+								}								
+							}
 							echo CHtml::closeTag('div');												
 						echo CHtml::closeTag('div');
 					echo CHtml::closeTag('div');
