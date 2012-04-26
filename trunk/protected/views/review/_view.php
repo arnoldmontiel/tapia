@@ -3,7 +3,8 @@
 	
 	<?php
 		$classStyle = 'index-review-summary-unread';
-		if($data->read)
+		$modelReviewUser = ReviewUser::model()->findByPk(array('Id_review'=>$data->Id,'username'=>User::getCurrentUser()->username));
+		if($modelReviewUser && $modelReviewUser->read)
 			$classStyle = 'index-review-summary'; ?>
 	
 	<div class='<?php echo $classStyle ?>'>
