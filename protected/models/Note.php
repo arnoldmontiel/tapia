@@ -31,9 +31,8 @@ class Note extends CActiveRecord
 		if($this->review)
 		{
 			$modelReview = Review::model()->findByPk($this->review->Id);
-			if($modelReview->read)
+			if($modelReview)
 			{
-				$modelReview->read = 0;
 				$modelReview->save();
 			}
 		}
