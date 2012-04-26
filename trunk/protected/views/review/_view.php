@@ -32,7 +32,13 @@
 		echo $data->priority->description;
 		echo CHtml::closeTag('div');
 	?>
-	<?php 
+
+	<?php	
+		echo CHtml::openTag('div',array('class'=>'index-review-type-box'));
+		echo $data->reviewType->description;
+		echo CHtml::closeTag('div');
+	?>
+		<?php 
 		$multimedia = new Multimedia;
 		$multimedia->Id_review = $data->Id;
 		$multimedia->Id_multimedia_type = 1;

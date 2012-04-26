@@ -6,6 +6,9 @@ $('#Id_customer').change(function(){
 	$('#typeFilter').val('');
 	$('#typeFilter').val(getCheck('chklist-type[]'));
 	
+	$('#reviewTypeFilter').val('');
+	$('#reviewTypeFilter').val(getCheck('chklist-reviewType[]'));
+	
 	$('#tagFilter').val('');
 	$('#tagFilter').val(getCheck('chklist-tag[]'));
 	
@@ -24,6 +27,7 @@ function doFilter()
 			tagFilter: $('#tagFilter').val(),
 			Id_customer: $('#Id_customer').val(),
 			typeFilter: $('#typeFilter').val(),
+			reviewTypeFilter: $('#reviewTypeFilter').val(),
 			dateFromFilter: $('#dateFromFilter').val(),
 			dateToFilter: $('#dateToFilter').val()
 			
@@ -59,6 +63,9 @@ $('#btn-filter').click(function(){
 	$('#typeFilter').val('');
 	$('#typeFilter').val(getCheck('chklist-type[]'));
 	
+	$('#reviewTypeFilter').val('');
+	$('#reviewTypeFilter').val(getCheck('chklist-reviewType[]'));
+	
 	$('#tagFilter').val('');
 	$('#tagFilter').val(getCheck('chklist-tag[]'));
 	
@@ -75,6 +82,8 @@ $('#btn-clear-filter').click(function(){
 	$('#typeFilter').val('');
 	
 	$('#tagFilter').val('');
+	
+	$('#reviewTypeFilter').val('');
 	
 	$('input:checked').attr('checked', false);
 	
@@ -128,6 +137,7 @@ function getCheck(checkName)
 <?php
 	echo CHtml::hiddenField('tagFilter','',array('id'=>'tagFilter'));	
 	echo CHtml::hiddenField('typeFilter','',array('id'=>'typeFilter'));
+	echo CHtml::hiddenField('reviewTypeFilter','',array('id'=>'reviewTypeFilter'));
 	echo CHtml::hiddenField('dateFromFilter','',array('id'=>'dateFromFilter'));
 	echo CHtml::hiddenField('dateToFilter','',array('id'=>'dateToFilter'));
 ?>
