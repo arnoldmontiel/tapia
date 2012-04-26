@@ -23,6 +23,15 @@
 	</div>
 
 	<div class="row">
+		<?php echo CHtml::label('Tipo', 'Review_Id_review_type'); ?>
+		<?php 
+		$reviewTypes = CHtml::listData($modelReviewType, 'Id', 'description');
+		echo $form->dropDownList($model, 'Id_review_type', $reviewTypes);
+		?>
+		<?php echo $form->error($model,'Id_review_type'); ?>
+	</div>
+	
+	<div class="row">
 		<?php echo CHtml::label('Descripci&oacute;n', 'Review[description]'); ?>
 		<?php echo $form->textArea($model,'description',array('rows'=>6, 'cols'=>50,'style'=>'resize:none;')); ?>
 		<?php echo $form->error($model,'description'); ?>

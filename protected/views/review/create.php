@@ -14,5 +14,5 @@ Yii::app()->clientScript->registerScript('index-review', "
 <div id="review-area" class="index-review-area" >
 
 
-<?php echo $this->renderPartial('_form', array('model'=>$model,'modelPriority'=>$modelPriority)); ?>
+<?php echo $this->renderPartial('_form', array('model'=>$model,'modelPriority'=>$modelPriority,'modelReviewType'=>$modelReviewType)); ?>
 </div>
