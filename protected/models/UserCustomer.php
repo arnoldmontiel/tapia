@@ -54,7 +54,7 @@ class UserCustomer extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'customer' => array(self::BELONGS_TO, 'Customer', 'Id_customer'),
-			'username0' => array(self::BELONGS_TO, 'User', 'username'),
+			'user' => array(self::BELONGS_TO, 'User', 'username'),
 		);
 	}
 

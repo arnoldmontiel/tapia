@@ -139,7 +139,7 @@ function unselectRow(id)
 				'username',
 				array(
 				 		'name'=>'user_group_desc',
-						'value'=>'$data->username0->userGroup->description',
+						'value'=>'$data->user->userGroup->description',
 				),
 				array(
 					'class'=>'CButtonColumn',

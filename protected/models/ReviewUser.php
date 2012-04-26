@@ -53,7 +53,7 @@ class ReviewUser extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'username0' => array(self::BELONGS_TO, 'User', 'username'),
+			'user' => array(self::BELONGS_TO, 'User', 'username'),
 			'review' => array(self::BELONGS_TO, 'Review', 'Id_review'),
 		);
 	}

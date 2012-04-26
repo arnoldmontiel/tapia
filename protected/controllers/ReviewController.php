@@ -615,7 +615,7 @@ class ReviewController extends Controller
 			$modelReviewUser = ReviewUser::model()->findAllByAttributes(array('Id_review'=>$item->note->review->Id));
 			foreach($modelReviewUser as $itemReviewUser)
 			{
-				if($itemReviewUser->username0->userGroup->Id == $item->Id_user_group)
+				if($itemReviewUser->user->userGroup->Id == $item->Id_user_group)
 				{
 					$itemReviewUser->read = 0;
 					$itemReviewUser->save();

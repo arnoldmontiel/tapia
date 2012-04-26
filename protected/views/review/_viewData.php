@@ -113,7 +113,7 @@ $editable = $isAdministrator||$isOwner;
 				
 				$modelNoteNote = NoteNote::model()->findAllByAttributes(array('Id_parent'=>$data->Id));
 				
-				echo CHtml::openTag('div', array('id'=>'publicArea_'.$data->Id, 'class'=>'review-public-permission-area'));
+				echo CHtml::openTag('div', array('id'=>'publicArea_'.$data->Id, 'class'=>'review-permission-area'));
 				echo CHtml::decode('Editar Permisos');
 				
 				foreach($modelUserGroup as $item)
@@ -217,7 +217,7 @@ $editable = $isAdministrator||$isOwner;
 					echo CHtml::closeTag('div');
 				}
 				echo CHtml::openTag('div', array('class'=>'review-action-permissions-box-btn'));
-				echo CHtml::openTag('div', array('id'=>'loco'.$data->Id,'class'=>'review-action-btn'));
+				echo CHtml::openTag('div', array('id'=>'public_'.$data->Id,'class'=>'review-action-btn'));
 				echo "Aplicar";
 				echo CHtml::closeTag('div');
 				echo CHtml::closeTag('div');

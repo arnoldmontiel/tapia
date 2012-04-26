@@ -317,7 +317,7 @@ function bindEvents(item)
 		
 	});
 	
-	$('#loco'+idMainNote).click(function(){
+	$('#public_'+idMainNote).click(function(){
 
 		var dataUserGroup = { 'value[]' : []};
 		var dataFeedback = { 'value[]' : []};

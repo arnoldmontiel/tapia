@@ -15,7 +15,7 @@
  * 
  *
  * The followings are the available model relations:
- * @property User $username0
+ * @property User $user
  * @property UserGroup $idUserGroupOwner
  * @property Review $idReview
  * @property Customer $idCustomer
@@ -73,7 +73,7 @@ class Album extends CActiveRecord
 			'notes' => array(self::MANY_MANY, 'Note', 'album_note(Id_album, Id_note)'),
 			'multimedias' => array(self::HAS_MANY, 'Multimedia', 'Id_album'),
 			'userGroupOwner' => array(self::BELONGS_TO, 'UserGroup', 'Id_user_group_owner'),
-			'username0' => array(self::BELONGS_TO, 'User', 'username'),
+			'user' => array(self::BELONGS_TO, 'User', 'username'),
 		);
 	}
 

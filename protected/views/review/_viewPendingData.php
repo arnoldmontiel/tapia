@@ -146,7 +146,7 @@ $('#publicArea_".$data->Id."').children().each(
 				echo CHtml::closeTag('div');
 			}
 			echo CHtml::openTag('div', array('class'=>'review-action-permissions-box-btn'));
-			echo CHtml::openTag('div', array('id'=>'loco'.$data->Id,'class'=>'review-action-btn'));
+			echo CHtml::openTag('div', array('id'=>'public_'.$data->Id,'class'=>'review-action-btn'));
 			echo "Publicar";
 			echo CHtml::closeTag('div');
 			echo CHtml::closeTag('div');
