@@ -628,6 +628,19 @@ $(':checkbox').click(function() {
 		}
 	});
 	
+	$('#Review_Id_review_type').change(function(){
+		if($(this).val()!= ''){
+			$.post('".ReviewController::createUrl('AjaxSetReviewType')."', 
+			{
+				id: ".$model->Id.",
+				idReviewType: $(this).val()	
+			}	
+			).success(
+			function(data){
+			
+			});		
+		}
+	});
 ");
 ?>
 <div class="review-update-data">
@@ -668,6 +681,11 @@ $(':checkbox').click(function() {
 			$prioritys = CHtml::listData($ddlPriority, 'Id', 'description');
 			echo CHtml::label('Prioridad: ','Id_priority'); 
 			echo CHtml::activeDropDownList($model, 'Id_priority', $prioritys);
+		echo CHtml::closeTag('div');
+		echo CHtml::openTag('div',array('class'=>'review-type'));
+			$reviewTypes = CHtml::listData($ddlReviewType, 'Id', 'description');
+			echo CHtml::label('Tipo: ','Id_review_type');
+			echo CHtml::activeDropDownList($model, 'Id_review_type', $reviewTypes);
 		echo CHtml::closeTag('div');
 	echo CHtml::closeTag('div');	
 ?> 

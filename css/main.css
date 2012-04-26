@@ -1491,6 +1491,12 @@ div.review-priority
 	margin-top: 10px;
 	margin-left: 50px;
 }
+div.review-type
+{
+	float:left;
+	margin-top: 10px;
+	margin-left: 50px;
+}
 div.review-single-view-actions
 {
 	width: 562px;

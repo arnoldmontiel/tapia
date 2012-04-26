@@ -97,6 +97,7 @@ class ReviewController extends Controller
 		$this->modelTag = $model;
 		
 		$ddlPriority = Priority::model()->findAll();
+		$ddlReviewType = ReviewType::model()->findAll();
 		
 	    $modelReviewUser = ReviewUser::model()->findByPk(array('Id_review'=>$id,'username'=>User::getCurrentUser()->username));
 		
@@ -119,6 +120,7 @@ class ReviewController extends Controller
 			'model'=>$model,
 			'idNote'=>$modelNote->Id,
 			'ddlPriority'=>$ddlPriority,
+			'ddlReviewType'=>$ddlReviewType,
 			'modelMultimedia'=>$modelMultimedia,
 			'modelAlbum'=>$modelAlbum,
 		));
@@ -302,6 +304,18 @@ class ReviewController extends Controller
 		$model=$this->loadModel($id);
 		$model->Id_priority = $idPriority;
 
+		$model->save();
+	
+	}
+	
+	public function actionAjaxSetReviewType()
+	{
+		$idReviewType = $_POST['idReviewType'];
+		$id = $_POST['id'];
+	
+		$model=$this->loadModel($id);
+		$model->Id_review_type = $idReviewType;
+	
 		$model->save();
 	
 	}
