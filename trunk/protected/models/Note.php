@@ -18,7 +18,7 @@
  * The followings are the available model relations:
  * @property Review $idReview
  * @property Album[] $albums
- * @property User $username0
+ * @property User $user
  * @property UserGroup $idUserGroupOwner
  * @property Multimedia[] $multimedias
  * @property Customer $idCustomer

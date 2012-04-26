@@ -24,7 +24,7 @@
  * 
  * The followings are the available model relations:
  * @property Album $idAlbum
- * @property User $username0
+ * @property User $user
  * @property UserGroup $idUserGroup
  * @property Customer $idCustomer
  * @property MultimediaType $idMultimediaType
@@ -231,7 +231,7 @@ class Multimedia extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'album' => array(self::BELONGS_TO, 'Album', 'Id_album'),
-			'username0' => array(self::BELONGS_TO, 'User', 'username'),
+			'user' => array(self::BELONGS_TO, 'User', 'username'),
 			'idUserGroup' => array(self::BELONGS_TO, 'UserGroup', 'Id_user_group'),
 			'customer' => array(self::BELONGS_TO, 'Customer', 'Id_customer'),
 			'multimediaType' => array(self::BELONGS_TO, 'MultimediaType', 'Id_multimedia_type'),

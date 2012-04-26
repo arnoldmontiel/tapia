@@ -890,6 +890,20 @@ div.review-public-permission-area
 	float: left;
 	display: inline-block;
 }
+div.review-permission-area
+{
+	position: relative;
+	padding: 5px 10px 5px;
+	background-color: #f4f6fb;
+	border: 1px solid #f4f6fb;
+	font-size: 13px;
+	line-height: 18px;
+	width: 540px;
+	margin-top: 5px;
+	float: left;
+	display: inline-block;
+}
+
 div.wall-action-edit-main-note
 {
 	z-index:10;
