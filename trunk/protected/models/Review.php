@@ -165,6 +165,11 @@ class Review extends CActiveRecord
 			$criteria->addCondition('m.Id IN(select mj.Id from multimedia mj where mj.Id_multimedia_type IN ('. $arrFilters['typeFilter'].') group by Id_review)');	
 		}
 		
+		if($arrFilters['reviewTypeFilter'])
+		{
+			$criteria->addCondition('t.Id_review_type IN ('. $arrFilters['reviewTypeFilter'].')');
+		}
+		
 		if($arrFilters['dateFromFilter'])
 		{
 			$criteria->addCondition('t.creation_date >= "'. date("Y-m-d H:i:s",strtotime($arrFilters['dateFromFilter'])) . '"');
