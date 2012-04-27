@@ -28,26 +28,6 @@ class Review extends CActiveRecord
 	public $maxReview;
 
 	
-	protected function afterSave() 
-	{
-		parent::afterSave();
-		
-		ReviewUser::model()->deleteAllByAttributes(array('Id_review'=>$this->Id));
-		
-		$modelUserCustomer = UserCustomer::model()->findAllByAttributes(array('Id_customer'=>$this->Id_customer));
-		foreach($modelUserCustomer as $item)
-		{
-			$modelReviewUser = new ReviewUser;
-			$modelReviewUser->Id_review = $this->Id;
-			$modelReviewUser->username = $item->username;
-			$modelReviewUser->save();
-		}		
-		$modelReviewUser = new ReviewUser;
-		$modelReviewUser->Id_review = $this->Id;
-		$modelReviewUser->username = $this->customer->user->username;
-		$modelReviewUser->save();
-	}
-	
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.

@@ -23,6 +23,44 @@ class UserGroupNote extends CActiveRecord
 		if($this->note->review)
 		{
 			$modelReview = Review::model()->findByPk($this->note->review->Id);
+			$modelUserCustomer = UserCustomer::model()->findAllByAttributes(array('Id_customer'=>$this->Id_customer));
+			foreach($modelUserCustomer as $item)
+			{
+				if($this->Id_user_group == $item->user->Id_user_group )
+				{
+					$modelReviewUserDb = ReviewUser::model()->findByPk(array('Id_review'=>$modelReview->Id,'username'=>$item->username));
+					if($modelReviewUserDb)
+					{
+						$modelReviewUser->read = 0;
+						$modelReviewUser->save();
+					}
+					else
+					{
+						$modelReviewUser = new ReviewUser;
+						$modelReviewUser->Id_review = $modelReview->Id;
+						$modelReviewUser->username = $item->username;
+						$modelReviewUser->save();
+					}
+				}
+			}
+			
+			if($this->customer->user->Id_user_group == $this->Id_user_group)
+			{
+				$modelReviewUserDb = ReviewUser::model()->findByPk(array('Id_review'=>$modelReview->Id,'username'=>$this->customer->user->username));
+				if($modelReviewUserDb)
+				{
+					$modelReviewUser->read = 0;
+					$modelReviewUser->save();
+				}
+				else
+				{
+					$modelReviewUser = new ReviewUser;
+					$modelReviewUser->Id_review = $modelReview->Id;
+					$modelReviewUser->username = $this->customer->user->username;
+					$modelReviewUser->save();
+				}
+			}
+			
 			if($modelReview)
 			{
 				$modelReview->save();
@@ -75,6 +113,7 @@ class UserGroupNote extends CActiveRecord
 		return array(
 			'note' => array(self::BELONGS_TO, 'Note', 'Id_note'),
 			'userGroup' => array(self::BELONGS_TO, 'UserGroup', 'Id_user_group'),
+			'customer' => array(self::BELONGS_TO, 'Customer', 'Id_customer'),
 		);
 	}
 
