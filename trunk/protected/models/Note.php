@@ -31,7 +31,8 @@ class Note extends CActiveRecord
 		if($this->review)
 		{
 			$modelReview = Review::model()->findByPk($this->review->Id);
-			if($modelReview)
+			$modelReviewUser = ReviewUser::model()->findAllByAttributes(array('Id_review'=>$this->review->Id));
+			if($modelReview && sizeof($modelReviewUser)>0)
 			{
 				$modelReview->save();
 			}
