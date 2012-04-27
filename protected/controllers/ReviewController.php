@@ -733,19 +733,6 @@ class ReviewController extends Controller
 			$transaction->rollback();
 		}
 		
-		$arrUserGroupNote = UserGroupNote::model()->findAllByAttributes(array('Id_note'=>$idNote));
-		foreach($arrUserGroupNote as $item)
-		{
-			$modelReviewUser = ReviewUser::model()->findAllByAttributes(array('Id_review'=>$item->note->review->Id));
-			foreach($modelReviewUser as $itemReviewUser)
-			{
-				if($itemReviewUser->user->userGroup->Id == $item->Id_user_group)
-				{
-					$itemReviewUser->read = 0;
-					$itemReviewUser->save();
-				}
-			}	
-		}
 		
 	}
 	
