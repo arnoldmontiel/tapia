@@ -706,8 +706,8 @@ $(':checkbox').click(function() {
 		);
 	 ?>
 </div>
-<?php if(User::canCreate()):?>
 
+<?php if(User::canCreate()):?>
 <div id="loading" class="loading-place-holder" >
 </div>
 <?php
@@ -721,18 +721,48 @@ $(':checkbox').click(function() {
 		echo CHtml::openTag('div',array('class'=>'wall-action-btn','id'=>'btnDoc'));
 			echo 'Documentos';
 		echo CHtml::closeTag('div');
-		echo CHtml::openTag('div',array('class'=>'review-priority'));
-			$prioritys = CHtml::listData($ddlPriority, 'Id', 'description');
-			echo CHtml::label('Prioridad: ','Id_priority'); 
-			echo CHtml::activeDropDownList($model, 'Id_priority', $prioritys);
-		echo CHtml::closeTag('div');
-		echo CHtml::openTag('div',array('class'=>'review-type'));
-			$reviewTypes = CHtml::listData($ddlReviewType, 'Id', 'description');
+		if(User::isAdministartor())
+		{
+			echo CHtml::openTag('div',array('class'=>'review-priority'));
+				$prioritys = CHtml::listData($ddlPriority, 'Id', 'description');
+				echo CHtml::label('Prioridad: ','Id_priority'); 
+				echo CHtml::activeDropDownList($model, 'Id_priority', $prioritys);
+			echo CHtml::closeTag('div');
+			echo CHtml::openTag('div',array('class'=>'review-type'));
+				$reviewTypes = CHtml::listData($ddlReviewType, 'Id', 'description');
+				echo CHtml::label('Tipo: ','Id_review_type');
+				echo CHtml::activeDropDownList($model, 'Id_review_type', $reviewTypes);
+			echo CHtml::closeTag('div');
+		}
+		else
+		{
+			echo CHtml::openTag('div',array('class'=>'review-priority'));
+			echo CHtml::label('Prioridad: ','Id_priority');
+			echo CHtml::encode($model->priority->description);
+			echo CHtml::closeTag('div');
+			echo CHtml::openTag('div',array('class'=>'review-type'));
 			echo CHtml::label('Tipo: ','Id_review_type');
-			echo CHtml::activeDropDownList($model, 'Id_review_type', $reviewTypes);
-		echo CHtml::closeTag('div');
+			echo CHtml::encode($model->reviewType->description);			
+			echo CHtml::closeTag('div');				
+		}
 	echo CHtml::closeTag('div');	
 ?> 
+<?php else:?>
+<div id="loading" class="loading-place-holder" >
+</div>
+<?php
+echo CHtml::openTag('div',array('class'=>'wall-action-box-btn','id'=>'btn-box'));
+
+	echo CHtml::openTag('div',array('class'=>'review-priority'));
+		echo CHtml::label('Prioridad: ','Id_priority');
+		echo CHtml::encode($model->priority->description);
+	echo CHtml::closeTag('div');
+	echo CHtml::openTag('div',array('class'=>'review-type'));
+		echo CHtml::label('Tipo: ','Id_review_type');
+		echo CHtml::encode($model->reviewType->description);
+	echo CHtml::closeTag('div');
+echo CHtml::closeTag('div');
+?>
 <?php endif;?>
 </div>
 <!-- *************** NOTE ******************************* -->
