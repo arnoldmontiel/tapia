@@ -81,6 +81,14 @@ $('#publicArea_".$data->Id."').children().each(
 					if($item->Id_multimedia_type!=3
 						&&$item->Id_multimedia_type!=4) continue;
 					echo CHtml::openTag('div');
+					
+					echo CHtml::openTag('div',array('class'=>'index-review-single-resource'));
+					if($item->Id_multimedia_type == 4)
+						echo CHtml::image('images/autocad_resource.png','',array('style'=>'width:25px;'));
+					else
+						echo CHtml::image('images/pdf_resource.png','',array('style'=>'width:25px;'));
+					echo CHtml::closeTag('div');
+					
 					echo CHtml::link(
 						CHtml::encode($item->file_name),
 						Yii::app()->baseUrl.'/docs/'.$item->file_name,
