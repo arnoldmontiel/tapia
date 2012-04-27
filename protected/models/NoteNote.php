@@ -67,8 +67,10 @@ class NoteNote extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'idParent' => array(self::BELONGS_TO, 'Note', 'Id_parent'),
-			'idChild' => array(self::BELONGS_TO, 'Note', 'Id_child'),
+			'idParent' => array(self::BELONGS_TO, 'Note', 'Id_parent'),//deprecated, use parent
+			'idChild' => array(self::BELONGS_TO, 'Note', 'Id_child'),//deprecated, use child
+			'parent' => array(self::BELONGS_TO, 'Note', 'Id_parent'),
+			'child' => array(self::BELONGS_TO, 'Note', 'Id_child'),
 		);
 	}
 

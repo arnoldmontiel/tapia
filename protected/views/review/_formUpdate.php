@@ -235,14 +235,37 @@ function bindEvents(item)
 				}
 		});
 	});
-	
+	function SaveChanges(type,value,idUserGroup,idNote)
+	{
+		//alert('Grabando '+type+' '+value+' '+idUserGroup);
+		$.ajax({
+				type : 'POST',
+				data : {type:type,value:value,idUserGroup:idUserGroup,idNote:idNote,idCustomer: ".$model->Id_customer.",},
+				url : '" . ReviewController::createUrl('AjaxSavePermissions') ."',
+				beforeSend : function(){
+								},
+				success : function(data)
+				{
+					alert('Grabado '+data);
+				}
+		});
+
+	}
+
 	$('#publicArea_'+idMainNote).children().each(function(){
 		var parent = $(this);
+		var editPermisssions = false;
+		if($('#publicArea_'+idMainNote).attr('name')=='edit-permissions')
+		{
+			editPermisssions = true;
+		}
 		$(this).find('#divChkUserGroup').click(function(){
 			if(!$(parent).find('#chkUserGroup').is(':checked'))
 			{
 				$(parent).find('#chkUserGroup').attr('checked',true);
 				$(this).addClass('review-permission-chk-decoration-chk');
+				if(editPermisssions)
+					SaveChanges('canSee',true,$(parent).find('#chkUserGroup').attr('value'),idMainNote);
 			}
 			else
 			{
@@ -251,6 +274,8 @@ function bindEvents(item)
 				$(parent).find('#divChkAddressed').removeClass('review-permission-chk-decoration-chk');
 				$(parent).find('#divChkCanFeedback').removeClass('review-permission-chk-decoration-chk');
 				$(parent).find('#divChkNeedConfirmation').removeClass('review-permission-chk-decoration-chk');
+				if(editPermisssions)
+					SaveChanges('canSee',false,$(parent).find('#chkUserGroup').attr('value'),idMainNote);
 			}	
 		});
 		
@@ -265,12 +290,16 @@ function bindEvents(item)
 				$(parent).find('#chkUserGroup').attr('checked',true);	
 				$(parent).find('#divChkUserGroup').addClass('review-permission-chk-decoration-chk');
 				$(this).addClass('review-permission-chk-decoration-chk');
+				if(editPermisssions)
+					SaveChanges('addressed',true,$(parent).find('#chkUserGroup').attr('value'),idMainNote);
 			}
 			else
 			{
 				$(parent).find('#chkAddressed').attr('checked',false);	
 				$(this).removeClass('review-permission-chk-decoration-chk');
-			}
+				if(editPermisssions)
+					SaveChanges('addressed',false,$(parent).find('#chkUserGroup').attr('value'),idMainNote);
+				}
 		});
 		
 		$(this).find('#noEditAddressed').click(function(){
@@ -284,11 +313,15 @@ function bindEvents(item)
 				$(parent).find('#chkUserGroup').attr('checked',true);	
 				$(parent).find('#divChkUserGroup').addClass('review-permission-chk-decoration-chk');
 				$(this).addClass('review-permission-chk-decoration-chk');
+				if(editPermisssions)
+					SaveChanges('canFeedback',true,$(parent).find('#chkUserGroup').attr('value'),idMainNote);
 			}
 			else
 			{
 				$(parent).find('#chkCanFeedback').attr('checked',false);	
 				$(this).removeClass('review-permission-chk-decoration-chk');
+				if(editPermisssions)
+					SaveChanges('canFeedback',false,$(parent).find('#chkUserGroup').attr('value'),idMainNote);
 			}
 		});
 		
@@ -299,6 +332,15 @@ function bindEvents(item)
 		$(this).find('#divChkNeedConfirmation').click(function(){
 			if(!$(parent).find('#chkNeedConfirmation').is(':checked'))
 			{
+				if(editPermisssions)
+				{
+					SaveChanges(
+						'needConfirmation',
+						true,
+						$(parent).find('#chkUserGroup').attr('value'),
+						idMainNote
+					);
+				}
 				$(parent).find('#chkNeedConfirmation').attr('checked',true);	
 				$(parent).find('#chkUserGroup').attr('checked',true);	
 				$(parent).find('#divChkUserGroup').addClass('review-permission-chk-decoration-chk');
@@ -308,6 +350,8 @@ function bindEvents(item)
 			{
 				$(parent).find('#chkNeedConfirmation').attr('checked',false);	
 				$(this).removeClass('review-permission-chk-decoration-chk');
+				if(editPermisssions)
+					SaveChanges('needConfirmation',false,$(parent).find('#chkUserGroup').attr('value'),idMainNote);
 			}
 		});
 		
