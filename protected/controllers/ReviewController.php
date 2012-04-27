@@ -94,7 +94,8 @@ class ReviewController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
-		$this->modelTag = $model;
+		if(User::isAdministartor())
+			$this->modelTag = $model;
 		
 		$ddlPriority = Priority::model()->findAll();
 		$ddlReviewType = ReviewType::model()->findAll();

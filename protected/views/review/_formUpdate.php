@@ -690,11 +690,31 @@ $(':checkbox').click(function() {
 <div class="review-update-data">
 
 	<div class="review-update-data-info">
-		<?php echo CHtml::label('Revis&oacute;n', 'Review_review');?>
-		<?php echo CHtml::activeTextField($model,'review',array('class'=>'review-update-data-number')); ?>
+		<?php 
+			if(User::isAdministartor())
+			{
+				echo CHtml::label('Revis&oacute;n', 'Review_review');
+				echo CHtml::activeTextField($model,'review',array('class'=>'review-update-data-number'));
+			}
+			else
+			{
+				echo CHtml::openTag('div',array('class'=>'review-update-data-info-descr-number'));				
+				echo CHtml::encode($model->review.' -');				
+				echo CHtml::closeTag('div');				
+			} 
+		?>
 	</div>
 	<div class="review-update-data-info-descr">
-		<?php echo CHtml::activeTextArea($model,'description',array('class'=>'review-update-data-text','rows'=>2, 'cols'=>70)); ?>
+		<?php 
+			if(User::isAdministartor()) 
+				echo CHtml::activeTextArea($model,'description',array('class'=>'review-update-data-text','rows'=>2, 'cols'=>70)); 
+			else
+			{
+				echo CHtml::openTag('div',array('class'=>'review-update-data-info-descr-text'));				
+				echo CHtml::encode($model->description);				
+				echo CHtml::closeTag('div');				
+			} 
+		?>
 	</div>
 </div>
 
