@@ -235,7 +235,19 @@ function bindEvents(item)
 				}
 		});
 	});
-	function SaveChanges(type,value,idUserGroup,idNote)
+	function CheckPermission(parent,caller,check)
+	{
+		$(parent).find(check).attr('checked',true);	
+		$(parent).find('#chkUserGroup').attr('checked',true);	
+		$(parent).find('#divChkUserGroup').addClass('review-permission-chk-decoration-chk');
+		$(caller).addClass('review-permission-chk-decoration-chk');
+	}
+	function UncheckPermission(parent,caller,check)
+	{
+		$(parent).find(check).attr('checked',false);	
+		$(caller).removeClass('review-permission-chk-decoration-chk');
+	}
+	function SavePermissionsChanges(type,value,idUserGroup,idNote,parent,caller,check)
 	{
 		//alert('Grabando '+type+' '+value+' '+idUserGroup);
 		$.ajax({
@@ -246,7 +258,35 @@ function bindEvents(item)
 								},
 				success : function(data)
 				{
-					alert('Grabado '+data);
+					if(data=='ok')
+					{
+						if(type=='canSee')
+						{
+							if(value==false)
+							{
+								$(parent).find(':checkbox').attr('checked',false);
+								$(caller).removeClass('review-permission-chk-decoration-chk');
+								$(parent).find('#divChkAddressed').removeClass('review-permission-chk-decoration-chk');
+								$(parent).find('#divChkCanFeedback').removeClass('review-permission-chk-decoration-chk');
+								$(parent).find('#divChkNeedConfirmation').removeClass('review-permission-chk-decoration-chk');
+							}else
+							{
+								$(parent).find('#chkUserGroup').attr('checked',true);
+								$(caller).addClass('review-permission-chk-decoration-chk');
+							}
+						}
+						else
+						{
+							if(value==true)
+							{
+								CheckPermission(parent,caller,check);
+							}
+							else
+							{
+								UncheckPermission(parent,caller,check);
+							}
+						}
+					}
 				}
 		});
 
@@ -262,71 +302,82 @@ function bindEvents(item)
 		$(this).find('#divChkUserGroup').click(function(){
 			if(!$(parent).find('#chkUserGroup').is(':checked'))
 			{
-				$(parent).find('#chkUserGroup').attr('checked',true);
-				$(this).addClass('review-permission-chk-decoration-chk');
 				if(editPermisssions)
-					SaveChanges('canSee',true,$(parent).find('#chkUserGroup').attr('value'),idMainNote);
+				{				
+					SavePermissionsChanges('canSee',true,$(parent).find('#chkUserGroup').attr('value'),idMainNote,parent,this);
+				}
+				else
+				{	
+					$(parent).find('#chkUserGroup').attr('checked',true);
+					$(this).addClass('review-permission-chk-decoration-chk');
+				}
+					
 			}
 			else
 			{
-				$(parent).find(':checkbox').attr('checked',false);
-				$(this).removeClass('review-permission-chk-decoration-chk');
-				$(parent).find('#divChkAddressed').removeClass('review-permission-chk-decoration-chk');
-				$(parent).find('#divChkCanFeedback').removeClass('review-permission-chk-decoration-chk');
-				$(parent).find('#divChkNeedConfirmation').removeClass('review-permission-chk-decoration-chk');
 				if(editPermisssions)
-					SaveChanges('canSee',false,$(parent).find('#chkUserGroup').attr('value'),idMainNote);
+				{
+					SavePermissionsChanges('canSee',false,$(parent).find('#chkUserGroup').attr('value'),idMainNote,parent,this);
+				}
+				else
+				{
+					$(parent).find(':checkbox').attr('checked',false);
+					$(this).removeClass('review-permission-chk-decoration-chk');
+					$(parent).find('#divChkAddressed').removeClass('review-permission-chk-decoration-chk');
+					$(parent).find('#divChkCanFeedback').removeClass('review-permission-chk-decoration-chk');
+					$(parent).find('#divChkNeedConfirmation').removeClass('review-permission-chk-decoration-chk');
+				}
 			}	
-		});
-		
-		$(this).find('#noEditUserGroup').click(function(){
-			alert('Este permiso no se puede editar');
 		});
 		
 		$(this).find('#divChkAddressed').click(function(){
 			if(!$(parent).find('#chkAddressed').is(':checked'))
 			{
-				$(parent).find('#chkAddressed').attr('checked',true);	
-				$(parent).find('#chkUserGroup').attr('checked',true);	
-				$(parent).find('#divChkUserGroup').addClass('review-permission-chk-decoration-chk');
-				$(this).addClass('review-permission-chk-decoration-chk');
 				if(editPermisssions)
-					SaveChanges('addressed',true,$(parent).find('#chkUserGroup').attr('value'),idMainNote);
+				{
+					SavePermissionsChanges('addressed',true,$(parent).find('#chkUserGroup').attr('value'),idMainNote,parent,this,'#chkAddressed');
+				}
+				else
+				{
+					CheckPermission(parent,this,'#chkAddressed');
+				}
 			}
 			else
 			{
-				$(parent).find('#chkAddressed').attr('checked',false);	
-				$(this).removeClass('review-permission-chk-decoration-chk');
 				if(editPermisssions)
-					SaveChanges('addressed',false,$(parent).find('#chkUserGroup').attr('value'),idMainNote);
+				{
+					SavePermissionsChanges('addressed',false,$(parent).find('#chkUserGroup').attr('value'),idMainNote,parent,this,'#chkAddressed');
 				}
-		});
-		
-		$(this).find('#noEditAddressed').click(function(){
-			alert('Este permiso no se puede editar');
+				else
+				{
+					UncheckPermission(parent,this,'#chkAddressed');
+				}
+			}
 		});
 		
 		$(this).find('#divChkCanFeedback').click(function(){
 			if(!$(parent).find('#chkCanFeedback').is(':checked'))
 			{
-				$(parent).find('#chkCanFeedback').attr('checked',true);	
-				$(parent).find('#chkUserGroup').attr('checked',true);	
-				$(parent).find('#divChkUserGroup').addClass('review-permission-chk-decoration-chk');
-				$(this).addClass('review-permission-chk-decoration-chk');
 				if(editPermisssions)
-					SaveChanges('canFeedback',true,$(parent).find('#chkUserGroup').attr('value'),idMainNote);
+				{
+					SavePermissionsChanges('canFeedback',true,$(parent).find('#chkUserGroup').attr('value'),idMainNote,parent,this,'#chkCanFeedback');
+				}
+				else
+				{
+					CheckPermission(parent,this,'#chkCanFeedback');
+				}
 			}
 			else
 			{
-				$(parent).find('#chkCanFeedback').attr('checked',false);	
-				$(this).removeClass('review-permission-chk-decoration-chk');
 				if(editPermisssions)
-					SaveChanges('canFeedback',false,$(parent).find('#chkUserGroup').attr('value'),idMainNote);
+				{
+					SavePermissionsChanges('canFeedback',false,$(parent).find('#chkUserGroup').attr('value'),idMainNote,parent,this,'#chkCanFeedback');
+				}
+				else
+				{
+					UncheckPermission(parent,this,'#chkCanFeedback');
+				}
 			}
-		});
-		
-		$(this).find('#noEditCanFeedback').click(function(){
-			alert('Este permiso no se puede editar');
 		});
 		
 		$(this).find('#divChkNeedConfirmation').click(function(){
@@ -334,31 +385,26 @@ function bindEvents(item)
 			{
 				if(editPermisssions)
 				{
-					SaveChanges(
-						'needConfirmation',
-						true,
-						$(parent).find('#chkUserGroup').attr('value'),
-						idMainNote
-					);
+					SavePermissionsChanges('needConfirmation',true,$(parent).find('#chkUserGroup').attr('value'),idMainNote,parent,this,'#chkNeedConfirmation');
 				}
-				$(parent).find('#chkNeedConfirmation').attr('checked',true);	
-				$(parent).find('#chkUserGroup').attr('checked',true);	
-				$(parent).find('#divChkUserGroup').addClass('review-permission-chk-decoration-chk');
-				$(this).addClass('review-permission-chk-decoration-chk');
+				else
+				{
+					CheckPermission(parent,this,'#chkNeedConfirmation');
+				}
 			}
 			else
 			{
-				$(parent).find('#chkNeedConfirmation').attr('checked',false);	
-				$(this).removeClass('review-permission-chk-decoration-chk');
 				if(editPermisssions)
-					SaveChanges('needConfirmation',false,$(parent).find('#chkUserGroup').attr('value'),idMainNote);
+				{
+					SavePermissionsChanges('needConfirmation',false,$(parent).find('#chkUserGroup').attr('value'),idMainNote,parent,this,'#chkNeedConfirmation');
+				}
+				else
+				{
+					UncheckPermission(parent,this,'#chkNeedConfirmation');
+				}
 			}
 		});
-		
-		$(this).find('#noEditNeedConfirmation').click(function(){
-			alert('Este permiso no se puede editar');
-		});
-		
+				
 	});
 	
 	$('#public_'+idMainNote).click(function(){
