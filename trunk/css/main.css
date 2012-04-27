@@ -1234,6 +1234,14 @@ div.review-update-data-info-descr
 	float: left;
 	width: 800px;
 }
+div.review-update-data-info-descr-text
+{
+	margin-top: 20px;
+}
+div.review-update-data-info-descr-number
+{
+	margin-left: 15px;
+}
 
 div.index-review-single
 {
