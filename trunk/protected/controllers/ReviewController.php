@@ -546,7 +546,99 @@ class ReviewController extends Controller
 		if(isset($model))
 			$this->render('updateAlbum',array('model'=>$model));
 	}
-	
+	public function actionAjaxSavePermissions()
+	{
+		$response = 'error';
+		if(
+			isset($_POST['idUserGroup'])&&
+			isset($_POST['idNote'])&&
+			isset($_POST['value'])&&
+			isset($_POST['type'])&&
+			isset($_POST['idCustomer'])
+		)
+		{
+			$idCustomer = $_POST['idCustomer'];
+			$idUserGroup = $_POST['idUserGroup'];
+			$idNote = $_POST['idNote'];
+			$value = $_POST['value']=='true'?1:0;
+			$type= $_POST['type'];
+			$modelUserGroupNoteArray = UserGroupNote::model()->findAllByAttributes(array('Id_note'=>$idNote,'Id_user_group'=>$idUserGroup));
+			
+			if(isset($modelUserGroupNoteArray[0]))
+			{
+				$modelUserGroupNote = $modelUserGroupNoteArray[0];				
+				$modelNoteNote = NoteNote::model()->findAllByAttributes(array('Id_parent'=>$idNote));
+				$canEditFeedback = true;
+				foreach($modelNoteNote as $itemNoteNote)
+				{
+					if($itemNoteNote->child->Id_user_group_owner == $idUserGroup)
+					{
+						$canEditFeedback = false;
+						break;
+					}
+				}
+				$canEditNeedConf = !($modelUserGroupNote->confirmed || $modelUserGroupNote->declined);
+				
+				if($type=='canSee')
+				{
+					$response = 'forbidden';
+					if(!$value&&$canEditNeedConf&&$canEditFeedback)
+					{
+						$modelUserGroupNote->delete();
+						$response = 'ok';
+					}				
+				}
+				elseif($type=='addressed')
+				{
+					$response = 'forbidden';
+					$modelUserGroupNote->addressed = $value;				
+					$modelUserGroupNote->save();						
+					$response = 'ok';
+				}
+				elseif($type=='canFeedback')
+				{
+					$response = 'forbidden';
+					if($canEditFeedback)
+					{
+						$modelUserGroupNote->can_feedback = $value;
+						$modelUserGroupNote->save();						
+						$response = 'ok';
+					}
+				}
+				elseif($type=='needConfirmation')
+				{
+					$response = 'forbidden';
+					if($canEditNeedConf){
+						$modelUserGroupNote->need_confirmation = $value;
+						$modelUserGroupNote->save();						
+						$response = 'ok';
+					}
+				}				
+			}
+			else 
+			{
+				$modelUserGroupNote = new UserGroupNote;
+				$modelUserGroupNote->Id_note=$idNote;
+				$modelUserGroupNote->Id_user_group=$idUserGroup;
+				$modelUserGroupNote->Id_customer=$idCustomer;
+				if($type=='addressed')
+				{
+					$modelUserGroupNote->addressed = $value;				
+				}
+				elseif($type=='canFeedback')
+				{
+					$modelUserGroupNote->can_feedback = $value;				
+				}
+				elseif($type=='needConfirmation')
+				{
+					$modelUserGroupNote->need_confirmation = $value;				
+				}				
+				$response = 'ok';
+				$modelUserGroupNote->save();
+			}
+		}
+		echo $response;		
+	}
 	
 	public function actionAjaxPublicNote()
 	{
