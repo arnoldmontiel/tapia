@@ -26,21 +26,20 @@
  */
 class Note extends CActiveRecord
 {
-	public function beforeSave()
+	protected function afterSave()
 	{
+		parent::afterSave();
+		
 		if($this->review)
 		{
 			$modelReview = Review::model()->findByPk($this->review->Id);
-			$modelReviewUser = ReviewUser::model()->findAllByAttributes(array('Id_review'=>$this->review->Id));
-			if($modelReview && sizeof($modelReviewUser)>0)
+			$modelUserGroupNote = UserGroupNote::model()->findAllByAttributes(array('Id_note'=>$this->Id));
+			if($modelReview && sizeof($modelUserGroupNote)>0)
 			{
 				$modelReview->save();
 			}
 		}
-		
-		return parent::beforeSave();
 	}
-	
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
