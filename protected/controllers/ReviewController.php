@@ -133,6 +133,7 @@ class ReviewController extends Controller
 		$criteria=new CDbCriteria;
 		
 		$criteria->addCondition('t.Id NOT IN(select Id_multimedia from multimedia_note where Id_note = '. $idNote.')');
+		$criteria->addCondition('t.Id_user_group = '. User::getCurrentUserGroup()->Id);
 		$criteria->addCondition('t.Id_review = '. $id);
 		$criteria->addCondition('t.Id_multimedia_type = 1'); //image
 		
@@ -161,6 +162,7 @@ class ReviewController extends Controller
 		$criteria=new CDbCriteria;
 	
 		$criteria->addCondition('t.Id NOT IN(select Id_multimedia from multimedia_note where Id_note = '. $idNote.')');
+		$criteria->addCondition('t.Id_user_group = '. User::getCurrentUserGroup()->Id);
 		$criteria->addCondition('t.Id_review = '. $id);
 		$criteria->addCondition('t.Id_multimedia_type = 3 or t.Id_multimedia_type = 4'); //docs (pdf or autocad)
 		
