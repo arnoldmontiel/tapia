@@ -209,14 +209,28 @@ class ReviewController extends Controller
 	{
 		$modelMultimedia = new Multimedia;
 		$modelNote = new Note;
-		$ddlCustomer = Customer::model()->findAll();
+		
+		if(User::isAdministartor())
+		{
+			$ddlCustomer = Customer::model()->findAll();
+		}
+		else
+		{
+			$criteria=new CDbCriteria;
+			if(User::getCustomer())
+				$criteria->addCondition('t.Id  = '. User::getCustomer()->Id);
+			else 
+				$criteria->addCondition('t.Id IN(select Id_customer from user_customer where username = "'. User::getCurrentUser()->username.'")');
+			
+			$ddlCustomer = Customer::model()->findAll($criteria);
+		}
+		
 		$Id_customer = -1;
 		if(isset($_GET['Id_customer']))
 		{
 			$Id_customer =$_GET['Id_customer'];
 		}
-// 		$criteria=new CDbCriteria;
-// 		$criteria->order = 't.change_date desc';
+
 		
 		$this->showFilter = true;
 		
