@@ -31,8 +31,8 @@ class UserGroupNote extends CActiveRecord
 					$modelReviewUserDb = ReviewUser::model()->findByPk(array('Id_review'=>$modelReview->Id,'username'=>$item->username));
 					if($modelReviewUserDb)
 					{
-						$modelReviewUser->read = 0;
-						$modelReviewUser->save();
+						$modelReviewUserDb->read = 0;
+						$modelReviewUserDb->save();
 					}
 					else
 					{
@@ -49,8 +49,8 @@ class UserGroupNote extends CActiveRecord
 				$modelReviewUserDb = ReviewUser::model()->findByPk(array('Id_review'=>$modelReview->Id,'username'=>$this->customer->user->username));
 				if($modelReviewUserDb)
 				{
-					$modelReviewUser->read = 0;
-					$modelReviewUser->save();
+					$modelReviewUserDb->read = 0;
+					$modelReviewUserDb->save();
 				}
 				else
 				{
