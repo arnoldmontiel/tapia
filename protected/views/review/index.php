@@ -133,7 +133,7 @@ function getCheck(checkName)
 	}
 	?>
 </div>
-<?php if(User::canCreate()):?>
+<?php if(User::isAdministartor()):?>
 
 <?php
 	echo CHtml::openTag('div',array('class'=>'review-action-box-btn div-hidden','id'=>'btn-actions-box'));	
