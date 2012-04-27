@@ -117,12 +117,21 @@ function getCheck(checkName)
 <div id="customer" class="wall-action-ddl" >
 	<?php	$customers = CHtml::listData($ddlCustomer, 'Id', 'CustomerDesc');?>
 	<?php echo CHtml::label('Cliente: ','Id_customer'); ?>
-	<?php echo CHtml::dropDownList('Id_customer',$Id_customer, $customers,		
+	<?php
+
+	if(User::getCustomer())
+	{
+	 echo CHtml::dropDownList('Id_customer',$Id_customer, $customers);
+	}
+	else 
+	{
+		echo CHtml::dropDownList('Id_customer',$Id_customer, $customers,		
 		array(
 			'prompt'=>'Clientes',
 			)		
 		);
-		?>
+	}
+	?>
 </div>
 <?php if(User::canCreate()):?>
 
