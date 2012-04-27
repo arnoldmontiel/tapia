@@ -113,7 +113,7 @@ $editable = $isAdministrator||$isOwner;
 				
 				$modelNoteNote = NoteNote::model()->findAllByAttributes(array('Id_parent'=>$data->Id));
 				
-				echo CHtml::openTag('div', array('id'=>'publicArea_'.$data->Id, 'class'=>'review-permission-area'));
+				echo CHtml::openTag('div', array('id'=>'publicArea_'.$data->Id,'name'=>'edit-permissions', 'class'=>'review-permission-area'));
 				echo CHtml::decode('Editar Permisos');
 				
 				foreach($modelUserGroup as $item)
@@ -131,7 +131,7 @@ $editable = $isAdministrator||$isOwner;
 					$canEditFeedback = true;
 					foreach($modelNoteNote as $itemNoteNote)
 					{
-						if($itemNoteNote->idChild->Id_user_group_owner == $item->Id)
+						if($itemNoteNote->child->Id_user_group_owner == $item->Id)
 						{
 							$canEditFeedback = false;
 							break;
@@ -147,8 +147,8 @@ $editable = $isAdministrator||$isOwner;
 						echo CHtml::openTag('div', array('class'=>'review-permission-row','style'=>'display: inline-block; width:50%;'));
 							if($modelUserGroupNoteInstance)
 							{
-								echo CHtml::checkBox('chkUserGroup',true,array('id'=>'chkUserGroup','value'=>$item->Id,'style'=>'display:none'));
-								echo CHtml::openTag('div',array('id'=>($canEditNeedConf && $canEditFeedback)?'divChkUserGroup':'noEditUserGroup','class'=>'review-permission-chk-decoration review-permission-chk-decoration-chk'));
+								echo CHtml::checkBox('chkUserGroup',$modelUserGroupNoteInstance,array('id'=>'chkUserGroup','value'=>$item->Id,'style'=>'display:none'));
+								echo CHtml::openTag('div',array('id'=>'divChkUserGroup','class'=>'review-permission-chk-decoration review-permission-chk-decoration-chk'));
 							}
 							else 
 							{
@@ -176,7 +176,7 @@ $editable = $isAdministrator||$isOwner;
 							if($modelUserGroupNoteInstance && $modelUserGroupNoteInstance->can_feedback )
 							{
 								echo CHtml::checkBox('chkCanFeedback',true,array('id'=>'chkCanFeedback','value'=>$item->Id,'style'=>'display:none'));
-								echo CHtml::openTag('div',array('id'=>($canEditFeedback)?'divChkCanFeedback':'noEditCanFeedback','class'=>'review-permission-chk-decoration review-permission-chk-decoration-chk'));
+								echo CHtml::openTag('div',array('id'=>'divChkCanFeedback','class'=>'review-permission-chk-decoration review-permission-chk-decoration-chk'));
 							}
 							else
 							{
@@ -190,7 +190,7 @@ $editable = $isAdministrator||$isOwner;
 							if($modelUserGroupNoteInstance && $modelUserGroupNoteInstance->need_confirmation)
 							{
 								echo CHtml::checkBox('chkNeedConfirmation',true,array('id'=>'chkNeedConfirmation','value'=>$item->Id,'style'=>'display:none'));
-								echo CHtml::openTag('div',array('id'=>($canEditNeedConf)?'divChkNeedConfirmation':'noEditNeedConfirmation','class'=>'review-permission-chk-decoration review-permission-chk-decoration-chk','style'=>'width:70px;'));
+								echo CHtml::openTag('div',array('id'=>'divChkNeedConfirmation','class'=>'review-permission-chk-decoration review-permission-chk-decoration-chk','style'=>'width:70px;'));
 							}
 							else
 							{
@@ -276,14 +276,6 @@ $editable = $isAdministrator||$isOwner;
 				if($item->Id_multimedia_type!=3
 					&&$item->Id_multimedia_type!=4) continue;
 				echo CHtml::openTag('div');
-				
-				echo CHtml::openTag('div',array('class'=>'index-review-single-resource'));
-				if($item->Id_multimedia_type == 4)
-					echo CHtml::image('images/autocad_resource.png','',array('style'=>'width:25px;'));
-				else
-					echo CHtml::image('images/pdf_resource.png','',array('style'=>'width:25px;'));
-				echo CHtml::closeTag('div');
-				
 				echo CHtml::link(
 					CHtml::encode($item->file_name),
 					Yii::app()->baseUrl.'/docs/'.$item->file_name,
