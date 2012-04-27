@@ -16,6 +16,20 @@
  */
 class UserGroupNote extends CActiveRecord
 {
+	protected function afterSave()
+	{
+		parent::afterSave();
+	
+		if($this->note->review)
+		{
+			$modelReview = Review::model()->findByPk($this->note->review->Id);
+			if($modelReview)
+			{
+				$modelReview->save();
+			}
+		}
+	}
+	
 	public $Id_review = null;
 	/**
 	 * Returns the static model of the specified AR class.
