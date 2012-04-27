@@ -12,7 +12,7 @@
 		<?php echo CHtml::encode($data->description); ?>
 	</div>
 	<div class="index-review-date">
-	<?php echo $data->creation_date; ?>
+	<?php echo $data->change_date; ?>
 		</div>
 		
 	<?php 
