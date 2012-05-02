@@ -44,6 +44,25 @@ class UserGroupNote extends CActiveRecord
 				}
 			}
 			
+			//admin
+			if($this->Id_user_group == User::getAdminUserGroupId())
+			{
+				$modelReviewUserDb = ReviewUser::model()->findByPk(array('Id_review'=>$modelReview->Id,'username'=>User::getAdminUsername()));
+				if($modelReviewUserDb)
+				{
+					$modelReviewUserDb->read = 0;
+					$modelReviewUserDb->save();
+				}
+				else
+				{
+					$modelReviewUser = new ReviewUser;
+					$modelReviewUser->Id_review = $modelReview->Id;
+					$modelReviewUser->username = User::getAdminUsername();
+					$modelReviewUser->save();
+				}
+			}
+			
+			//client
 			if($this->customer->user->Id_user_group == $this->Id_user_group)
 			{
 				$modelReviewUserDb = ReviewUser::model()->findByPk(array('Id_review'=>$modelReview->Id,'username'=>$this->customer->user->username));
