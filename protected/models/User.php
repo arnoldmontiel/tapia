@@ -68,6 +68,12 @@ class User extends CActiveRecord
 		return $model->Id;
 	}
 	
+	public static function getAdminUsername()
+	{
+		$model = User::model()->findByAttributes(array('Id_user_group'=>User::getAdminUserGroupId()));
+		return $model->username;
+	}
+	
 	public static function getCurrentUser()
 	{
 		if(!isset(self::$_user))
