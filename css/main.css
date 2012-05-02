@@ -283,6 +283,16 @@ div.view-text-date
 	font-size: 10px;
 	line-height: 18px;
 }
+div.view-text-user
+{
+	position: absolute;
+	left:25px;
+	top: 2px;
+	font-size: 11px;
+	line-height: 18px;
+	font-weight: bold;
+}
+
 div.review-create-note
 {	
 	opacity:0.2;
@@ -1605,8 +1615,7 @@ div.review-permission-chk-decoration
 	cursor: pointer;	
 	width:70px;
 	text-align: center;
-	margin-left:5px;
-	
+	margin-left:5px;	
 }
 div.review-permission-chk-decoration-unchk
 {

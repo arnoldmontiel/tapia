@@ -10,7 +10,7 @@ $('#publicArea_".$data->Id."').children().each(
 ?>
 
 <div class="review-single-view" id="<?php echo $data->Id?>" >
-	<div class="view-text-date"><?php echo $data->creation_date;?></div>
+	<div class="view-text-date"><?php echo $data->change_date;?></div>
 	<div id='edit_image<?php echo $data->Id?>' class="review-edit-image div-hidden">
 	<?php
 		echo CHtml::link('Editar Imagenes',

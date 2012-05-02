@@ -13,6 +13,11 @@
  */
 class NoteNote extends CActiveRecord
 {
+	public function afterSave()
+	{
+		$this->parent->save();
+		return parent::afterSave();
+	}
 	
 	/**
 	 * Returns the static model of the specified AR class.
