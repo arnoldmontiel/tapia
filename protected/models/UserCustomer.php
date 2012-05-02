@@ -9,6 +9,37 @@
  */
 class UserCustomer extends CActiveRecord
 {
+	protected function afterSave()
+	{
+		parent::afterSave();
+		
+		$criteria=new CDbCriteria;
+	
+
+ 		$criteria->condition= ' t.Id_customer = '.$this->Id_customer ;
+ 		$criteria->join =  	"LEFT OUTER JOIN note n ON n.Id=t.Id_note";
+		$criteria->addSearchCondition("t.Id_user_group",$this->user->userGroup->Id);
+ 		$criteria->order = " n.Id_review";
+		
+		
+		
+		$modelUserGroupNote = UserGroupNote::model()->findAll($criteria);
+		
+		foreach($modelUserGroupNote as $item)
+		{
+			
+			$modelReviewUserDb = ReviewUser::model()->findByPk(array('Id_review'=>$item->note->Id_review,'username'=>$this->username));
+			if($modelReviewUserDb == null)
+			{
+				$modelReviewUser = new ReviewUser;
+				$modelReviewUser->Id_review = $item->note->Id_review;
+				$modelReviewUser->username = $this->username;
+				$modelReviewUser->save();
+			}
+		}
+		
+	}
+	
 	public $user_group_desc;
 	/**
 	 * Returns the static model of the specified AR class.
