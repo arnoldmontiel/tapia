@@ -8,6 +8,9 @@
  * @property string $password
  * @property string $email
  * @property integer $Id_user_group
+ * @property string $name
+ * @property string $last_name
+ * @property string $address
  *
  * The followings are the available model relations:
  * @property Customer[] $customers
@@ -16,6 +19,30 @@
  */
 class User extends CActiveRecord
 {
+	protected function afterSave()
+	{
+		parent::afterSave();
+		
+		if($this->Id_user_group == 3)
+		{
+			$modelCustomerDb = Customer::model()->findByAttributes(array('username'=>$this->username));
+			if($modelCustomerDb)
+			{
+				$modelCustomerDb->name = $this->name;
+				$modelCustomerDb->last_name = $this->last_name;
+				$modelCustomerDb->save();
+			}
+			else
+			{
+				$modelCustomer = new Customer;
+				$modelCustomer->name = $this->name;
+				$modelCustomer->last_name = $this->last_name;
+				$modelCustomer->username = $this->username;
+				$modelCustomer->save();
+			}
+		}
+	}
+		
 	static private $_customer = null;
 	static private $_userGroup = null;
 	static private $_user = null;
@@ -101,6 +128,7 @@ class User extends CActiveRecord
 			array('username, password, email, Id_user_group', 'required'),
 			array('Id_user_group', 'numerical', 'integerOnly'=>true),
 			array('username, password, email', 'length', 'max'=>128),
+			array('name, last_name, address', 'length', 'max'=>100),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('username, password, email, Id_user_group', 'safe', 'on'=>'search'),
@@ -132,6 +160,9 @@ class User extends CActiveRecord
 			'password' => 'Contraseña',
 			'email' => 'Email',
 			'Id_user_group' => 'Id User Group',
+			'name' => 'Name',
+			'last_name' => 'Last Name',
+			'address' => 'Address',
 		);
 	}
 
@@ -150,7 +181,10 @@ class User extends CActiveRecord
 		$criteria->compare('password',$this->password,true);
 		$criteria->compare('email',$this->email,true);
 		$criteria->compare('Id_user_group',$this->Id_user_group);
-
+		$criteria->compare('name',$this->name,true);
+		$criteria->compare('last_name',$this->last_name,true);
+		$criteria->compare('address',$this->address,true);
+		
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
