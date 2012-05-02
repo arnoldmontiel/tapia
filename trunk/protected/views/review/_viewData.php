@@ -12,7 +12,7 @@ $editable = $isAdministrator||$isOwner;
 ?>
 
 <div class="review-single-view" id="<?php echo $data->Id?>" >
-	<div class="view-text-date"><?php echo $data->creation_date;?></div>
+	<div class="view-text-date"><?php echo $data->change_date;?></div>
 	<?php if($editable):?>
 	<div id='edit_image<?php echo $data->Id?>' class="review-edit-image div-hidden">	
 	<?php
@@ -312,6 +312,9 @@ $editable = $isAdministrator||$isOwner;
 		foreach($notes as $item)
 		{
 			echo CHtml::openTag('div',array('class'=>'view-text-note'));
+				echo CHtml::openTag('div',array('class'=>'view-text-user'));
+					echo $item->user->username;
+				echo CHtml::closeTag('div');
 				echo CHtml::openTag('div',array('class'=>'view-text-date'));
 					echo $item->creation_date;
 				echo CHtml::closeTag('div');

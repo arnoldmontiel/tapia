@@ -7,6 +7,7 @@
  * @property integer $Id
  * @property string $note
  * @property string $creation_date
+ * @property string $change_date
  * @property integer $Id_customer
  * @property integer $Id_review
  * @property integer $in_progress
@@ -23,9 +24,16 @@
  * @property Multimedia[] $multimedias
  * @property Customer $idCustomer
  * @property Wall[] $walls
+ * @property Note[] $notes
+ * @property Note[] $parentNotes
  */
 class Note extends CActiveRecord
-{
+{	
+	public function beforeSave()
+	{		
+		$this->change_date = date("Y-m-d H:i:s",time());
+		return parent::beforeSave();
+	}
 	
 	/**
 	 * Returns the static model of the specified AR class.
@@ -55,10 +63,10 @@ class Note extends CActiveRecord
 		return array(
 			array('Id_customer, username, Id_user_group_owner', 'required'),
 			array('Id_customer, Id_review, in_progress, need_confirmation, confirmed, Id_user_group_owner', 'numerical', 'integerOnly'=>true),
-			array('note, creation_date', 'safe'),
+			array('note, creation_date,change_date', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id, note, creation_date, Id_customer, Id_review, in_progress, need_confirmation, confirmed, username, Id_user_group_owner', 'safe', 'on'=>'search'),
+			array('Id, note, creation_date, change_date, Id_customer, Id_review, in_progress, need_confirmation, confirmed, username, Id_user_group_owner', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -75,6 +83,7 @@ class Note extends CActiveRecord
 			'idCustomer' => array(self::BELONGS_TO, 'Customer', 'Id_customer'),
 			'walls' => array(self::HAS_MANY, 'Wall', 'Id_note'),
 			'notes' => array(self::MANY_MANY, 'Note', 'note_note(Id_parent, Id_child)'),
+			'parentNotes' => array(self::MANY_MANY, 'Note', 'note_note(Id_child, Id_parent)'),
 			'review' => array(self::BELONGS_TO, 'Review', 'Id_review'),
 			'userGroupOwner' => array(self::BELONGS_TO, 'UserGroup', 'Id_user_group_owner'),
 			'userGroups' => array(self::MANY_MANY, 'UserGroup', 'user_group_note(Id_note,Id_user_group)'),
@@ -92,6 +101,7 @@ class Note extends CActiveRecord
 			'Id' => 'ID',
 			'note' => 'Note',
 			'creation_date' => 'Creation Date',
+			'change_date'=>'Change Date',
 			'Id_customer' => 'Id Customer',
 			'Id_review' => 'Id Review',
 			'in_progress' => 'In Progress',
@@ -116,6 +126,7 @@ class Note extends CActiveRecord
 		$criteria->compare('Id',$this->Id);
 		$criteria->compare('note',$this->note,true);
 		$criteria->compare('creation_date',$this->creation_date,true);
+		$criteria->compare('change_date',$this->change_date,true);		
 		$criteria->compare('Id_customer',$this->Id_customer);
 		$criteria->compare('Id_review',$this->Id_review);
 		$criteria->compare('in_progress',0);

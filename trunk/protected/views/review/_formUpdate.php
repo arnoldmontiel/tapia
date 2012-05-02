@@ -882,7 +882,7 @@ echo CHtml::closeTag('div');
 		$modelNote->Id_review = $model->Id;
 		$modelNote->Id_user_group_owner = User::getCurrentUserGroup()->Id;
 		$dataProviderNote = $modelNote->search();
-		$dataProviderNote->criteria->order= 'creation_date DESC';
+		$dataProviderNote->criteria->order= 'change_date DESC';
 		$noteData = $dataProviderNote->data;
 		echo CHtml::openTag('div',array('class'=>'review-container-single-view','style'=>'display:none;','id'=>'noteContainer_place_holder'));
 		echo CHtml::closeTag('div');
@@ -900,7 +900,7 @@ echo CHtml::closeTag('div');
 		$modelUserGroupNote->Id_review = $model->Id;
 		$modelUserGroupNote->Id_user_group = User::getCurrentUserGroup()->Id;
 		$dataProviderUserGroupNote = $modelUserGroupNote->search();
-		$dataProviderUserGroupNote->criteria->order= 'note.creation_date DESC';
+		$dataProviderUserGroupNote->criteria->order= 'note.change_date DESC';
 		
 		$noteData = $dataProviderUserGroupNote->data;
 		echo CHtml::openTag('div',array('class'=>'review-container-single-view','style'=>'display:none;','id'=>'noteContainer_place_holder'));
