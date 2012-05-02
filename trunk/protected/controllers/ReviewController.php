@@ -487,7 +487,9 @@ class ReviewController extends Controller
 			Note::model()->deleteByPk($id);
 			$transaction->commit();
 			
-			$this->renderPartial('_viewData',array('data'=>$model));
+			$userGroupNote = UserGroupNote::model()->findByPk(array('Id_note'=>$model->Id,'Id_user_group'=>$model->Id_user_group_owner));
+			$this->renderPartial('_viewData',array('data'=>$model,'dataUserGroupNote'=>$userGroupNote));
+			
 		} catch (Exception $e) {
 			$transaction->rollback();
 		}
