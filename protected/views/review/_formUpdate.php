@@ -798,7 +798,7 @@ $(':checkbox').click(function() {
 		{
 			echo CHtml::openTag('div',array('class'=>'review-priority'));
 				$prioritys = CHtml::listData($ddlPriority, 'Id', 'description');
-				echo CHtml::label('Prioridad: ','Id_priority'); 
+				echo CHtml::label('Prio: ','Id_priority'); 
 				echo CHtml::activeDropDownList($model, 'Id_priority', $prioritys);
 			echo CHtml::closeTag('div');
 			echo CHtml::openTag('div',array('class'=>'review-type'));
@@ -819,8 +819,8 @@ $(':checkbox').click(function() {
 			echo CHtml::closeTag('div');				
 		}
 		echo CHtml::openTag('div',array('class'=>'order-info'));
-			echo CHtml::label('Ordenar por: ','info_order');
-			$orderData = array('addressed'=>'Para','can_feedback'=>'Con Respuesta','need_confirmation'=>'Con Confirmacion');
+			echo CHtml::label('Orden: ','info_order');
+			$orderData = array('addressed'=>'Destinatario','can_feedback'=>'Respuesta','need_confirmation'=>'Confirmacion');
 			echo CHtml::dropDownList('info_order', ($order)?$order:'addressed', $orderData);
 		echo CHtml::closeTag('div');
 		
