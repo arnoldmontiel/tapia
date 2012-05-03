@@ -29,16 +29,16 @@ $editable = $isAdministrator||$isOwner;
 	<?php endif;?>
 	<div class="review-text-simple-note">
 		<div class="review-single-view-actions">
-			<div class="review-single-view-actions-need-conf">
+			<div class="review-single-view-autor">
 				<?php
-				echo CHtml::encode($data->user->username);								
+				echo CHtml::encode($data->user->name.' '.$data->user->last_name);								
 				?>
 			</div>
 		</div>
 		<div class="review-single-view-actions">
 			<div class="review-single-view-actions-need-conf">
 				<?php
-				echo CHtml::decode('Para:');
+				echo CHtml::decode('Para: ');
 				$first = true;
 				foreach ($data->userGroupNotes as $item){
 					if($item->addressed){
@@ -51,7 +51,7 @@ $editable = $isAdministrator||$isOwner;
 						if($item->Id_user_group==$group->Id)
 						{
 							$user=User::getCurrentUser();
-							echo CHtml::encode(' '.$user->username);								
+							echo CHtml::encode($user->name.' '.$user->last_name);								
 						}
 						else 
 						{
@@ -313,7 +313,7 @@ $editable = $isAdministrator||$isOwner;
 		{
 			echo CHtml::openTag('div',array('class'=>'view-text-note'));
 				echo CHtml::openTag('div',array('class'=>'view-text-user'));
-					echo $item->user->username;
+					echo CHtml::encode($item->user->name.' '.$item->user->last_name);
 				echo CHtml::closeTag('div');
 				echo CHtml::openTag('div',array('class'=>'view-text-date'));
 					echo $item->creation_date;

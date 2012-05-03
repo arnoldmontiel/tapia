@@ -286,7 +286,7 @@ div.view-text-date
 div.view-text-user
 {
 	position: absolute;
-	left:25px;
+	left:15px;
 	top: 2px;
 	font-size: 11px;
 	line-height: 18px;
@@ -1247,10 +1247,12 @@ div.review-update-data-info-descr
 div.review-update-data-info-descr-text
 {
 	margin-top: 20px;
+	font-weight: bold;
 }
 div.review-update-data-info-descr-number
 {
 	margin-left: 15px;
+	font-weight: bold;
 }
 
 div.index-review-single
@@ -1530,6 +1532,15 @@ div.review-single-view-actions-need-conf
 	display: inline-block;
 	
 }
+div.review-single-view-autor
+{
+	float:left;
+	margin-top: 10px;
+	padding-left: 15px;
+	display: inline-block;
+	font-weight: bold;
+}
+
 div.review-single-view-actions-conf
 {
 	float:left;
