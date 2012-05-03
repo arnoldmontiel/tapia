@@ -16,7 +16,8 @@ padding: 0;	margin: 0;
 	border-bottom: 1px solid #CCC;
 	position: relative;
 	z-index: 100;
-	 padding: 35px 0 45px;
+	height:23px;
+	background-color: #AFBAD7;
 }
 #header-container
 {
@@ -1172,39 +1173,59 @@ div.review-update-data
 	border-bottom: 1px solid white;
 	background-color: #f4f6fb;
 	width: 940px;	
-	height: 60px;	
+	height: 35px;	
 	margin-left: 15px;
 	margin-top: 0px;
 	
 }
 input.review-update-data-number
 {	
+	color:#666666;	
 	background-color: #f4f6fb;
-	border: 1px solid #AFBAD7;
+	border: 1px solid #f4f6fb;
 	width: 25px;
 	text-align: center;
+	font-weight: bold;
+	margin-top: 5px;
+}
+input.review-update-data-number:HOVER
+{
+	background-color: white;
+	border: 1px solid gray;
 }
 
 input.review-update-data-number:FOCUS
 {
 	background-color: white;
+	border: 1px solid blue;
 }
 textarea.review-update-data-text
 {
+	color:#666666;		
 	z-index:10;
 	position: relative;
-	padding: 5px 10px 5px;
+	padding: 5px 5px 5px;
 	outline: none;
 	background-color: #f4f6fb;
-	border: 1px solid #AFBAD7;
-	font-size: 13px;
+	border: 1px solid #f4f6fb;
+	font-size: 14px;
 	line-height: 18px;
 	resize: none;
 	width: 95%;
+	font-weight: bold;
+	height: 20px;
+	font-family: Roboto,Arial,sans-serif;
+}
+textarea.review-update-data-text:hover
+{
+	background-color: white;	
+	border: 1px solid #BBB;
+	
 }
 textarea.review-update-data-text:focus
 {
-	background-color: white;	
+	background-color: white;
+	border: 1px solid blue;		
 }
 div.review-update-image
 {
@@ -1230,27 +1251,29 @@ textarea.review-update-album-descr:focus
 
 div.review-update-data-info
 {
-	
-	margin-top: 20px;
+	margin-top: 7px;
 	margin-right: 5px;
 	display: inline-block;
 	float: left;
+	font-weight: bold;
 	
 }
 div.review-update-data-info-descr
-{
+{	
+	margin-top: 5px;
 	margin-right: 5px;
 	display: inline-block;
 	float: left;
-	width: 800px;
+	width: 890px;
 }
 div.review-update-data-info-descr-text
 {
-	margin-top: 20px;
+	margin-top: 5px;
 	font-weight: bold;
 }
 div.review-update-data-info-descr-number
 {
+	margin-top: 3px;
 	margin-left: 15px;
 	font-weight: bold;
 }
@@ -1646,4 +1669,23 @@ div.review-permission-row
 	color: red;
 	font-style: italic;
 	display: none;
+}
+div.header-menu
+{
+	float: right;
+}
+div.header-menu-item
+{
+	float: left;
+}
+a.header-menu-item
+{
+	margin-right:5px;
+	color: gray;
+	font-weight: bold;
+	text-decoration: none;
+}
+a.header-menu-item:HOVER
+{
+	color: white;
 }

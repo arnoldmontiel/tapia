@@ -24,7 +24,13 @@
 <div class="container" id="page">
 
 	<div id="header">
-		<div id="header-container">
+		<div class="header-menu" >
+			<div class="header-menu-item" >
+				<?php echo CHtml::link('Salir '.' ('.Yii::app()->user->name.')',Yii::app()->createUrl('site/logout'),array('class'=>'header-menu-item')); ?>
+			</div>
+		
+		</div>
+		<div id="header-container" style='display: none;'>
 			<div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
 			<ul class="nav">
 				<?php if(Yii::app()->user->checkAccess('SiteIndex')):?>

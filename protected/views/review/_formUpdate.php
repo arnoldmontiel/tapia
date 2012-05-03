@@ -5,7 +5,6 @@ $cs->registerScriptFile(Yii::app()->request->baseUrl.'/js/highslide-exe.js',CCli
 $cs->registerCssFile(Yii::app()->request->baseUrl.'/js/highslide.css');
 
 Yii::app()->clientScript->registerScript(__CLASS__.'#review_update'.$model->Id, "
-
 function RestoreButtons()
 {
 	$('#btn-box').children().removeClass('wall-action-btn-disable');
@@ -739,8 +738,8 @@ $(':checkbox').click(function() {
 		<?php 
 			if(User::isAdministartor())
 			{
-				echo CHtml::label('Revis&oacute;n', 'Review_review');
 				echo CHtml::activeTextField($model,'review',array('class'=>'review-update-data-number'));
+				echo CHtml::encode(' - ');				
 			}
 			else
 			{
