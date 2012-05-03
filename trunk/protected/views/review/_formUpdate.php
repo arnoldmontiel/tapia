@@ -820,7 +820,7 @@ $(':checkbox').click(function() {
 		}
 		echo CHtml::openTag('div',array('class'=>'order-info'));
 			echo CHtml::label('Orden: ','info_order');
-			$orderData = array('addressed'=>'Destinatario','can_feedback'=>'Respuesta','need_confirmation'=>'Confirmacion');
+			$orderData = array('addressed'=>'Destinatario','can_feedback'=>'Respuesta','need_confirmation'=>'Confirmaci'.utf8_encode('ó').'n');
 			echo CHtml::dropDownList('info_order', ($order)?$order:'addressed', $orderData);
 		echo CHtml::closeTag('div');
 		
