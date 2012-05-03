@@ -19,6 +19,10 @@ class UserGroupNote extends CActiveRecord
 	protected function afterSave()
 	{
 		parent::afterSave();
+		
+		//just to update change_date field
+		$note = $this->note;
+		$note->save();
 	
 		if($this->note->review)
 		{
