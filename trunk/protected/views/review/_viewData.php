@@ -318,10 +318,10 @@ $editable = $isAdministrator||$isOwner;
 				echo CHtml::openTag('div',array('class'=>'view-text-date'));
 					echo $item->creation_date;
 				echo CHtml::closeTag('div');
-				if($editable)
+				if($editable||User::isOwnerOf($item))
 				{
 					echo CHtml::image('images/remove.png','',
-					array('id'=>'left_note_'.$item->Id.'_'.$data->Id, 'class'=>'wall-action-remove-small','title'=>'Remove'));						
+					array('id'=>'left_note_'.$item->Id.'_'.$data->Id, 'class'=>'wall-action-remove-small','title'=>'Eliminar'));						
 				}
 				echo CHtml::openTag('p',array('class'=>'single-formated-text'));
 					echo $item->note;
