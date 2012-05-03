@@ -414,18 +414,33 @@ class ReviewController extends Controller
 			$modelUserGroupNote = UserGroupNote::model()->findByAttributes(array('Id_user_group'=>User::getCurrentUserGroup()->Id, 'Id_note'=>$id));
 			$modelUserGroupNote->confirmed = 1;
 			$modelUserGroupNote->save();
-				
+
+			$this->markAsUnread($model);
+			
 			$this->renderPartial('_viewData',array('data'=>$model,'dataUserGroupNote'=>$modelUserGroupNote));
 				
 		}
 		else
 			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 	}
-				
+
+	private function markAsUnread($model)
+	{
+		$reviewUsers = ReviewUser::model()->findAllByAttributes(array('Id_review'=>$model->Id_review));
+		foreach($reviewUsers as $item)
+		{
+			if($item->user->Id_user_group == $model->Id_user_group_owner)
+			{
+				$item->read = 0;
+				$item->save();
+			}
+		}	
+	}
+	
 	public function actionAjaxDeclineNote()
-			{
-			if(Yii::app()->request->isPostRequest)
-			{
+	{
+		if(Yii::app()->request->isPostRequest)
+		{
 			$id=$_POST['id'];
 			// we only allow deletion via POST request
 			$model= Note::model()->findByPk($id);
@@ -433,11 +448,13 @@ class ReviewController extends Controller
 			$modelUserGroupNote = UserGroupNote::model()->findByAttributes(array('Id_user_group'=>User::getCurrentUserGroup()->Id, 'Id_note'=>$id));
 			$modelUserGroupNote->declined = 1;
 			$modelUserGroupNote->save();				
-
+			
+			$this->markAsUnread($model);
+			
 			$this->renderPartial('_viewData',array('data'=>$model,'dataUserGroupNote'=>$modelUserGroupNote));				
-			}
+		}
 		else
-		throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 	}
 	
 	public function actionAjaxAddNote()
@@ -465,6 +482,8 @@ class ReviewController extends Controller
 			$modelNoteNote->Id_child = $modelNote->Id;
 			$modelNoteNote->save();
 	
+			$this->markUnreadSubNote($id);
+			
 			$transaction->commit();
 				
 			$model = Note::model()->findByPk($id);
@@ -474,6 +493,26 @@ class ReviewController extends Controller
 		} catch (Exception $e) {
 			$transaction->rollback();
 		}
+	}
+	
+	private function markUnreadSubNote($idParentNote)
+	{
+		$model = Note::model()->findByPk($idParentNote);
+		$reviewUsers = ReviewUser::model()->findAllByAttributes(array('Id_review'=>$model->Id_review));
+		$modelUserGroupNotes = UserGroupNote::model()->findAllByAttributes(array('Id_note'=>$model->Id));
+		
+		foreach($modelUserGroupNotes as $item)
+		{
+			foreach($reviewUsers as $revItems)
+			{
+				if($revItems->user->Id_user_group == $item->Id_user_group)
+				{
+					$revItems->read = 0;
+					$revItems->save();
+				}
+			}
+		}
+		
 	}
 	
 	public function actionAjaxRemoveSingleNote($id, $idParent)
