@@ -145,6 +145,27 @@ class NoteController extends Controller
 		{
 			$model->note = $note;
 			$model->save();
+			$this->markAsUnread($model);
+		}
+	
+	}
+	
+	
+	private function markAsUnread($model)
+	{
+		$reviewUsers = ReviewUser::model()->findAllByAttributes(array('Id_review'=>$model->Id_review));
+		$modelUserGroupNotes = UserGroupNote::model()->findAllByAttributes(array('Id_note'=>$model->Id));
+	
+		foreach($modelUserGroupNotes as $item)
+		{
+			foreach($reviewUsers as $revItems)
+			{
+				if($revItems->user->Id_user_group == $item->Id_user_group && $revItems->username != User::getCurrentUser()->username )
+				{
+					$revItems->read = 0;
+					$revItems->save();
+				}
+			}
 		}
 	
 	}
