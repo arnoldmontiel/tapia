@@ -730,6 +730,14 @@ $(':checkbox').click(function() {
 			});		
 		}
 	});
+	
+	$('#info_order').change(function(){
+		if($(this).val()!= ''){
+			var url = '".ReviewController::createUrl('update',array('id'=>$model->Id))."';
+			window.location = url + '&order='+$(this).val();
+			return false;
+		}
+	});
 ");
 ?>
 <div class="review-update-data">
@@ -810,6 +818,12 @@ $(':checkbox').click(function() {
 			echo CHtml::encode($model->reviewType->description);			
 			echo CHtml::closeTag('div');				
 		}
+		echo CHtml::openTag('div',array('class'=>'order-info'));
+			echo CHtml::label('Ordenar por: ','info_order');
+			$orderData = array('addressed'=>'Para','can_feedback'=>'Con Respuesta','need_confirmation'=>'Con Confirmacion');
+			echo CHtml::dropDownList('info_order', ($order)?$order:'addressed', $orderData);
+		echo CHtml::closeTag('div');
+		
 	echo CHtml::closeTag('div');	
 ?> 
 <?php else:?>
@@ -825,6 +839,11 @@ echo CHtml::openTag('div',array('class'=>'wall-action-box-btn','id'=>'btn-box'))
 	echo CHtml::openTag('div',array('class'=>'review-type'));
 		echo CHtml::label('Tipo: ','Id_review_type');
 		echo CHtml::encode($model->reviewType->description);
+	echo CHtml::closeTag('div');
+	echo CHtml::openTag('div',array('class'=>'order-info'));
+		echo CHtml::label('Ordenar por: ','info_order');
+		$orderData = array('addressed'=>'Para','can_feedback'=>'Con Respuesta','need_confirmation'=>'Con Confirmacion');
+		echo CHtml::dropDownList('info_order', ($order)?$order:'addressed', $orderData);
 	echo CHtml::closeTag('div');
 echo CHtml::closeTag('div');
 ?>
@@ -899,7 +918,13 @@ echo CHtml::closeTag('div');
 		$modelUserGroupNote->Id_review = $model->Id;
 		$modelUserGroupNote->Id_user_group = User::getCurrentUserGroup()->Id;
 		$dataProviderUserGroupNote = $modelUserGroupNote->search();
-		$dataProviderUserGroupNote->criteria->order= 'note.change_date DESC';
+		$infOrder = 'note.change_date DESC';
+		if($order)
+			$infOrder = "t.". $order . " DESC , " . $infOrder;
+		else
+			$infOrder = "t.addressed DESC , " . $infOrder;
+		
+		$dataProviderUserGroupNote->criteria->order= $infOrder;
 		
 		$noteData = $dataProviderUserGroupNote->data;
 		echo CHtml::openTag('div',array('class'=>'review-container-single-view','style'=>'display:none;','id'=>'noteContainer_place_holder'));

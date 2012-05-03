@@ -4,4 +4,5 @@
 													'ddlPriority'=>$ddlPriority,
 													'ddlReviewType'=>$ddlReviewType, 
 													'modelMultimedia'=>$modelMultimedia,
-													'modelAlbum'=>$modelAlbum)); ?>
+													'modelAlbum'=>$modelAlbum,
+													'order'=>$order)); ?>
