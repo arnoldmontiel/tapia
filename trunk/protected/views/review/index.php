@@ -114,6 +114,17 @@ function getCheck(checkName)
 <div class="review-action-area" id="review-action-area">
 <div id="loading" class="loading-place-holder" >
 </div>
+<?php if(User::getCustomer()):?>
+<?php echo CHtml::hiddenField('Id_customer',$Id_customer,array('id'=>'Id_customer'))?>
+
+<div id="customer" class="review-action-back" >
+	<?php echo CHtml::link(User::getCustomer()->name.' '.User::getCustomer()->last_name,
+		ReviewController::createUrl('index',array('Id_customer'=>User::getCustomer()->Id)),
+		array('class'=>'index-review-single-link')
+		);
+	 ?>
+</div>
+<?php else:?>
 <div id="customer" class="wall-action-ddl" >
 	<?php	$customers = CHtml::listData($ddlCustomer, 'Id', 'CustomerDesc');?>
 	<?php echo CHtml::label('Cliente: ','Id_customer'); ?>
@@ -133,6 +144,7 @@ function getCheck(checkName)
 	}
 	?>
 </div>
+<?php endif;?>
 <?php if(User::isAdministartor()):?>
 
 <?php
