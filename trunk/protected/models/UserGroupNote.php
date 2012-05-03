@@ -30,7 +30,7 @@ class UserGroupNote extends CActiveRecord
 			$modelUserCustomer = UserCustomer::model()->findAllByAttributes(array('Id_customer'=>$this->Id_customer));
 			foreach($modelUserCustomer as $item)
 			{
-				if($this->Id_user_group == $item->user->Id_user_group )
+				if($this->Id_user_group == $item->user->Id_user_group && $item->username != User::getCurrentUser()->username )
 				{
 					$modelReviewUserDb = ReviewUser::model()->findByPk(array('Id_review'=>$modelReview->Id,'username'=>$item->username));
 					if($modelReviewUserDb)
@@ -49,7 +49,7 @@ class UserGroupNote extends CActiveRecord
 			}
 			
 			//admin
-			if($this->Id_user_group == User::getAdminUserGroupId())
+			if($this->Id_user_group == User::getAdminUserGroupId() && User::getAdminUsername() != User::getCurrentUser()->username )
 			{
 				$modelReviewUserDb = ReviewUser::model()->findByPk(array('Id_review'=>$modelReview->Id,'username'=>User::getAdminUsername()));
 				if($modelReviewUserDb)
@@ -67,7 +67,7 @@ class UserGroupNote extends CActiveRecord
 			}
 			
 			//client
-			if($this->customer->user->Id_user_group == $this->Id_user_group)
+			if($this->customer->user->Id_user_group == $this->Id_user_group && $this->customer->user->username != User::getCurrentUser()->username)
 			{
 				$modelReviewUserDb = ReviewUser::model()->findByPk(array('Id_review'=>$modelReview->Id,'username'=>$this->customer->user->username));
 				if($modelReviewUserDb)
