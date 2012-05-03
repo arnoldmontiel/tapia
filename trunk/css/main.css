@@ -1540,6 +1540,12 @@ div.review-type
 	margin-top: 10px;
 	margin-left: 50px;
 }
+div.order-info
+{
+	float:left;
+	margin-top: 10px;
+	margin-left: 50px;
+}
 div.review-single-view-actions
 {
 	width: 562px;
