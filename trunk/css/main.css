@@ -59,12 +59,28 @@ div.line {
     height: 2px;
     margin-top: 20px;
     position: relative;
-    z-index: 11;
+    z-index: 1;
 }
 #logo
 {
-	font-size: 200%;
+	font-size: 17px;
+	font-weight:bold;
+	margin-left:15px;
 	float: left;
+	color: gray;
+}
+a.logo
+{
+	text-decoration:none;
+	font-size: 17px;
+	font-weight:bold;
+	margin-left:15px;
+	float: left;
+	color: gray;
+}
+a.logo:HOVER
+{
+	color: white;
 }
 
 #mainmenu
@@ -1532,19 +1548,19 @@ div.review-priority
 {
 	float:left;
 	margin-top: 10px;
-	margin-left: 50px;
+	margin-left: 5px;
 }
 div.review-type
 {
 	float:left;
 	margin-top: 10px;
-	margin-left: 50px;
+	margin-left: 5px;
 }
 div.order-info
 {
 	float:left;
 	margin-top: 10px;
-	margin-left: 50px;
+	margin-left: 5px;
 }
 div.review-single-view-actions
 {
@@ -1678,11 +1694,12 @@ div.review-permission-row
 }
 div.header-menu
 {
-	float: right;
+	display: inline-block;
+	width: 100%;
 }
 div.header-menu-item
 {
-	float: left;
+	float: right;
 }
 a.header-menu-item
 {
