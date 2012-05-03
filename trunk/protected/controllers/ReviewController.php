@@ -429,7 +429,7 @@ class ReviewController extends Controller
 		$reviewUsers = ReviewUser::model()->findAllByAttributes(array('Id_review'=>$model->Id_review));
 		foreach($reviewUsers as $item)
 		{
-			if($item->user->Id_user_group == $model->Id_user_group_owner)
+			if($item->user->Id_user_group == $model->Id_user_group_owner && $item->username != User::getCurrentUser()->username)
 			{
 				$item->read = 0;
 				$item->save();
@@ -505,7 +505,7 @@ class ReviewController extends Controller
 		{
 			foreach($reviewUsers as $revItems)
 			{
-				if($revItems->user->Id_user_group == $item->Id_user_group)
+				if($revItems->user->Id_user_group == $item->Id_user_group && $revItems->username != User::getCurrentUser()->username )
 				{
 					$revItems->read = 0;
 					$revItems->save();
