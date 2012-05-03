@@ -112,8 +112,8 @@ class ReviewController extends Controller
 		}
 		
 		
-		$modelNote = Note::model()->findByAttributes(array('in_progress'=>1, 'Id_review'=>$id));
-		
+		$modelNote = Note::model()->findByAttributes(array('in_progress'=>1, 'Id_review'=>$id, 'username'=>User::getCurrentUser()->username ));
+				
 		$modelMultimedia = Multimedia::model()->findAllByAttributes(array('Id_review'=>$id, 'Id_user_group'=>User::getCurrentUserGroup()->Id ));
 		$modelAlbum = Album::model()->findAllByAttributes(array('Id_review'=>$id, 'Id_user_group_owner'=>User::getCurrentUserGroup()->Id ));
 		
