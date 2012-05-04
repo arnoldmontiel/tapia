@@ -810,13 +810,21 @@ $(':checkbox').click(function() {
 		else
 		{
 			echo CHtml::openTag('div',array('class'=>'review-priority'));
-			echo CHtml::label('Prioridad: ','Id_priority');
-			echo CHtml::encode($model->priority->description);
+				echo CHtml::openTag('div',array('class'=>'review-attr-level'));		
+					echo CHtml::label('Prioridad: ','Id_priority');
+				echo CHtml::closeTag('div');
+				echo CHtml::openTag('div',array('class'=>'review-attr-text'));		
+					echo CHtml::encode($model->priority->description);
+				echo CHtml::closeTag('div');
 			echo CHtml::closeTag('div');
 			echo CHtml::openTag('div',array('class'=>'review-type'));
-			echo CHtml::label('Tipo: ','Id_review_type');
-			echo CHtml::encode($model->reviewType->description);			
-			echo CHtml::closeTag('div');				
+				echo CHtml::openTag('div',array('class'=>'review-attr-level'));		
+					echo CHtml::label('Tipo: ','Id_review_type');
+				echo CHtml::closeTag('div');
+				echo CHtml::openTag('div',array('class'=>'review-attr-text'));		
+					echo CHtml::encode($model->reviewType->description);
+				echo CHtml::closeTag('div');
+			echo CHtml::closeTag('div');
 		}
 		echo CHtml::openTag('div',array('class'=>'order-info'));
 			echo CHtml::label('Orden: ','info_order');
@@ -833,15 +841,23 @@ $(':checkbox').click(function() {
 echo CHtml::openTag('div',array('class'=>'wall-action-box-btn','id'=>'btn-box'));
 
 	echo CHtml::openTag('div',array('class'=>'review-priority'));
-		echo CHtml::label('Prioridad: ','Id_priority');
-		echo CHtml::encode($model->priority->description);
+		echo CHtml::openTag('div',array('class'=>'review-attr-level'));		
+			echo CHtml::label('Prioridad: ','Id_priority');
+		echo CHtml::closeTag('div');
+		echo CHtml::openTag('div',array('class'=>'review-attr-text'));		
+			echo CHtml::encode($model->priority->description);
+		echo CHtml::closeTag('div');
 	echo CHtml::closeTag('div');
 	echo CHtml::openTag('div',array('class'=>'review-type'));
-		echo CHtml::label('Tipo: ','Id_review_type');
-		echo CHtml::encode($model->reviewType->description);
+		echo CHtml::openTag('div',array('class'=>'review-attr-level'));		
+			echo CHtml::label('Tipo: ','Id_review_type');
+		echo CHtml::closeTag('div');
+		echo CHtml::openTag('div',array('class'=>'review-attr-text'));		
+			echo CHtml::encode($model->reviewType->description);
+		echo CHtml::closeTag('div');
 	echo CHtml::closeTag('div');
 	echo CHtml::openTag('div',array('class'=>'order-info'));
-		echo CHtml::label('Ordenar por: ','info_order');
+		echo CHtml::label('Orden: ','info_order');
 		$orderData = array('addressed'=>'Para','can_feedback'=>'Con Respuesta','need_confirmation'=>'Con Confirmacion');
 		echo CHtml::dropDownList('info_order', ($order)?$order:'addressed', $orderData);
 	echo CHtml::closeTag('div');

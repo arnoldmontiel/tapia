@@ -1377,6 +1377,21 @@ div.index-review-single-tag
 	border: 1px solid white;
 	background-color: #9AD7F5;
 }
+div.review-tag-containier
+{
+	display: inline-block;
+	width: 50%;	
+}
+div.review-single-tag
+{
+	display: inline-block;
+	padding: 0px 2px 0px 2px;
+	margin: 4px 4px 4px 4px;
+	float:left;
+    font-size: 12px;
+	border: 0px solid white;
+	background-color: #9AD7F5;
+}
 
 div.index-review-priority-box
 {
@@ -1544,6 +1559,16 @@ input.album-action-remove-update-file
 {
 	right: 0px;	
 }
+div.review-attr-level
+{
+	float: left;
+}
+div.review-attr-text
+{
+	font-weight: bold;
+	float: left;
+	margin-left: 5px; 
+}
 div.review-priority
 {
 	float:left;
@@ -1558,7 +1583,7 @@ div.review-type
 }
 div.order-info
 {
-	float:left;
+	float:right;
 	margin-top: 10px;
 	margin-left: 5px;
 }
@@ -1711,4 +1736,14 @@ a.header-menu-item
 a.header-menu-item:HOVER
 {
 	color: white;
+}
+div.review-note-users-groups
+{
+	float: left;
+}
+div.review-note-users-names
+{
+	font-weight: bold;
+	float: left;
+	margin-left: 2px; 
 }

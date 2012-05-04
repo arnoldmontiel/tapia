@@ -38,24 +38,33 @@ $editable = $isAdministrator||$isOwner;
 		<div class="review-single-view-actions">
 			<div class="review-single-view-actions-need-conf">
 				<?php
-				echo CHtml::decode('Para: ');
+				echo CHtml::openTag('div',array('class'=>'review-note-users-groups'));								
+					echo CHtml::decode('Para: ');
+				echo CHtml::closeTag('div');								
 				$first = true;
 				foreach ($data->userGroupNotes as $item){
 					if($item->addressed){
 						if(!$first)
 						{
-							echo CHtml::encode(',');								
+							echo CHtml::openTag('div',array('class'=>'review-note-users-groups'));								
+								echo CHtml::encode(',');								
+							echo CHtml::closeTag('div');								
 						}
 						$first = false;							
 						$group = User::getCurrentUserGroup();
 						if($item->Id_user_group==$group->Id)
 						{
 							$user=User::getCurrentUser();
-							echo CHtml::encode($user->name.' '.$user->last_name);								
+							
+							echo CHtml::openTag('div',array('class'=>'review-note-users-names'));								
+								echo CHtml::encode($user->name.' '.$user->last_name);								
+							echo CHtml::closeTag('div');								
 						}
 						else 
 						{
-							echo CHtml::encode(' '.$item->userGroup->description);								
+							echo CHtml::openTag('div',array('class'=>'review-note-users-groups'));								
+								echo CHtml::encode(' '.$item->userGroup->description);								
+							echo CHtml::closeTag('div');								
 						}
 					}
 				}
