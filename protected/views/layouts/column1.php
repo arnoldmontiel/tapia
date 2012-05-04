@@ -1,22 +1,35 @@
 <?php $this->beginContent('//layouts/main'); ?>
 
 <div class="span-5 first">
-	<?php if($this->modelTag):?>
+	<?php if($this->modelTag):?>			
 		<div class="search-box">
 			<div class="search-box-title">
 			Etiquetas
 			</div>
 			<div class="search-box-list">
 			<?php
-	 			$modelTags = Tag::model()->findAll();
-	 			$checkTags = CHtml::listData($modelTags, 'Id', 'description');		
-	 			
-	 			$checked = array();
-	 			foreach($this->modelTag->tags as $tag)
-	 			{
-	 				$checked[] = $tag->Id;
-	 			}
-	 			echo CHtml::checkBoxList('chklist-tag-review', $checked, $checkTags);
+				if(User::isAdministartor())
+				{
+					$modelTags = Tag::model()->findAll();
+					$checkTags = CHtml::listData($modelTags, 'Id', 'description');
+						
+					$checked = array();
+					foreach($this->modelTag->tags as $tag)
+					{
+						$checked[] = $tag->Id;
+					}
+					echo CHtml::checkBoxList('chklist-tag-review', $checked, $checkTags);						
+				}else{					
+					
+					echo CHtml::openTag('div',array('class'=>'review-tag-containier')); 
+					foreach($this->modelTag->tags as $tag)
+					{
+						echo CHtml::openTag('div',array('class'=>'review-single-tag')); 
+						echo CHtml::encode($tag->description);
+						echo CHtml::closeTag('div');
+					}
+					echo CHtml::closeTag('div');
+				}
 			?>
 			</div>
 		</div>
