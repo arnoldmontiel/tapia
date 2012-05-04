@@ -798,7 +798,7 @@ $(':checkbox').click(function() {
 		{
 			echo CHtml::openTag('div',array('class'=>'review-priority'));
 				$prioritys = CHtml::listData($ddlPriority, 'Id', 'description');
-				echo CHtml::label('Prio: ','Id_priority'); 
+				echo CHtml::label('Prior: ','Id_priority'); 
 				echo CHtml::activeDropDownList($model, 'Id_priority', $prioritys);
 			echo CHtml::closeTag('div');
 			echo CHtml::openTag('div',array('class'=>'review-type'));
