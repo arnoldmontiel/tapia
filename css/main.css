@@ -1260,9 +1260,14 @@ textarea.review-update-album-descr
 	width: 218px;
 	margin-top: 8px;
 }
+textarea.review-update-album-descr:hover
+{
+	background-color: white;	
+}
 textarea.review-update-album-descr:focus
 {
 	background-color: white;	
+	border: 1px solid blue;
 }
 
 div.review-update-data-info
@@ -1530,7 +1535,7 @@ div.review-update-files-name
 {
 	width: 300px;
 	float:left;
-	margin-top: 0px;
+	margin-top: 5px;
 }
 div.review-update-files-descr
 {
@@ -1541,12 +1546,20 @@ textarea.review-update-files-descr
 {
 	width: 100%;
 	resize:none;
-	border: 1px solid #AFBAD7;
+	border: 1px solid #F4F6FB;
 	background-color: #F4F6FB;
+	padding-left: 10px;
+	padding-top: 5px;
+}
+textarea.review-update-files-descr:HOVER
+{
+	background-color: white;
+	border: 1px solid #BBBBBB;
 }
 textarea.review-update-files-descr:FOCUS
 {
 	background-color: white;
+	border: 1px solid blue;
 }
 
 div.review-update-single-files
