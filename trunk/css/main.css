@@ -1720,12 +1720,19 @@ div.review-permission-row
 div.header-menu
 {
 	display: inline-block;
-	width: 100%;
+	width: 1340px;
+	background-color: #AFBAD7;
+	position: fixed;
+	-moz-box-shadow:    0px 0px 3px 3px gray;
+	-webkit-box-shadow: 0px 0px 3px 3px gray;
+  	box-shadow:         0px 0px 3px 3px gray;
+
 }
 div.header-menu-item
 {
 	float: left;
 	margin-left: 800px;
+	margin-top: 2px;
 }
 a.header-menu-item
 {
