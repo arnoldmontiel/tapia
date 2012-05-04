@@ -65,7 +65,7 @@ div.logo
 {
 	font-size: 17px;
 	font-weight:bold;
-	margin-left:210px;
+	margin-left:60px;
 	float: left;
 	color: gray;
 }
@@ -1744,7 +1744,7 @@ div.header-menu
 div.header-menu-item
 {
 	float: left;
-	margin-left: 800px;
+	margin-left: 920px;
 	margin-top: 2px;
 }
 a.header-menu-item

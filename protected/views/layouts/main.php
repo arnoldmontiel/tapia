@@ -66,7 +66,7 @@
 	<div id="footer">
 		Copyright &copy; <?php echo date('Y'); ?> by SmartLiving.<br/>
 		All Rights Reserved.<br/>
-		Powered by WestIdeas
+		Powered by Oneken
 	</div><!-- footer -->
 
 </div><!-- page -->
