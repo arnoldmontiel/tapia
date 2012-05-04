@@ -724,6 +724,18 @@ class ReviewController extends Controller
 			$model->can_feedback = 1;
 			$model->save();
 			
+			//review-user First insert
+			$modelNote = Note::model()->findByPk($idNote);
+			$modelReviewUserDb = ReviewUser::model()->findByPk(array('Id_review'=>$modelNote->Id_review,'username'=>User::getCurrentUser()->username));
+			if(!$modelReviewUserDb)
+			{
+				$modelReviewUser = new ReviewUser;
+				$modelReviewUser->Id_review = $modelNote->Id_review;
+				$modelReviewUser->username = User::getCurrentUser()->username;
+				$modelReviewUser->save();
+			}
+			
+			
 			if($userGroup)
 			{
 				if( in_array(User::getAdminUserGroupId(),$userGroup))
