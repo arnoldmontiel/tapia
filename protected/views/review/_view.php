@@ -89,22 +89,25 @@
 		echo CHtml::closeTag('div');
 		?>
 	</div>
-	<?php 		
-		echo CHtml::openTag('div',array('class'=>'index-users'));
-		$first = true;
-		foreach ($data->reviewUsers as $item)
-		{			
-			echo CHtml::openTag('div',array('class'=>$item->read?'index-text-user-read':'index-text-user'));
-			$name = '';
-			if(!$first)
+	<?php
+		if(User::isAdministartor())
+		{
+			echo CHtml::openTag('div',array('class'=>'index-users'));
+			$first = true;
+			foreach ($data->reviewUsers as $item)
+			{
+				echo CHtml::openTag('div',array('class'=>$item->read?'index-text-user-read':'index-text-user'));
+				$name = '';
+				if(!$first)
 				$name.=', ';
-			if($first)
+				if($first)
 				$first = false;
-			$name.=$item->user->name.' '.$item->user->last_name;
-			echo $name;
-			echo CHtml::closeTag('div');
-		}				
-		echo CHtml::closeTag('div');
+				$name.=$item->user->name.' '.$item->user->last_name;
+				echo $name;
+				echo CHtml::closeTag('div');
+			}
+			echo CHtml::closeTag('div');				
+		} 		
 		?>
 </div>
 </a>
