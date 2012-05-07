@@ -94,7 +94,7 @@
 		$first = true;
 		foreach ($data->reviewUsers as $item)
 		{			
-			echo CHtml::openTag('div',array('class'=>$item->read?'index-text-user-readed':'index-text-user'));
+			echo CHtml::openTag('div',array('class'=>$item->read?'index-text-user-read':'index-text-user'));
 			$name = '';
 			if(!$first)
 				$name.=', ';
