@@ -96,6 +96,8 @@
 			$first = true;
 			foreach ($data->reviewUsers as $item)
 			{
+				if($item->username == User::getCurrentUser()->username)
+					continue;
 				echo CHtml::openTag('div',array('class'=>$item->read?'index-text-user-read':'index-text-user'));
 				$name = '';
 				if(!$first)
