@@ -18,29 +18,27 @@ USE `tapia`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `assignments`
+-- Table structure for table `review_type`
 --
 
-DROP TABLE IF EXISTS `assignments`;
+DROP TABLE IF EXISTS `review_type`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `assignments` (
-  `itemname` varchar(64) NOT NULL,
-  `userid` varchar(64) NOT NULL,
-  `bizrule` text,
-  `data` text,
-  PRIMARY KEY (`itemname`,`userid`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE `review_type` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `description` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `assignments`
+-- Dumping data for table `review_type`
 --
 
-LOCK TABLES `assignments` WRITE;
-/*!40000 ALTER TABLE `assignments` DISABLE KEYS */;
-INSERT INTO `assignments` VALUES ('Administrator','admin','','s:0:\"\";'),('Authority','admin','','s:0:\"\";'),('Customer','arnold','','s:0:\"\";'),('Customer','arqui','','s:0:\"\";'),('Customer','pablito','','s:0:\"\";'),('Customer','pmainieri','','s:0:\"\";'),('Customer','ssantoni','','s:0:\"\";');
-/*!40000 ALTER TABLE `assignments` ENABLE KEYS */;
+LOCK TABLES `review_type` WRITE;
+/*!40000 ALTER TABLE `review_type` DISABLE KEYS */;
+INSERT INTO `review_type` VALUES (1,'Revisión'),(2,'Planifición');
+/*!40000 ALTER TABLE `review_type` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -52,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-05-07 13:09:44
+-- Dump completed on 2012-05-07 13:09:46

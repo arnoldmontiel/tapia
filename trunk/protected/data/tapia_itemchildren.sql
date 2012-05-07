@@ -38,7 +38,7 @@ CREATE TABLE `itemchildren` (
 
 LOCK TABLES `itemchildren` WRITE;
 /*!40000 ALTER TABLE `itemchildren` DISABLE KEYS */;
-INSERT INTO `itemchildren` VALUES ('AlbumManage','AlbumAdmin'),('AlbumManage','AlbumCreate'),('AlbumManage','AlbumDelete'),('AlbumManage','AlbumIndex'),('Administrator','AlbumManage'),('AlbumManage','AlbumUpdate'),('AlbumManage','AlbumView'),('Administrator','CustomerManage'),('SiteManage','SiteIndex'),('Administrator','SiteManage'),('Customer','SiteManage'),('Administrator','UserManage'),('WallManage','WallIndex'),('Administrator','WallManage');
+INSERT INTO `itemchildren` VALUES ('AlbumManage','AlbumAdmin'),('AlbumManage','AlbumCreate'),('AlbumManage','AlbumDelete'),('AlbumManage','AlbumIndex'),('Administrator','AlbumManage'),('AlbumManage','AlbumUpdate'),('AlbumManage','AlbumView'),('CustomerManage','CustomerAdmin'),('CustomerManage','CustomerAssignment'),('CustomerManage','CustomerCreate'),('CustomerManage','CustomerDelete'),('CustomerManage','CustomerIndex'),('Administrator','CustomerManage'),('CustomerManage','CustomerUpdate'),('CustomerManage','CustomerView'),('ReviewManage','ReviewAdmin'),('ReviewManage','ReviewCreate'),('ReviewManage','ReviewDelete'),('ReviewManage','ReviewIndex'),('Administrator','ReviewManage'),('Customer','ReviewManage'),('ReviewManage','ReviewUpdate'),('ReviewManage','ReviewUpdateAlbum'),('ReviewManage','ReviewUpdateDocuments'),('ReviewManage','ReviewView'),('SiteManage','SiteIndex'),('Administrator','SiteManage'),('Customer','SiteManage'),('TagManage','TagAdmin'),('TagManage','TagCreate'),('TagManage','TagDelete'),('TagManage','TagIndex'),('Administrator','TagManage'),('TagManage','TagUpdate'),('TagManage','TagView'),('UserManage','UserAdmin'),('UserManage','UserCreate'),('UserManage','UserDelete'),('UserManage','UserIndex'),('Administrator','UserManage'),('UserManage','UserUpdate'),('UserManage','UserView'),('WallManage','WallIndex'),('Administrator','WallManage');
 /*!40000 ALTER TABLE `itemchildren` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-03-30 14:05:13
+-- Dump completed on 2012-05-07 13:09:43
