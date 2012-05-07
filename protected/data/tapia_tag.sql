@@ -18,29 +18,27 @@ USE `tapia`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `assignments`
+-- Table structure for table `tag`
 --
 
-DROP TABLE IF EXISTS `assignments`;
+DROP TABLE IF EXISTS `tag`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `assignments` (
-  `itemname` varchar(64) NOT NULL,
-  `userid` varchar(64) NOT NULL,
-  `bizrule` text,
-  `data` text,
-  PRIMARY KEY (`itemname`,`userid`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE `tag` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `description` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `assignments`
+-- Dumping data for table `tag`
 --
 
-LOCK TABLES `assignments` WRITE;
-/*!40000 ALTER TABLE `assignments` DISABLE KEYS */;
-INSERT INTO `assignments` VALUES ('Administrator','admin','','s:0:\"\";'),('Authority','admin','','s:0:\"\";'),('Customer','arnold','','s:0:\"\";'),('Customer','arqui','','s:0:\"\";'),('Customer','pablito','','s:0:\"\";'),('Customer','pmainieri','','s:0:\"\";'),('Customer','ssantoni','','s:0:\"\";');
-/*!40000 ALTER TABLE `assignments` ENABLE KEYS */;
+LOCK TABLES `tag` WRITE;
+/*!40000 ALTER TABLE `tag` DISABLE KEYS */;
+INSERT INTO `tag` VALUES (1,'Problemas'),(2,'Terminado'),(3,'Solucionado'),(4,'Perdido'),(5,'Encontrado');
+/*!40000 ALTER TABLE `tag` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

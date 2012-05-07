@@ -149,7 +149,7 @@ $editable = $isAdministrator||$isOwner;
 					
 					
 					
-					$canEditNeedConf = !($modelUserGroupNoteInstance->confirmed || $modelUserGroupNoteInstance->declined);
+					$canEditNeedConf = !$modelUserGroupNoteInstance || !($modelUserGroupNoteInstance->confirmed || $modelUserGroupNoteInstance->declined);
 					
 					echo CHtml::openTag('div', array('id'=>'userGroup_'.$item->Id));
 					
