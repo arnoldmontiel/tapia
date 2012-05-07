@@ -1,6 +1,7 @@
 <a href="<?php echo ReviewController::createUrl('update',array('id'=>$data->Id))?>" class="index-review-single-link">
 <div class="index-review-single" id='review_<?php echo $data->Id; ?>'>
-	
+	<div class="index-review-single-container">
+
 	<?php
 		$classStyle = 'index-review-summary-unread';
 		$modelReviewUser = ReviewUser::model()->findByPk(array('Id_review'=>$data->Id,'username'=>User::getCurrentUser()->username));
@@ -85,8 +86,25 @@
 			echo CHtml::image('images/autocad_resource.png','',array('style'=>'width:25px;'));
 			echo CHtml::closeTag('div');
 		}
-		
 		echo CHtml::closeTag('div');
-	?>
+		?>
+	</div>
+	<?php 		
+		echo CHtml::openTag('div',array('class'=>'index-users'));
+		$first = true;
+		foreach ($data->reviewUsers as $item)
+		{			
+			echo CHtml::openTag('div',array('class'=>$item->read?'index-text-user-readed':'index-text-user'));
+			$name = '';
+			if(!$first)
+				$name.=', ';
+			if($first)
+				$first = false;
+			$name.=$item->user->name.' '.$item->user->last_name;
+			echo $name;
+			echo CHtml::closeTag('div');
+		}				
+		echo CHtml::closeTag('div');
+		?>
 </div>
 </a>
