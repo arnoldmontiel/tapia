@@ -1770,6 +1770,7 @@ div.review-note-users-names
 }
 div.index-users
 {
+	padding-left:26px;
 	display: inline-block;
 	float: left;
 }
