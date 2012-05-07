@@ -1768,3 +1768,28 @@ div.review-note-users-names
 	float: left;
 	margin-left: 2px; 
 }
+div.index-users
+{
+	display: inline-block;
+	float: left;
+}
+div.index-text-user
+{
+	font-size: 11px;
+	line-height: 18px;
+	font-weight: bold;
+	float: left;
+}
+div.index-text-user-readed
+{
+	font-size: 11px;
+	line-height: 18px;
+	float: left;
+}
+
+div.index-review-single-container
+{
+	float: left;
+	position: relative;
+	width: 100%;
+}

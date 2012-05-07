@@ -82,6 +82,7 @@ class Review extends CActiveRecord
 			'customer' => array(self::BELONGS_TO, 'Customer', 'Id_customer'),
 			'tags' => array(self::MANY_MANY, 'Tag', 'tag_review(Id_review, Id_tag)'),
 			'walls' => array(self::HAS_MANY, 'Wall', 'Id_review'),
+			'reviewUsers' => array(self::HAS_MANY, 'ReviewUser', 'Id_review'),
 		);
 	}
 
