@@ -130,6 +130,22 @@ class Review extends CActiveRecord
 		));
 	}
 	
+	public function hasResource($userGroupId, $multimediaType)
+	{
+		$sql = 'select * from multimedia_note mn inner join multimedia m on (mn.Id_multimedia = m.Id)';
+		$sql .= ' where mn.Id_note IN (';
+		$sql .= ' select ugn.Id_note from user_group_note ugn';
+		$sql .= ' where ugn.Id_note IN (select n.Id from note n where n.Id_review = '.$this->Id.')';
+		$sql .= ' and ugn.Id_user_group = '.$userGroupId.')';
+		$sql .= ' and m.Id_multimedia_type = '.$multimediaType;
+		
+		$connection = Yii::app()->db;
+		$command = $connection->createCommand($sql);
+		$results = $command->queryAll();
+		
+		return sizeof($results) >0;
+	}
+	
 	public function searchSummary($arrFilters)
 	{
 		// Warning: Please modify the following code to remove attributes that

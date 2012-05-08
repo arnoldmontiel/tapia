@@ -40,24 +40,18 @@
 		echo CHtml::closeTag('div');
 	?>
 		<?php 
-		$multimedia = new Multimedia;
-		$multimedia->Id_review = $data->Id;
-		$multimedia->Id_multimedia_type = 1;
-		$dataProvider = $multimedia->search();
-		$multimedias = $dataProvider->data;
+		
+		$modelReview = Review::model()->findByPk($data->Id);
 		
 		echo CHtml::openTag('div',array('class'=>'index-review-resource-box'));
-		if(sizeof($multimedias))
+		if($modelReview->hasResource( User::getCurrentUserGroup()->Id, 1))
 		{
 			echo CHtml::openTag('div',array('class'=>'index-review-single-resource'));
 			echo CHtml::image('images/image_resource.png','',array('style'=>'width:25px;'));
 			echo CHtml::closeTag('div');
 		}
 		
-		$multimedia->Id_review = $data->Id;
-		$multimedia->Id_multimedia_type = 2;
-		$dataProvider = $multimedia->search();
-		$multimedias = $dataProvider->data;
+		$multimedias = $dataProvider->data;if($modelReview->hasResource( User::getCurrentUserGroup()->Id, 2))
 		if(sizeof($multimedias))
 		{
 			echo CHtml::openTag('div',array('class'=>'index-review-single-resource'));
@@ -65,22 +59,14 @@
 			echo CHtml::closeTag('div');
 		}
 		
-		$multimedia->Id_review = $data->Id;
-		$multimedia->Id_multimedia_type = 3;
-		$dataProvider = $multimedia->search();
-		$multimedias = $dataProvider->data;
-		if(sizeof($multimedias))
+		if($modelReview->hasResource( User::getCurrentUserGroup()->Id, 3))
 		{
 			echo CHtml::openTag('div',array('class'=>'index-review-single-resource'));
 			echo CHtml::image('images/pdf_resource.png','',array('style'=>'width:25px;'));
 			echo CHtml::closeTag('div');
 		}
 		
-		$multimedia->Id_review = $data->Id;
-		$multimedia->Id_multimedia_type = 4;
-		$dataProvider = $multimedia->search();
-		$multimedias = $dataProvider->data;
-		if(sizeof($multimedias))
+		if($modelReview->hasResource( User::getCurrentUserGroup()->Id, 4))
 		{
 			echo CHtml::openTag('div',array('class'=>'index-review-single-resource'));
 			echo CHtml::image('images/autocad_resource.png','',array('style'=>'width:25px;'));
