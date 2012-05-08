@@ -203,6 +203,7 @@ class NoteController extends Controller
 					$model->Id_multimedia = $item;
 					$model->save();
 				}
+				$this->markAsUnread($modelNote);
 			}
 			$transaction->commit();	
 		} catch (Exception $e) {
@@ -210,6 +211,7 @@ class NoteController extends Controller
 		}
 	
 	}
+	
 	
 	public function actionAjaxAttachDoc()
 	{
@@ -234,6 +236,7 @@ class NoteController extends Controller
 					$model->Id_multimedia = $item;
 					$model->save();
 				}
+				$this->markAsUnread($modelNote);
 			}
 			$transaction->commit();	
 		} catch (Exception $e) {
