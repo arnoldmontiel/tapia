@@ -251,7 +251,7 @@ function bindEvents(item)
 		//alert('Grabando '+type+' '+value+' '+idUserGroup);
 		$.ajax({
 				type : 'POST',
-				data : {type:type,value:value,idUserGroup:idUserGroup,idNote:idNote,idCustomer: ".$model->Id_customer.",},
+				data : {type:type,value:value,idUserGroup:idUserGroup,idNote:idNote,idCustomer: ".$model->Id_customer."},
 				url : '" . ReviewController::createUrl('AjaxSavePermissions') ."',
 				beforeSend : function(){
 								},
@@ -438,7 +438,7 @@ function bindEvents(item)
 				userGroup: dataUserGroup['value[]'],
 				canFeedback: dataFeedback['value[]'],
 				addressed: dataAddressed['value[]'],
-				needConf: dataNeedConf['value[]'],
+				needConf: dataNeedConf['value[]']
 			}
 			).success(
 			function(data){
