@@ -158,8 +158,14 @@ class Review extends CActiveRecord
 		
 		if($arrFilters['typeFilter'])
 		{
-			$criteria->join =  	"LEFT OUTER JOIN multimedia m ON m.Id_review=t.Id";
-			$criteria->addCondition('m.Id IN(select mj.Id from multimedia mj where mj.Id_multimedia_type IN ('. $arrFilters['typeFilter'].') group by Id_review)');	
+
+			$criteria->join =  	"LEFT OUTER JOIN multimedia m ON (m.Id_review=t.Id)
+								inner join multimedia_note mn ON (mn.Id_multimedia = m.Id)";
+			$criteria->addCondition("mn.Id_note IN(
+									select ugn.Id_note from user_group_note ugn
+									where ugn.Id_note IN (select n.Id from note n where n.Id_review = t.Id
+									and ugn.Id_user_group = ". User::getCurrentUserGroup()->Id .")
+									and m.Id_multimedia_type IN ( ".$arrFilters['typeFilter'] . "))");
 		}
 		
 		if($arrFilters['reviewTypeFilter'])
