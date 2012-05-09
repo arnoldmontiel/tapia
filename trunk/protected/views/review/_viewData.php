@@ -1,6 +1,5 @@
 <?php 
 Yii::app()->clientScript->registerScript(__CLASS__.'#review-view-data'.$data->Id, "
-
 ");
 $canDoFeeback = $dataUserGroupNote->can_feedback;
 $needConfirmation = $dataUserGroupNote->need_confirmation;

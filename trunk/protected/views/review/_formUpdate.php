@@ -58,6 +58,7 @@ function bindEvents(item)
 	{
 		$(item).find('#create_note_'+idMainNote).removeClass('div-hidden');
 		$(item).find('#create_note_cancel_'+idMainNote).removeClass('div-hidden');
+		$(this).addClass('review-action-add-note-focus');
 	}
 	);
 
@@ -83,6 +84,7 @@ function bindEvents(item)
 		$(item).find('#create_note_'+idMainNote).addClass('div-hidden');
 		$(this).addClass('div-hidden');
 		$(note).val('');
+		$(item).find('#note_'+idMainNote).removeClass('review-action-add-note-focus');
 	})
 
 	$(item).find('#create_note_'+idMainNote).click(function(){
