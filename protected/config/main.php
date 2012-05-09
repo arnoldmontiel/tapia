@@ -22,6 +22,7 @@ return array(
 		'application.models.*',
 		'application.components.*',
 		'application.modules.srbac.controllers.SBaseController',
+		'application.extensions.yii-mail.YiiMailMessage',
 	),
 
 	'modules'=>array(
@@ -61,6 +62,13 @@ return array(
 
 	// application components
 	'components'=>array(
+		'mail' => array(
+		 			'class' => 'ext.yii-mail.YiiMail',
+		 			'transportType' => 'php',
+		 			'viewPath' => 'application.views.mail',
+		 			'logging' => true,
+		 			'dryRun' => false
+		),
 		'user'=>array(
 			// enable cookie-based authentication
 			'allowAutoLogin'=>true,

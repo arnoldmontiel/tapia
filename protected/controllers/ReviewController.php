@@ -685,8 +685,22 @@ class ReviewController extends Controller
 				$response = 'ok';
 				$modelUserGroupNote->save();
 			}
+			//Envio de Mail
+			
+// 			$userGroup = UserGroup::model()->findByPk($idUserGroup);
+// 			$users = $userGroup->users;
+// 			foreach($users as $user)
+// 			{
+// 				$message = new YiiMailMessage;
+// 				$message->view = '_noteMail';
+// 				$message->setBody(array('model'=>$user), 'text/html');
+// 				$message->addTo('arnaldomontiel@gmail.com');
+// 				$message->from = 'arnaldomontiel@gmail.com';
+// 				Yii::app()->mail->send($message);				
+// 			}
 		}
-		echo $response;		
+		echo $response;
+
 	}
 	
 	public function actionAjaxPublicNote()
@@ -790,8 +804,6 @@ class ReviewController extends Controller
 		} catch (Exception $e) {
 			$transaction->rollback();
 		}
-		
-		
 	}
 	
 	public function actionAjaxSaveNote()
