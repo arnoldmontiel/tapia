@@ -914,6 +914,12 @@ textarea.review-action-add-note:focus
 {
 	background-color: white;	
 }
+textarea.review-action-add-note-focus
+{
+	background-color: white;	
+}
+
+
 div.review-public-permission-area
 {
 	position: relative;
