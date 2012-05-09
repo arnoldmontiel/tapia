@@ -67,7 +67,11 @@ hs.graphicsDir = '<?php echo '../..'. $this->graphics ?>/'
 									'href'=>$images[1]['image'],
 									'class'=>'highslide',
 									'style'=>'height:200px;-webkit-transform: rotate(-5deg);
-									-moz-transform: rotate(-5deg); position:absolute;float:left;left:0px;',
+									-moz-transform: rotate(-5deg); position:absolute;float:left;left:0px;
+									filter: progid:DXImageTransform.Microsoft.Matrix(sizingMethod="auto expand",
+        							M11=0.9961947202682495, M12=0.08715574443340301,
+        							M21=-0.08715574443340301, M22=0.9961947202682495);
+									',
 									'onclick'=>'return hs.expand(this, { thumbnailId: "thumb'.$Id.'", slideshowGroup: '.$Id.' })',
 				)
 				);
@@ -85,7 +89,10 @@ hs.graphicsDir = '<?php echo '../..'. $this->graphics ?>/'
 									'href'=>$images[2]['image'],
 									'class'=>'highslide',
 									'style'=>'height:200px;-webkit-transform: rotate(4deg);
-									-moz-transform: rotate(4deg); position:absolute;float:left;;left:0px;',
+									-moz-transform: rotate(4deg); position:absolute;float:left;left:0px;
+									filter: progid:DXImageTransform.Microsoft.Matrix(sizingMethod="auto expand",
+        							M11=0.9975640773773193, M12=-0.06975647062063217,
+        							M21=0.06975647062063217, M22=0.9975640773773193);',
 									'onclick'=>'return hs.expand(this, { thumbnailId: "thumb'.$Id.'", slideshowGroup: '.$Id.' })',
 				)
 				);
