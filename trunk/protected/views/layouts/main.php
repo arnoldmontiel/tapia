@@ -34,6 +34,12 @@
 			<div class="logo">
 				<?php echo CHtml::link('Clientes',Yii::app()->createUrl('customer/index'),array('class'=>(Yii::app()->user->checkAccess('CustomerIndex'))?'logo':'logoHidden')); ?>
 			</div>
+			<div class="logo">
+				<?php echo CHtml::link('Etiquetas',Yii::app()->createUrl('tag/index'),array('class'=>(Yii::app()->user->checkAccess('CustomerIndex'))?'logo':'logoHidden')); ?>
+			</div>
+			<div class="logo">
+				<?php echo CHtml::link('Agrupadores',Yii::app()->createUrl('reviewType/index'),array('class'=>(Yii::app()->user->checkAccess('CustomerIndex'))?'logo':'logoHidden')); ?>
+			</div>
 			<div class="header-menu-item" >
 				<?php echo CHtml::link('Salir '.' ('.Yii::app()->user->name.')',Yii::app()->createUrl('site/logout'),array('class'=>'header-menu-item')); ?>
 			</div>
