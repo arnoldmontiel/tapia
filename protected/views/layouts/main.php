@@ -31,6 +31,9 @@
 				<?php $params = User::getCustomer()?array('Id_customer'=>User::getCustomer()->Id):array(); ?>
 				<?php echo CHtml::link(CHtml::encode(Yii::app()->name),Yii::app()->createUrl('review/index',$params),array('class'=>'logo')); ?>
 			</div>
+			<div class="logo">
+				<?php echo CHtml::link('Clientes',Yii::app()->createUrl('customer/index'),array('class'=>(Yii::app()->user->checkAccess('CustomerIndex'))?'logo':'logoHidden')); ?>
+			</div>
 			<div class="header-menu-item" >
 				<?php echo CHtml::link('Salir '.' ('.Yii::app()->user->name.')',Yii::app()->createUrl('site/logout'),array('class'=>'header-menu-item')); ?>
 			</div>
