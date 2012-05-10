@@ -5,21 +5,29 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Customer', 'url'=>array('index')),
-	array('label'=>'Create Customer', 'url'=>array('create')),
-	array('label'=>'Update Customer', 'url'=>array('update', 'id'=>$model->Id)),
-	array('label'=>'Manage Customer', 'url'=>array('admin')),
+	array('label'=>'Listar Clientes', 'url'=>array('index')),
+	array('label'=>'Crear Cliente', 'url'=>array('create')),
+	array('label'=>'Actualizar Cliente', 'url'=>array('update', 'id'=>$model->Id)),
+	array('label'=>'Administrar Clientes', 'url'=>array('admin')),
 );
 ?>
 
-<h1>View Customer #<?php echo $model->Id; ?></h1>
+<h1>Vista Cliente</h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-		'Id',
 		'name',
 		'last_name',
 		'username',
+		array('label'=>$model->getAttributeLabel('email'),
+				'type'=>'raw',
+				'value'=>$model->user->email
+		),
+		array('label'=>$model->getAttributeLabel('address'),
+				'type'=>'raw',
+				'value'=>$model->user->address
+		),
+		
 	),
 )); ?>

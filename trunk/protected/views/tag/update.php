@@ -6,13 +6,13 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Tag', 'url'=>array('index')),
-	array('label'=>'Create Tag', 'url'=>array('create')),
-	array('label'=>'View Tag', 'url'=>array('view', 'id'=>$model->Id)),
-	array('label'=>'Manage Tag', 'url'=>array('admin')),
+	array('label'=>'Listar Etiquetas', 'url'=>array('index')),
+	array('label'=>'Crear Etiqueta', 'url'=>array('create')),
+	array('label'=>'Ver Etiqueta', 'url'=>array('view', 'id'=>$model->Id)),
+	array('label'=>'Administrar Etiquetas', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Update Tag <?php echo $model->Id; ?></h1>
+<h1>Actualizar Etiqueta</h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

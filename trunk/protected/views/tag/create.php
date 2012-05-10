@@ -5,11 +5,11 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Tag', 'url'=>array('index')),
-	array('label'=>'Manage Tag', 'url'=>array('admin')),
+	array('label'=>'Listar Etiquetas', 'url'=>array('index')),
+	array('label'=>'Administrar Etiquetas', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Create Tag</h1>
+<h1>Crear Etiquetas</h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
