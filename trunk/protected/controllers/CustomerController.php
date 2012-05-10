@@ -49,23 +49,25 @@ class CustomerController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new Customer;
-
+		$model=new User;
+		
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
-
-		$ddlUsername = User::model()->findAll();
 		
-		if(isset($_POST['Customer']))
+		$model->Id_user_group = 3; // cliente
+		
+		if(isset($_POST['User']))
 		{
-			$model->attributes=$_POST['Customer'];
+			$model->attributes=$_POST['User'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->Id));
+			{
+				$modelCustomer = Customer::model()->findByAttributes(array('username'=>$model->username));
+				$this->redirect(array('view','id'=>$modelCustomer->Id));
+			}
 		}
-
+		
 		$this->render('create',array(
-			'model'=>$model,
-			'ddlUsername'=>$ddlUsername,
+					'model'=>$model,
 		));
 	}
 
@@ -158,16 +160,19 @@ class CustomerController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
-		$model=$this->loadModel($id);
-
+		$modelCustomer = $this->loadModel($id);
+		
+		$model = User::model()->findByAttributes(array('username'=>$modelCustomer->username));
+		 
+		
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Customer']))
+		if(isset($_POST['User']))
 		{
-			$model->attributes=$_POST['Customer'];
+			$model->attributes=$_POST['User'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->Id));
+				$this->redirect(array('view','id'=>$modelCustomer->Id));
 		}
 
 		$this->render('update',array(
