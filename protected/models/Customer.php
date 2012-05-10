@@ -77,9 +77,11 @@ class Customer extends CActiveRecord
 	{
 		return array(
 			'Id' => 'ID',
-			'name' => 'Name',
-			'last_name' => 'Last Name',
-			'username' => 'Username',
+			'name' => 'Nombre',
+			'last_name' => 'Apellido',
+			'username' => 'Usuario',
+			'address'=>'Direcci&oacute;n',
+			'email'=>'Correo',
 		);
 	}
 

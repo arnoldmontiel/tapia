@@ -47,6 +47,7 @@ class UserGroup extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+			array('description', 'required'),
 			array('can_create, is_administrator, can_read, addressed, need_confirmation, can_feedback', 'numerical', 'integerOnly'=>true),
 			array('description', 'length', 'max'=>255),
 			// The following rule is used by search().

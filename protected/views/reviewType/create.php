@@ -5,11 +5,11 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List ReviewType', 'url'=>array('index')),
-	array('label'=>'Manage ReviewType', 'url'=>array('admin')),
+	array('label'=>'Listar Agrupadores', 'url'=>array('index')),
+	array('label'=>'Administrar Agrupadores', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Create ReviewType</h1>
+<h1>Crear Agrupador</h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

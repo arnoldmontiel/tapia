@@ -159,12 +159,12 @@ class User extends CActiveRecord
 	{
 		return array(
 			'username' => 'Usuario',
-			'password' => 'Contraseña',
+			'password' => 'Contrase&ntilde;a',
 			'email' => 'Correo',
 			'Id_user_group' => 'Id User Group',
 			'name' => 'Nombre',
 			'last_name' => 'Apellido',
-			'address' => 'Dirección',
+			'address' => 'Direcci&oacute;n',
 			'userGroupDescription' => 'Grupo de usuario',
 		);
 	}
