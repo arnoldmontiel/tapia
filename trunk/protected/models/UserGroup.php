@@ -77,13 +77,13 @@ class UserGroup extends CActiveRecord
 	{
 		return array(
 			'Id' => 'ID',
-			'description' => 'Description',
-			'can_create' => 'Can Create',
-			'is_administrator' => 'Is Administrator',
-			'can_read' => 'Can Read',
-			'addressed' => 'Addressed',
-			'need_confirmation' => 'Need Confirmation',
-			'can_feedback' => 'Can Feedback',
+			'description' => 'Descripci&oacute;n',
+			'can_create' => 'Puede crear',
+			'is_administrator' => 'Es administrador',
+			'can_read' => 'Puede leer por defecto',
+			'addressed' => 'Direcci&oacute;n',
+			'need_confirmation' => 'Necesita confirmaci&oacute;n por defecto',
+			'can_feedback' => 'Puede dar feedback por defecto',
 		);
 	}
 
