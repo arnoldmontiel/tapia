@@ -4,12 +4,12 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Create UserGroup', 'url'=>array('create')),
-	array('label'=>'Manage UserGroup', 'url'=>array('admin')),
+	array('label'=>'Crear Grupo de Usuario', 'url'=>array('create')),
+	array('label'=>'Administrar Grupo de Usuario', 'url'=>array('admin')),
 );
 ?>
 
-<h1>User Groups</h1>
+<h1>Grupo de usuarios</h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,
