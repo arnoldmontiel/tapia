@@ -17,7 +17,6 @@ $this->menu=array(
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-		'Id',
 		'description',
 		array('label'=>$model->getAttributeLabel('can_create'),
 				'type'=>'raw',

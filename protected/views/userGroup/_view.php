@@ -1,13 +1,9 @@
 <div class="view">
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('Id')); ?>:</b>
-	<?php echo CHtml::link(CHtml::encode($data->Id), array('view', 'id'=>$data->Id)); ?>
-	<br />
-
 	<b><?php echo $data->getAttributeLabel('description'); ?>:</b>
-	<?php echo CHtml::encode($data->description); ?>
+	<?php echo CHtml::link(CHtml::encode($data->description), array('view', 'id'=>$data->Id)); ?>
 	<br />
-
+	
 	<b><?php echo CHtml::encode($data->getAttributeLabel('can_create')); ?>:</b>
 	<?php echo CHtml::checkBox("can_create",CHtml::encode($data->can_create),array('disabled'=>'disabled')); ?>
 	<br />
