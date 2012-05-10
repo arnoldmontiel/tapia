@@ -54,7 +54,10 @@ class UserController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		$ddlUserGroup = UserGroup::model()->findAll();
+		$criteria=new CDbCriteria;
+		$criteria->condition='Id <> 3'; // clients
+		
+		$ddlUserGroup = UserGroup::model()->findAll($criteria);
 		
 		if(isset($_POST['User']))
 		{
@@ -120,7 +123,13 @@ class UserController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('User');
+		$criteria=new CDbCriteria;
+		$criteria->condition='t.Id_user_group <> 3'; // clients
+		
+		$dataProvider=new CActiveDataProvider('User', array(
+			'criteria'=>$criteria,
+		));
+		
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));

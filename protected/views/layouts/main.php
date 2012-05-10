@@ -40,6 +40,12 @@
 			<div class="header-menu-item">
 				<?php echo CHtml::link('Agrupadores',Yii::app()->createUrl('reviewType/index'),array('class'=>(Yii::app()->user->checkAccess('CustomerIndex'))?'header-menu-item':'header-menu-item-hidden')); ?>
 			</div>
+			<div class="header-menu-item">
+				<?php echo CHtml::link('Usuarios',Yii::app()->createUrl('user/index'),array('class'=>(Yii::app()->user->checkAccess('UserIndex'))?'header-menu-item':'header-menu-item-hidden')); ?>
+			</div>
+			<div class="header-menu-item">
+				<?php echo CHtml::link('Grupo de Usuarios',Yii::app()->createUrl('userGroup/index'),array('class'=>(Yii::app()->user->checkAccess('UserGroupIndex'))?'header-menu-item':'header-menu-item-hidden')); ?>
+			</div>
 			<div class="header-menu-item" >
 				<?php echo CHtml::link('Salir '.' ('.Yii::app()->user->name.')',Yii::app()->createUrl('site/logout'),array('class'=>'header-menu-item')); ?>
 			</div>

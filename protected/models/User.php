@@ -19,6 +19,8 @@
  */
 class User extends CActiveRecord
 {
+	public $userGroupDescription;
+	
 	protected function afterSave()
 	{
 		parent::afterSave();
@@ -131,7 +133,7 @@ class User extends CActiveRecord
 			array('name, last_name, address', 'length', 'max'=>100),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('username, password, email, Id_user_group', 'safe', 'on'=>'search'),
+			array('username, password, email, Id_user_group, userGroupDescription', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -158,11 +160,12 @@ class User extends CActiveRecord
 		return array(
 			'username' => 'Usuario',
 			'password' => 'Contraseña',
-			'email' => 'Email',
+			'email' => 'Correo',
 			'Id_user_group' => 'Id User Group',
-			'name' => 'Name',
-			'last_name' => 'Last Name',
-			'address' => 'Address',
+			'name' => 'Nombre',
+			'last_name' => 'Apellido',
+			'address' => 'Dirección',
+			'userGroupDescription' => 'Grupo de usuario',
 		);
 	}
 
@@ -187,6 +190,49 @@ class User extends CActiveRecord
 		
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+		));
+	}
+	
+	public function searchAdmin()
+	{
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
+	
+		$criteria=new CDbCriteria;
+	
+		$criteria->compare('username',$this->username,true);
+		$criteria->compare('password',$this->password,true);
+		$criteria->compare('email',$this->email,true);
+		
+		$criteria->compare('name',$this->name,true);
+		$criteria->compare('last_name',$this->last_name,true);
+		$criteria->compare('address',$this->address,true);
+	
+		$criteria->with[]='userGroup';
+		$criteria->addSearchCondition("userGroup.description",$this->userGroupDescription);
+		
+		$criteria->condition = 'Id_user_group <> 3'; //client
+		
+		
+		$sort=new CSort;
+		$sort->attributes=array(
+		// For each relational attribute, create a 'virtual attribute' using the public variable name
+			'username',
+			'password',
+			'email',
+			'name',
+			'last_name',
+			'address',
+			'userGroupDescription' => array(
+				        'asc' => 'userGroup.description',
+				        'desc' => 'userGroup.description DESC',
+			),
+			'*',
+		);
+		
+		return new CActiveDataProvider($this, array(
+				'criteria'=>$criteria,
+				'sort'=>$sort,
 		));
 	}
 }
