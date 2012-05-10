@@ -4,12 +4,12 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Create User', 'url'=>array('create')),
-	array('label'=>'Manage User', 'url'=>array('admin')),
+	array('label'=>'Crear Usuario', 'url'=>array('create')),
+	array('label'=>'Administrar Usuario', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Users</h1>
+<h1>Usuarios</h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,
