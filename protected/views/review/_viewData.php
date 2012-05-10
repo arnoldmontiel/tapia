@@ -75,7 +75,14 @@ $editable = $isAdministrator||$isOwner;
 		 		{
 		 			if($confirmed || $declined)
 		 			{
-		 				echo CHtml::openTag('div',array('class'=>'review-confirmed-note-btn review-confirm-note-btn-pos'));
+		 				$color = 'background-color:';
+		 				$color.=($confirmed)?'#80e765;color:black;':'#ed5656;color:black;';
+		 				echo CHtml::openTag('div',
+		 					array(
+		 						'class'=>'review-confirmed-note-btn review-confirm-note-btn-pos',
+		 						'style'=>$color,
+		 					)
+		 				);
 		 				echo ($confirmed)?'Confirmardo':'Rechazado';
 		 				echo CHtml::closeTag('div');	 				
 		 			}
@@ -194,32 +201,38 @@ $editable = $isAdministrator||$isOwner;
 								echo CHtml::encode('Respuesta');
 							echo CHtml::closeTag('div');						
 						echo CHtml::closeTag('div');
+						$label ="";
+		 				$color= '';
+						if($canEditNeedConf)
+						{
+							$label= CHtml::decode('Confirmaci&oacute;n');
+						}
+						else
+						{
+							if($modelUserGroupNoteInstance->confirmed)
+							{
+		 						$color= 'background-color:#80e765;color:black;';
+								$label= CHtml::decode('Confirmado');
+							}
+							else
+							{
+		 						$color= 'background-color:#ed5656;color:black;';
+								$label= CHtml::decode('Declinado');
+							}
+						}
+						
 						echo CHtml::openTag('div', array('class'=>'review-permission-row'));
 							if($modelUserGroupNoteInstance && $modelUserGroupNoteInstance->need_confirmation)
 							{
 								echo CHtml::checkBox('chkNeedConfirmation',true,array('id'=>'chkNeedConfirmation','value'=>$item->Id,'style'=>'display:none'));
-								echo CHtml::openTag('div',array('id'=>'divChkNeedConfirmation','class'=>'review-permission-chk-decoration review-permission-chk-decoration-chk','style'=>'width:70px;'));
+								echo CHtml::openTag('div',array('id'=>'divChkNeedConfirmation','class'=>'review-permission-chk-decoration review-permission-chk-decoration-chk','style'=>'width:70px;'.$color));
 							}
 							else
 							{
 								echo CHtml::checkBox('chkNeedConfirmation','',array('id'=>'chkNeedConfirmation','value'=>$item->Id,'style'=>'display:none'));
-								echo CHtml::openTag('div',array('id'=>'divChkNeedConfirmation','class'=>'review-permission-chk-decoration','style'=>'width:70px;'));
+								echo CHtml::openTag('div',array('id'=>'divChkNeedConfirmation','class'=>'review-permission-chk-decoration','style'=>'width:70px;'.$color));
 							}
-							if($canEditNeedConf)
-							{
-								echo CHtml::decode('Confirmaci&oacute;n');
-							}
-							else
-							{
-								if($modelUserGroupNoteInstance->confirmed)
-								{
-									echo CHtml::decode('Confirmado');										
-								}
-								else 
-								{
-									echo CHtml::decode('Declinado');										
-								}								
-							}
+							echo $label;
 							echo CHtml::closeTag('div');												
 						echo CHtml::closeTag('div');
 					echo CHtml::closeTag('div');
