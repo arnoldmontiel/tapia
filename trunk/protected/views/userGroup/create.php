@@ -5,11 +5,11 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List UserGroup', 'url'=>array('index')),
-	array('label'=>'Manage UserGroup', 'url'=>array('admin')),
+	array('label'=>'Listar Grupo de Usuario', 'url'=>array('index')),
+	array('label'=>'Administrar Grupo de Usuario', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Create UserGroup</h1>
+<h1>Crear Grupo de Usuario</h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

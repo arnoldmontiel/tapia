@@ -5,22 +5,27 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List UserGroup', 'url'=>array('index')),
-	array('label'=>'Create UserGroup', 'url'=>array('create')),
-	array('label'=>'Update UserGroup', 'url'=>array('update', 'id'=>$model->Id)),
-	array('label'=>'Delete UserGroup', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->Id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage UserGroup', 'url'=>array('admin')),
+	array('label'=>'Listar Grupo de Usuario', 'url'=>array('index')),
+	array('label'=>'Crear Grupo de Usuario', 'url'=>array('create')),
+	array('label'=>'Actualizar Grupo de Usuario', 'url'=>array('update', 'id'=>$model->Id)),
+	array('label'=>'Administrar Grupo de Usuario', 'url'=>array('admin')),
 );
 ?>
 
-<h1>View UserGroup #<?php echo $model->Id; ?></h1>
+<h1>Vista Individual</h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
 		'Id',
 		'description',
-		'can_create',
-		'is_administrator',
+		array('label'=>$model->getAttributeLabel('can_create'),
+				'type'=>'raw',
+				'value'=>CHtml::checkBox("can_create",$model->can_create,array("disabled"=>"disabled"))
+		),
+		array('label'=>$model->getAttributeLabel('is_administrator'),
+				'type'=>'raw',
+				'value'=>CHtml::checkBox("is_administrator",$model->is_administrator,array("disabled"=>"disabled"))
+		),
 	),
 )); ?>
