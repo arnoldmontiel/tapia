@@ -67,7 +67,7 @@ div.line {
     position: relative;
     z-index: 1;
 }
-div.logo
+div.header-menu-item
 {
 	font-size: 17px;
 	font-weight:bold;
@@ -75,7 +75,7 @@ div.logo
 	float: left;
 	color: gray;
 }
-a.logo
+a.header-menu-item
 {
 	text-decoration:none;
 	font-size: 17px;
@@ -84,11 +84,11 @@ a.logo
 	float: left;
 	color: gray;
 }
-a.logoHidden
+a.header-menu-item-hidden
 {
 	display:none;
 }
-a.logo:HOVER
+a.header-menu-item:HOVER
 {
 	color: white;
 }
@@ -1757,20 +1757,20 @@ div.header-menu
   	box-shadow:         0px 0px 3px 3px gray;
 
 }
-div.header-menu-item
+div.header-menu-item-old
 {
 	float: left;
 	margin-left: 920px;
 	margin-top: 2px;
 }
-a.header-menu-item
+a.header-menu-item-old
 {
 	margin-right:5px;
 	color: gray;
 	font-weight: bold;
 	text-decoration: none;
 }
-a.header-menu-item:HOVER
+a.header-menu-item-old:HOVER
 {
 	color: white;
 }
