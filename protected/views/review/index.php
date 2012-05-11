@@ -17,6 +17,10 @@ $('#Id_customer').change(function(){
 	return false;
 });
 
+setInterval(function() {
+   doFilter();
+}, 5000)
+
 function doFilter()
 {
 	if($('#Id_customer').val()!= ''){
