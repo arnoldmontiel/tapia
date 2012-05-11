@@ -132,7 +132,8 @@ $('#publicArea_".$data->Id."').children().each(
 				$dafaultConfirmation = $item->need_confirmation;
 				
 				echo CHtml::openTag('div', array('id'=>'userGroup_'.$item->Id));
-					echo CHtml::openTag('div', array('class'=>'review-permission-row','style'=>'display: inline-block; width:50%;'));
+					
+					echo CHtml::openTag('div', array('class'=>'review-permission-row review-permission-row-first'));
 						if($dafaultFeedback || $dafaultRead || $dafaultAddressed || $dafaultConfirmation)
 						{
 							echo CHtml::checkBox('chkUserGroup',true,array('id'=>'chkUserGroup','value'=>$item->Id,'style'=>'display:none'));
