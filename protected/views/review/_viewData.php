@@ -159,7 +159,7 @@ $editable = $isAdministrator||$isOwner;
 					
 					echo CHtml::openTag('div', array('id'=>'userGroup_'.$item->Id));
 					
-						echo CHtml::openTag('div', array('class'=>'review-permission-row','style'=>'display: inline-block; width:50%;'));
+						echo CHtml::openTag('div', array('class'=>'review-permission-row review-permission-row-first'));
 							if($modelUserGroupNoteInstance)
 							{
 								echo CHtml::checkBox('chkUserGroup',$modelUserGroupNoteInstance,array('id'=>'chkUserGroup','value'=>$item->Id,'style'=>'display:none'));

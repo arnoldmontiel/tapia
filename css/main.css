@@ -1738,7 +1738,25 @@ div.review-permission-chk-decoration-chk
 div.review-permission-row
 {
 	display: inline-block;
+	<!--
+  	display: inline;  	
+  	-->
 	margin-top: 3px;
+	<!--
+	zoom:1;
+	-->
+	<!--
+	vertical-align: bottom;
+	--> 
+}
+div.review-permission-row-first
+{
+	width: 50%;
+	display: inline-block;
+	<!--
+  	display: inline;  	
+  	-->
+  	
 }
 .messageError
 {
