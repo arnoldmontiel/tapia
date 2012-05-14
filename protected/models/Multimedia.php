@@ -46,7 +46,9 @@ class Multimedia extends CActiveRecord
 		
 		if(isset($this->uploadedFile))
 		{
-			if(strstr($this->uploadedFile["type"],'image'))
+			$ext = end(explode(".", $this->uploadedFile["name"]));
+			$ext = strtolower($ext);
+			if($ext=="jpg"||$ext=="png"||$ext=="bmp"||$ext=="gif")
 			{
 				//save original
 				move_uploaded_file($this->uploadedFile["tmp_name"],"images/" . $this->uploadedFile["name"]);
@@ -89,9 +91,6 @@ class Multimedia extends CActiveRecord
 			}
 			else 
 			{
-				
-				$ext = end(explode(".", $this->uploadedFile["name"]));
-				
 				switch ( $ext) {
 					case "pdf":
 						$this->Id_multimedia_type = 3; //pdf

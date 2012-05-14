@@ -1,8 +1,15 @@
 <?php
+$browser = get_browser(null, true);
+
 $cs = Yii::app()->getClientScript();
 $cs->registerScriptFile(Yii::app()->request->baseUrl.'/js/highslide-with-gallery.js',CClientScript::POS_HEAD);
 $cs->registerScriptFile(Yii::app()->request->baseUrl.'/js/highslide-exe.js',CClientScript::POS_HEAD);
 $cs->registerCssFile(Yii::app()->request->baseUrl.'/js/highslide.css');
+if($browser['browser']=='IE')
+{
+	$cs->registerScriptFile(Yii::app()->request->baseUrl.'/js/jquery.uploadify-3.1.js',CClientScript::POS_HEAD);
+	$cs->registerCssFile(Yii::app()->request->baseUrl.'/css/uploadify.css');
+}
 
 Yii::app()->clientScript->registerScript(__CLASS__.'#review_update'.$model->Id, "
 function RestoreButtons()
@@ -112,7 +119,7 @@ function bindEvents(item)
 		var note = $(item).find('#main_note'+idMainNote);
 		var value = $(note).val();
 		$.post(
-			'".NoteController::createUrl('note/AjaxUpdateNoteDesc')."',
+			'".Yii::app()->createUrl('note/AjaxUpdateNoteDesc')."',
 			{
 			 	id: idMainNote,
 				note: $(note).val()
@@ -494,7 +501,13 @@ $('#btnAlbum').click(function(){
 		SelectAButton($(this));
 
 		$('#loading').addClass('loading');
-		$.post('".AlbumController::createUrl('album/AjaxCreateAlbum')."', 
+		var url = '".AlbumController::createUrl('album/AjaxCreateAlbum')."';
+
+		if('".$browser['browser']."'=='IE')
+		{
+			url = '".AlbumController::createUrl('album/AjaxCreateAlbumIE')."';
+		}
+		$.post(url, 
 			{
 				idCustomer: ".$model->Id_customer.",
 				idReview: ".$model->Id."
@@ -502,11 +515,25 @@ $('#btnAlbum').click(function(){
 		).success(
 		function(data){
 			$('#loading').removeClass('loading');
-			//debugger;
 			var param = '&idAlbum='+data+'&idReview='+".$model->Id.";
 			$('#_form').attr('action','".AlbumController::createUrl('album/AjaxUpload')."'+param);
 			$('#Album_Id_album').val(data);
-		
+			$('#uploader').html(data);
+			if('".$browser['browser']."'=='IE')
+			{
+				$('#file_upload').uploadify({
+			        'swf'      : '/workspace/Tapia/js/uploadify.swf',
+			        'uploader' : '".AlbumController::createUrl('album/AjaxUploadify')."&idAlbum='+$('#uploadify_id_album').val()+'&idReview='+$('#uploadify_id_review').val(),
+			        // Put your options here
+			        'buttonText' : 'Seleccione',
+			        'onUploadSuccess' : function(file, data, response) {
+	         		   //alert('The file ' + file.name + ' was successfully uploaded with a response of ' + response + ':' + data);
+						$('.album-view-image:first').before(data);
+
+			        }
+				});
+			}
+	
 			$('#wall-action-note').animate({opacity: 'hide'},240,function()
 			{
 				$('#wall-action-album').animate({opacity: 'show'},240);
@@ -892,7 +919,15 @@ echo CHtml::closeTag('div');
 	</div>
 	<?php 
 		$modeNewlAlbum = new Album;
-		$this->renderPartial('_formAlbum',array('model'=>$modeNewlAlbum));
+		$browser = get_browser(null, true);
+		if($browser['browser']=='IE')
+		{
+			$this->renderPartial('_formAlbumIE',array('model'=>$modeNewlAlbum));				
+		}
+		else 
+		{
+			$this->renderPartial('_formAlbum',array('model'=>$modeNewlAlbum));				
+		}
 	?>
 	<div class="row" style="text-align: center;">
 		<?php echo CHtml::button('Publicar',array('class'=>'wall-action-submit-btn','id'=>'btnPublicAlbum'));?>
