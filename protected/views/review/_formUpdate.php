@@ -1052,9 +1052,14 @@ echo CHtml::closeTag('div');
 				
 			echo CHtml::openTag('div',array('class'=>'review-container-single-album'));	
 			echo CHtml::openTag('div',array('id'=>'edit_image'.$data->Id,'class'=>"review-edit-image review-edit-image-album"));
+			$urlUpdateAlbum = 'updateAlbum';
+			if($browser['browser']=='IE')
+			{
+				$urlUpdateAlbum .= 'IE';				
+			}
 						
 			echo CHtml::link('Editar Album',
-			ReviewController::createUrl('updateAlbum',array('id'=>$item->Id)),
+			ReviewController::createUrl($urlUpdateAlbum,array('id'=>$item->Id)),
 			array('class'=>'review-edit-image')
 			);
 			echo CHtml::closeTag('div');
