@@ -60,9 +60,6 @@ echo $formAlbum->hiddenField($model,'Id_customer');
 <div id="uploader">
 
 </div>
-<div id="uploader">
-
-</div>
 <div id="uploaded">
 <div class="album-view-image" style="display:none">
 </div>
