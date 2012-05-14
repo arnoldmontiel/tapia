@@ -322,6 +322,16 @@ class ReviewController extends Controller
 	
 	}
 	
+	public function actionAjaxCheckUpdate()
+	{
+		$id = $_POST['id'];
+		
+		$modelReviewUser = ReviewUser::model()->findByAttributes(array('Id_review'=>$id,'username'=>User::getCurrentUser()->username));
+		
+		echo $modelReviewUser->read;
+	
+	}
+	
 	public function actionAjaxSetPriority()
 	{
 		$idPriority = $_POST['idPriority'];
