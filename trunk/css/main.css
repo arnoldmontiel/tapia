@@ -1466,6 +1466,7 @@ div.review-attach-image
 	padding: 5px 5px 5px 5px ;
 	margin: 2px 2px 2px 2px;
 	display: inline-block;
+	float: left;
 }
 
 input.review-attach-image

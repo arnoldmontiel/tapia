@@ -17,11 +17,6 @@ class ReviewController extends Controller
 			'accessControl', // perform access control for CRUD operations
 		);
 	}
-	public function actions() {
-		return array(
-	            'upload'=>'application.controllers.upload.UploadFileAction',
-		);
-	}
 	/**
 	 * Specifies the access control rules.
 	 * This method is used by the 'accessControl' filter.
@@ -608,6 +603,14 @@ class ReviewController extends Controller
 	
 		if(isset($model))
 			$this->render('updateAlbum',array('model'=>$model));
+	}
+	public function actionUpdateAlbumIE($id)
+	{
+	
+		$model = Album::model()->findByPk($id);
+	
+		if(isset($model))
+			$this->render('updateAlbumIE',array('model'=>$model));
 	}
 	public function actionAjaxSavePermissions()
 	{

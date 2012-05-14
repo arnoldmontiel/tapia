@@ -5,6 +5,8 @@ class uploadifyWidget extends CInputWidget {
     public $action;
     public $idReview;
     public $idAlbum;
+    public $AjaxRemoveImageURL;
+    public $AjaxAddImageDescriptionURL;
     
     public function init()
     {
@@ -30,6 +32,8 @@ class uploadifyWidget extends CInputWidget {
         		'action'=>$this->action,
         		'idReview'=>$this->idReview,
         		'idAlbum'=>$this->idAlbum,
+        		'AjaxRemoveImageURL'=>$this->AjaxRemoveImageURL,
+        		'AjaxAddImageDescriptionURL'=>$this->AjaxAddImageDescriptionURL,
         )
         );
     }
