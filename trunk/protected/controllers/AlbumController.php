@@ -159,16 +159,22 @@ class AlbumController extends Controller
 		$modelMultimedia->Id_customer = $modelReview->Id_customer;
 			
 		$modelMultimedia->save();
-		echo CHtml::openTag('div',array('class'=>'album-view-image'));
-			echo CHtml::openTag('div');
+		echo CHtml::openTag('div',array('id'=>$modelMultimedia->Id,'class'=>'album-view-image','style'=>'display:none;'));
+			echo CHtml::openTag('div',array('class'=>'album-view-image-img'));
 				echo CHtml::image("images/".$modelMultimedia->file_name_small,'Cargando Imagen');			
 			echo CHtml::closeTag('div');
-			echo CHtml::openTag('div');
-				echo round($modelMultimedia->size/1024,2);			
+			echo CHtml::openTag('div',array('class'=>'album-view-image-cancel'));
+				echo CHtml::button('Cancelar',array("class"=>"", "title"=>"Cancel",'id'=>'photo_cancel'));
 			echo CHtml::closeTag('div');
-			echo CHtml::openTag('div');
-				echo CHtml::button('',array("class"=>"ui-state-default ui-corner-all", "title"=>"Cancel"));
+
+			echo CHtml::openTag('div',array('class'=>'album-view-image-text'));
+				echo CHtml::textArea('photo_description','',array('id'=>'photo_description',rows=>'2','cols'=>'50','placeholder'=>'Escriba una description...','class'=>"photo_description"));			
 			echo CHtml::closeTag('div');
+
+			echo CHtml::openTag('div',array('class'=>'album-view-image-size'));
+				echo round($modelMultimedia->size/1024,2).' KB';
+			echo CHtml::closeTag('div');
+				
 		echo CHtml::closeTag('div');
 		//echo json_encode(array("name" => $modelMultimedia->file_name_small,"type" => '',"size"=> $size, "id"=>$modelMultimedia->Id));
 	}
@@ -200,6 +206,8 @@ class AlbumController extends Controller
 				Multimedia::model()->deleteAllByAttributes(array('Id_album'=>$modelAlbum->Id));
 				$modelAlbum->delete();
 				$transaction->commit();
+				//return an empty div, used as placeholder to IE
+				echo '<div class="album-view-image" style="display:none"></div>';
 			} catch (Exception $e) {
 				$transaction->rollback();
 			}

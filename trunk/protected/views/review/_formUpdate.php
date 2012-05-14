@@ -528,8 +528,33 @@ $('#btnAlbum').click(function(){
 			        'buttonText' : 'Seleccione',
 			        'onUploadSuccess' : function(file, data, response) {
 	         		   //alert('The file ' + file.name + ' was successfully uploaded with a response of ' + response + ':' + data);
-						$('.album-view-image:first').before(data);
-
+						var target = $('.album-view-image:first');
+						$(target).before(data);
+						target = $('.album-view-image:first');
+						$(target).animate({opacity: 'show'},400);
+						$(target).find('#photo_description').change(function(){
+							$.get('".AlbumController::createUrl('album/AjaxAddImageDescription')."',
+ 							{
+								IdMultimedia:$(target).attr('id'),
+								description:$(this).val()
+ 							}).success(
+ 								function(data) 
+ 								{
+								}
+							);                         		
+						});
+						$(target).find('#photo_cancel').click(function(){
+								
+							$.get('".AlbumController::createUrl('album/AjaxRemoveImage')."',
+ 							{
+								IdMultimedia:$(target).attr('id')
+							}).success(
+								function(data) 
+								{
+									$(target).remove();	
+								}
+							);
+						});
 			        }
 				});
 			}
@@ -631,6 +656,7 @@ $('#btnCancelAlbum').click(function(){
 		$('#wall-action-album').animate({opacity: 'hide'},240,
 			function(){		
 				RestoreButtons();
+				$('#uploaded').html(data);
 				$('#files').html('');
 				$('#Album_description').val('');
 				$('#Album_title').val('');

@@ -1831,3 +1831,33 @@ div.index-review-single-container
 	position: relative;
 	width: 100%;
 }
+div.album-view-image
+{
+	display: inline-block;
+	position: relative;
+	margin-top: 10px;
+}
+div.album-view-image-img
+{
+	display: inline-block;
+	float: left;
+	margin-left: 10px;
+}
+div.album-view-image-size
+{
+	display: inline-block;
+	float: right;
+	margin-left: 10px;
+}
+div.album-view-image-text
+{
+	display: inline-block;
+	float: right;
+	margin-left: 10px;
+}
+div.album-view-image-cancel
+{
+	display: inline-block;
+	float: right;
+	margin-left: 10px;
+}
