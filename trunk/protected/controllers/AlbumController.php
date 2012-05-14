@@ -123,6 +123,7 @@ class AlbumController extends Controller
 	{
 
 		$file = $_FILES['file'];
+		$tempFile = $_FILES['Filedata']['tmp_name'];
 		
 		$modelReview = Review::model()->findByPk($idReview);
 		
@@ -140,6 +141,36 @@ class AlbumController extends Controller
  		$size = round($modelMultimedia->size/1024,2);
  		
 		echo json_encode(array("name" => $img,"type" => '',"size"=> $size, "id"=>$modelMultimedia->Id));
+	}
+
+	public function actionAjaxUploadify($idAlbum, $idReview)
+	{
+		$_GET;
+		$tempFile = $_FILES['Filedata'];
+		
+		$modelReview = Review::model()->findByPk($idReview);
+	
+		$modelMultimedia = new Multimedia;
+			
+		$modelMultimedia->Id_album = $idAlbum;
+		$modelMultimedia->Id_review = $idReview;
+		$modelMultimedia->uploadedFile = $tempFile;
+		$modelMultimedia->Id_multimedia_type = 1;
+		$modelMultimedia->Id_customer = $modelReview->Id_customer;
+			
+		$modelMultimedia->save();
+		echo CHtml::openTag('div',array('class'=>'album-view-image'));
+			echo CHtml::openTag('div');
+				echo CHtml::image("images/".$modelMultimedia->file_name_small,'Cargando Imagen');			
+			echo CHtml::closeTag('div');
+			echo CHtml::openTag('div');
+				echo round($modelMultimedia->size/1024,2);			
+			echo CHtml::closeTag('div');
+			echo CHtml::openTag('div');
+				echo CHtml::button('',array("class"=>"ui-state-default ui-corner-all", "title"=>"Cancel"));
+			echo CHtml::closeTag('div');
+		echo CHtml::closeTag('div');
+		//echo json_encode(array("name" => $modelMultimedia->file_name_small,"type" => '',"size"=> $size, "id"=>$modelMultimedia->Id));
 	}
 	
 	public function actionAjaxCancel()
@@ -278,7 +309,36 @@ class AlbumController extends Controller
 				$transaction->rollback();
 			}
 			echo $modelAlbum->Id;
-			
+		}
+	}
+	public function actionAjaxCreateAlbumIE()
+	{
+	
+		if(isset($_POST['idCustomer']))
+		{
+			$modelAlbum = new Album;
+			$modelAlbum->Id_customer = $_POST['idCustomer'];
+			$modelAlbum->Id_review = $_POST['idReview'];
+			$modelAlbum->username = User::getCurrentUser()->username;
+			$modelAlbum->Id_user_group_owner = User::getCurrentUserGroup()->Id;
+			$transaction = $modelAlbum->dbConnection->beginTransaction();
+			try {
+	
+				$modelAlbum->save();
+	
+				$transaction->commit();
+			} catch (Exception $e) {
+				$transaction->rollback();
+			}
+			echo CHtml::hiddenField('Album_Id_album',$modelAlbum->Id,array('id'=>'Album_Id_album'));
+			$this->widget('ext.uploadify.uploadifyWidget', array(
+					'action' => AlbumController::createUrl('album/AjaxUploadify'),
+					'mult'=>true,
+					'idReview'=>$modelAlbum->Id_review,
+					'idAlbum'=>$modelAlbum->Id
+					
+			));
+	
 		}
 	}
 	

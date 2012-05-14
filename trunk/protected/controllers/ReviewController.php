@@ -17,7 +17,11 @@ class ReviewController extends Controller
 			'accessControl', // perform access control for CRUD operations
 		);
 	}
-
+	public function actions() {
+		return array(
+	            'upload'=>'application.controllers.upload.UploadFileAction',
+		);
+	}
 	/**
 	 * Specifies the access control rules.
 	 * This method is used by the 'accessControl' filter.

@@ -12,7 +12,7 @@ $('#Album_title').change(function(){
 			'".AlbumController::createUrl('album/AjaxUpdateTitle')."',
 			{
 			 	id: ".$model->Id.",
-				title:$(this).val(),
+				title:$(this).val()
 			 }).success(
 					function() 
 					{ 
@@ -28,7 +28,7 @@ $('#Album_description').change(function(){
 			'".AlbumController::createUrl('album/AjaxUpdateDescription')."',
 			{
 			 	id: ".$model->Id.",
-				description:$(this).val(),
+				description:$(this).val()
 			 }).success(
 					function() 
 					{ 
