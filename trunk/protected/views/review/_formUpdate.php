@@ -767,6 +767,29 @@ $(':checkbox').click(function() {
 			return false;
 		}
 	});
+	
+setInterval(function() {
+
+	$.post('".ReviewController::createUrl('AjaxCheckUpdate')."', 
+			{
+				id: ".$model->Id."	
+			}	
+			).success(
+			function(data){
+				if(data == 0)
+					$('#need_reload').animate({opacity: 'show'},240);
+					
+			
+	});
+}, 20000)
+
+$('#need_reload').click(function(){
+		
+	var url = '".ReviewController::createUrl('update',array('id'=>$model->Id))."';
+	window.location = url + '&order='+$('#info_order').val();
+	return false;
+		
+	});
 ");
 ?>
 <div class="review-update-data">
@@ -796,6 +819,7 @@ $(':checkbox').click(function() {
 				echo CHtml::encode($model->description);				
 				echo CHtml::closeTag('div');				
 			} 
+			echo CHtml::image('images/reload.png','',array('class'=>'review-need-update', 'id'=>'need_reload','title'=>'Recargar'));
 		?>
 	</div>
 </div>
