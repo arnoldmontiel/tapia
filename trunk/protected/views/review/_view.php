@@ -51,8 +51,7 @@
 			echo CHtml::closeTag('div');
 		}
 		
-		$multimedias = $dataProvider->data;if($modelReview->hasResource( User::getCurrentUserGroup()->Id, 2))
-		if(sizeof($multimedias))
+		if($modelReview->hasResource( User::getCurrentUserGroup()->Id, 2))
 		{
 			echo CHtml::openTag('div',array('class'=>'index-review-single-resource'));
 			echo CHtml::image('images/video_resource.png','',array('style'=>'width:25px;'));
