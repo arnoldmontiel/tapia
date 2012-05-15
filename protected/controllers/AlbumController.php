@@ -123,7 +123,6 @@ class AlbumController extends Controller
 	{
 
 		$file = $_FILES['file'];
-		$tempFile = $_FILES['Filedata']['tmp_name'];
 		
 		$modelReview = Review::model()->findByPk($idReview);
 		
@@ -145,9 +144,8 @@ class AlbumController extends Controller
 
 	public function actionAjaxUploadify($idAlbum, $idReview)
 	{
-		$_GET;
-		$tempFile = $_FILES['Filedata'];
-		
+ 		$tempFile = $_FILES['Filedata'];
+		 
 		$modelReview = Review::model()->findByPk($idReview);
 	
 		$modelMultimedia = new Multimedia;
@@ -159,24 +157,23 @@ class AlbumController extends Controller
 		$modelMultimedia->Id_customer = $modelReview->Id_customer;
 			
 		$modelMultimedia->save();
-		echo CHtml::openTag('div',array('id'=>$modelMultimedia->Id,'class'=>'album-view-image','style'=>'display:none;'));
-			echo CHtml::openTag('div',array('class'=>'album-view-image-img'));
-				echo CHtml::image("images/".$modelMultimedia->file_name_small,'Cargando Imagen');			
-			echo CHtml::closeTag('div');
-			echo CHtml::openTag('div',array('class'=>'album-view-image-cancel'));
-				echo CHtml::button('Cancelar',array("class"=>"", "title"=>"Cancel",'id'=>'photo_cancel'));
-			echo CHtml::closeTag('div');
+ 		echo CHtml::openTag('div',array('id'=>$modelMultimedia->Id,'class'=>'album-view-image','style'=>'display:none;'));
+ 			echo CHtml::openTag('div',array('class'=>'album-view-image-img'));
+ 				echo CHtml::image("images/".$modelMultimedia->file_name_small,'Cargando Imagen');			
+ 			echo CHtml::closeTag('div');
+ 			echo CHtml::openTag('div',array('class'=>'album-view-image-cancel'));
+ 				echo CHtml::button('Cancelar',array("class"=>"", "title"=>"Cancel",'id'=>'photo_cancel'));
+ 			echo CHtml::closeTag('div');
 
-			echo CHtml::openTag('div',array('class'=>'album-view-image-text'));
-				echo CHtml::textArea('photo_description','',array('id'=>'photo_description',rows=>'2','cols'=>'50','placeholder'=>'Escriba una description...','class'=>"photo_description"));			
-			echo CHtml::closeTag('div');
+ 			echo CHtml::openTag('div',array('class'=>'album-view-image-text'));
+ 				echo CHtml::textArea('photo_description','',array('id'=>'photo_description','rows'=>'2','cols'=>'50','placeholder'=>'Escriba una description...','class'=>"photo_description"));			
+ 			echo CHtml::closeTag('div');
 
-			echo CHtml::openTag('div',array('class'=>'album-view-image-size'));
-				echo round($modelMultimedia->size/1024,2).' KB';
-			echo CHtml::closeTag('div');
+ 			echo CHtml::openTag('div',array('class'=>'album-view-image-size'));
+ 				echo round($modelMultimedia->size/1024,2).' KB';
+ 			echo CHtml::closeTag('div');
 				
-		echo CHtml::closeTag('div');
-		//echo json_encode(array("name" => $modelMultimedia->file_name_small,"type" => '',"size"=> $size, "id"=>$modelMultimedia->Id));
+ 		echo CHtml::closeTag('div');
 	}
 	
 	public function actionAjaxCancel()
