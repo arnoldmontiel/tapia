@@ -40,10 +40,8 @@ class Multimedia extends CActiveRecord
 	
 	public function beforeSave()
 	{
-	
 		$this->username = User::getCurrentUser()->username;
 		$this->Id_user_group = User::getCurrentUserGroup()->Id;
-		
 		if(isset($this->uploadedFile))
 		{
 			$ext = end(explode(".", $this->uploadedFile["name"]));
@@ -51,13 +49,14 @@ class Multimedia extends CActiveRecord
 			if($ext=="jpg"||$ext=="png"||$ext=="bmp"||$ext=="gif")
 			{
 				//save original
+				
 				move_uploaded_file($this->uploadedFile["tmp_name"],"images/" . $this->uploadedFile["name"]);
 				
 				$folder = "images/";
+				
 				$filePath = $folder . $this->uploadedFile["name"];
 				
 				$uniqueId = uniqid();
-				
 				//generate medium file version
 				$newFile = $this->resizeFile(800,800,$filePath);
 				$content = $newFile['content'];
@@ -75,7 +74,9 @@ class Multimedia extends CActiveRecord
 				//generate small file version
 				$newFile = $this->resizeFile(320,320,$filePath);
 				$content = $newFile['content'];
+				move_uploaded_file($this->uploadedFile["tmp_name"],"images/hola2");
 				if ($content !== false) {
+				move_uploaded_file($this->uploadedFile["tmp_name"],"images/hola3");
 					$fileName = $uniqueId.'_small.jpg';
 					$file = fopen($folder.$fileName, 'w');
 					fwrite($file,$content);
@@ -121,7 +122,7 @@ class Multimedia extends CActiveRecord
 // 				//$template->setResolution(100, 100); //Skip this to generate PDF, results in poor quality though
 // 				$template->readImage($filePath.'[0]');
 // 				$template->setImageFormat("pdf");
-// 				//Doing some manipulation here but it doesn’t have any effect on the problem.
+// 				//Doing some manipulation here but it doesnï¿½t have any effect on the problem.
 // 				$template->setImageCompressionQuality(100);
 				
 // 				$folder = "images/";
@@ -145,8 +146,7 @@ class Multimedia extends CActiveRecord
 // 				}
 
 //				unlink($filePath);
-//***************************************************************************************************************************			
-				
+//***************************************************************************************************************************										
 			}
 		}
 	
@@ -155,7 +155,7 @@ class Multimedia extends CActiveRecord
 	private function resizeFile($w=null,$h=null,$filePath)
 	{
 		$im = imagecreatefromstring(file_get_contents($filePath));
-	
+		
 		$size[0] = imagesx($im);
 		$size[1] = imagesy($im);
 		$newwidth = $size[0];
@@ -176,9 +176,8 @@ class Multimedia extends CActiveRecord
 		imagecopyresampled($new, $im, 0, 0, 0, 0, $newwidth, $newheight, $size[0], $size[1]);
 		ob_start();
 		ob_implicit_flush(false);
-	
+		
 		imagejpeg($new, '', 100);
-	
 	
 		return array('size'=>$newwidth*$newheight, 'content'=> ob_get_clean(),'width'=>$newwidth,'height'=>$newheight);
 	}
