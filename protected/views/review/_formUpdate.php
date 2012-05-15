@@ -907,7 +907,7 @@ $('#need_reload').click(function(){
 		}
 		echo CHtml::openTag('div',array('class'=>'order-info'));
 			echo CHtml::label('Orden: ','info_order');
-			$orderData = array('addressed'=>'Destinatario','can_feedback'=>'Respuesta','need_confirmation'=>'Confirmaci'.utf8_encode('ó').'n');
+			$orderData = array('addressed'=>'Destinatario','can_feedback'=>'Respuesta','need_confirmation'=>'Confirmaci'.utf8_encode('ï¿½').'n');
 			echo CHtml::dropDownList('info_order', ($order)?$order:'addressed', $orderData);
 		echo CHtml::closeTag('div');
 		
@@ -1051,7 +1051,7 @@ echo CHtml::closeTag('div');
 		{
 				
 			echo CHtml::openTag('div',array('class'=>'review-container-single-album'));	
-			echo CHtml::openTag('div',array('id'=>'edit_image'.$data->Id,'class'=>"review-edit-image review-edit-image-album"));
+			echo CHtml::openTag('div',array('id'=>'edit_image'.$item->Id,'class'=>"review-edit-image review-edit-image-album"));
 			$urlUpdateAlbum = 'updateAlbum';
 			if($browser['browser']=='IE')
 			{
