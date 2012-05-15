@@ -37,7 +37,7 @@ $('#Album_description').change(function(){
 <div class="wide form">
 <?php $formAlbum=$this->beginWidget('CActiveForm', array(
 	'id'=>'album-form',
-	'action'=>WallController::createUrl('AjaxShareAlbum'),
+	'action'=>ReviewController::createUrl('AjaxShareAlbum'),
 	'method'=>'post',
 ));
 echo $formAlbum->hiddenField($model,'Id_customer');
