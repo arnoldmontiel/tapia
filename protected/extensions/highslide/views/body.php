@@ -11,6 +11,7 @@ hs.graphicsDir = '<?php echo '../..'. $this->graphics ?>/'
 	<?php if (empty($images)):?>		
 		<?php 		
 			$options = array('title'=>'Click para ampliar');
+			$options['style']='';				
 			if(isset($small_width))
 			{
 				$options['style']='width:'.$small_width.'px;';				
