@@ -5,7 +5,7 @@ $cs = Yii::app()->getClientScript();
 $cs->registerScriptFile(Yii::app()->request->baseUrl.'/js/highslide-with-gallery.js',CClientScript::POS_HEAD);
 $cs->registerScriptFile(Yii::app()->request->baseUrl.'/js/highslide-exe.js',CClientScript::POS_HEAD);
 $cs->registerCssFile(Yii::app()->request->baseUrl.'/js/highslide.css');
-if($browser['browser']=='IE')
+if($browser['browser']=='IE'||true)
 {
 	$cs->registerScriptFile(Yii::app()->request->baseUrl.'/js/jquery.uploadify-3.1.js',CClientScript::POS_HEAD);
 	$cs->registerCssFile(Yii::app()->request->baseUrl.'/css/uploadify.css');
@@ -503,7 +503,7 @@ $('#btnAlbum').click(function(){
 		$('#loading').addClass('loading');
 		var url = '".AlbumController::createUrl('album/AjaxCreateAlbum')."';
 
-		if('".$browser['browser']."'=='IE')
+		if('".$browser['browser']."'=='IE'||true)
 		{
 			url = '".AlbumController::createUrl('album/AjaxCreateAlbumIE')."';
 		}
@@ -516,13 +516,13 @@ $('#btnAlbum').click(function(){
 		function(data){
 			$('#loading').removeClass('loading');
 			var param = '&idAlbum='+data+'&idReview='+".$model->Id.";
-			$('#_form').attr('action','".AlbumController::createUrl('album/AjaxUpload')."'+param);
+			$('#XUploadWidget_form').attr('action','".AlbumController::createUrl('album/AjaxUpload')."'+param);
 			$('#Album_Id_album').val(data);
 			$('#uploader').html(data);
-			if('".$browser['browser']."'=='IE')
+			if('".$browser['browser']."'=='IE'||true)
 			{
 				$('#file_upload').uploadify({
-			        'swf'      : '/workspace/Tapia/js/uploadify.swf',
+			        'swf'      : '".Yii::app()->request->baseUrl."/js/uploadify.swf',
 			        'uploader' : '".AlbumController::createUrl('album/AjaxUploadify')."&idAlbum='+$('#uploadify_id_album').val()+'&idReview='+$('#uploadify_id_review').val(),
 			        // Put your options here
 			        'buttonText' : 'Seleccione',
@@ -970,7 +970,7 @@ echo CHtml::closeTag('div');
 	<?php 
 		$modeNewlAlbum = new Album;
 		$browser = get_browser(null, true);
-		if($browser['browser']=='IE')
+		if($browser['browser']=='IE'||true)
 		{
 			$this->renderPartial('_formAlbumIE',array('model'=>$modeNewlAlbum));				
 		}
@@ -1053,7 +1053,7 @@ echo CHtml::closeTag('div');
 			echo CHtml::openTag('div',array('class'=>'review-container-single-album'));	
 			echo CHtml::openTag('div',array('id'=>'edit_image'.$item->Id,'class'=>"review-edit-image review-edit-image-album"));
 			$urlUpdateAlbum = 'updateAlbum';
-			if($browser['browser']=='IE')
+			if($browser['browser']=='IE'||true)
 			{
 				$urlUpdateAlbum .= 'IE';				
 			}
