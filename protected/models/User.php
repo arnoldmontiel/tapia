@@ -161,7 +161,7 @@ class User extends CActiveRecord
 			'username' => 'Usuario',
 			'password' => 'Contrase&ntilde;a',
 			'email' => 'Correo',
-			'Id_user_group' => 'Id User Group',
+			'Id_user_group' => 'Grupo de usuario',
 			'name' => 'Nombre',
 			'last_name' => 'Apellido',
 			'address' => 'Direcci&oacute;n',
