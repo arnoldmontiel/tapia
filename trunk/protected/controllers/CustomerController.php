@@ -71,7 +71,7 @@ class CustomerController extends Controller
 		));
 	}
 
-	public function actionAssignment()
+	public function actionAssign()
 	{
 		$model = new Customer;
 		$modelUserGroup = new UserGroup;
@@ -103,7 +103,7 @@ class CustomerController extends Controller
 		if(isset($_GET['UserCustomer']))
 			$modelUserCustomer->attributes = $_GET['UserCustomer'];
 		
-		$this->render('customerAssign',array(
+		$this->render('assign',array(
 				'model'=>$model,
 				'ddlCustomer'=>$ddlCustomer,
 				'ddlUserGroup'=>$ddlUserGroup,

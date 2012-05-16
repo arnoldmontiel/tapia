@@ -2,6 +2,11 @@
 
 <?php
 
+$this->menu=array(
+	array('label'=>'Listar Clientes', 'url'=>array('index')),
+	array('label'=>'Crear Cliente', 'url'=>array('create')),
+	array('label'=>'Administrar Clientes', 'url'=>array('admin')),
+);
 
 Yii::app()->clientScript->registerScript('customerAssign', "
 $('#Customer_Id').change(function(){
