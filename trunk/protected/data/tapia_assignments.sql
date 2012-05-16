@@ -39,7 +39,7 @@ CREATE TABLE `assignments` (
 
 LOCK TABLES `assignments` WRITE;
 /*!40000 ALTER TABLE `assignments` DISABLE KEYS */;
-INSERT INTO `assignments` VALUES ('Administrator','admin','','s:0:\"\";');
+INSERT INTO `assignments` VALUES ('Administrator','admin','','s:0:\"\";'),('Authority','admin','','s:0:\"\";');
 /*!40000 ALTER TABLE `assignments` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
