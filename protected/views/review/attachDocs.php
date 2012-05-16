@@ -47,7 +47,7 @@ echo CHtml::checkBox('chkAll','',array('id'=>'chkAll'));?>
 		<?php
 		foreach ($modelMultimediaSelected as $item)
 		{
-			if($item->notes->Id_note != $idNote)
+			if(isset($item->notes) && $item->notes->Id_note != $idNote)
 			{
 				echo CHtml::openTag('div',array('id'=>'picture_'.$item->Id,'class'=>'review-area-single-files'));
 					echo CHtml::openTag('div',array('class'=>'review-area-single-files-name'));
@@ -71,7 +71,7 @@ echo CHtml::checkBox('chkAll','',array('id'=>'chkAll'));?>
 		<?php
 		foreach ($modelMultimedia as $item)
 		{
-			if($item->notes->Id_note != $idNote)
+			if(isset($item->notes) && $item->notes->Id_note != $idNote)
 			{
 				echo CHtml::openTag('div',array('id'=>'picture_'.$item->Id,'class'=>'review-area-single-files'));
 					echo CHtml::openTag('div',array('class'=>'review-area-single-files-name'));

@@ -87,7 +87,7 @@ echo CHtml::imageButton(
 								array(
 		                                'class'=>'album-action-remove',
 		                                'title'=>'Borrar Album',
-										'id'=>'delete_'.$item->Id,
+										'id'=>'delete_'.$model->Id,
 		                                	'ajax'=> array(
 												'type'=>'GET',
 												'url'=>AlbumController::createUrl('album/AjaxRemoveAlbum',array('id'=>$model->Id)),
