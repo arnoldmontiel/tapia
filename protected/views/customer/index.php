@@ -5,6 +5,7 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 	array('label'=>'Crear Cliente', 'url'=>array('create')),
+	array('label'=>'Asignacion Clientes', 'url'=>array('assign')),
 	array('label'=>'Administrar Cliente', 'url'=>array('admin')),
 );
 ?>
