@@ -133,30 +133,37 @@ $('#publicArea_".$data->Id."').children().each(
 				
 				echo CHtml::openTag('div', array('id'=>'userGroup_'.$item->Id));
 					
+				
 					echo CHtml::openTag('div', array('class'=>'review-permission-row review-permission-row-first'));
+						echo CHtml::openTag('div',array('class'=>'review-permission-title'));
+							echo CHtml::encode($item->description);
+						echo CHtml::closeTag('div');
+					echo CHtml::closeTag('div');
+					
+					echo CHtml::openTag('div', array('class'=>'review-permission-row'));
 						if($dafaultFeedback || $dafaultRead || $dafaultAddressed || $dafaultConfirmation)
 						{
 							echo CHtml::checkBox('chkUserGroup',true,array('id'=>'chkUserGroup','value'=>$item->Id,'style'=>'display:none'));
-							echo CHtml::openTag('div',array('id'=>'divChkUserGroup','class'=>'review-permission-chk-decoration review-permission-chk-decoration-chk'));
+							echo CHtml::openTag('div',array('id'=>'divChkUserGroup','title'=>'Permite visualizar la nota','class'=>'review-permission-chk-decoration review-permission-chk-decoration-chk'));
 						}
 						else
 						{
 							echo CHtml::checkBox('chkUserGroup','',array('id'=>'chkUserGroup','value'=>$item->Id,'style'=>'display:none'));
-							echo CHtml::openTag('div',array('id'=>'divChkUserGroup','class'=>'review-permission-chk-decoration'));
+							echo CHtml::openTag('div',array('id'=>'divChkUserGroup','title'=>'Permite visualizar la nota','class'=>'review-permission-chk-decoration'));
 						}
-							echo CHtml::encode($item->description);
+							echo CHtml::encode('Visualiza');
 						echo CHtml::closeTag('div');
 					echo CHtml::closeTag('div');
 					echo CHtml::openTag('div', array('class'=>'review-permission-row'));
 						if($dafaultAddressed)
 						{
 							echo CHtml::checkBox('chkAddressed',true,array('id'=>'chkAddressed','value'=>$item->Id,'style'=>'display:none'));
-							echo CHtml::openTag('div',array('id'=>'divChkAddressed','class'=>'review-permission-chk-decoration review-permission-chk-decoration-chk'));
+							echo CHtml::openTag('div',array('id'=>'divChkAddressed','title'=>'Indica a quien va dirigida la nota','class'=>'review-permission-chk-decoration review-permission-chk-decoration-chk'));
 						}
 						else
 						{
 							echo CHtml::checkBox('chkAddressed','',array('id'=>'chkAddressed','value'=>$item->Id,'style'=>'display:none'));
-							echo CHtml::openTag('div',array('id'=>'divChkAddressed','class'=>'review-permission-chk-decoration'));
+							echo CHtml::openTag('div',array('id'=>'divChkAddressed','title'=>'Indica a quien va dirigida la nota','class'=>'review-permission-chk-decoration'));
 						}	
 							echo CHtml::encode('Para');
 						echo CHtml::closeTag('div');						
@@ -165,12 +172,12 @@ $('#publicArea_".$data->Id."').children().each(
 						if($dafaultFeedback)
 						{
 							echo CHtml::checkBox('chkCanFeedback',true,array('id'=>'chkCanFeedback','value'=>$item->Id,'style'=>'display:none'));
-							echo CHtml::openTag('div',array('id'=>'divChkCanFeedback','class'=>'review-permission-chk-decoration review-permission-chk-decoration-chk'));
+							echo CHtml::openTag('div',array('id'=>'divChkCanFeedback','title'=>'Permite dar respuesta a la nota','class'=>'review-permission-chk-decoration review-permission-chk-decoration-chk'));
 						}
 						else
 						{
 							echo CHtml::checkBox('chkCanFeedback','',array('id'=>'chkCanFeedback','value'=>$item->Id,'style'=>'display:none'));
-							echo CHtml::openTag('div',array('id'=>'divChkCanFeedback','class'=>'review-permission-chk-decoration'));
+							echo CHtml::openTag('div',array('id'=>'divChkCanFeedback','title'=>'Permite dar respuesta a la nota','class'=>'review-permission-chk-decoration'));
 						}
 							echo CHtml::encode('Respuesta');
 						echo CHtml::closeTag('div');						
@@ -179,12 +186,12 @@ $('#publicArea_".$data->Id."').children().each(
 						if($dafaultConfirmation)
 						{
 							echo CHtml::checkBox('chkNeedConfirmation',true,array('id'=>'chkNeedConfirmation','value'=>$item->Id,'style'=>'display:none'));
-							echo CHtml::openTag('div',array('id'=>'divChkNeedConfirmation','class'=>'review-permission-chk-decoration review-permission-chk-decoration-chk','style'=>'width:70px;'));
+							echo CHtml::openTag('div',array('id'=>'divChkNeedConfirmation','title'=>'Indica que la nota necesita ser Aceptada/Rechazada','class'=>'review-permission-chk-decoration review-permission-chk-decoration-chk','style'=>'width:70px;'));
 						}
 						else
 						{
 							echo CHtml::checkBox('chkNeedConfirmation','',array('id'=>'chkNeedConfirmation','value'=>$item->Id,'style'=>'display:none'));
-							echo CHtml::openTag('div',array('id'=>'divChkNeedConfirmation','class'=>'review-permission-chk-decoration','style'=>'width:70px;'));
+							echo CHtml::openTag('div',array('id'=>'divChkNeedConfirmation','title'=>'Indica que la nota necesita ser Aceptada/Rechazada','class'=>'review-permission-chk-decoration','style'=>'width:70px;'));
 						}
 							echo CHtml::decode('Confirmaci&oacute;n');
 						echo CHtml::closeTag('div');												

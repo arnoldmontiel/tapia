@@ -947,6 +947,16 @@ div.review-permission-area
 	display: inline-block;
 }
 
+div.review-permission-title
+{
+	font-size: 11px;
+	line-height: 18px;
+	padding: 0px 5px  0px 5px;
+	width:70px;
+	text-align: left;
+	margin-left:5px;
+}
+
 div.wall-action-edit-main-note
 {
 	z-index:10;
@@ -1761,7 +1771,7 @@ div.review-permission-row
 }
 div.review-permission-row-first
 {
-	width: 50%;
+	width: 30%;
 	display: inline-block;
 	<!--
   	display: inline;  	
