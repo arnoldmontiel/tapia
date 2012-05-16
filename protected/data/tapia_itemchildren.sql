@@ -1,8 +1,8 @@
 CREATE DATABASE  IF NOT EXISTS `tapia` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `tapia`;
--- MySQL dump 10.13  Distrib 5.5.16, for Win32 (x86)
+-- MySQL dump 10.13  Distrib 5.5.15, for Win32 (x86)
 --
--- Host: localhost    Database: tapia
+-- Host: 127.0.0.1    Database: tapia
 -- ------------------------------------------------------
 -- Server version	5.1.33-community
 
@@ -38,7 +38,7 @@ CREATE TABLE `itemchildren` (
 
 LOCK TABLES `itemchildren` WRITE;
 /*!40000 ALTER TABLE `itemchildren` DISABLE KEYS */;
-INSERT INTO `itemchildren` VALUES ('AlbumManage','AlbumAdmin'),('AlbumManage','AlbumCreate'),('AlbumManage','AlbumDelete'),('AlbumManage','AlbumIndex'),('Administrator','AlbumManage'),('AlbumManage','AlbumUpdate'),('AlbumManage','AlbumView'),('CustomerManage','CustomerAdmin'),('CustomerManage','CustomerAssignment'),('CustomerManage','CustomerCreate'),('CustomerManage','CustomerDelete'),('CustomerManage','CustomerIndex'),('Administrator','CustomerManage'),('CustomerManage','CustomerUpdate'),('CustomerManage','CustomerView'),('ReviewManage','ReviewAdmin'),('ReviewManage','ReviewCreate'),('ReviewManage','ReviewDelete'),('ReviewManage','ReviewIndex'),('Administrator','ReviewManage'),('Customer','ReviewManage'),('ReviewManage','ReviewUpdate'),('ReviewManage','ReviewUpdateAlbum'),('ReviewManage','ReviewUpdateDocuments'),('ReviewManage','ReviewView'),('SiteManage','SiteIndex'),('Administrator','SiteManage'),('Customer','SiteManage'),('TagManage','TagAdmin'),('TagManage','TagCreate'),('TagManage','TagDelete'),('TagManage','TagIndex'),('Administrator','TagManage'),('TagManage','TagUpdate'),('TagManage','TagView'),('UserManage','UserAdmin'),('UserManage','UserCreate'),('UserManage','UserDelete'),('UserManage','UserIndex'),('Administrator','UserManage'),('UserManage','UserUpdate'),('UserManage','UserView'),('WallManage','WallIndex'),('Administrator','WallManage');
+INSERT INTO `itemchildren` VALUES ('AlbumManage','AlbumAdmin'),('AlbumManage','AlbumCreate'),('AlbumManage','AlbumDelete'),('AlbumManage','AlbumIndex'),('Administrator','AlbumManage'),('Arquitect','AlbumManage'),('AlbumManage','AlbumUpdate'),('AlbumManage','AlbumView'),('CustomerManage','CustomerAdmin'),('CustomerManage','CustomerAssign'),('CustomerManage','CustomerAssignment'),('CustomerManage','CustomerCreate'),('CustomerManage','CustomerDelete'),('CustomerManage','CustomerIndex'),('Administrator','CustomerManage'),('CustomerManage','CustomerUpdate'),('CustomerManage','CustomerView'),('ReviewManage','ReviewCreate'),('ReviewManage','ReviewDelete'),('ReviewManage','ReviewIndex'),('Administrator','ReviewManage'),('Arquitect','ReviewManage'),('Customer','ReviewManage'),('ReviewTypeManage','ReviewTypeAdmin'),('ReviewTypeManage','ReviewTypeCreate'),('ReviewTypeManage','ReviewTypeDelete'),('ReviewTypeManage','ReviewTypeIndex'),('Administrator','ReviewTypeManage'),('ReviewTypeManage','ReviewTypeUpdate'),('ReviewTypeManage','ReviewTypeView'),('ReviewManage','ReviewUpdate'),('ReviewManage','ReviewUpdateAlbum'),('ReviewManage','ReviewUpdateDocuments'),('ReviewManage','ReviewView'),('SiteManage','SiteIndex'),('Administrator','SiteManage'),('Arquitect','SiteManage'),('Customer','SiteManage'),('TagManage','TagAdmin'),('TagManage','TagCreate'),('TagManage','TagDelete'),('TagManage','TagIndex'),('Administrator','TagManage'),('TagManage','TagUpdate'),('TagManage','TagView'),('UserManage','UserAdmin'),('UserManage','UserCreate'),('UserManage','UserDelete'),('UserGroupManage','UserGroupAdmin'),('UserGroupManage','UserGroupCreate'),('UserGroupManage','UserGroupDelete'),('UserGroupManage','UserGroupIndex'),('Administrator','UserGroupManage'),('UserGroupManage','UserGroupUpdate'),('UserGroupManage','UserGroupView'),('UserManage','UserIndex'),('Administrator','UserManage'),('UserManage','UserUpdate'),('UserManage','UserView'),('WallManage','WallIndex'),('Administrator','WallManage');
 /*!40000 ALTER TABLE `itemchildren` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-05-07 13:09:43
+-- Dump completed on 2012-05-16 12:28:58

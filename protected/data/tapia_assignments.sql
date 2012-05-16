@@ -1,8 +1,8 @@
 CREATE DATABASE  IF NOT EXISTS `tapia` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `tapia`;
--- MySQL dump 10.13  Distrib 5.5.16, for Win32 (x86)
+-- MySQL dump 10.13  Distrib 5.5.15, for Win32 (x86)
 --
--- Host: localhost    Database: tapia
+-- Host: 127.0.0.1    Database: tapia
 -- ------------------------------------------------------
 -- Server version	5.1.33-community
 
@@ -39,7 +39,7 @@ CREATE TABLE `assignments` (
 
 LOCK TABLES `assignments` WRITE;
 /*!40000 ALTER TABLE `assignments` DISABLE KEYS */;
-INSERT INTO `assignments` VALUES ('Administrator','admin','','s:0:\"\";'),('Authority','admin','','s:0:\"\";'),('Customer','arnold','','s:0:\"\";'),('Customer','arqui','','s:0:\"\";'),('Customer','pablito','','s:0:\"\";'),('Customer','pmainieri','','s:0:\"\";'),('Customer','ssantoni','','s:0:\"\";');
+INSERT INTO `assignments` VALUES ('Administrator','admin','','s:0:\"\";');
 /*!40000 ALTER TABLE `assignments` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-05-07 13:09:44
+-- Dump completed on 2012-05-16 12:28:59
