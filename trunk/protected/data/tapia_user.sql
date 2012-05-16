@@ -44,7 +44,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES ('admin','admin','admin@gmail.com',1,'Pablo','Montiel','evergreen'),('arnold','arnold','arnaldomontiel@gmail.com',2,'Arnaldo','Montiel','Lobos 1747'),('arqui','arqui','arqui@tecto.com',2,'Cosme','Fulanito','Casares 1235'),('pablito','pablito','pablit@to.com',4,'Pablo','Pedraza','Almafuerte'),('pmainieri','pmainieri','pmainieri@gruposmartliving.com',3,'Pablo','Mainieri','Cosetti'),('ssantoni','ssantoni','ssantoni@gruposmartliving.com',3,'Silvana','Santoni','Máximo Cosetti');
+INSERT INTO `user` VALUES ('admin','admin','admin@gmail.com',1,'Pablo','Montiel','evergreen');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
