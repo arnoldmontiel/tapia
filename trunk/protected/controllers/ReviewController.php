@@ -722,12 +722,12 @@ class ReviewController extends Controller
 	
 	public function actionAjaxPublicNote()
 	{
-		$userGroup = $_POST['userGroup'];
-		$canFeedback = $_POST['canFeedback'];
-		$addressed = $_POST['addressed'];
-		$needConf = $_POST['needConf'];
-		$idNote = $_POST['idNote'];
-		$idCustomer = $_POST['idCustomer'];
+		$userGroup = (isset($_POST['userGroup'])?$_POST['userGroup']:null);
+		$canFeedback = (isset($_POST['canFeedback'])?$_POST['canFeedback']:null);
+		$addressed = (isset($_POST['addressed'])?$_POST['addressed']:null);
+		$needConf = (isset($_POST['needConf'])?$_POST['needConf']:null);
+		$idNote = (isset($_POST['idNote'])?$_POST['idNote']:null);
+		$idCustomer = (isset($_POST['idCustomer'])?$_POST['idCustomer']:null);
 		
 		$model = new UserGroupNote;
 		$transaction = $model->dbConnection->beginTransaction();
