@@ -258,6 +258,9 @@ div.review-text-simple-note
 	width: 60%;
 	float:left;
 	margin-left: 5px;
+	<!--
+	margin-left: 0px;
+	-->
 	margin-bottom: 5px;
 }
 
@@ -385,12 +388,12 @@ div.review-create-note-btn:HOVER
 div.review-create-note-btn-main
 {	
 	right:80px;
-	top: 290px;
+	top: 310px;
 }
 div.review-create-note-btn-main-cancel
 {	
 	right:15px;
-	top: 290px;
+	top: 310px;
 }
 
 div.review-edit-image
@@ -930,6 +933,9 @@ div.review-public-permission-area
 	line-height: 18px;
 	width: 540px;
 	margin-left: 5px;
+	<!-- 
+	margin-left: 0px;
+	-->
 	float: left;
 	display: inline-block;
 }
@@ -1317,6 +1323,9 @@ div.review-update-data-info
 div.review-update-data-info-descr
 {	
 	margin-top: 5px;
+	<!--
+	margin-top: 0px;
+	-->
 	margin-right: 5px;
 	display: inline-block;
 	float: left;
@@ -1325,6 +1334,9 @@ div.review-update-data-info-descr
 div.review-update-data-info-descr-text
 {
 	margin-top: 5px;
+	<!--
+	margin-top: 10px;
+	-->
 	font-weight: bold;
 }
 div.review-update-data-info-descr-number
@@ -1611,6 +1623,9 @@ input.album-action-remove-update-file
 div.review-attr-level
 {
 	float: left;
+	<!-- 
+	margin-top: 5px;
+	-->
 }
 div.review-attr-text
 {
