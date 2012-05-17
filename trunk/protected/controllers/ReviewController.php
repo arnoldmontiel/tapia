@@ -169,7 +169,7 @@ class ReviewController extends Controller
 		$criteria->addCondition('t.Id NOT IN(select Id_multimedia from multimedia_note where Id_note = '. $idNote.')');
 		$criteria->addCondition('t.Id_user_group = '. User::getCurrentUserGroup()->Id);
 		$criteria->addCondition('t.Id_review = '. $id);
-		$criteria->addCondition('t.Id_multimedia_type = 3 or t.Id_multimedia_type = 4'); //docs (pdf or autocad)
+		$criteria->addCondition('t.Id_multimedia_type >= 3'); //docs (pdf or autocad)
 		
 		$modelMultimedia = Multimedia::model()->findAll($criteria);
 	
@@ -177,7 +177,7 @@ class ReviewController extends Controller
 		
 		$criteria->addCondition('t.Id IN(select Id_multimedia from multimedia_note where Id_note = '. $idNote.')');
 		$criteria->addCondition('t.Id_review = '. $id);
-		$criteria->addCondition('t.Id_multimedia_type = 3 or t.Id_multimedia_type = 4'); //docs (pdf or autocad)
+		$criteria->addCondition('t.Id_multimedia_type >= 3'); //docs (pdf or autocad)
 		
 		$modelMultimediaSelected = Multimedia::model()->findAll($criteria);
 		
