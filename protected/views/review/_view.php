@@ -71,6 +71,20 @@
 			echo CHtml::image('images/autocad_resource.png','',array('style'=>'width:25px;'));
 			echo CHtml::closeTag('div');
 		}
+		
+		if($modelReview->hasResource( User::getCurrentUserGroup()->Id, 5))
+		{
+			echo CHtml::openTag('div',array('class'=>'index-review-single-resource'));
+			echo CHtml::image('images/word_resource.png','',array('style'=>'width:25px;'));
+			echo CHtml::closeTag('div');
+		}
+		
+		if($modelReview->hasResource( User::getCurrentUserGroup()->Id, 6))
+		{
+			echo CHtml::openTag('div',array('class'=>'index-review-single-resource'));
+			echo CHtml::image('images/excel_resource.png','',array('style'=>'width:25px;'));
+			echo CHtml::closeTag('div');
+		}
 		echo CHtml::closeTag('div');
 		?>
 	</div>

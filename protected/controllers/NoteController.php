@@ -223,7 +223,7 @@ class NoteController extends Controller
 		
 		$criteria=new CDbCriteria;
 		
-		$criteria->addCondition('Id_multimedia IN(select Id from multimedia where Id_multimedia_type IN ( 3,4))');
+		$criteria->addCondition('Id_multimedia IN(select Id from multimedia where Id_multimedia_type IN ( 3,4,5,6))');
 		
 		MultimediaNote::model()->deleteAllByAttributes(array('Id_note'=>$id),$criteria);
 		try {

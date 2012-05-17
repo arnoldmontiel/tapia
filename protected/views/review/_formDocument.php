@@ -31,7 +31,7 @@ $('#btnPublicDoc').click(function(){
 	{
 		var ext = $('#uploadFile').val().split('.').pop().toLowerCase(); 
 		
-		var allow = new Array('pdf','dwg','dxf');
+		var allow = new Array('pdf','dwg','dxf','doc','docx','xls','xlsx');
 			
 		if(jQuery.inArray(ext, allow) == -1) { 
 			alert('La extención no es válida');

@@ -102,6 +102,18 @@ class Multimedia extends CActiveRecord
 					case "avi":
 						$this->Id_multimedia_type = 2; //video
 						break;
+					case "doc":
+						$this->Id_multimedia_type = 5; //word
+						break;
+					case "docx":
+						$this->Id_multimedia_type = 5; //word
+						break;
+					case "xls":
+						$this->Id_multimedia_type = 6; //excel
+						break;
+					case "xlsx":
+						$this->Id_multimedia_type = 6; //excel
+						break;
 				}
 				
 				

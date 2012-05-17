@@ -298,15 +298,24 @@ $editable = $isAdministrator||$isOwner;
 			}
 			foreach($data->multimedias as $item)
 			{
-				if($item->Id_multimedia_type!=3
-					&&$item->Id_multimedia_type!=4) continue;
+				if($item->Id_multimedia_type < 3) continue;
 				echo CHtml::openTag('div');
 				
 				echo CHtml::openTag('div',array('class'=>'index-review-single-resource'));
-				if($item->Id_multimedia_type == 4)
-					echo CHtml::image('images/autocad_resource.png','',array('style'=>'width:25px;'));
-				else
-					echo CHtml::image('images/pdf_resource.png','',array('style'=>'width:25px;'));
+				switch ( $item->Id_multimedia_type) {
+					case 4:
+						echo CHtml::image('images/autocad_resource.png','',array('style'=>'width:25px;'));
+						break;
+					case 5:
+						echo CHtml::image('images/word_resource.png','',array('style'=>'width:25px;'));
+						break;
+					case 6:
+						echo CHtml::image('images/excel_resource.png','',array('style'=>'width:25px;'));
+						break;
+					case 3:
+						echo CHtml::image('images/pdf_resource.png','',array('style'=>'width:25px;'));
+						break;
+				}
 				echo CHtml::closeTag('div');
 				
 				echo CHtml::link(
