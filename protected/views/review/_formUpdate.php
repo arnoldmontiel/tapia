@@ -907,7 +907,7 @@ $('#need_reload').click(function(){
 		}
 		echo CHtml::openTag('div',array('class'=>'order-info'));
 			echo CHtml::label('Orden: ','info_order');
-			$orderData = array('addressed'=>'Destinatario','can_feedback'=>'Respuesta','need_confirmation'=>'Confirmaci'.utf8_encode('�').'n');
+			$orderData = array('addressed'=>'Para','can_feedback'=>'Con respuesta','need_confirmation'=>'Con confirmaci'.utf8_encode('ó').'n');
 			echo CHtml::dropDownList('info_order', ($order)?$order:'addressed', $orderData);
 		echo CHtml::closeTag('div');
 		
@@ -937,7 +937,7 @@ echo CHtml::openTag('div',array('class'=>'wall-action-box-btn','id'=>'btn-box'))
 	echo CHtml::closeTag('div');
 	echo CHtml::openTag('div',array('class'=>'order-info'));
 		echo CHtml::label('Orden: ','info_order');
-		$orderData = array('addressed'=>'Para','can_feedback'=>'Con Respuesta','need_confirmation'=>'Con Confirmacion');
+		$orderData = array('addressed'=>'Para','can_feedback'=>'Con respuesta','need_confirmation'=>'Con confirmaci'.utf8_encode('ó').'n');
 		echo CHtml::dropDownList('info_order', ($order)?$order:'addressed', $orderData);
 	echo CHtml::closeTag('div');
 echo CHtml::closeTag('div');
