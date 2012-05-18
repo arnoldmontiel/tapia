@@ -802,13 +802,22 @@ setInterval(function() {
 			}	
 			).success(
 			function(data){
-				if(data == 0)
+				if(data == 0){
 					$('#need_reload').animate({opacity: 'show'},240);
+					$('#notification').animate({opacity: 'show'},240);
+				}
 					
 			
 	});
 }, 20000)
-
+$('#notification').click(function(){
+		
+	var url = '".ReviewController::createUrl('update',array('id'=>$model->Id))."';
+	window.location = url + '&order='+$('#info_order').val();
+	return false;
+		
+	});
+		
 $('#need_reload').click(function(){
 		
 	var url = '".ReviewController::createUrl('update',array('id'=>$model->Id))."';
@@ -818,6 +827,9 @@ $('#need_reload').click(function(){
 	});
 ");
 ?>
+<div id="notification" class="review-update-notification div-hidden">
+	Hay novedades, click para actualizar
+</div>
 <div class="review-update-data">
 
 	<div class="review-update-data-info">

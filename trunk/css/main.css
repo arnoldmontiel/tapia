@@ -1896,3 +1896,14 @@ div.album-view-image-cancel
 	float: right;
 	margin-left: 10px;
 }
+div.review-update-notification
+{
+	position: fixed;
+	width: 180px;
+	left: 15px;
+	top: 500px; 
+	background-color: #F4F6FB;
+	border-radius: 5px;
+	border: 1px solid #D7DDEB;
+	padding: 5px 5px 5px 5px;
+}
