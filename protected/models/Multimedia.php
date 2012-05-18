@@ -117,7 +117,9 @@ class Multimedia extends CActiveRecord
 				}
 				
 				
-				$uniqueId = uniqid();
+				//$uniqueId = uniqid();	
+				$uniqueId = time();
+				
 				
 				$folder = "docs/";
 				$fileName = $this->customer->last_name . '_' . $this->customer->name . '_r' .  $this->review->review . '_' . $uniqueId.'.'.$ext;
