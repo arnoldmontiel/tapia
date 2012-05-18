@@ -805,9 +805,11 @@ setInterval(function() {
 				if(data == 0){
 					$('#need_reload').animate({opacity: 'show'},240);
 					$('#notification').animate({opacity: 'show'},240);
-				}
-					
-			
+					if('".$browser['browser']."'=='IE')
+					{
+						$('#notification').removeClass('div-hidden');
+					}		
+				}			
 	});
 }, 20000)
 $('#notification').click(function(){
