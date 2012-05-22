@@ -117,8 +117,7 @@ class Multimedia extends CActiveRecord
 				}
 				
 				
-				//$uniqueId = uniqid();	
-				$uniqueId = time();
+				$uniqueId = uniqid();	
 				
 				
 				$folder = "docs/";
