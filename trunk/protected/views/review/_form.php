@@ -1,8 +1,25 @@
+<?php 
+Yii::app()->clientScript->registerScript('form-create-review', "
+$('#Review_Id_review_type').change(function(){
+	
+		$.post(
+			'".ReviewController::createUrl('AjaxGetNextReviewIndex')."',
+			{
+			 	idCustomer: ".$model->Id_customer.",
+				idReviewType:$(this).val()
+			 }).success(
+					function(data) 
+					{ 
+						$('#Review_review').val(data);
+					});
+		});
 
+")
+?>
 <div class="form">
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'review-form',
-	'enableAjaxValidation'=>true,
+	'enableAjaxValidation'=>false,
 )); ?>
 
 	<?php echo $form->errorSummary($model); ?>

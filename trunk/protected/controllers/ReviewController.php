@@ -85,6 +85,22 @@ class ReviewController extends Controller
 		));
 	}
 
+	public function actionAjaxGetNextReviewIndex()
+	{
+		$idCustomer = $_POST['idCustomer'];
+		$idReviewType = $_POST['idReviewType'];
+		
+		$criteria=new CDbCriteria;
+		
+		$criteria->select='MAX(review) as maxReview';
+		$criteria->condition='Id_customer = '.$idCustomer ;
+		$criteria->addCondition('Id_review_type = '.$idReviewType);
+		
+		$modelMax = Review::model()->find($criteria);
+		
+		echo $modelMax->maxReview + 1;
+	}
+	
 	/**
 	 * Updates a particular model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
