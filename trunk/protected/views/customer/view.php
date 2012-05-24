@@ -21,6 +21,10 @@ $this->menu=array(
 		'name',
 		'last_name',
 		'username',
+		array('label'=>$model->getAttributeLabel('username'),
+				'type'=>'raw',
+				'value'=>$model->username . ' ( ' . CHtml::link('Asignar permisos', Yii::app()->createUrl('srbac/authitem/assign')) . ' )'
+		),
 		array('label'=>$model->getAttributeLabel('email'),
 				'type'=>'raw',
 				'value'=>$model->user->email
@@ -32,3 +36,4 @@ $this->menu=array(
 		
 	),
 )); ?>
+
