@@ -6,7 +6,7 @@
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
 return array(
-	'language'=>'es', // Este es el lenguaje en el que querés que muestre las cosas
+	'language'=>'es', // Este es el lenguaje en el que querï¿½s que muestre las cosas
     'sourceLanguage'=>'en', //  este es el lenguaje por default de los archivos
     
     'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
@@ -94,7 +94,7 @@ return array(
 			'connectionString' => 'mysql:host=localhost;dbname=tapia',
 			'emulatePrepare' => true,
 			'username' => 'root',
-			'password' => '',
+			'password' => 'admin',
 			'charset' => 'utf8',
 		),
 		'authManager'=>array(

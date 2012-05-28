@@ -1,21 +1,27 @@
 <?php 
-Yii::app()->clientScript->registerScript('form-create-review', "
-$('#Review_Id_review_type').change(function(){
-	
+Yii::app()->clientScript->registerScript(__CLASS__.'#review-form-create', "
+	$('#Review_Id_review_type').change(function(){
 		$.post(
 			'".ReviewController::createUrl('AjaxGetNextReviewIndex')."',
-			{
-			 	idCustomer: ".$model->Id_customer.",
-				idReviewType:$(this).val()
-			 }).success(
-					function(data) 
-					{ 
-						$('#Review_review').val(data);
-					});
+		{
+		idCustomer: ".$model->Id_customer.",
+		idReviewType:$(this).val()
+	}).success(
+		function(data)
+		{
+			$('#Review_review').val(data);
 		});
+	});
+");
+		
+$this->widget('ext.processingDialog.processingDialog', array(
+		'buttons'=>array('save'),
+		'idDialog'=>'wating',
+));
 
-")
 ?>
+
+
 <div class="form">
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'review-form',
@@ -55,9 +61,11 @@ $('#Review_Id_review_type').change(function(){
 	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save',array('id'=>'save')); ?>
 	</div>
 
 <?php $this->endWidget(); ?>
 
 </div><!-- form -->
+<?php 
+?>
