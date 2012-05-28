@@ -110,5 +110,22 @@
 			echo CHtml::closeTag('div');				
 		} 		
 		?>
+		<div>
+		
+	<?php 
+	if(User::isAdministartor())
+	{
+		echo CHtml::link(
+		    CHtml::image('images/remove.png','',
+						array('id'=>'removeReview'.$data->Id, 'class'=>'wall-action-remove-small','title'=>'Eliminar')),
+			array( 'delete','id'=>$data->Id),
+			array('onclick' => 'return confirm("\u00BFEsta seguro que desea borrar este agrupador?")')
+		);
+	}
+		
+		?>
+		
+	</div>
 </div>
+
 </a>
