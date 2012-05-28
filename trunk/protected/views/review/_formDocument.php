@@ -34,7 +34,7 @@ $('#btnPublicDoc').click(function(){
 		var allow = new Array('pdf','dwg','dxf','doc','docx','xls','xlsx');
 			
 		if(jQuery.inArray(ext, allow) == -1) { 
-			alert('La extención no es válida');
+			alert('La extenciÃ³n no es vÃ¡lida');
 			return false;
 		}
 	}
@@ -46,9 +46,11 @@ $('#btnPublicDoc').click(function(){
 	$('#wall-action-doc').animate({opacity: 'hide'},240);
 	$('#loading').addClass('loading');
 	RestoreButtons();
+	$('#dialogProcessing').dialog('open');
 });
 
 ");
+
 ?>
 
 <div class="wide form">

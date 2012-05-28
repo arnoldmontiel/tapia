@@ -416,7 +416,6 @@ function bindEvents(item)
 	});
 	
 	$('#public_'+idMainNote).click(function(){
-
 		var dataUserGroup = { 'value[]' : []};
 		var dataFeedback = { 'value[]' : []};
 		var dataAddressed = { 'value[]' : []};
@@ -440,6 +439,7 @@ function bindEvents(item)
 				dataNeedConf['value[]'].push($(chkNeedConf).val());
 		});
 		
+			$('#dialogProcessing').dialog('open');		
 			$.post('".ReviewController::createUrl('AjaxPublicNote')."', 
 			{
 				idNote: idMainNote,
@@ -452,6 +452,7 @@ function bindEvents(item)
 			).success(
 			function(data){
 				window.location = '".ReviewController::createUrl('update',array('id'=>$model->Id))."';
+				$('#dialogProcessing').dialog('close');		
 				return false;
 		});
 
@@ -602,6 +603,8 @@ $('#btnNote').click(function(){
 
 $('#btnSaveNote').click(function(){
 	$('#loading').addClass('loading');
+	$('#dialogProcessing').dialog('open');
+		
 	var id = $('#Note_Id_note').val()
 	$.post('".ReviewController::createUrl('AjaxSaveNote')."', 
 		{
@@ -610,6 +613,7 @@ $('#btnSaveNote').click(function(){
 	).success(
 	function(data){
 		$('.review-container-single-view:first').before(data);
+		$('#dialogProcessing').dialog('close');
 		$('#loading').removeClass('loading');
 		$('#wall-action-note').animate({opacity: 'hide'},240,
 		function(){		
@@ -1160,3 +1164,8 @@ echo CHtml::closeTag('div');
 	</div>
 <?php endif;?>		
 </div>
+<?php
+$this->widget('ext.processingDialog.processingDialog', array(
+		'idDialog'=>'dialogProcessing',
+));
+?>
