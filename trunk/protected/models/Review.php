@@ -93,9 +93,9 @@ class Review extends CActiveRecord
 	{
 		return array(
 			'Id' => 'ID',
-			'review' => 'Revisión',
+			'review' => 'RevisiÃ³n',
 			'Id_customer' => 'Id Customer',
-			'description' => 'Descripción',
+			'description' => 'DescripciÃ³n',
 			'creation_date' => 'Creation Date',
 			'change_date' => 'Change Date',
 			'Id_priority' => 'Id Priority',
@@ -185,6 +185,12 @@ class Review extends CActiveRecord
 		
 		$criteria->addCondition('t.Id_customer = '. $this->Id_customer);
 		$criteria->with[]='priority';
+		
+		if(!User::getCurrentUserGroup()->is_administrator)
+		{
+			$criteria->join .= ' INNER JOIN `review_user` `reviewUsers` ON (`reviewUsers`.`Id_review`=`t`.`Id`)';
+			$criteria->addCondition('reviewUsers.username = "'.User::getCurrentUser()->username.'"');				
+		}
 		
 		$criteria->order = 't.change_date DESC, priority.level DESC , t.review DESC';
 		
