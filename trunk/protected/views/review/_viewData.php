@@ -253,7 +253,7 @@ $editable = $isAdministrator||$isOwner;
 					
 			?>
 		</div>	
-		<?php endif;?>
+	<?php endif;?>
 	</div>		
 	<div class="review-multimedia-conteiner">
 	<div id='review_image<?php echo $data->Id?>' class="review-text-images">
@@ -346,6 +346,54 @@ $editable = $isAdministrator||$isOwner;
 				
 		?>
 	</div>
+	</div>
+	<div class="singles-notes-confirmations">
+		<?php if ($needConfirmation):?>
+		<div class="singles-notes-confirmations-title">
+			<?php 
+			echo CHtml::encode("Estado de confirmaciones:");
+			?>
+		</div>
+		<div class="singles-notes-confirmations-row">
+			<?php 
+				$criteria=new CDbCriteria;
+				
+				$criteria->addCondition('t.Id_user_group <> '. User::getCurrentUserGroup()->Id);
+				$criteria->addCondition('t.Id_note = '. $data->Id);
+				$criteria->addCondition('t.need_confirmation = 1');
+				
+				$modelUserGroupNote = UserGroupNote::model()->findAll($criteria);
+				echo CHtml::openTag('div',array('class'=>'status-permission-row'));
+				foreach ($modelUserGroupNote as $item)
+				{
+					echo CHtml::openTag('div',array('class'=>'status-permission-title'));
+					echo $item->userGroup->description.":";					
+					echo CHtml::closeTag('div');
+					$text = "";
+					$color = 'background-color:';
+					if($item->confirmed)
+					{
+						$text = CHtml::encode("Confirmado");
+						$color.='#80e765;color:black;';
+					}
+					else if($item->declined)
+					{
+						$text = CHtml::encode("Declinado");						
+						$color.='#ed5656;color:black;';
+					}
+					else
+					{
+						$text = CHtml::encode("Pendiente");						
+						$color.='#AFBAD7;color:black;';
+					}
+					echo CHtml::openTag('div',array('class'=>'status-permission-data','style'=>$color));
+					echo $text;
+					echo CHtml::closeTag('div');
+				}
+				echo CHtml::closeTag('div');
+			?>
+		</div>
+		<?php endif;?>		
 	</div>
 	<div id="singleNoteContainer" class="singles-notes-container">
 	<?php $notes=$data->notes;?>

@@ -1522,6 +1522,15 @@ div.singles-notes-container
 	float: left;
 	width: 100%;
 }
+div.singles-notes-confirmations
+{
+	padding-top:10px;
+	display: block;
+	position: relative;
+	float: left;
+	width: 100%;
+}
+
 p.single-formated-text
 {
     white-space: -moz-pre-wrap; /* Mozilla, supported since 1999 */
@@ -1907,4 +1916,40 @@ div.review-update-notification
 	border: 1px solid #D7DDEB;
 	padding: 5px 5px 5px 5px;
 	cursor: pointer;
+}
+
+div.status-permission-row
+{
+	width:100%;
+	display: inline-block;
+	<!--
+  	display: inline;  	
+  	-->
+	margin-top: 3px;
+	<!--
+	zoom:1;
+	-->
+	<!--
+	vertical-align: bottom;
+	--> 
+}
+div.status-permission-title
+{
+	font-size: 13px;
+	line-height: 18px;
+	padding: 0px 5px  0px 5px;
+	width:70px;
+	text-align: left;
+	margin-left:5px;
+	float: left;
+}
+div.status-permission-data
+{
+	font-size: 11px;
+	line-height: 18px;
+	padding: 0px 5px  0px 5px;
+	width:70px;
+	text-align: left;
+	margin-left:5px;
+	float: left;
 }
