@@ -188,8 +188,11 @@ class Review extends CActiveRecord
 		
 		if(!User::getCurrentUserGroup()->is_administrator)
 		{
-			$criteria->join .= ' INNER JOIN `review_user` `reviewUsers` ON (`reviewUsers`.`Id_review`=`t`.`Id`)';
-			$criteria->addCondition('reviewUsers.username = "'.User::getCurrentUser()->username.'"');				
+			//$criteria->join .= ' INNER JOIN `review_user` `reviewUsers` ON (`reviewUsers`.`Id_review`=`t`.`Id`)';
+			//$criteria->addCondition('reviewUsers.username = "'.User::getCurrentUser()->username.'"');				
+			$criteria->join .= ' LEFT OUTER JOIN `note` `n` ON (`n`.`Id_review`=`t`.`Id`) 
+								INNER JOIN `user_group_note` `ugn` ON (`ugn`.`Id_note`=`n`.`Id`)';
+			$criteria->addCondition('ugn.Id_user_group = '.User::getCurrentUserGroup()->Id);				
 		}
 		
 		$criteria->order = 't.change_date DESC, priority.level DESC , t.review DESC';
