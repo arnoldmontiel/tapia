@@ -334,9 +334,9 @@ class ReviewController extends Controller
 		$id = $_POST['id'];
 		
 		$modelReviewUser = ReviewUser::model()->findByAttributes(array('Id_review'=>$id,'username'=>User::getCurrentUser()->username));
-		
-		echo $modelReviewUser->read;
-	
+		echo isset($modelReviewUser)?
+			$modelReviewUser->read:
+			1;	
 	}
 	
 	public function actionAjaxSetPriority()
@@ -392,7 +392,7 @@ class ReviewController extends Controller
 
 		$dataProvider = $review->searchSummary($arrFilters);
 		
-		$dataProvider->pagination->pageSize= 10;
+		$dataProvider->pagination->pageSize= 20;
 		
 		$data = $dataProvider->getData();
 			
