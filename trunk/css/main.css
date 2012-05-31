@@ -1121,6 +1121,15 @@ img.wall-action-remove-small
 	width:20px;
 	cursor: pointer;
 }
+img.review-action-remove-small
+{	
+	position:absolute;
+	top:0px;
+	right:0px;
+	width:17px;
+	cursor: pointer;
+}
+
 div.album-action-area
 {
 	font-size: 13px;
