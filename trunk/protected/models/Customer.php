@@ -8,7 +8,8 @@
  * @property string $name
  * @property string $last_name
  * @property string $username
- *
+ * @property string $building_address
+ * 
  * The followings are the available model relations:
  * @property User $user
  * @property Multimedia[] $multimedias
@@ -45,9 +46,10 @@ class Customer extends CActiveRecord
 			array('username', 'required'),
 			array('name, last_name', 'length', 'max'=>45),
 			array('username', 'length', 'max'=>128),
+			array('building_address', 'length', 'max'=>100),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id, name, last_name, username', 'safe', 'on'=>'search'),
+			array('Id, name, last_name, username, building_address', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -82,6 +84,9 @@ class Customer extends CActiveRecord
 			'username' => 'Usuario',
 			'address'=>'Direcci&oacute;n',
 			'email'=>'Correo',
+			'building_address' => 'Direcci&oacute;n de obra',
+			'phone_house' => 'Tel&eacute;fono Casa',
+			'phone_mobile' => 'Tel&eacute;fono M&oacute;vil',
 		);
 	}
 
@@ -100,6 +105,7 @@ class Customer extends CActiveRecord
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('last_name',$this->last_name,true);
 		$criteria->compare('username',$this->username,true);
+		$criteria->compare('building_address',$this->building_address,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

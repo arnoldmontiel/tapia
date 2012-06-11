@@ -52,6 +52,18 @@
 		<?php echo $form->textField($model,'address',array('size'=>60,'maxlength'=>100)); ?>
 		<?php echo $form->error($model,'address'); ?>
 	</div>
+	
+	<div class="row">
+		<?php echo $form->labelEx($model,'phone_house'); ?>
+		<?php echo $form->textField($model,'phone_house',array('size'=>45,'maxlength'=>45)); ?>
+		<?php echo $form->error($model,'phone_house'); ?>
+	</div>
+	
+	<div class="row">
+		<?php echo $form->labelEx($model,'phone_mobile'); ?>
+		<?php echo $form->textField($model,'phone_mobile',array('size'=>45,'maxlength'=>45)); ?>
+		<?php echo $form->error($model,'phone_mobile'); ?>
+	</div>
 			
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Crear' : 'Guardar'); ?>

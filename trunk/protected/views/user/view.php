@@ -23,5 +23,7 @@ $this->menu=array(
 		'name',
 		'last_name',
 		'address',
+		'phone_house',
+		'phone_mobile',
 	),
 )); ?>
