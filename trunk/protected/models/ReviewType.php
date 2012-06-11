@@ -9,6 +9,7 @@
  *
  * The followings are the available model relations:
  * @property Review[] $reviews
+ * @property Tag[] $tags
  */
 class ReviewType extends CActiveRecord
 {
@@ -55,6 +56,7 @@ class ReviewType extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'reviews' => array(self::HAS_MANY, 'Review', 'Id_review_type'),
+			'tags' => array(self::MANY_MANY, 'Tag', 'tag_review_type(Id_review_type, Id_tag)'),
 		);
 	}
 
