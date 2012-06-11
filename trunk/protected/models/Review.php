@@ -13,6 +13,8 @@
  * @property integer $Id_priority
  * @property integer $read
  * @property integer $Id_review_type
+ * @property string $username
+ * @property integer $Id_user_group
  * The followings are the available model relations:
  * @property Album[] $albums
  * @property Multimedia[] $multimedias
@@ -27,6 +29,16 @@ class Review extends CActiveRecord
 {
 	public $maxReview;
 
+	public function beforeSave()
+	{
+		if($this->isNewRecord)
+		{
+			$this->Id_user_group = User::getCurrentUserGroup()->Id;
+			$this->username = User::getCurrentUser()->username;
+		}
+		
+		return parent::beforeSave();
+	}
 	
 	/**
 	 * Returns the static model of the specified AR class.
@@ -57,6 +69,7 @@ class Review extends CActiveRecord
 			array('Id_customer, Id_priority,Id_review_type', 'required'),
 			array('review, Id_customer, Id_priority, read, Id_review_type', 'numerical', 'integerOnly'=>true),
 			array('description, creation_date, change_date', 'safe'),		
+			array('username', 'length', 'max'=>128),
 			array('change_date','default',
 				              'value'=>new CDbExpression('NOW()'),
 				              'setOnEmpty'=>false,'on'=>'insert,update'),
@@ -124,6 +137,8 @@ class Review extends CActiveRecord
 		$criteria->compare('Id_priority',$this->Id_priority);
 		$criteria->compare('read',$this->read);
 		$criteria->compare('Id_review_type',$this->Id_review_type);
+		$criteria->compare('username',$this->username,true);
+		$criteria->compare('Id_user_group',$this->Id_user_group);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -184,15 +199,17 @@ class Review extends CActiveRecord
 		}
 		
 		$criteria->addCondition('t.Id_customer = '. $this->Id_customer);
+		
 		$criteria->with[]='priority';
 		
-		if(!User::getCurrentUserGroup()->is_administrator)
+		if(!User::getCurrentUserGroup()->is_administrator )
 		{
 			//$criteria->join .= ' INNER JOIN `review_user` `reviewUsers` ON (`reviewUsers`.`Id_review`=`t`.`Id`)';
 			//$criteria->addCondition('reviewUsers.username = "'.User::getCurrentUser()->username.'"');				
 			$criteria->join .= ' LEFT OUTER JOIN `note` `n` ON (`n`.`Id_review`=`t`.`Id`) 
-								INNER JOIN `user_group_note` `ugn` ON (`ugn`.`Id_note`=`n`.`Id`)';
+								LEFT OUTER JOIN `user_group_note` `ugn` ON (`ugn`.`Id_note`=`n`.`Id`)';
 			$criteria->addCondition('ugn.Id_user_group = '.User::getCurrentUserGroup()->Id);				
+			$criteria->addCondition('t.username = "'. User::getCurrentUser()->username . '"','OR');
 		}
 		
 		$criteria->order = 't.change_date DESC, priority.level DESC , t.review DESC';
