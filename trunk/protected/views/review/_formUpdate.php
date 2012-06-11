@@ -898,7 +898,7 @@ $('#need_reload').click(function(){
 		echo CHtml::openTag('div',array('class'=>'wall-action-btn','id'=>'btnDoc'));
 			echo 'Documentos';
 		echo CHtml::closeTag('div');
-		if(User::isAdministartor())
+		if($model->username == User::getCurrentUser()->username )
 		{
 			echo CHtml::openTag('div',array('class'=>'review-priority'));
 				$prioritys = CHtml::listData($ddlPriority, 'Id', 'description');
