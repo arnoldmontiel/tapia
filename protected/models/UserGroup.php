@@ -68,6 +68,7 @@ class UserGroup extends CActiveRecord
 			'multimedias' => array(self::HAS_MANY, 'Multimedia', 'Id_user_group'),
 			'notes' => array(self::MANY_MANY, 'Note', 'user_group_note(Id_user_group, Id_note)'),
 			'users' => array(self::HAS_MANY, 'User', 'Id_user_group'),
+			'reviewTypes' => array(self::MANY_MANY, 'ReviewType', 'review_type_user_group(Id_user_group, Id_review_type)'),
 		);
 	}
 

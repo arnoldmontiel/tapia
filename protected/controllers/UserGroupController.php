@@ -50,8 +50,12 @@ class UserGroupController extends Controller
 	 */
 	public function actionView($id)
 	{
+		$modelReviewTypeUserGroup = new ReviewTypeUserGroup('Search');
+		$modelReviewTypeUserGroup->Id_user_group = $id;
+		
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
+			'modelReviewTypeUserGroup'=>$modelReviewTypeUserGroup,
 		));
 	}
 
@@ -70,7 +74,12 @@ class UserGroupController extends Controller
 		{
 			$model->attributes=$_POST['UserGroup'];
 			if($model->save())
+			{
+				if(isset($_POST['chklist-reviewType']))
+					$this->createReviewTypeRelation($model->Id, $_POST['chklist-reviewType']);
+					
 				$this->redirect(array('view','id'=>$model->Id));
+			}
 		}
 
 		$this->render('create',array(
@@ -83,6 +92,20 @@ class UserGroupController extends Controller
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 * @param integer $id the ID of the model to be updated
 	 */
+	
+	private function createReviewTypeRelation($id, $checks)
+	{
+		ReviewTypeUserGroup::model()->deleteAllByAttributes(array('Id_user_group'=>$id));
+		
+		foreach($checks as $item)
+		{
+			$modelReviewTypeUserGroup = new ReviewTypeUserGroup;
+			$modelReviewTypeUserGroup->Id_user_group = $id;
+			$modelReviewTypeUserGroup->Id_review_type = $item;
+			$modelReviewTypeUserGroup->save();
+		}
+	}
+	
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
@@ -94,7 +117,10 @@ class UserGroupController extends Controller
 		{
 			$model->attributes=$_POST['UserGroup'];
 			if($model->save())
+			{
+				$this->createReviewTypeRelation($model->Id, $_POST['chklist-reviewType']);
 				$this->redirect(array('view','id'=>$model->Id));
+			}
 		}
 
 		$this->render('update',array(
