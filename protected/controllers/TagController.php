@@ -27,18 +27,6 @@ class TagController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
-				'users'=>array('*'),
-			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
-				'users'=>array('@'),
-			),
-			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
-				'users'=>array('admin'),
-			),
-			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
 		);
@@ -93,8 +81,27 @@ class TagController extends Controller
 		if(isset($_POST['Tag']))
 		{
 			$model->attributes=$_POST['Tag'];
-			if($model->save())
+			if($model->save())				
+			{
+				$modelTagReviewTypes = TagReviewType::model()->findAllByAttributes(array('Id_tag'=>$model->Id));
+				foreach($modelTagReviewTypes as $item)
+				{
+					$item->delete();
+				}
+				
+				$modelTagReviewType = new TagReviewType();
+				if(isset($_POST['ReviewType']))
+				{
+					foreach($_POST['ReviewType'] as $item)
+					{
+						$modelTagReviewType = new TagReviewType;
+						$modelTagReviewType->Id_tag = $model->Id;
+						$modelTagReviewType->Id_review_type = $item;
+						$modelTagReviewType->save();
+					}						
+				}
 				$this->redirect(array('view','id'=>$model->Id));
+			}
 		}
 
 		$this->render('update',array(
