@@ -6,13 +6,13 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Listar Etiquetas', 'url'=>array('index')),
-	array('label'=>'Crear Etiqueta', 'url'=>array('create')),
-	array('label'=>'Ver Etiqueta', 'url'=>array('view', 'id'=>$model->Id)),
-	array('label'=>'Administrar Etiquetas', 'url'=>array('admin')),
+	array('label'=>'Listar Etapas', 'url'=>array('index')),
+	array('label'=>'Crear Etapas', 'url'=>array('create')),
+	array('label'=>'Ver Etapa', 'url'=>array('view', 'id'=>$model->Id)),
+	array('label'=>'Administrar Etapas', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Actualizar Etiqueta</h1>
+<h1>Actualizar Etapa</h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

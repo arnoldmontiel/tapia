@@ -4,12 +4,12 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Crear Etiqueta', 'url'=>array('create')),
-	array('label'=>'Administrar Etiquetas', 'url'=>array('admin')),
+	array('label'=>'Crear Etapas', 'url'=>array('create')),
+	array('label'=>'Administrar Etapas', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Etiquetas</h1>
+<h1>Etapas</h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,

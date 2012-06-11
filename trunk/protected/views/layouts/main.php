@@ -33,7 +33,7 @@
 				<?php echo CHtml::link('Clientes',Yii::app()->createUrl('customer/index'),array('class'=>(Yii::app()->user->checkAccess('CustomerIndex'))?'header-menu-item':'header-menu-item-hidden')); ?>
 			</div>
 			<div class="header-menu-item">
-				<?php echo CHtml::link('Etiquetas',Yii::app()->createUrl('tag/index'),array('class'=>(Yii::app()->user->checkAccess('CustomerIndex'))?'header-menu-item':'header-menu-item-hidden')); ?>
+				<?php echo CHtml::link('Etapas',Yii::app()->createUrl('tag/index'),array('class'=>(Yii::app()->user->checkAccess('CustomerIndex'))?'header-menu-item':'header-menu-item-hidden')); ?>
 			</div>
 			<div class="header-menu-item">
 				<?php echo CHtml::link('Agrupadores',Yii::app()->createUrl('reviewType/index'),array('class'=>(Yii::app()->user->checkAccess('CustomerIndex'))?'header-menu-item':'header-menu-item-hidden')); ?>

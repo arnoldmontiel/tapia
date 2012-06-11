@@ -5,14 +5,14 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Listar Etiquetas', 'url'=>array('index')),
-	array('label'=>'Crear Etiqueta', 'url'=>array('create')),
+	array('label'=>'Listar Etapas', 'url'=>array('index')),
+	array('label'=>'Crear Etapas', 'url'=>array('create')),
 );
 
 
 ?>
 
-<h1>Administrar Etiquetas</h1>
+<h1>Administrar Etapas</h1>
 
 <div class="search-form" style="display:none">
 <?php $this->renderPartial('_search',array(
