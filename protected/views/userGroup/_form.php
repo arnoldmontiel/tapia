@@ -26,11 +26,11 @@
 		<?php echo $form->error($model,'is_administrator'); ?>
 	</div>
 	
-	<div class="search-box">
-		<div class="search-box-title">
-		Tipo de agrupador
+	<div class="row">
+		<div class="check-title">	
+			Tipos de Agrupadores
 		</div>
-		<div class="search-box-list">
+		<div class="review-types">
 		<?php
 			$checked = array();
 			foreach($model->reviewTypes as $reviewType)

@@ -15,7 +15,9 @@
 		<?php echo $form->error($model,'description'); ?>
 	</div>
 	<div class="row">
-		<?php echo $form->labelEx($model,'reviewTypes'); ?>
+	<div class="check-title">
+		Tipos de Agrupadores
+	</div>
 	<div class="review-types">
 	
 		<?php 
