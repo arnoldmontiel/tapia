@@ -25,7 +25,26 @@
 		<?php echo $form->checkBox($model,'is_administrator'); ?>
 		<?php echo $form->error($model,'is_administrator'); ?>
 	</div>
-
+	
+	<div class="search-box">
+		<div class="search-box-title">
+		Tipo de agrupador
+		</div>
+		<div class="search-box-list">
+		<?php
+			$checked = array();
+			foreach($model->reviewTypes as $reviewType)
+			{
+				$checked[] = $reviewType->Id;
+			}
+		
+			$modelReviewType = ReviewType::model()->findAll();
+			$checkReviewType = CHtml::listData($modelReviewType, 'Id', 'description');		
+			echo CHtml::checkBoxList('chklist-reviewType', $checked, $checkReviewType);
+		?>
+		</div>
+	</div>
+	
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Crear' : 'Guardar'); ?>
 	</div>
