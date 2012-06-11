@@ -20,10 +20,13 @@ $this->menu=array(
 	'attributes'=>array(
 		'name',
 		'last_name',
-		'username',
 		array('label'=>$model->getAttributeLabel('username'),
 				'type'=>'raw',
 				'value'=>$model->username . ' ( ' . CHtml::link('Asignar permisos', Yii::app()->createUrl('srbac/authitem/assign'),array('id'=>'linkPermission')) . ' )'
+		),
+		array('label'=>$model->getAttributeLabel('password'),
+				'type'=>'raw',
+				'value'=>$model->user->password
 		),
 		array('label'=>$model->getAttributeLabel('email'),
 				'type'=>'raw',
@@ -44,4 +47,45 @@ $this->menu=array(
 		),
 	),
 )); ?>
+<br>
+<div class="customer-assign-title">
+	Usuarios Asignados
+	</div>
+<?php 
+	
+	$this->widget('zii.widgets.grid.CGridView', array(
+		'id'=>'user-customer-grid',
+		'dataProvider'=>$modelUserCustomer->search(),
+		'summaryText'=>'',
+		'columns'=>array(
+				array(
+			 		'name'=>'user_group_desc',
+					'value'=>'$data->user->userGroup->description',
+				),
+				'username',
+				array(
+			 		'name'=>'name',
+					'value'=>'$data->user->name',
+				),
+				array(
+			 		'name'=>'last_name',
+					'value'=>'$data->user->last_name',
+				),
+				array(
+			 		'name'=>'email',
+					'value'=>'$data->user->email',
+				),
+				array(
+			 		'name'=>'phone_house',
+					'value'=>'$data->user->phone_house',
+				),
+				array(
+			 		'name'=>'phone_mobile',
+					'value'=>'$data->user->phone_mobile',
+				),
+				),
+			)
+		); 
+	?>
+
 
