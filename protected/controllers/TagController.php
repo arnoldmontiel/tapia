@@ -60,9 +60,11 @@ class TagController extends Controller
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->Id));
 		}
-
+		$modelTagReviewType = array();
+		
 		$this->render('create',array(
 			'model'=>$model,
+			'modelTagReviewType'=>$modelTagReviewType 
 		));
 	}
 
@@ -103,9 +105,11 @@ class TagController extends Controller
 				$this->redirect(array('view','id'=>$model->Id));
 			}
 		}
-
+		$modelTagReviewType = TagReviewType::model()->findAllByAttributes(array('Id_tag'=>$model->Id));
+		
 		$this->render('update',array(
 			'model'=>$model,
+			'modelTagReviewType'=>$modelTagReviewType,
 		));
 	}
 

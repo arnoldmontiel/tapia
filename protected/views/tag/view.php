@@ -20,3 +20,21 @@ $this->menu=array(
 		'description',
 	),
 )); ?>
+
+<?php 
+	$modelTagReviewType = new TagReviewType();
+	$modelTagReviewType->Id_tag = $model->Id;
+	$this->widget('zii.widgets.grid.CGridView', array(
+		'id'=>'tag-customer-grid',
+		'dataProvider'=>$modelTagReviewType->search(),
+		'summaryText'=>'',
+		'columns'=>array(
+				array(
+			 		'name'=>'Agrupadores Asociados',
+					'htmlOptions'=>array('style'=>'text-align: center'),
+					'value'=>'$data->reviewType->description',
+				),
+				),
+			)
+		); 
+	?>

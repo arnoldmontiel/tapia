@@ -1971,3 +1971,29 @@ div.status-permission-data
 	margin-left:5px;
 	float: left;
 }
+div.review-types
+{
+	display: inline-block;
+	width: 100%;
+	
+}
+div.review-types span
+{
+border: 0 none;
+    font: inherit;
+    margin: 0;
+    padding: 0;
+    vertical-align: baseline;
+}
+div.review-types input
+{
+	float: left;
+}
+div.review-types label
+{
+	border: 0 none;
+    font: inherit;
+    margin: 4px 0px 0px 30px;
+    padding: 0;
+    vertical-align: baseline;
+}
