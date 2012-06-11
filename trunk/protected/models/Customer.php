@@ -81,6 +81,7 @@ class Customer extends CActiveRecord
 			'Id' => 'ID',
 			'name' => 'Nombre',
 			'last_name' => 'Apellido',
+			'password' => 'Contrase&ntilde;a',
 			'username' => 'Usuario',
 			'address'=>'Direcci&oacute;n',
 			'email'=>'Correo',

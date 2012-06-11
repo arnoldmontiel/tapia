@@ -9,6 +9,12 @@
  */
 class UserCustomer extends CActiveRecord
 {
+	public $name;
+	public $last_name;
+	public $email;
+	public $phone_house;
+	public $phone_mobile;
+	
 	protected function afterSave()
 	{
 		parent::afterSave();
@@ -72,7 +78,7 @@ class UserCustomer extends CActiveRecord
 			array('username', 'length', 'max'=>128),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('username, Id_customer, user_group_desc', 'safe', 'on'=>'search'),
+			array('username, Id_customer, user_group_desc, name, last_name, email, phone_house, phone_mobile', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -95,9 +101,14 @@ class UserCustomer extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'username' => 'Username',
+			'username' => 'Usuario',
 			'Id_customer' => 'Id Customer',
 			'user_group_desc'=> 'Grupo',
+			'name'=>'Nombre',
+			'last_name'=>'Apellido',
+			'email'=>'Correo',
+			'phone_house' => 'Tel&eacute;fono Casa',
+			'phone_mobile' => 'Tel&eacute;fono M&oacute;vil',
 		);
 	}
 
@@ -122,6 +133,26 @@ class UserCustomer extends CActiveRecord
 		$sort=new CSort;
 		$sort->attributes=array(
 				      'username',
+		'name' => array(
+						        'asc' => 'u.name',
+						        'desc' => 'u.name DESC',
+		),
+		'last_name' => array(
+						        'asc' => 'u.last_name',
+						        'desc' => 'u.last_name DESC',
+		),
+		'email' => array(
+						        'asc' => 'u.email',
+						        'desc' => 'u.email DESC',
+		),
+		'phone_house' => array(
+						        'asc' => 'u.phone_house',
+						        'desc' => 'u.phone_house DESC',
+		),
+		'phone_mobile' => array(
+						        'asc' => 'u.phone_mobile',
+						        'desc' => 'u.phone_mobile DESC',
+		),
 				      'user_group_desc' => array(
 				        'asc' => 'ug.description',
 				        'desc' => 'ug.description DESC',
