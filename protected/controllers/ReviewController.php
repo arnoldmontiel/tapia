@@ -51,7 +51,6 @@ class ReviewController extends Controller
 		$model=new Review;
 		$modelCustomer=new Customer;
 		$modelPriority=Priority::model()->findAll();
-		$modelReviewType=ReviewType::model()->findAll();
 		
 		// Uncomment the following line if AJAX validation is needed
 		$this->performAjaxValidation($model);
@@ -76,6 +75,20 @@ class ReviewController extends Controller
 		$modelMax = Review::model()->find($criteria);
 
 		$model->review = $modelMax->maxReview + 1;
+		
+		$dllReviewTypeUserGroup = ReviewTypeUserGroup::model()->findAllByAttributes(
+								array('Id_user_group'=>User::getCurrentUserGroup()->Id));
+		
+		$modelReviewType = array();
+		if($dllReviewTypeUserGroup)
+		{
+			foreach($dllReviewTypeUserGroup as $itemReviewType)
+			{
+				$item['Id'] = $itemReviewType->Id_review_type;
+				$item['description'] = $itemReviewType->reviewType->description;
+				$modelReviewType[$itemReviewType->Id_review_type] = $item;
+			}
+		}
 		
 		$this->render('create',array(
 			'model'=>$model,
@@ -112,7 +125,19 @@ class ReviewController extends Controller
 		$this->modelTag = $model;
 		
 		$ddlPriority = Priority::model()->findAll();
-		$ddlReviewType = ReviewType::model()->findAll();
+		$dllReviewTypeUserGroup = ReviewTypeUserGroup::model()->findAllByAttributes(
+				array('Id_user_group'=>User::getCurrentUserGroup()->Id));
+		
+		$ddlReviewType = array();
+		if($dllReviewTypeUserGroup)
+		{
+			foreach($dllReviewTypeUserGroup as $itemReviewType)
+			{
+				$item['Id'] = $itemReviewType->Id_review_type;
+				$item['description'] = $itemReviewType->reviewType->description;
+				$ddlReviewType[$itemReviewType->Id_review_type] = $item;
+			}
+		}
 		
 	    $modelReviewUser = ReviewUser::model()->findByPk(array('Id_review'=>$id,'username'=>User::getCurrentUser()->username));
 		

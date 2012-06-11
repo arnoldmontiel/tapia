@@ -78,6 +78,12 @@ class User extends CActiveRecord
 		return self::getCurrentUserGroup()->Id==$modelNote->Id_user_group_owner;
 	}
 	
+	public static function canCreateReview()
+	{
+		return (ReviewTypeUserGroup::model()->countByAttributes(
+						array('Id_user_group'=>self::getCurrentUserGroup()->Id))> 0);
+	}
+	
 	public static function getCustomer()
 	{
 		if(!isset(self::$_customer))
