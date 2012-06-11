@@ -96,13 +96,15 @@ class UserGroupController extends Controller
 	private function createReviewTypeRelation($id, $checks)
 	{
 		ReviewTypeUserGroup::model()->deleteAllByAttributes(array('Id_user_group'=>$id));
-		
-		foreach($checks as $item)
+		if(isset($checks))
 		{
-			$modelReviewTypeUserGroup = new ReviewTypeUserGroup;
-			$modelReviewTypeUserGroup->Id_user_group = $id;
-			$modelReviewTypeUserGroup->Id_review_type = $item;
-			$modelReviewTypeUserGroup->save();
+			foreach($checks as $item)
+			{
+				$modelReviewTypeUserGroup = new ReviewTypeUserGroup;
+				$modelReviewTypeUserGroup->Id_user_group = $id;
+				$modelReviewTypeUserGroup->Id_review_type = $item;
+				$modelReviewTypeUserGroup->save();
+			}
 		}
 	}
 	
