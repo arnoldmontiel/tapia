@@ -6,6 +6,7 @@
  * The followings are the available columns in table 'tag_review_type':
  * @property integer $Id_tag
  * @property integer $Id_review_type
+ *
  * The followings are the available model relations:
  * @property Tag $tag
  * @property ReviwType $reviewType
