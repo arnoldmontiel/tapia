@@ -4,7 +4,7 @@
 	<?php if($this->modelTag):?>			
 		<div class="search-box">
 			<div class="search-box-title">
-			Etiquetas
+			Etapas
 			</div>
 			<div class="search-box-list">
 			<?php
@@ -37,7 +37,7 @@
 	<?php if($this->showFilter):?>
 		<div class="search-box">
 			<div class="search-box-title">
-			Etiquetas
+			Etapas
 			</div>
 			<div class="search-box-list">
 			<?php
