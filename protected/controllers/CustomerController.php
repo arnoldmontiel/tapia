@@ -59,6 +59,7 @@ class CustomerController extends Controller
 		if(isset($_POST['User']))
 		{
 			$model->attributes=$_POST['User'];
+			$model->building_address = $_POST['User']['building_address'];
 			if($model->save())
 			{
 				$modelCustomer = Customer::model()->findByAttributes(array('username'=>$model->username));
@@ -163,7 +164,7 @@ class CustomerController extends Controller
 		$modelCustomer = $this->loadModel($id);
 		
 		$model = User::model()->findByAttributes(array('username'=>$modelCustomer->username));
-		 
+		$model->building_address = $modelCustomer->building_address; 
 		
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -171,6 +172,7 @@ class CustomerController extends Controller
 		if(isset($_POST['User']))
 		{
 			$model->attributes=$_POST['User'];
+			$model->building_address = $_POST['User']['building_address'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$modelCustomer->Id));
 		}

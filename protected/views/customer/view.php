@@ -33,7 +33,15 @@ $this->menu=array(
 				'type'=>'raw',
 				'value'=>$model->user->address
 		),
-		
+		'building_address',
+		array('label'=>$model->getAttributeLabel('phone_house'),
+				'type'=>'raw',
+				'value'=>$model->user->phone_house
+		),
+		array('label'=>$model->getAttributeLabel('phone_mobile'),
+				'type'=>'raw',
+				'value'=>$model->user->phone_mobile
+		),
 	),
 )); ?>
 
