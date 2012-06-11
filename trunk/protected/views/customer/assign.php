@@ -93,6 +93,9 @@ function unselectRow(id)
 	<div id="display"
 	style="display: none">
 
+	<div class="customer-assign-title">
+	Usuarios Disponibles
+	</div>
 	
 	<?php 
 	$this->widget('zii.widgets.grid.CGridView', array(
@@ -125,7 +128,11 @@ function unselectRow(id)
 		}',
 		'columns'=>array(
 	 			'username',
+	 			'name',
+	 			'last_name',
 				'email',
+				'phone_house',
+				'phone_mobile',
 				),
 			)
 		); 
@@ -134,17 +141,41 @@ function unselectRow(id)
 	<p class="messageError"><?php
 	echo 'Esa relacion ya existe';
 	?></p>
-	
+	<br>
+	<div class="customer-assign-title">
+	Usuarios Asignados
+	</div>
 	<?php 
 	$this->widget('zii.widgets.grid.CGridView', array(
 		'id'=>'user-customer-grid',
 		'dataProvider'=>$modelUserCustomer->search(),
 		'filter'=>$modelUserCustomer,
+		'summaryText'=>'',
 		'columns'=>array(
+				array(
+			 		'name'=>'user_group_desc',
+					'value'=>'$data->user->userGroup->description',
+				),
 				'username',
 				array(
-				 		'name'=>'user_group_desc',
-						'value'=>'$data->user->userGroup->description',
+			 		'name'=>'name',
+					'value'=>'$data->user->name',
+				),
+				array(
+			 		'name'=>'last_name',
+					'value'=>'$data->user->last_name',
+				),
+				array(
+			 		'name'=>'email',
+					'value'=>'$data->user->email',
+				),
+				array(
+			 		'name'=>'phone_house',
+					'value'=>'$data->user->phone_house',
+				),
+				array(
+			 		'name'=>'phone_mobile',
+					'value'=>'$data->user->phone_mobile',
 				),
 				array(
 					'class'=>'CButtonColumn',

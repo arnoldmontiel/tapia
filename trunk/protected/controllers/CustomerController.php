@@ -38,8 +38,11 @@ class CustomerController extends Controller
 	 */
 	public function actionView($id)
 	{
+		$modelUserCustomer = new UserCustomer('Search');
+		$modelUserCustomer->Id_customer = $id;
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
+			'modelUserCustomer'=>$modelUserCustomer,
 		));
 	}
 
