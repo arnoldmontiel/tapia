@@ -87,7 +87,7 @@ class CustomerController extends Controller
 	
 		$criteria=new CDbCriteria;
 			
-		$criteria->addCondition('t.Id <> '. User::getAdminUserGroupId());
+		$criteria->addCondition('t.is_internal <> 1');
 		$criteria->addCondition('t.Id <> 3');
 		
 		$ddlUserGroup = UserGroup::model()->findAll($criteria);
