@@ -6,7 +6,7 @@
  * The followings are the available columns in table 'user_group':
  * @property integer $Id
  * @property string $description
- * @property integer $can_create
+ * @property integer $is_internal
  * @property integer $is_administrator
  * @property integer $can_read
  * @property integer $addressed
@@ -48,11 +48,11 @@ class UserGroup extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('description', 'required'),
-			array('can_create, is_administrator, can_read, addressed, need_confirmation, can_feedback', 'numerical', 'integerOnly'=>true),
+			array('is_internal, is_administrator, can_read, addressed, need_confirmation, can_feedback', 'numerical', 'integerOnly'=>true),
 			array('description', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id, description, can_create, is_administrator', 'safe', 'on'=>'search'),
+			array('Id, description, is_internal, is_administrator', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -80,7 +80,7 @@ class UserGroup extends CActiveRecord
 		return array(
 			'Id' => 'ID',
 			'description' => 'Descripci&oacute;n',
-			'can_create' => 'Puede crear',
+			'is_internal' => 'Es interno',
 			'is_administrator' => 'Es administrador',
 			'can_read' => 'Puede leer por defecto',
 			'addressed' => 'Direcci&oacute;n',
@@ -102,7 +102,7 @@ class UserGroup extends CActiveRecord
 
 		$criteria->compare('Id',$this->Id);
 		$criteria->compare('description',$this->description,true);
-		$criteria->compare('can_create',$this->can_create);
+		$criteria->compare('is_internal',$this->is_internal);
 		$criteria->compare('is_administrator',$this->is_administrator);
 
 		return new CActiveDataProvider($this, array(
