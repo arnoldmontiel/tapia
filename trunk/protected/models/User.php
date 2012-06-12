@@ -65,10 +65,6 @@ class User extends CActiveRecord
 	{
 		return parent::model($className);
 	}
-	public static function canCreate()
-	{
-		return self::getCurrentUserGroup()->can_create;
-	}
 	public static function isAdministartor()
 	{
 		return self::getCurrentUserGroup()->is_administrator;
@@ -78,7 +74,7 @@ class User extends CActiveRecord
 		return self::getCurrentUserGroup()->Id==$modelNote->Id_user_group_owner;
 	}
 	
-	public static function canCreateReview()
+	public static function canCreate()
 	{
 		return (ReviewTypeUserGroup::model()->countByAttributes(
 						array('Id_user_group'=>self::getCurrentUserGroup()->Id))> 0);
