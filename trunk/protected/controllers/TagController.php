@@ -58,7 +58,20 @@ class TagController extends Controller
 		{
 			$model->attributes=$_POST['Tag'];
 			if($model->save())
+			{
+				if(isset($_POST['ReviewType']))
+				{
+					foreach($_POST['ReviewType'] as $item)
+					{
+						$modelTagReviewType = new TagReviewType;
+						$modelTagReviewType->Id_tag = $model->Id;
+						$modelTagReviewType->Id_review_type = $item;
+						$modelTagReviewType->save();
+					}
+				}
+				
 				$this->redirect(array('view','id'=>$model->Id));
+			}
 		}
 		$modelTagReviewType = array();
 		
@@ -85,13 +98,8 @@ class TagController extends Controller
 			$model->attributes=$_POST['Tag'];
 			if($model->save())				
 			{
-				$modelTagReviewTypes = TagReviewType::model()->findAllByAttributes(array('Id_tag'=>$model->Id));
-				foreach($modelTagReviewTypes as $item)
-				{
-					$item->delete();
-				}
+				TagReviewType::model()->deleteAllByAttributes(array('Id_tag'=>$model->Id));
 				
-				$modelTagReviewType = new TagReviewType();
 				if(isset($_POST['ReviewType']))
 				{
 					foreach($_POST['ReviewType'] as $item)
