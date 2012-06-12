@@ -26,6 +26,7 @@ class UserGroupNote extends CActiveRecord
 	
 		if($this->note->review)
 		{
+			//recorro todos los usuarios asignados al cliente
 			$modelReview = Review::model()->findByPk($this->note->review->Id);
 			$modelUserCustomer = UserCustomer::model()->findAllByAttributes(array('Id_customer'=>$this->Id_customer));
 			foreach($modelUserCustomer as $item)
@@ -48,21 +49,32 @@ class UserGroupNote extends CActiveRecord
 				}
 			}
 			
-			//admin
-			if($this->Id_user_group == User::getAdminUserGroupId() && User::getAdminUsername() != User::getCurrentUser()->username )
+			//usuarios de comunicacion interna (cross)
+			if($this->userGroup->is_internal)
 			{
-				$modelReviewUserDb = ReviewUser::model()->findByPk(array('Id_review'=>$modelReview->Id,'username'=>User::getAdminUsername()));
-				if($modelReviewUserDb)
+				$usergroups = UserGroup::model()->findAllByAttributes(array('is_internal'=>1));
+				
+				foreach($usergroups as $ugroup)
 				{
-					$modelReviewUserDb->read = 0;
-					$modelReviewUserDb->save();
-				}
-				else
-				{
-					$modelReviewUser = new ReviewUser;
-					$modelReviewUser->Id_review = $modelReview->Id;
-					$modelReviewUser->username = User::getAdminUsername();
-					$modelReviewUser->save();
+					foreach($ugroup->users as $user)
+					{
+						if($user->username != User::getCurrentUser()->username)
+						{
+							$modelReviewUserDb = ReviewUser::model()->findByPk(array('Id_review'=>$modelReview->Id,'username'=>$user->username));
+							if($modelReviewUserDb)
+							{
+								$modelReviewUserDb->read = 0;
+								$modelReviewUserDb->save();
+							}
+							else
+							{
+								$modelReviewUser = new ReviewUser;
+								$modelReviewUser->Id_review = $modelReview->Id;					
+								$modelReviewUser->username = $user->username;
+								$modelReviewUser->save();
+							}	
+						}
+					}
 				}
 			}
 			
