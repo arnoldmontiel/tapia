@@ -2002,3 +2002,9 @@ div.check-title
 	font-weight: bold;
 	margin-bottom: 10px;
 }
+div.row-half
+{
+	width: 45%;
+	position: relative;
+	float: left;
+}

@@ -48,6 +48,96 @@ $this->menu=array(
 	),
 )); ?>
 <br>
+	<div class="customer-assign-title">
+	Usuarios Disponibles
+	</div>
+	
+	<?php 
+	$modelUser = new User;
+	$this->widget('zii.widgets.grid.CGridView', array(
+		'id'=>'user-group-grid',
+		'dataProvider'=>$modelUser->search(),
+		'filter'=>$modelUser,
+		'summaryText'=>'',
+		'selectionChanged'=>'js:function(id){
+				$.get(	"'.CustomerController::createUrl('AjaxAddUserCustomer').'",
+						{
+							IdCustomer:'.$model->Id.',
+							username:$.fn.yiiGridView.getSelection("user-group-grid")
+						}).success(
+							function() 
+							{
+								
+								$.fn.yiiGridView.update("user-customer-grid", {
+									data: $(this).serialize()
+								});
+								unselectRow("user-group-grid");	
+								
+							})
+						.error(
+							function()
+							{
+								$(".messageError").animate({opacity: "show"},2000);
+								$(".messageError").animate({opacity: "hide"},2000);
+								unselectRow("user-group-grid");
+							});
+		}',
+		'columns'=>array(
+	 			'username',
+	 			'name',
+	 			'last_name',
+				'email',
+				'phone_house',
+				'phone_mobile',
+				),
+			)
+		); 
+	?>
+
+
+<?php 
+	$this->widget('ext.processingDialog.processingDialog', array(
+			'buttons'=>array('save'),
+			'idDialog'=>'wating',
+	));
+	$this->beginWidget('zii.widgets.jui.CJuiDialog', array(
+    'id'=>'CreateUser',
+    // additional javascript options for the dialog plugin
+    'options'=>array(
+        'title'=>'Crear Usuario',
+        'autoOpen'=>false,
+        'modal'=>true,
+		'width'=> '500',
+    		'buttons'=>	array(
+				'Create'=>'js:function()
+				{
+				jQuery("#wating").dialog("open");
+				jQuery.post("'.Yii::app()->createUrl("user/create").'", $("#user-form").serialize(),
+				function(data) {
+					$.fn.yiiGridView.update("user-group-grid", {
+						data: $(this).serialize()
+					});
+
+					jQuery("#wating").dialog("close");
+					jQuery("#CreateUser").dialog( "close" );
+				 }
+			);
+				
+		}'),
+    ),
+));
+	$modelUser = new User;
+	$ddlUserGroup = UserGroup::model()->findAll();
+    echo $this->renderPartial('_formUser', array('model'=>$modelUser ,'ddlUserGroup'=>$ddlUserGroup));
+
+$this->endWidget('zii.widgets.jui.CJuiDialog');
+
+// the link that may open the dialog
+echo CHtml::link('Nuevo Usuario', '#', array(
+	'onclick'=>'jQuery("#CreateUser").dialog("open"); return false;',
+	));
+
+?>
 <div class="customer-assign-title">
 	Usuarios Asignados
 	</div>
@@ -87,5 +177,3 @@ $this->menu=array(
 			)
 		); 
 	?>
-
-
