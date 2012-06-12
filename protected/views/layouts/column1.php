@@ -8,9 +8,11 @@
 			</div>
 			<div class="search-box-list">
 			<?php
-				if(User::isAdministartor())
+				$modelUser = User::getCurrentUser();
+				if($modelUser->username == $this->modelTag->username)
 				{
-					$modelTags = Tag::model()->findAll();
+					$modelReviewType = $this->modelTag->reviewType;
+					$modelTags = $modelReviewType->tags;
 					$checkTags = CHtml::listData($modelTags, 'Id', 'description');
 						
 					$checked = array();
