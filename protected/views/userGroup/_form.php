@@ -15,9 +15,9 @@
 	</div>
 
 	<div class="row">	
-		<?php echo $form->labelEx($model,'can_create'); ?>
-		<?php echo $form->checkBox($model,'can_create'); ?>
-		<?php echo $form->error($model,'can_create'); ?>
+		<?php echo $form->labelEx($model,'is_internal'); ?>
+		<?php echo $form->checkBox($model,'is_internal'); ?>
+		<?php echo $form->error($model,'is_internal'); ?>
 	</div>
 	
 	<div class="row">	

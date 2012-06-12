@@ -254,7 +254,7 @@ class ReviewController extends Controller
 		$modelMultimedia = new Multimedia;
 		$modelNote = new Note;
 		
-		if(User::isAdministartor())
+		if(User::isInternal())
 		{
 			$ddlCustomer = Customer::model()->findAll();
 		}

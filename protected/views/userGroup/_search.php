@@ -16,8 +16,8 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'can_create'); ?>
-		<?php echo $form->textField($model,'can_create'); ?>
+		<?php echo $form->label($model,'is_internal'); ?>
+		<?php echo $form->textField($model,'is_internal'); ?>
 	</div>
 
 	<div class="row">

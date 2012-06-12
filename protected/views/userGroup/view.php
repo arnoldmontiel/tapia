@@ -18,9 +18,9 @@ $this->menu=array(
 	'data'=>$model,
 	'attributes'=>array(
 		'description',
-		array('label'=>$model->getAttributeLabel('can_create'),
+		array('label'=>$model->getAttributeLabel('is_internal'),
 				'type'=>'raw',
-				'value'=>CHtml::checkBox("can_create",$model->can_create,array("disabled"=>"disabled"))
+				'value'=>CHtml::checkBox("is_internal",$model->is_internal,array("disabled"=>"disabled"))
 		),
 		array('label'=>$model->getAttributeLabel('is_administrator'),
 				'type'=>'raw',

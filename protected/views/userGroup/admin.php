@@ -39,9 +39,9 @@ $this->menu=array(
 				),
 			),
 			array(
-	 			'name'=>"can_create",
+	 			'name'=>"is_internal",
 	 			'type'=>'raw',
-	 			'value'=>'CHtml::checkBox("can_create",$data->can_create,array("disabled"=>"disabled"))',
+	 			'value'=>'CHtml::checkBox("is_internal",$data->is_internal,array("disabled"=>"disabled"))',
 	 			'filter'=>CHtml::listData(
 					array(
 						array('id'=>'0','value'=>'No'),
