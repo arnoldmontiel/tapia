@@ -27,18 +27,6 @@ class UserGroupController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
-				'users'=>array('*'),
-			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
-				'users'=>array('@'),
-			),
-			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
-				'users'=>array('admin'),
-			),
-			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
 		);
@@ -95,7 +83,6 @@ class UserGroupController extends Controller
 	
 	private function createReviewTypeRelation($id, $checks)
 	{
-		ReviewTypeUserGroup::model()->deleteAllByAttributes(array('Id_user_group'=>$id));
 		if(isset($checks))
 		{
 			foreach($checks as $item)
@@ -120,7 +107,9 @@ class UserGroupController extends Controller
 			$model->attributes=$_POST['UserGroup'];
 			if($model->save())
 			{
-				$this->createReviewTypeRelation($model->Id, $_POST['chklist-reviewType']);
+				ReviewTypeUserGroup::model()->deleteAllByAttributes(array('Id_user_group'=>$model->Id));				
+				if(isset($_POST['chklist-reviewType']))
+					$this->createReviewTypeRelation($model->Id, $_POST['chklist-reviewType']);
 				$this->redirect(array('view','id'=>$model->Id));
 			}
 		}
