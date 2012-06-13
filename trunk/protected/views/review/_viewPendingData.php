@@ -119,17 +119,18 @@ $('#publicArea_".$data->Id."').children().each(
 			
 			$criteria->addCondition('t.Id <> '. User::getCurrentUserGroup()->Id);
 			
-			$modelUserGroup = UserGroup::model()->findAll($criteria);
+			$userGroups = UserGroup::model()->findAll($criteria);
 		
 			echo CHtml::openTag('div', array('id'=>'publicArea_'.$data->Id, 'class'=>'review-public-permission-area'));
 			echo CHtml::decode('Permisos');
 			
-			foreach($modelUserGroup as $item)
+			foreach($userGroups as $item)
 			{
-				$dafaultFeedback = $item->can_feedback;
-				$dafaultRead = $item->can_read;
-				$dafaultAddressed = $item->addressed;
-				$dafaultConfirmation = $item->need_confirmation;
+				$userGroupCustomer = UserGroupCustomer::model()->findByPk(array('Id_customer'=>$data->Id_customer,'Id_user_group'=>$item->Id));
+				$dafaultFeedback = isset($userGroupCustomer)?$userGroupCustomer->interestPower->can_feedback:false;
+				$dafaultRead = isset($userGroupCustomer)?$userGroupCustomer->interestPower->can_read:false;
+				$dafaultAddressed = isset($userGroupCustomer)?$userGroupCustomer->interestPower->addressed:false;
+				$dafaultConfirmation = isset($userGroupCustomer)?$userGroupCustomer->interestPower->need_confirmation:false;
 				
 				$isAdmin = false;
 				
