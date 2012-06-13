@@ -66,6 +66,25 @@ jQuery('#btnUpdateGrid').click(function(){
 	),
 )); ?>
 <br>
+<?php 
+echo CHtml::link('Aisgnar Usuarios', '#', array(
+	'onclick'=>
+		'
+		if(jQuery(this).html()=="Terminar")
+		{
+			jQuery("#customer-assign-area").animate({opacity: "hide"},100);
+		 	jQuery(this).html("Aisgnar Usuarios");
+		}
+		else
+		{
+			jQuery("#customer-assign-area").animate({opacity: "show"},2000);
+		 	jQuery(this).html("Terminar");
+		}
+		return false;',
+	));
+?>
+<div id="customer-assign-area" style="display:none">
+
 	<div class="customer-assign-title">
 	Usuarios Disponibles
 	</div>
@@ -127,7 +146,8 @@ jQuery('#btnUpdateGrid').click(function(){
         'modal'=>true,
 		'width'=> '500',
     		'buttons'=>	array(
-				'Create'=>'js:function()
+				'Cancelar'=>'js:function(){jQuery("#CreateUser").dialog( "close" );}',
+    			'Grabar'=>'js:function()
 				{
 				jQuery("#wating").dialog("open");
 				jQuery.post("'.Yii::app()->createUrl("user/create").'", $("#user-form").serialize(),
@@ -149,13 +169,13 @@ jQuery('#btnUpdateGrid').click(function(){
     echo $this->renderPartial('_formUser', array('model'=>$modelUser ,'ddlUserGroup'=>$ddlUserGroup));
 
 $this->endWidget('zii.widgets.jui.CJuiDialog');
-
-// the link that may open the dialog
-echo CHtml::link('Nuevo Usuario', '#', array(
+echo CHtml::openTag('div');
+echo CHtml::link('Nuevo Usuario', '#', array('class'=>'customer-new-user',
 	'onclick'=>'jQuery("#CreateUser").dialog("open"); return false;',
 	));
-
+echo CHtml::closeTag('div');
 ?>
+</div>
 <div class="customer-assign-title">
 	Usuarios Asignados
 	</div>
