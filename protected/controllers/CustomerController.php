@@ -40,12 +40,44 @@ class CustomerController extends Controller
 	{
 		$modelUserCustomer = new UserCustomer('Search');
 		$modelUserCustomer->Id_customer = $id;
+		
+		$modelUserGroupCustomer = new UserGroupCustomer('Search');
+		$modelUserGroupCustomer->Id_customer = $id;
+		
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
 			'modelUserCustomer'=>$modelUserCustomer,
+			'modelUserGroupCustomer'=>$modelUserGroupCustomer,
 		));
 	}
 
+	public function actionAjaxUpdatePermission()
+	{
+		$idUserGroup = $_POST['idUserGroup'];
+		$idInterestPower = $_POST['idInterestPower'];
+		$idCustomer = $_POST['idCustomer'];
+		
+		$modelUserGroupCustomer = UserGroupCustomer::model()->findByPk(array('Id_user_group'=>$idUserGroup, 'Id_customer'=>$idCustomer));
+		$modelUserGroupCustomer->Id_interest_power = $idInterestPower;
+		$modelUserGroupCustomer->save();
+	}
+	
+	public function actionAjaxUpdatePermissionGrid()
+	{
+		$idCustomer = $_POST['idCustomer'];
+		
+		$userGroups = UserGroup::model()->findAll();
+		
+		foreach($userGroups as $userGroup)
+		{
+			$uGroupCustomerDb = UserGroupCustomer::model()->findAllByAttributes(array('Id_customer'=>$idCustomer, 'Id_user_group'=>$userGroup->Id));
+			if(empty($uGroupCustomerDb))
+			{
+				$this->savePermission($idCustomer, $userGroup);
+			}
+		}
+	}
+	
 	/**
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
@@ -66,6 +98,7 @@ class CustomerController extends Controller
 			if($model->save())
 			{
 				$modelCustomer = Customer::model()->findByAttributes(array('username'=>$model->username));
+				$this->createDefaultPermissions($modelCustomer->Id);
 				$this->redirect(array('view','id'=>$modelCustomer->Id));
 			}
 		}
@@ -75,6 +108,28 @@ class CustomerController extends Controller
 		));
 	}
 
+	private function createDefaultPermissions($idCustomer)
+	{
+		$userGroups = UserGroup::model()->findAll();
+		foreach($userGroups as $item)
+		{
+			$this->savePermission($idCustomer, $item);
+		}
+	}
+	
+	private function savePermission($idCustomer, $modelUserGroup)
+	{
+		$modelUserGroupCustomer = new UserGroupCustomer;
+		$modelUserGroupCustomer->Id_customer = $idCustomer;
+		$modelUserGroupCustomer->Id_user_group = $modelUserGroup->Id;
+		if($modelUserGroup->is_administrator)
+			$modelUserGroupCustomer->Id_interest_power = 2;
+		else
+			$modelUserGroupCustomer->Id_interest_power = 1;
+			
+		$modelUserGroupCustomer->save();
+	}
+	
 	public function actionAssign()
 	{
 		$model = new Customer;
