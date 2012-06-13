@@ -11,6 +11,24 @@ $this->menu=array(
 	array('label'=>'Actualizar Cliente', 'url'=>array('update', 'id'=>$model->Id)),
 	array('label'=>'Administrar Clientes', 'url'=>array('admin')),
 );
+Yii::app()->clientScript->registerScript('viewTapiaCustomer', "
+
+jQuery.fn.yiiGridView.update('userGroup-customer-grid');
+
+jQuery('#btnUpdateGrid').click(function(){
+	jQuery.post(
+		'".CustomerController::createUrl('AjaxUpdatePermissionGrid')."',
+		{
+			idCustomer: '".$model->Id."'
+		}).success(
+			function() 
+			{ 
+				jQuery.fn.yiiGridView.update('userGroup-customer-grid');
+			});
+	return false;
+});
+
+",CClientScript:: POS_LOAD);
 ?>
 
 <h1>Vista Cliente</h1>
@@ -173,6 +191,56 @@ echo CHtml::link('Nuevo Usuario', '#', array(
 			 		'name'=>'phone_mobile',
 					'value'=>'$data->user->phone_mobile',
 				),
+				),
+			)
+		); 
+	?>
+
+<div class="customer-assign-title">
+	Permisos por grupo de usuario <?php echo CHtml::submitButton('Actualizar',array('id'=>'btnUpdateGrid')); ?>
+</div>
+	
+<?php 
+
+	$this->widget('zii.widgets.grid.CGridView', array(
+		'id'=>'userGroup-customer-grid',
+		'dataProvider'=>$modelUserGroupCustomer->search(),
+		'summaryText'=>'',
+		'afterAjaxUpdate'=>'function(id, data){
+						$("#userGroup-customer-grid").find("select[name = ddlInterestPower]").each(
+							function(index, item){
+								$(item).change(function(){
+									
+									$.post(
+										"'.CustomerController::createUrl('AjaxUpdatePermission').'",
+										{
+											idUserGroup: $(this).attr("id"),
+											idInterestPower: $(this).val(),
+											idCustomer: "'.$model->Id.'"
+										}).success(
+											function() 
+											{ 
+								
+											});
+								});	
+							});
+					}',
+		'columns'=>array(
+					array(
+				 		'name'=>'Grupo de Usuario',
+						'value'=>'$data->userGroup->description',
+					),
+					array(
+				 		'name'=>'Interes/Poder',
+						'value'=>'CHtml::dropDownList("ddlInterestPower",
+														$data->Id_interest_power,
+														CHtml::listData(InterestPower::model()->findAll(), "Id", "description"),
+														array(
+														"id"=>$data->Id_user_group)
+													)',
+						'type'=>'raw',
+						'htmlOptions'=>array('style'=>'text-align: center'),
+					),
 				),
 			)
 		); 
