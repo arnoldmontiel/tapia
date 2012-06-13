@@ -847,7 +847,7 @@ $('#need_reload').click(function(){
 
 	<div class="review-update-data-info">
 		<?php 
-			if(User::isAdministartor())
+			if(User::canCreate() && $model->username == User::getCurrentUser()->username)
 			{
 				echo CHtml::activeTextField($model,'review',array('class'=>'review-update-data-number'));
 				echo CHtml::encode(' - ');				
@@ -862,7 +862,7 @@ $('#need_reload').click(function(){
 	</div>
 	<div class="review-update-data-info-descr">
 		<?php 
-			if(User::isAdministartor()) 
+			if(User::canCreate() && $model->username == User::getCurrentUser()->username) 
 				echo CHtml::activeTextArea($model,'description',array('class'=>'review-update-data-text','rows'=>2, 'cols'=>70)); 
 			else
 			{
