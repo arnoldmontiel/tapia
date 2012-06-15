@@ -31,7 +31,7 @@ jQuery('#btnUpdateGrid').click(function(){
 ",CClientScript:: POS_LOAD);
 ?>
 
-<h1>Vista Cliente</h1>
+<h1>Cliente</h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
@@ -66,27 +66,25 @@ jQuery('#btnUpdateGrid').click(function(){
 	),
 )); ?>
 <br>
-<?php 
-echo CHtml::link('Aisgnar Usuarios', '#', array(
-	'onclick'=>
-		'
-		if(jQuery(this).html()=="Terminar")
-		{
-			jQuery("#customer-assign-area").animate({opacity: "hide"},100);
-		 	jQuery(this).html("Aisgnar Usuarios");
-		}
-		else
-		{
-			jQuery("#customer-assign-area").animate({opacity: "show"},2000);
-		 	jQuery(this).html("Terminar");
-		}
-		return false;',
-	));
-?>
 <div id="customer-assign-area" style="display:none">
 
 	<div class="customer-assign-title">
-	Usuarios Disponibles
+	Usuarios Disponibles 	
+	<div class="customer-button-box">
+		<?php echo CHtml::button('Terminar',array(
+		'onclick'=>
+			'
+			jQuery("#customer-assign-area").animate({opacity: "hide"},100);
+		 	jQuery("#btn-assign-user").val("Asignar Usuarios");
+			return false;',
+		)); 
+		echo CHtml::button('Nuevo Usuario', array('class'=>'customer-new-user',
+				'onclick'=>'jQuery("#CreateUser").dialog("open"); return false;',
+		));	
+		
+		?>	
+		</div>
+		
 	</div>
 	
 	<?php 
@@ -169,21 +167,34 @@ echo CHtml::link('Aisgnar Usuarios', '#', array(
     echo $this->renderPartial('_formUser', array('model'=>$modelUser ,'ddlUserGroup'=>$ddlUserGroup));
 
 $this->endWidget('zii.widgets.jui.CJuiDialog');
-echo CHtml::openTag('div');
-echo CHtml::link('Nuevo Usuario', '#', array('class'=>'customer-new-user',
-	'onclick'=>'jQuery("#CreateUser").dialog("open"); return false;',
-	));
-echo CHtml::closeTag('div');
 ?>
 </div>
 <div class="customer-assign-title">
-	Usuarios Asignados
+	Usuarios Asignados 
+	<div class="customer-button-box">
+	<?php echo CHtml::button('Asignar Usuarios',array('id'=>'btn-assign-user',
+	'onclick'=>
+		'
+		if(jQuery(this).val()=="Terminar")
+		{
+			jQuery("#customer-assign-area").animate({opacity: "hide"},100);
+		 	jQuery(this).val("Asignar Usuarios");
+		}
+		else
+		{
+			jQuery("#customer-assign-area").animate({opacity: "show"},2000);
+		 	jQuery(this).val("Terminar");
+		}
+		return false;',
+	)); ?>	
+	</div>
 	</div>
 <?php 
 	
 	$this->widget('zii.widgets.grid.CGridView', array(
 		'id'=>'user-customer-grid',
 		'dataProvider'=>$modelUserCustomer->search(),
+		'filter'=>$modelUserCustomer,
 		'summaryText'=>'',
 		'columns'=>array(
 				array(
@@ -211,13 +222,26 @@ echo CHtml::closeTag('div');
 			 		'name'=>'phone_mobile',
 					'value'=>'$data->user->phone_mobile',
 				),
+				array(
+						'class'=>'CButtonColumn',
+						'template'=>'{delete}',
+						'buttons'=>array(
+								'delete' => array(
+										'url'=>'Yii::app()->createUrl("customer/AjaxRemoveUserCustomer", array("IdCustomer"=>$data->Id_customer,"username"=>$data->username))',
+								),
+						),
+				),
+				
 				),
 			)
 		); 
 	?>
 
 <div class="customer-assign-title">
-	Permisos por grupo de usuario <?php echo CHtml::submitButton('Actualizar',array('id'=>'btnUpdateGrid')); ?>
+	Permisos por grupo de usuario 
+	<div class="customer-button-box">
+		<?php echo CHtml::submitButton('Actualizar',array('id'=>'btnUpdateGrid')); ?>
+	</div>
 </div>
 	
 <?php 
