@@ -1599,7 +1599,7 @@ div.review-resources-title
 }
 div.customer-assign-title
 {
-	width: 100%;
+	width: 97%;
 	height: 40px;
 	background-color: #F4F6FB;
 	margin-bottom: 10px;
@@ -2008,8 +2008,8 @@ div.row-half
 	position: relative;
 	float: left;
 }
-a.customer-new-user
+div.customer-button-box
 {
-	
-	
+	position: relative;
+	float: right;
 }

@@ -524,6 +524,7 @@ $('#btnAlbum').click(function(){
 		function(data){
 			$('#loading').removeClass('loading');
 			var param = '&idAlbum='+data+'&idReview='+".$model->Id.";
+		debugger;
 			$('#XUploadWidget_form').attr('action','".AlbumController::createUrl('album/AjaxUpload')."'+param);
 			$('#Album_Id_album').val(data);
 			$('#uploader').html(data);
