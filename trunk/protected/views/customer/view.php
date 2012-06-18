@@ -174,7 +174,9 @@ Yii::app()->clientScript->registerScript('viewTapiaCustomer', "
 			),
 	));
 	$modelUserCreate = new User;
-	$ddlUserGroup = UserGroup::model()->findAll();
+	$criteria=new CDbCriteria;
+	$criteria->condition='Id <> 3'; // clients
+	$ddlUserGroup = UserGroup::model()->findAll($criteria);
 	echo $this->renderPartial('_formUser', array('model'=>$modelUserCreate ,'ddlUserGroup'=>$ddlUserGroup));
 
 	$this->endWidget('zii.widgets.jui.CJuiDialog');
@@ -206,6 +208,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		'id'=>'user-customer-grid',
 		'dataProvider'=>$modelUserCustomer->search(),
 		'filter'=>$modelUserCustomer,
+		'afterAjaxUpdate'=>'js:function(){$.fn.yiiGridView.update("user-group-grid");}',
 		'summaryText'=>'',
 		'columns'=>array(
 				array(

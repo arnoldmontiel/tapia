@@ -230,12 +230,12 @@ class User extends CActiveRecord
 		$criteria->compare('address',$this->address,true);
 		$criteria->compare('phone_house',$this->phone_house,true);
 		$criteria->compare('phone_mobile',$this->phone_mobile,true);
-		$criteria->addCondition('Id_user_group not in(1,3)');//clients (1) and administrators (3)
 		$criteria->join = 'LEFT OUTER JOIN `user_customer` `uc` ON (`t`.`username`=`uc`.`username`)';
+		$criteria->addCondition('Id_user_group not in(1,3)');//clients (1) and administrators (3)
 
-		$criteria->addCondition('uc.username not in (
-				select u1.username from user u1 LEFT OUTER JOIN user_customer uc1 on (u1.username = uc1.username)
-				where uc1.Id_customer = '.$id_customer.')');
+ 		$criteria->addCondition('t.username not in (
+ 				select u.username from user u LEFT OUTER JOIN user_customer uc on (u.username = uc.username)
+ 				where uc.Id_customer = '.$id_customer.')');
 		return new CActiveDataProvider($this, array(
 				'criteria'=>$criteria,
 		));
