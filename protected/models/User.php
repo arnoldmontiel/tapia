@@ -13,7 +13,7 @@
  * @property string $address
  * @property string $phone_house
  * @property string $phone_mobile
- * 
+ *
  * The followings are the available model relations:
  * @property Album[] $albums
  * @property Customer[] $customers
@@ -25,11 +25,11 @@ class User extends CActiveRecord
 {
 	public $userGroupDescription;
 	public $building_address;
-	
+
 	protected function afterSave()
 	{
 		parent::afterSave();
-		
+
 		if($this->Id_user_group == 3)
 		{
 			$modelCustomerDb = Customer::model()->findByAttributes(array('username'=>$this->username));
@@ -52,7 +52,7 @@ class User extends CActiveRecord
 		}
 
 	}
-		
+
 	static private $_customer = null;
 	static private $_userGroup = null;
 	static private $_user = null;
@@ -77,22 +77,22 @@ class User extends CActiveRecord
 	{
 		return self::getCurrentUserGroup()->Id==$modelNote->Id_user_group_owner;
 	}
-	
+
 	public static function canCreate()
 	{
 		return (ReviewTypeUserGroup::model()->countByAttributes(
-						array('Id_user_group'=>self::getCurrentUserGroup()->Id))> 0);
+				array('Id_user_group'=>self::getCurrentUserGroup()->Id))> 0);
 	}
-	
+
 	public static function getCustomer()
 	{
 		if(!isset(self::$_customer))
 		{
 			$user = User::model()->findByPk(Yii::app()->user->Id);
 			if(isset($user)&&isset($user->customers[0]))
-				self::$_customer = $user->customers[0];				
+				self::$_customer = $user->customers[0];
 		}
-		return self::$_customer;		
+		return self::$_customer;
 	}
 	public static function getCurrentUserGroup()
 	{
@@ -100,33 +100,33 @@ class User extends CActiveRecord
 		{
 			$user = User::model()->findByPk(Yii::app()->user->Id);
 			if(isset($user)&&isset($user->userGroup))
-				self::$_userGroup = $user->userGroup;				
+				self::$_userGroup = $user->userGroup;
 		}
-		return self::$_userGroup;		
+		return self::$_userGroup;
 	}
-	
+
 	public static function getAdminUserGroupId()
 	{
 		$model = UserGroup::model()->findByAttributes(array('is_administrator'=>1));
 		return $model->Id;
 	}
-	
+
 	public static function getAdminUsername()
 	{
 		$model = User::model()->findByAttributes(array('Id_user_group'=>User::getAdminUserGroupId()));
 		return $model->username;
 	}
-	
+
 	public static function getCurrentUser()
 	{
 		if(!isset(self::$_user))
 		{
 			self::$_user = User::model()->findByPk(Yii::app()->user->Id);
 		}
-		return self::$_user;		
+		return self::$_user;
 	}
-	
-	
+
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -143,14 +143,14 @@ class User extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('username, password, email, Id_user_group', 'required'),
-			array('Id_user_group', 'numerical', 'integerOnly'=>true),
-			array('username, password, email', 'length', 'max'=>128),
-			array('name, last_name, address', 'length', 'max'=>100),
-			array('phone_house, phone_mobile', 'length', 'max'=>45),
-			// The following rule is used by search().
-			// Please remove those attributes that should not be searched.
-			array('username, password, email, Id_user_group, userGroupDescription, phone_house, phone_mobile, building_address', 'safe', 'on'=>'search'),
+				array('username, password, email, Id_user_group', 'required'),
+				array('Id_user_group', 'numerical', 'integerOnly'=>true),
+				array('username, password, email', 'length', 'max'=>128),
+				array('name, last_name, address', 'length', 'max'=>100),
+				array('phone_house, phone_mobile', 'length', 'max'=>45),
+				// The following rule is used by search().
+				// Please remove those attributes that should not be searched.
+				array('username, password, email, Id_user_group, userGroupDescription, phone_house, phone_mobile, building_address', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -162,10 +162,11 @@ class User extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'customers' => array(self::HAS_MANY, 'Customer', 'username'),
-			'notes' => array(self::HAS_MANY, 'Note', 'username'),
-			'multimedias' => array(self::HAS_MANY, 'Multimedia', 'username'),
-			'userGroup' => array(self::BELONGS_TO, 'UserGroup', 'Id_user_group'),
+				'userCustomers' => array(self::HAS_MANY, 'UserCustomer', 'username'),
+				'customers' => array(self::HAS_MANY, 'Customer', 'username'),
+				'notes' => array(self::HAS_MANY, 'Note', 'username'),
+				'multimedias' => array(self::HAS_MANY, 'Multimedia', 'username'),
+				'userGroup' => array(self::BELONGS_TO, 'UserGroup', 'Id_user_group'),
 		);
 	}
 
@@ -175,16 +176,16 @@ class User extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'username' => 'Usuario',
-			'password' => 'Contrase&ntilde;a',
-			'email' => 'Correo',
-			'Id_user_group' => 'Grupo de usuario',
-			'name' => 'Nombre',
-			'last_name' => 'Apellido',
-			'address' => 'Direcci&oacute;n',
-			'userGroupDescription' => 'Grupo de usuario',
-			'phone_house' => 'Tel&eacute;fono Casa',
-			'phone_mobile' => 'Tel&eacute;fono M&oacute;vil',
+				'username' => 'Usuario',
+				'password' => 'Contrase&ntilde;a',
+				'email' => 'Correo',
+				'Id_user_group' => 'Grupo',
+				'name' => 'Nombre',
+				'last_name' => 'Apellido',
+				'address' => 'Direcci&oacute;n',
+				'userGroupDescription' => 'Grupo de usuario',
+				'phone_house' => 'Tel&eacute;fono Casa',
+				'phone_mobile' => 'Tel&eacute;fono M&oacute;vil',
 		);
 	}
 
@@ -208,51 +209,77 @@ class User extends CActiveRecord
 		$criteria->compare('address',$this->address,true);
 		$criteria->compare('phone_house',$this->phone_house,true);
 		$criteria->compare('phone_mobile',$this->phone_mobile,true);
-		
+
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+				'criteria'=>$criteria,
 		));
 	}
-	
-	public function searchAdmin()
+	public function searchUnassigned($id_customer)
 	{
 		// Warning: Please modify the following code to remove attributes that
 		// should not be searched.
-	
+
 		$criteria=new CDbCriteria;
-	
+
 		$criteria->compare('username',$this->username,true);
 		$criteria->compare('password',$this->password,true);
 		$criteria->compare('email',$this->email,true);
-		
+		$criteria->compare('Id_user_group',$this->Id_user_group);
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('last_name',$this->last_name,true);
 		$criteria->compare('address',$this->address,true);
 		$criteria->compare('phone_house',$this->phone_house,true);
 		$criteria->compare('phone_mobile',$this->phone_mobile,true);
-	
+		$criteria->addCondition('Id_user_group not in(1,3)');//clients (1) and administrators (3)
+		$criteria->join = 'LEFT OUTER JOIN `user_customer` `uc` ON (`t`.`username`=`uc`.`username`)';
+
+		$criteria->addCondition('uc.username not in (
+				select u1.username from user u1 LEFT OUTER JOIN user_customer uc1 on (u1.username = uc1.username)
+				where uc1.Id_customer = '.$id_customer.')');
+		return new CActiveDataProvider($this, array(
+				'criteria'=>$criteria,
+		));
+	}
+
+	public function searchAdmin()
+	{
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
+
+		$criteria=new CDbCriteria;
+
+		$criteria->compare('username',$this->username,true);
+		$criteria->compare('password',$this->password,true);
+		$criteria->compare('email',$this->email,true);
+
+		$criteria->compare('name',$this->name,true);
+		$criteria->compare('last_name',$this->last_name,true);
+		$criteria->compare('address',$this->address,true);
+		$criteria->compare('phone_house',$this->phone_house,true);
+		$criteria->compare('phone_mobile',$this->phone_mobile,true);
+
 		$criteria->with[]='userGroup';
 		$criteria->addSearchCondition("userGroup.description",$this->userGroupDescription);
-		
+
 		$criteria->condition = 'Id_user_group <> 3'; //client
-		
-		
+
+
 		$sort=new CSort;
 		$sort->attributes=array(
-		// For each relational attribute, create a 'virtual attribute' using the public variable name
-			'username',
-			'password',
-			'email',
-			'name',
-			'last_name',
-			'address',
-			'userGroupDescription' => array(
-				        'asc' => 'userGroup.description',
-				        'desc' => 'userGroup.description DESC',
-			),
-			'*',
+				// For each relational attribute, create a 'virtual attribute' using the public variable name
+				'username',
+				'password',
+				'email',
+				'name',
+				'last_name',
+				'address',
+				'userGroupDescription' => array(
+						'asc' => 'userGroup.description',
+						'desc' => 'userGroup.description DESC',
+				),
+				'*',
 		);
-		
+
 		return new CActiveDataProvider($this, array(
 				'criteria'=>$criteria,
 				'sort'=>$sort,

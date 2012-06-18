@@ -7,7 +7,11 @@
 	<b><?php echo $data->getAttributeLabel('password'); ?>:</b>
 	<?php echo CHtml::encode($data->password); ?>
 	<br />
-
+	
+	<b><?php echo $data->getAttributeLabel('userGroupDescription'); ?>:</b>
+	<?php echo CHtml::encode($data->userGroup->description); ?>
+	<br />
+	
 	<b><?php echo CHtml::encode($data->getAttributeLabel('email')); ?>:</b>
 	<?php echo CHtml::encode($data->email); ?>
 	<br />

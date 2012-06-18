@@ -14,7 +14,9 @@ class UserCustomer extends CActiveRecord
 	public $email;
 	public $phone_house;
 	public $phone_mobile;
-	
+	public $address;
+	public $Id_user_group;
+			
 	protected function afterSave()
 	{
 		parent::afterSave();
@@ -78,7 +80,7 @@ class UserCustomer extends CActiveRecord
 			array('username', 'length', 'max'=>128),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('username, Id_customer, user_group_desc, name, last_name, email, phone_house, phone_mobile', 'safe', 'on'=>'search'),
+			array('username, Id_customer, user_group_desc, name, last_name, email, phone_house, phone_mobile,address,Id_user_group', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -109,6 +111,8 @@ class UserCustomer extends CActiveRecord
 			'email'=>'Correo',
 			'phone_house' => 'Tel&eacute;fono Casa',
 			'phone_mobile' => 'Tel&eacute;fono M&oacute;vil',
+			'Id_user_group' => 'Grupo',
+				
 		);
 	}
 
@@ -123,12 +127,22 @@ class UserCustomer extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('username',$this->username,true);
+		$criteria->compare('t.username',$this->username,true);
 		$criteria->compare('Id_customer',$this->Id_customer);
+		$criteria->compare('u.name',$this->name,true);
+		
+		$criteria->compare('u.email',$this->email,true);
+		//$criteria->compare('Id_user_group',$this->Id_user_group);
+		$criteria->compare('u.last_name',$this->last_name,true);
+		$criteria->compare('u.address',$this->address,true);
+		$criteria->compare('u.phone_house',$this->phone_house,true);
+		$criteria->compare('u.phone_mobile',$this->phone_mobile,true);
+		$criteria->compare('u.phone_mobile',$this->phone_mobile,true);
 		
 		$criteria->join =  	"LEFT OUTER JOIN user u ON u.username=t.username
 							LEFT OUTER JOIN user_group ug ON u.Id_user_group=ug.Id";
 		$criteria->addSearchCondition("ug.description",$this->user_group_desc);
+		$criteria->compare('ug.Id',$this->Id_user_group,true);
 		
 		$sort=new CSort;
 		$sort->attributes=array(
