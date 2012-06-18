@@ -40,12 +40,43 @@ class CustomerController extends Controller
 	{
 		$modelUserCustomer = new UserCustomer('Search');
 		$modelUserCustomer->Id_customer = $id;
+		if(isset($_GET['UserCustomer']))
+		{
+			$modelUserCustomer->attributes =$_GET['UserCustomer'];
+			if(isset($_GET['UserCustomer']['Id_user_group']))
+				$modelUserCustomer->Id_user_group =$_GET['UserCustomer']['Id_user_group']; 			
+
+			if(isset($_GET['UserCustomer']['name']))
+				$modelUserCustomer->name =$_GET['UserCustomer']['name']; 			
+
+			if(isset($_GET['UserCustomer']['last_name']))
+				$modelUserCustomer->last_name =$_GET['UserCustomer']['last_name']; 			
+
+			if(isset($_GET['UserCustomer']['email']))
+				$modelUserCustomer->email =$_GET['UserCustomer']['email']; 			
+
+			if(isset($_GET['UserCustomer']['phone_house']))
+				$modelUserCustomer->phone_house =$_GET['UserCustomer']['phone_house']; 			
+
+			if(isset($_GET['UserCustomer']['phone_mobile']))
+				$modelUserCustomer->phone_mobile =$_GET['UserCustomer']['phone_mobile']; 			
+		}
 		
 		$modelUserGroupCustomer = new UserGroupCustomer('Search');
 		$modelUserGroupCustomer->Id_customer = $id;
+		if(isset($_GET['UserGroupCustomer']))
+		{
+			$modelUserGroupCustomer->attributes = $_GET['UserGroupCustomer'];
+		}
+		$modelUser = new User('Search');
+		if(isset($_GET['User']))
+		{
+			$modelUser->attributes = $_GET['User'];
+		}
 		
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
+			'modelUser'=>$modelUser,
 			'modelUserCustomer'=>$modelUserCustomer,
 			'modelUserGroupCustomer'=>$modelUserGroupCustomer,
 		));
