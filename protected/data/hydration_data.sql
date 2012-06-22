@@ -75,3 +75,11 @@ INSERT INTO `user` VALUES ('admin','admin','pmainieri@gruposmartliving.com',1,'P
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
+USE `tapia`;
+
+LOCK TABLES `interest_power` WRITE;
+/*!40000 ALTER TABLE `interest_power` DISABLE KEYS */;
+INSERT INTO `interest_power` VALUES (1,'Nula',0,0,0,0),(2,'Media',1,0,0,1);
+/*!40000 ALTER TABLE `interest_power` ENABLE KEYS */;
+UNLOCK TABLES;
+
