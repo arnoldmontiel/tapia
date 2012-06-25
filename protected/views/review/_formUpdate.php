@@ -770,19 +770,6 @@ $(':checkbox').click(function() {
  	 	}
 	});
 
-	$('#Review_Id_priority').change(function(){
-		if($(this).val()!= ''){
-			$.post('".ReviewController::createUrl('AjaxSetPriority')."', 
-			{
-				id: ".$model->Id.",
-				idPriority: $(this).val()	
-			}	
-			).success(
-			function(data){
-			
-			});		
-		}
-	});
 	
 	$('#Review_Id_review_type').change(function(){
 		if($(this).val()!= ''){
@@ -901,11 +888,6 @@ $('#need_reload').click(function(){
 		echo CHtml::closeTag('div');
 		if($model->username == User::getCurrentUser()->username )
 		{
-			echo CHtml::openTag('div',array('class'=>'review-priority'));
-				$prioritys = CHtml::listData($ddlPriority, 'Id', 'description');
-				echo CHtml::label('Prior: ','Id_priority'); 
-				echo CHtml::activeDropDownList($model, 'Id_priority', $prioritys);
-			echo CHtml::closeTag('div');
 			echo CHtml::openTag('div',array('class'=>'review-type'));
 				$reviewTypes = CHtml::listData($ddlReviewType, 'Id', 'description');
 				echo CHtml::label('Tipo: ','Id_review_type');
@@ -914,14 +896,6 @@ $('#need_reload').click(function(){
 		}
 		else
 		{
-			echo CHtml::openTag('div',array('class'=>'review-priority'));
-				echo CHtml::openTag('div',array('class'=>'review-attr-level'));		
-					echo CHtml::label('Prioridad: ','Id_priority');
-				echo CHtml::closeTag('div');
-				echo CHtml::openTag('div',array('class'=>'review-attr-text'));		
-					echo CHtml::encode($model->priority->description);
-				echo CHtml::closeTag('div');
-			echo CHtml::closeTag('div');
 			echo CHtml::openTag('div',array('class'=>'review-type'));
 				echo CHtml::openTag('div',array('class'=>'review-attr-level'));		
 					echo CHtml::label('Tipo: ','Id_review_type');
@@ -945,14 +919,6 @@ $('#need_reload').click(function(){
 <?php
 echo CHtml::openTag('div',array('class'=>'wall-action-box-btn','id'=>'btn-box'));
 
-	echo CHtml::openTag('div',array('class'=>'review-priority'));
-		echo CHtml::openTag('div',array('class'=>'review-attr-level'));		
-			echo CHtml::label('Prioridad: ','Id_priority');
-		echo CHtml::closeTag('div');
-		echo CHtml::openTag('div',array('class'=>'review-attr-text'));		
-			echo CHtml::encode($model->priority->description);
-		echo CHtml::closeTag('div');
-	echo CHtml::closeTag('div');
 	echo CHtml::openTag('div',array('class'=>'review-type'));
 		echo CHtml::openTag('div',array('class'=>'review-attr-level'));		
 			echo CHtml::label('Tipo: ','Id_review_type');

@@ -50,7 +50,6 @@ class ReviewController extends Controller
 	{
 		$model=new Review;
 		$modelCustomer=new Customer;
-		$modelPriority=Priority::model()->findAll();
 		
 		// Uncomment the following line if AJAX validation is needed
 		$this->performAjaxValidation($model);
@@ -93,7 +92,6 @@ class ReviewController extends Controller
 		$this->render('create',array(
 			'model'=>$model,
 			'modelCustomer'=>$modelCustomer,
-			'modelPriority'=>$modelPriority,
 			'modelReviewType'=>$modelReviewType,
 		));
 	}
@@ -124,7 +122,6 @@ class ReviewController extends Controller
 		$model=$this->loadModel($id);
 		$this->modelTag = $model;
 		
-		$ddlPriority = Priority::model()->findAll();
 		$dllReviewTypeUserGroup = ReviewTypeUserGroup::model()->findAllByAttributes(
 				array('Id_user_group'=>User::getCurrentUserGroup()->Id));
 		
@@ -164,7 +161,6 @@ class ReviewController extends Controller
 		$this->render('update',array(
 			'model'=>$model,
 			'idNote'=>$idNote,
-			'ddlPriority'=>$ddlPriority,
 			'ddlReviewType'=>$ddlReviewType,
 			'modelMultimedia'=>$modelMultimedia,
 			'modelAlbum'=>$modelAlbum,
@@ -363,18 +359,7 @@ class ReviewController extends Controller
 			$modelReviewUser->read:
 			1;	
 	}
-	
-	public function actionAjaxSetPriority()
-	{
-		$idPriority = $_POST['idPriority'];
-		$id = $_POST['id'];
-	
-		$model=$this->loadModel($id);
-		$model->Id_priority = $idPriority;
 
-		$model->save();
-	
-	}
 	
 	public function actionAjaxSetReviewType()
 	{

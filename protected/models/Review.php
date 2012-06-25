@@ -10,7 +10,6 @@
  * @property string $description
  * @property string $creation_date
  * @property string $change_date
- * @property integer $Id_priority
  * @property integer $read
  * @property integer $Id_review_type
  * @property string $username
@@ -19,7 +18,6 @@
  * @property Album[] $albums
  * @property Multimedia[] $multimedias
  * @property Note[] $notes
- * @property Priority $idPriority
  * @property ReviewType $idReviewType
  * @property Customer $idCustomer
  *  @property Tag[] $tags
@@ -66,8 +64,8 @@ class Review extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('Id_customer, Id_priority,Id_review_type', 'required'),
-			array('review, Id_customer, Id_priority, read, Id_review_type', 'numerical', 'integerOnly'=>true),
+			array('Id_customer,Id_review_type', 'required'),
+			array('review, Id_customer, read, Id_review_type', 'numerical', 'integerOnly'=>true),
 			array('description, creation_date, change_date', 'safe'),		
 			array('username', 'length', 'max'=>128),
 			array('change_date','default',
@@ -75,7 +73,7 @@ class Review extends CActiveRecord
 				              'setOnEmpty'=>false,'on'=>'insert,update'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id, review, Id_customer, description,creation_date, change_date, Id_priority, read, Id_review_type', 'safe', 'on'=>'search'),
+			array('Id, review, Id_customer, description,creation_date, change_date, read, Id_review_type', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -90,7 +88,6 @@ class Review extends CActiveRecord
 			'albums' => array(self::HAS_MANY, 'Album', 'Id_review'),
 			'multimedias' => array(self::HAS_MANY, 'Multimedia', 'Id_review'),
 			'notes' => array(self::HAS_MANY, 'Note', 'Id_review'),
-			'priority' => array(self::BELONGS_TO, 'Priority', 'Id_priority'),
 			'reviewType' => array(self::BELONGS_TO, 'ReviewType', 'Id_review_type'),
 			'customer' => array(self::BELONGS_TO, 'Customer', 'Id_customer'),
 			'tags' => array(self::MANY_MANY, 'Tag', 'tag_review(Id_review, Id_tag)'),
@@ -111,7 +108,6 @@ class Review extends CActiveRecord
 			'description' => 'Descripción',
 			'creation_date' => 'Creation Date',
 			'change_date' => 'Change Date',
-			'Id_priority' => 'Id Priority',
 			'read' => 'Read',
 			'Id_review_type' => 'Id Review Type',
 		);
@@ -134,7 +130,6 @@ class Review extends CActiveRecord
 		$criteria->compare('description',$this->description,true);
 		$criteria->compare('creation_date',$this->creation_date,true);
 		$criteria->compare('change_date',$this->change_date,true);
-		$criteria->compare('Id_priority',$this->Id_priority);
 		$criteria->compare('read',$this->read);
 		$criteria->compare('Id_review_type',$this->Id_review_type);
 		$criteria->compare('username',$this->username,true);
@@ -200,7 +195,6 @@ class Review extends CActiveRecord
 		
 		$criteria->addCondition('t.Id_customer = '. $this->Id_customer);
 		
-		$criteria->with[]='priority';
 		
 		if(!User::getCurrentUserGroup()->is_administrator )
 		{
@@ -212,8 +206,8 @@ class Review extends CActiveRecord
 			$criteria->addCondition('t.username = "'. User::getCurrentUser()->username . '"','OR');
 		}
 		
-		$criteria->order = 't.change_date DESC, priority.level DESC , t.review DESC';
-		
+		$criteria->distinct = true;
+		$criteria->order = 't.change_date DESC, t.review DESC';
 			
 		return new CActiveDataProvider($this, array(
 				'criteria'=>$criteria,
