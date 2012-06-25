@@ -66,14 +66,7 @@ class ReviewController extends Controller
 				$this->redirect(array('update','id'=>$model->Id));
 		}
 
-		$criteria=new CDbCriteria;
-
-		$criteria->select='MAX(review) as maxReview';
-		$criteria->condition='Id_customer = '.$model->Id_customer . ' AND Id_review_type = 1';
 		
-		$modelMax = Review::model()->find($criteria);
-
-		$model->review = $modelMax->maxReview + 1;
 		
 		$dllReviewTypeUserGroup = ReviewTypeUserGroup::model()->findAllByAttributes(
 								array('Id_user_group'=>User::getCurrentUserGroup()->Id));
@@ -88,6 +81,17 @@ class ReviewController extends Controller
 				$modelReviewType[$itemReviewType->Id_review_type] = $item;
 			}
 		}
+		
+		//set next review
+		$criteria=new CDbCriteria;
+		
+		$criteria->select='MAX(review) as maxReview';
+		$criteria->condition='Id_customer = '.$model->Id_customer . ' AND Id_review_type = '. key($modelReviewType);
+		
+		$modelMax = Review::model()->find($criteria);
+		
+		$model->review = $modelMax->maxReview + 1;
+		//------------------
 		
 		$this->render('create',array(
 			'model'=>$model,
