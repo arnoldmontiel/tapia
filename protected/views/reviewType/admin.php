@@ -26,6 +26,18 @@ $this->menu=array(
 	'columns'=>array(
 		'description',
 		array(
+ 			'name'=>"is_internal",
+ 			'type'=>'raw',
+ 			'value'=>'CHtml::checkBox("is_internal",$data->is_internal,array("disabled"=>"disabled"))',
+	 			'filter'=>CHtml::listData(
+					array(
+						array('id'=>'0','value'=>'No'),
+						array('id'=>'1','value'=>'Si')
+					)
+			,'id','value'
+			),
+		),
+		array(
 			'class'=>'CButtonColumn',
 			'template'=>'{view}{update}',
 		),

@@ -18,5 +18,9 @@ $this->menu=array(
 	'data'=>$model,
 	'attributes'=>array(
 		'description',
+		array('label'=>$model->getAttributeLabel('is_internal'),
+				'type'=>'raw',
+				'value'=>CHtml::checkBox("is_internal",$model->is_internal,array("disabled"=>"disabled"))
+		),
 	),
 )); ?>
