@@ -872,7 +872,7 @@ $('#need_reload').click(function(){
 	 ?>
 </div>
 
-<?php if(User::canCreate()):?>
+<?php if(User::canCreate() && $model->username == User::getCurrentUser()->username):?>
 <div id="loading" class="loading-place-holder" >
 </div>
 <?php
