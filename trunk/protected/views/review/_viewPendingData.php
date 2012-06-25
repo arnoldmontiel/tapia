@@ -119,6 +119,9 @@ $('#publicArea_".$data->Id."').children().each(
 			
 			$criteria->addCondition('t.Id <> '. User::getCurrentUserGroup()->Id);
 			
+			if($data->review->reviewType->is_internal && User::getCurrentUserGroup()->Id != User::getAdminUserGroupId())
+				$criteria->addCondition('t.is_internal = 1');
+			
 			$userGroups = UserGroup::model()->findAll($criteria);
 		
 			echo CHtml::openTag('div', array('id'=>'publicArea_'.$data->Id, 'class'=>'review-public-permission-area'));
