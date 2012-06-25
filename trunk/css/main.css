@@ -1660,12 +1660,6 @@ div.review-attr-text
 	float: left;
 	margin-left: 5px; 
 }
-div.review-priority
-{
-	float:left;
-	margin-top: 10px;
-	margin-left: 5px;
-}
 div.review-type
 {
 	float:left;
@@ -1674,9 +1668,9 @@ div.review-type
 }
 div.order-info
 {
-	float:right;
+	float:left;
 	margin-top: 10px;
-	margin-left: 5px;
+	margin-left: 20px;
 }
 div.review-single-view-actions
 {

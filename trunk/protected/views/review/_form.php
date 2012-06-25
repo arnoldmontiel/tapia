@@ -37,15 +37,6 @@ $this->widget('ext.processingDialog.processingDialog', array(
 	</div>
 
 	<div class="row">
-		<?php echo CHtml::label('Prioridad', 'Review_Id_priority'); ?>
-		<?php 
-		$prioritys = CHtml::listData($modelPriority, 'Id', 'description');
-		echo $form->dropDownList($model, 'Id_priority', $prioritys);
-		?>
-		<?php echo $form->error($model,'priority'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo CHtml::label('Tipo', 'Review_Id_review_type'); ?>
 		<?php 
 		$reviewTypes = CHtml::listData($modelReviewType, 'Id', 'description');
