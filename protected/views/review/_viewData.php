@@ -122,6 +122,9 @@ $editable = $isAdministrator||$isOwner;
 				
 				$criteria->addCondition('t.Id <> '. User::getCurrentUserGroup()->Id);
 				
+				if($data->review->reviewType->is_internal && User::getCurrentUserGroup()->Id != User::getAdminUserGroupId())
+					$criteria->addCondition('t.is_internal = 1');
+				
 				$modelUserGroup = UserGroup::model()->findAll($criteria);
 			
 				$modelUserGroupNote = UserGroupNote::model()->findAllByAttributes(array('Id_note'=>$data->Id));
