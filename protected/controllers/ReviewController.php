@@ -69,7 +69,7 @@ class ReviewController extends Controller
 		$criteria=new CDbCriteria;
 
 		$criteria->select='MAX(review) as maxReview';
-		$criteria->condition='Id_customer = '.$model->Id_customer ;
+		$criteria->condition='Id_customer = '.$model->Id_customer . ' AND Id_review_type = 1';
 		
 		$modelMax = Review::model()->find($criteria);
 
