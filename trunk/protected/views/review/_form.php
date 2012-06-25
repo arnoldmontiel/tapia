@@ -55,7 +55,7 @@ $this->widget('ext.processingDialog.processingDialog', array(
 	</div>
 	
 	<div class="row">
-		<?php echo CHtml::label('Descripci&oacute;n', 'Review[description]'); ?>
+		<?php echo CHtml::label('Asunto', 'Review[description]'); ?>
 		<?php echo $form->textArea($model,'description',array('rows'=>6, 'cols'=>50,'style'=>'resize:none;')); ?>
 		<?php echo $form->error($model,'description'); ?>
 	</div>
