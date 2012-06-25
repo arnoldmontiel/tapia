@@ -6,6 +6,7 @@
  * The followings are the available columns in table 'review_type':
  * @property integer $Id
  * @property string $description
+ * @property integer $is_internal
  *
  * The followings are the available model relations:
  * @property Review[] $reviews
@@ -40,10 +41,11 @@ class ReviewType extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('description', 'required'),
+			array('is_internal', 'numerical', 'integerOnly'=>true),
 			array('description', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id, description', 'safe', 'on'=>'search'),
+			array('Id, description, is_internal', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -68,6 +70,7 @@ class ReviewType extends CActiveRecord
 		return array(
 			'Id' => 'ID',
 			'description' => 'Descripci&oacute;n',
+			'is_internal' => 'Es interno',
 		);
 	}
 
@@ -84,6 +87,7 @@ class ReviewType extends CActiveRecord
 
 		$criteria->compare('Id',$this->Id);
 		$criteria->compare('description',$this->description,true);
+		$criteria->compare('is_internal',$this->is_internal);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

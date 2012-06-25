@@ -14,6 +14,12 @@
 		<?php echo $form->textField($model,'description',array('size'=>60,'maxlength'=>255)); ?>
 		<?php echo $form->error($model,'description'); ?>
 	</div>
+	
+	<div class="row">	
+		<?php echo $form->labelEx($model,'is_internal'); ?>
+		<?php echo $form->checkBox($model,'is_internal'); ?>
+		<?php echo $form->error($model,'is_internal'); ?>
+	</div>
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Crear' : 'Guardar'); ?>
