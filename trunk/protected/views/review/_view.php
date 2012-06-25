@@ -8,6 +8,12 @@
 		if($modelReviewUser && $modelReviewUser->read)
 			$classStyle = 'index-review-summary'; ?>
 	
+	<?php	
+		echo CHtml::openTag('div',array('class'=>'index-review-type-box'));
+		echo $data->reviewType->description;
+		echo CHtml::closeTag('div');
+	?>
+	
 	<div class='<?php echo $classStyle ?>'>
 		#<?php echo CHtml::encode($data->review); ?>:
 		<?php echo CHtml::encode($data->description); ?>
@@ -29,11 +35,7 @@
 		echo CHtml::closeTag('div');
 	?>
 
-	<?php	
-		echo CHtml::openTag('div',array('class'=>'index-review-type-box'));
-		echo $data->reviewType->description;
-		echo CHtml::closeTag('div');
-	?>
+	
 		<?php 
 		
 		$modelReview = Review::model()->findByPk($data->Id);
