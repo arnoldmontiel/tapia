@@ -13,6 +13,7 @@
  * @property string $address
  * @property string $phone_house
  * @property string $phone_mobile
+ * @property string $description
  *
  * The followings are the available model relations:
  * @property Album[] $albums
@@ -148,9 +149,10 @@ class User extends CActiveRecord
 				array('username, password, email', 'length', 'max'=>128),
 				array('name, last_name, address', 'length', 'max'=>100),
 				array('phone_house, phone_mobile', 'length', 'max'=>45),
+				array('description', 'length', 'max'=>255),
 				// The following rule is used by search().
 				// Please remove those attributes that should not be searched.
-				array('username, password, email, Id_user_group, userGroupDescription, phone_house, phone_mobile, building_address', 'safe', 'on'=>'search'),
+				array('username, password, email, Id_user_group, userGroupDescription, phone_house, phone_mobile, building_address, description', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -186,6 +188,7 @@ class User extends CActiveRecord
 				'userGroupDescription' => 'Grupo de usuario',
 				'phone_house' => 'Tel&eacute;fono Casa',
 				'phone_mobile' => 'Tel&eacute;fono M&oacute;vil',
+				'description'=>'Observaciones',
 		);
 	}
 
@@ -209,6 +212,7 @@ class User extends CActiveRecord
 		$criteria->compare('address',$this->address,true);
 		$criteria->compare('phone_house',$this->phone_house,true);
 		$criteria->compare('phone_mobile',$this->phone_mobile,true);
+		$criteria->compare('description',$this->description,true);
 
 		return new CActiveDataProvider($this, array(
 				'criteria'=>$criteria,
@@ -230,6 +234,8 @@ class User extends CActiveRecord
 		$criteria->compare('address',$this->address,true);
 		$criteria->compare('phone_house',$this->phone_house,true);
 		$criteria->compare('phone_mobile',$this->phone_mobile,true);
+		$criteria->compare('description',$this->description,true);
+		
 		$criteria->join = 'LEFT OUTER JOIN `user_customer` `uc` ON (`t`.`username`=`uc`.`username`)';
 		$criteria->addCondition('Id_user_group not in(1,3)');//clients (1) and administrators (3)
 
@@ -257,7 +263,8 @@ class User extends CActiveRecord
 		$criteria->compare('address',$this->address,true);
 		$criteria->compare('phone_house',$this->phone_house,true);
 		$criteria->compare('phone_mobile',$this->phone_mobile,true);
-
+		$criteria->compare('description',$this->description,true);
+		
 		$criteria->with[]='userGroup';
 		$criteria->addSearchCondition("userGroup.description",$this->userGroupDescription);
 
