@@ -63,6 +63,10 @@ Yii::app()->clientScript->registerScript('viewTapiaCustomer', "
 						'type'=>'raw',
 						'value'=>$model->user->phone_mobile
 				),
+				array('label'=>$model->getAttributeLabel('description'),
+						'type'=>'raw',
+						'value'=>$model->user->description
+				),
 		),
 )); ?>
 <br>

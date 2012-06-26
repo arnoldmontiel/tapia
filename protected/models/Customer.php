@@ -88,6 +88,7 @@ class Customer extends CActiveRecord
 			'building_address' => 'Direcci&oacute;n de obra',
 			'phone_house' => 'Tel&eacute;fono Casa',
 			'phone_mobile' => 'Tel&eacute;fono M&oacute;vil',
+			'description'=>'Observaciones',
 		);
 	}
 

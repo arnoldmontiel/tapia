@@ -65,6 +65,12 @@
 		<?php echo $form->error($model,'phone_mobile'); ?>
 	</div>
 			
+	<div class="row">
+		<?php echo $form->labelEx($model,'description'); ?>
+		<?php echo $form->textArea($model,'description',array('size'=>255,'maxlength'=>255,'cols'=>80)); ?>
+		<?php echo $form->error($model,'description'); ?>
+	</div>
+			
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Crear' : 'Guardar'); ?>
 	</div>
