@@ -129,11 +129,24 @@ $('#publicArea_".$data->Id."').children().each(
 			
 			foreach($userGroups as $item)
 			{
+				
 				$userGroupCustomer = UserGroupCustomer::model()->findByPk(array('Id_customer'=>$data->Id_customer,'Id_user_group'=>$item->Id));
-				$dafaultFeedback = isset($userGroupCustomer)?$userGroupCustomer->interestPower->can_feedback:false;
-				$dafaultRead = isset($userGroupCustomer)?$userGroupCustomer->interestPower->can_read:false;
-				$dafaultAddressed = isset($userGroupCustomer)?$userGroupCustomer->interestPower->addressed:false;
-				$dafaultConfirmation = isset($userGroupCustomer)?$userGroupCustomer->interestPower->need_confirmation:false;
+				
+				if($data->review->reviewType->is_for_client)
+				{
+					//pregunto si es cliente
+					$dafaultFeedback = ($item->Id == 3)?true:false;
+					$dafaultRead = ($item->Id == 3)?true:false;
+					$dafaultAddressed = ($item->Id == 3)?true:false;
+					$dafaultConfirmation = ($item->Id == 3)?true:false;
+				}
+				else 
+				{
+					$dafaultFeedback = isset($userGroupCustomer)?$userGroupCustomer->interestPower->can_feedback:false;
+					$dafaultRead = isset($userGroupCustomer)?$userGroupCustomer->interestPower->can_read:false;
+					$dafaultAddressed = isset($userGroupCustomer)?$userGroupCustomer->interestPower->addressed:false;
+					$dafaultConfirmation = isset($userGroupCustomer)?$userGroupCustomer->interestPower->need_confirmation:false;
+				}
 				
 				$isAdmin = false;
 				

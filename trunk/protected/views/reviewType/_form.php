@@ -1,3 +1,15 @@
+<?php 
+Yii::app()->clientScript->registerScript(__CLASS__.'#review-type-form', "
+	$('#ReviewType_is_for_client').change(function(){
+		$('#ReviewType_is_internal').attr('checked',false);
+	});
+	$('#ReviewType_is_internal').change(function(){
+		$('#ReviewType_is_for_client').attr('checked',false);
+	});
+");
+
+?>
+
 <div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
@@ -19,6 +31,12 @@
 		<?php echo $form->labelEx($model,'is_internal'); ?>
 		<?php echo $form->checkBox($model,'is_internal'); ?>
 		<?php echo $form->error($model,'is_internal'); ?>
+	</div>
+	
+	<div class="row">	
+		<?php echo $form->labelEx($model,'is_for_client'); ?>
+		<?php echo $form->checkBox($model,'is_for_client'); ?>
+		<?php echo $form->error($model,'is_for_client'); ?>
 	</div>
 
 	<div class="row buttons">

@@ -8,4 +8,8 @@
 	<?php echo CHtml::checkBox("is_internal",CHtml::encode($data->is_internal),array('disabled'=>'disabled')); ?>
 	<br />
 	
+	<b><?php echo CHtml::encode($data->getAttributeLabel('is_for_client')); ?>:</b>
+	<?php echo CHtml::checkBox("is_for_client",CHtml::encode($data->is_for_client),array('disabled'=>'disabled')); ?>
+	<br />
+	
 </div>

@@ -38,6 +38,18 @@ $this->menu=array(
 			),
 		),
 		array(
+ 			'name'=>"is_for_client",
+ 			'type'=>'raw',
+ 			'value'=>'CHtml::checkBox("is_for_client",$data->is_for_client,array("disabled"=>"disabled"))',
+	 			'filter'=>CHtml::listData(
+					array(
+						array('id'=>'0','value'=>'No'),
+						array('id'=>'1','value'=>'Si')
+					)
+			,'id','value'
+			),
+		),
+		array(
 			'class'=>'CButtonColumn',
 			'template'=>'{view}{update}',
 		),
