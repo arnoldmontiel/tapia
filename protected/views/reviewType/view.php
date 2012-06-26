@@ -22,5 +22,9 @@ $this->menu=array(
 				'type'=>'raw',
 				'value'=>CHtml::checkBox("is_internal",$model->is_internal,array("disabled"=>"disabled"))
 		),
+		array('label'=>$model->getAttributeLabel('is_for_client'),
+				'type'=>'raw',
+				'value'=>CHtml::checkBox("is_for_client",$model->is_for_client,array("disabled"=>"disabled"))
+		),
 	),
 )); ?>
