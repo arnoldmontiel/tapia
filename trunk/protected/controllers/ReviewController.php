@@ -63,7 +63,10 @@ class ReviewController extends Controller
 		{
 			$model->attributes=$_POST['Review'];
 			if($model->save())
+			{
+				$this->autoTagAssign($model);
 				$this->redirect(array('update','id'=>$model->Id));
+			}
 		}
 
 		
@@ -100,6 +103,20 @@ class ReviewController extends Controller
 		));
 	}
 
+	private function autoTagAssign($model)
+	{
+		$count = (int)TagReviewType::model()->countByAttributes(array('Id_review_type'=>$model->Id_review_type));
+		if($count == 1)
+		{
+			$tagReviewTypeDb = TagReviewType::model()->findByAttributes(array('Id_review_type'=>$model->Id_review_type));
+			$modelTagReview = new TagReview;
+			
+			$modelTagReview->Id_review = $model->Id;
+			$modelTagReview->Id_tag = $tagReviewTypeDb->Id_tag;
+			$modelTagReview->save();
+		}
+	}
+	
 	public function actionAjaxGetNextReviewIndex()
 	{
 		$idCustomer = $_POST['idCustomer'];
