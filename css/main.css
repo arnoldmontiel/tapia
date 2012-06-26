@@ -1712,6 +1712,18 @@ div.review-decline-note-btn-pos
 	right:30px;
 	top: 7px;
 }
+div.review-conf-note-pos
+{	
+	right:30px;
+	top: 7px;
+	position: absolute;
+	font-size: 10px;
+	line-height: 18px;
+	z-index: 20;
+	padding: 0px 5px  0px 5px;	
+	width:80px;
+	text-align: center;
+}
 div.review-confirm-note-btn
 {	
 	opacity:0.7;
@@ -1805,9 +1817,25 @@ div.review-permission-row
 	vertical-align: bottom;
 	--> 
 }
+div.review-permission-row-date
+{
+	margin-left:5px;
+	font-size: 10px;
+	display: inline-block;
+	<!--
+  	display: inline;  	
+  	-->
+	margin-top: 3px;
+	<!--
+	zoom:1;
+	-->
+	<!--
+	vertical-align: bottom;
+	--> 
+}
 div.review-permission-row-first
 {
-	width: 30%;
+	width: 20%;
 	display: inline-block;
 	<!--
   	display: inline;  	
@@ -1932,7 +1960,7 @@ div.review-update-notification
 
 div.status-permission-row
 {
-	width:100%;
+	width:30%;
 	display: inline-block;
 	<!--
   	display: inline;  	
@@ -1962,6 +1990,16 @@ div.status-permission-data
 	padding: 0px 5px  0px 5px;
 	width:70px;
 	text-align: left;
+	margin-left:5px;
+	float: left;
+}
+div.status-permission-date
+{
+	font-size: 11px;
+	line-height: 18px;
+	padding: 0px 5px  0px 5px;
+	width:70px;
+	text-align: right;
 	margin-left:5px;
 	float: left;
 }

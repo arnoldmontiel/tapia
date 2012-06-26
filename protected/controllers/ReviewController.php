@@ -453,8 +453,10 @@ class ReviewController extends Controller
 			
 			$modelUserGroupNote = UserGroupNote::model()->findByAttributes(array('Id_user_group'=>User::getCurrentUserGroup()->Id, 'Id_note'=>$id));
 			$modelUserGroupNote->confirmed = 1;
+			$modelUserGroupNote->confirmation_date = new CDbExpression('NOW()');
 			$modelUserGroupNote->save();
-
+			$modelUserGroupNote = UserGroupNote::model()->findByAttributes(array('Id_user_group'=>User::getCurrentUserGroup()->Id, 'Id_note'=>$id));
+			
 			$this->markAsUnread($model);
 			
 			$this->renderPartial('_viewData',array('data'=>$model,'dataUserGroupNote'=>$modelUserGroupNote));
@@ -487,7 +489,9 @@ class ReviewController extends Controller
 			
 			$modelUserGroupNote = UserGroupNote::model()->findByAttributes(array('Id_user_group'=>User::getCurrentUserGroup()->Id, 'Id_note'=>$id));
 			$modelUserGroupNote->declined = 1;
+			$modelUserGroupNote->confirmation_date = new CDbExpression('NOW()');
 			$modelUserGroupNote->save();				
+			$modelUserGroupNote = UserGroupNote::model()->findByAttributes(array('Id_user_group'=>User::getCurrentUserGroup()->Id, 'Id_note'=>$id));
 			
 			$this->markAsUnread($model);
 			
@@ -669,7 +673,10 @@ class ReviewController extends Controller
 						break;
 					}
 				}
-				$canEditNeedConf = !($modelUserGroupNote->confirmed || $modelUserGroupNote->declined);
+				
+				$outOfDate = isset($modelUserGroupNote)?$modelUserGroupNote->isOutOfDate():false;
+				
+				$canEditNeedConf = !($modelUserGroupNote->confirmed || $modelUserGroupNote->declined) && !$outOfDate;
 				
 				if($type=='canSee')
 				{
