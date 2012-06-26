@@ -13,9 +13,22 @@
  * @property integer $need_confirmation
  * @property integer $confirmed
  * @property integer $declined
+ * @property string $confirmation_date
+ * @property string $request_confirmation_date
  */
 class UserGroupNote extends CActiveRecord
 {
+	
+	protected function beforeSave()
+	{
+		if($this->need_confirmation)
+			$this->request_confirmation_date = new CDbExpression('NOW()');
+		else
+			$this->request_confirmation_date = null;
+		
+		return parent::beforeSave();
+	}
+	
 	protected function afterSave()
 	{
 		parent::afterSave();
@@ -103,6 +116,36 @@ class UserGroupNote extends CActiveRecord
 		}
 	}
 	
+	public function getDueDate()
+	{
+		$date = new DateTime($this->request_confirmation_date);
+		$date->modify('+15 day');
+		return $date->format('Y-m-d');
+	}
+	
+	public function getConfirmDate()
+	{
+		$date = new DateTime($this->confirmation_date);
+		return $date->format('Y-m-d');
+	}
+	
+	public function isOutOfDate()
+	{
+		$outOfDate = false;
+		if(isset($this->request_confirmation_date))
+		{
+			$todayDate = new DateTime();
+				
+			$date = new DateTime($this->request_confirmation_date);
+			$date->modify('+15 day');
+				
+			if($todayDate > $date)
+				$outOfDate = true;
+		}
+		
+		return $outOfDate;
+	}
+	
 	public $Id_review = null;
 	/**
 	 * Returns the static model of the specified AR class.
@@ -131,10 +174,11 @@ class UserGroupNote extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('Id_user_group, Id_note, Id_customer', 'required'),
+			array('confirmation_date, request_confirmation_date', 'safe'),
 			array('Id_user_group, Id_note, Id_customer, can_read, can_feedback,addressed, need_confirmation, confirmed, declined', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id_user_group, Id_note, Id_customer, can_read, can_feedback, addressed, need_confirmation, confirmed, declined', 'safe', 'on'=>'search'),
+			array('Id_user_group, Id_note, Id_customer, can_read, can_feedback, addressed, need_confirmation, confirmed, declined, confirmation_date, request_confirmation_date', 'safe', 'on'=>'search'),
 		);
 	}
 

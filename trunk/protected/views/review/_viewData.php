@@ -85,15 +85,37 @@ $editable = $isAdministrator||$isOwner;
 		 				);
 		 				echo ($confirmed)?'Confirmardo':'Rechazado';
 		 				echo CHtml::closeTag('div');	 				
+		 				echo CHtml::openTag('div',array('class'=>'review-conf-note-pos'));
+		 				echo '('. $dataUserGroupNote->getConfirmDate() .')';
+		 				echo CHtml::closeTag('div');
 		 			}
 		 			else 
 		 			{
-		 				echo CHtml::openTag('div',array('class'=>'review-confirm-note-btn review-confirm-note-btn-pos','id'=>'confirm_note_'.$data->Id));
-		 				echo 'Confirmar';
-		 				echo CHtml::closeTag('div');
-		 				echo CHtml::openTag('div',array('class'=>'review-decline-note-btn review-decline-note-btn-pos','id'=>'decline_note_'.$data->Id));
-		 				echo 'Rechazar';
-		 				echo CHtml::closeTag('div');
+		 				$outOfDate = isset($dataUserGroupNote)?$dataUserGroupNote->isOutOfDate():false;
+		 				if($outOfDate)
+		 				{
+		 					echo CHtml::openTag('div',
+		 						array(
+ 							 			'class'=>'review-confirmed-note-btn review-confirm-note-btn-pos',
+ 							 			'style'=>'background-color:#80e765;color:black;',
+		 							)
+		 						);
+		 					echo 'Auto Conf';
+		 					echo CHtml::closeTag('div');
+		 					echo CHtml::openTag('div',array('class'=>'review-conf-note-pos'));
+		 					echo '('. $dataUserGroupNote->getDueDate() .')';
+		 					echo CHtml::closeTag('div');
+		 					
+		 				}
+		 				else 
+		 				{
+			 				echo CHtml::openTag('div',array('class'=>'review-confirm-note-btn review-confirm-note-btn-pos','id'=>'confirm_note_'.$data->Id));
+			 				echo 'Confirmar';
+			 				echo CHtml::closeTag('div');
+			 				echo CHtml::openTag('div',array('class'=>'review-decline-note-btn review-decline-note-btn-pos','id'=>'decline_note_'.$data->Id));
+			 				echo 'Rechazar';
+			 				echo CHtml::closeTag('div');
+		 				}
 		 			}
 		 		}
 		 	?>
@@ -161,7 +183,9 @@ $editable = $isAdministrator||$isOwner;
 					if(User::getAdminUserGroupId() == $item->Id)
 						$isAdmin = true;
 					
-					$canEditNeedConf = !$modelUserGroupNoteInstance || !($modelUserGroupNoteInstance->confirmed || $modelUserGroupNoteInstance->declined);
+					$outOfDate = isset($modelUserGroupNoteInstance)?$modelUserGroupNoteInstance->isOutOfDate():false;
+										
+					$canEditNeedConf = !$modelUserGroupNoteInstance || (!($modelUserGroupNoteInstance->confirmed || $modelUserGroupNoteInstance->declined) && !$outOfDate);
 					
 						echo CHtml::openTag('div', array('id'=>'userGroup_'.$item->Id));
 						
@@ -218,21 +242,32 @@ $editable = $isAdministrator||$isOwner;
 						
 						$label ="";
 		 				$color= '';
+		 				$date = '';
 						if($canEditNeedConf)
 						{
 							$label= CHtml::decode('Confirmaci&oacute;n');
 						}
 						else
 						{
-							if($modelUserGroupNoteInstance->confirmed)
+							if($outOfDate)
 							{
-		 						$color= 'background-color:#80e765;color:black;';
-								$label= CHtml::decode('Confirmado');
+								$color= 'background-color:#80e765;color:black;';
+								$label= CHtml::decode('Auto Conf');
+								$date = '('. $modelUserGroupNoteInstance->getDueDate() .')';
 							}
-							else
+							else 
 							{
-		 						$color= 'background-color:#ed5656;color:black;';
-								$label= CHtml::decode('Declinado');
+								if($modelUserGroupNoteInstance->confirmed)
+								{
+			 						$color= 'background-color:#80e765;color:black;';
+									$label= CHtml::decode('Confirmado');
+								}
+								else
+								{
+			 						$color= 'background-color:#ed5656;color:black;';
+									$label= CHtml::decode('Declinado');
+								}
+								$date = '('. $modelUserGroupNoteInstance->getConfirmDate() .')';
 							}
 						}
 						
@@ -249,6 +284,9 @@ $editable = $isAdministrator||$isOwner;
 							}
 							echo $label;
 							echo CHtml::closeTag('div');												
+						echo CHtml::closeTag('div');
+						echo CHtml::openTag('div',array('class'=>'review-permission-row-date'));
+							echo $date;
 						echo CHtml::closeTag('div');
 					echo CHtml::closeTag('div');
 				}
@@ -369,28 +407,46 @@ $editable = $isAdministrator||$isOwner;
 				echo CHtml::openTag('div',array('class'=>'status-permission-row'));
 				foreach ($modelUserGroupNote as $item)
 				{
-					echo CHtml::openTag('div',array('class'=>'status-permission-title'));
-					echo $item->userGroup->description.":";					
-					echo CHtml::closeTag('div');
-					$text = "";
-					$color = 'background-color:';
-					if($item->confirmed)
-					{
-						$text = CHtml::encode("Confirmado");
-						$color.='#80e765;color:black;';
-					}
-					else if($item->declined)
-					{
-						$text = CHtml::encode("Declinado");						
-						$color.='#ed5656;color:black;';
-					}
-					else
-					{
-						$text = CHtml::encode("Pendiente");						
-						$color.='#AFBAD7;color:black;';
-					}
-					echo CHtml::openTag('div',array('class'=>'status-permission-data','style'=>$color));
-					echo $text;
+					$outOfDate = isset($item)?$item->isOutOfDate():false;
+					
+					echo CHtml::openTag('div',array('class'=>'review-permission-row'));
+						echo CHtml::openTag('div',array('class'=>'status-permission-title'));
+						echo $item->userGroup->description.":";					
+						echo CHtml::closeTag('div');
+						$text = "";
+						$color = 'background-color:';
+						$date = "";
+						if($item->confirmed)
+						{
+							$text = CHtml::encode("Confirmado");
+							$color.='#80e765;color:black;';
+							$date = '('. $item->getConfirmDate() .')';
+						}
+						else if($item->declined)
+						{
+							$text = CHtml::encode("Declinado");						
+							$color.='#ed5656;color:black;';
+							$date = '('. $item->getConfirmDate() .')';
+						}
+						else if($outOfDate)
+						{
+							$text = CHtml::encode("Auto Conf");
+							$color.='#80e765;color:black;';
+							$date = '('. $item->getDueDate() .')';
+						}
+						else
+						{
+							$text = CHtml::encode("Pendiente");						
+							$color.='#AFBAD7;color:black;';
+						}
+						echo CHtml::openTag('div',array('class'=>'status-permission-data','style'=>$color));
+						echo $text;
+						echo CHtml::closeTag('div');
+						
+						echo CHtml::openTag('div',array('class'=>'status-permission-date'));
+							echo $date;
+						echo CHtml::closeTag('div');
+						
 					echo CHtml::closeTag('div');
 				}
 				echo CHtml::closeTag('div');
