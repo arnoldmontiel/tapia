@@ -271,21 +271,6 @@ class ReviewController extends Controller
 		$modelMultimedia = new Multimedia;
 		$modelNote = new Note;
 		
-		if(User::isInternal())
-		{
-			$ddlCustomer = Customer::model()->findAll();
-		}
-		else
-		{
-			$criteria=new CDbCriteria;
-			if(User::getCustomer())
-				$criteria->addCondition('t.Id  = '. User::getCustomer()->Id);
-			else 
-				$criteria->addCondition('t.Id IN(select Id_customer from user_customer where username = "'. User::getCurrentUser()->username.'")');
-			
-			$ddlCustomer = Customer::model()->findAll($criteria);
-		}
-		
 		$Id_customer = -1;
 		if(isset($_GET['Id_customer']))
 		{
@@ -298,12 +283,24 @@ class ReviewController extends Controller
 		$this->render('index',
 			array('modelMultimedia'=>$modelMultimedia,
 					'modelNote'=>$modelNote,
-					'ddlCustomer'=>$ddlCustomer,
 					'Id_customer'=>$Id_customer,
 			)
 		);
 	}
 
+	public function actionAjaxGetCustomerName()
+	{
+		$idCustomer = ($_POST['Id_customer'])?$_POST['Id_customer']:null;
+
+		$name = "";
+		if(isset($idCustomer))
+		{
+			$modelCustomer = Customer::model()->findByPk($idCustomer);
+			$name = $modelCustomer->getCustomerDesc();
+		}	
+		echo $name;
+	}
+	
 	/**
 	 * Manages all models.
 	 */
