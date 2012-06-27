@@ -45,7 +45,7 @@
 				<?php echo CHtml::link('Grupo de Usuarios',Yii::app()->createUrl('userGroup/index'),array('class'=>(Yii::app()->user->checkAccess('UserGroupIndex'))?'header-menu-item':'header-menu-item-hidden')); ?>
 			</div>
 			<div class="header-menu-item">
-				<?php echo CHtml::link('Permisos',Yii::app()->createUrl('srbac'),array('class'=>(Yii::app()->user->checkAccess('Authority'))?'header-menu-item':'header-menu-item-hidden')); ?>
+				<?php echo CHtml::link('Auditoria',Yii::app()->createUrl('auditLogin/index'),array('class'=>(Yii::app()->user->checkAccess('AuditLoginIndex'))?'header-menu-item':'header-menu-item-hidden')); ?>
 			</div>
 			<div class="header-menu-item" >
 				<?php echo CHtml::link('Salir '.' ('.Yii::app()->user->name.')',Yii::app()->createUrl('site/logout'),array('class'=>'header-menu-item')); ?>
