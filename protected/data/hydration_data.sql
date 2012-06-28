@@ -31,14 +31,6 @@ INSERT INTO `multimedia_type` VALUES (1,'Image'),(2,'Video'),(3,'PDF'),(4,'Autoc
 UNLOCK TABLES;
 
 
-USE `tapia`;
-
-LOCK TABLES `priority` WRITE;
-/*!40000 ALTER TABLE `priority` DISABLE KEYS */;
-INSERT INTO `priority` VALUES (1,'Alta',5),(2,'Media-Alta',4),(3,'Media',3),(4,'Media-Baja',2),(5,'Baja',1);
-/*!40000 ALTER TABLE `priority` ENABLE KEYS */;
-UNLOCK TABLES;
-
 
 USE `tapia`;
 
