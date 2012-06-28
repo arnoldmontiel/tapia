@@ -218,6 +218,7 @@ class User extends CActiveRecord
 				'criteria'=>$criteria,
 		));
 	}
+	
 	public function searchUnassigned($id_customer)
 	{
 		// Warning: Please modify the following code to remove attributes that
@@ -236,9 +237,11 @@ class User extends CActiveRecord
 		$criteria->compare('phone_mobile',$this->phone_mobile,true);
 		$criteria->compare('description',$this->description,true);
 		
-		$criteria->join = 'LEFT OUTER JOIN `user_customer` `uc` ON (`t`.`username`=`uc`.`username`)';
+		$criteria->join = 'LEFT OUTER JOIN `user_customer` `uc` ON (`t`.`username`=`uc`.`username`)
+							INNER JOIN user_group ug ON (t.Id_user_group = ug.Id)';
 		$criteria->addCondition('Id_user_group not in(1,3)');//clients (1) and administrators (3)
-
+		$criteria->addCondition('ug.is_internal = 0');
+		
  		$criteria->addCondition('t.username not in (
  				select u.username from user u LEFT OUTER JOIN user_customer uc on (u.username = uc.username)
  				where uc.Id_customer = '.$id_customer.')');
