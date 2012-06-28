@@ -119,7 +119,7 @@ class UserGroupNote extends CActiveRecord
 	public function getDueDate()
 	{
 		$date = new DateTime($this->request_confirmation_date);
-		$date->modify('+15 day');
+		$date->modify('+'.Setting::getDueDays().' day');
 		return $date->format('Y-m-d');
 	}
 	
@@ -137,7 +137,7 @@ class UserGroupNote extends CActiveRecord
 			$todayDate = new DateTime();
 				
 			$date = new DateTime($this->request_confirmation_date);
-			$date->modify('+15 day');
+			$date->modify('+'.Setting::getDueDays().' day');
 				
 			if($todayDate > $date)
 				$outOfDate = true;
