@@ -70,6 +70,12 @@
 		<?php echo $form->textArea($model,'description',array('size'=>255,'maxlength'=>255,'cols'=>80)); ?>
 		<?php echo $form->error($model,'description'); ?>
 	</div>
+	
+	<div class="row">	
+		<?php echo $form->labelEx($model,'send_mail'); ?>
+		<?php echo $form->checkBox($model,'send_mail', array('checked','checked')); ?>
+		<?php echo $form->error($model,'send_mail'); ?>
+	</div>
 			
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Crear' : 'Guardar'); ?>

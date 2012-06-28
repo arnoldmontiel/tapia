@@ -14,6 +14,7 @@
  * @property string $phone_house
  * @property string $phone_mobile
  * @property string $description
+ * @property integer $send_mail
  *
  * The followings are the available model relations:
  * @property Album[] $albums
@@ -145,14 +146,14 @@ class User extends CActiveRecord
 		// will receive user inputs.
 		return array(
 				array('username, password, email, Id_user_group', 'required'),
-				array('Id_user_group', 'numerical', 'integerOnly'=>true),
+				array('Id_user_group, send_mail', 'numerical', 'integerOnly'=>true),
 				array('username, password, email', 'length', 'max'=>128),
 				array('name, last_name, address', 'length', 'max'=>100),
 				array('phone_house, phone_mobile', 'length', 'max'=>45),
 				array('description', 'length', 'max'=>255),
 				// The following rule is used by search().
 				// Please remove those attributes that should not be searched.
-				array('username, password, email, Id_user_group, userGroupDescription, phone_house, phone_mobile, building_address, description', 'safe', 'on'=>'search'),
+				array('username, password, email, Id_user_group, userGroupDescription, phone_house, phone_mobile, building_address, description, send_mail', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -189,6 +190,7 @@ class User extends CActiveRecord
 				'phone_house' => 'Tel&eacute;fono Casa',
 				'phone_mobile' => 'Tel&eacute;fono M&oacute;vil',
 				'description'=>'Observaciones',
+				'send_mail'=>'Recive Correo',
 		);
 	}
 
@@ -213,7 +215,8 @@ class User extends CActiveRecord
 		$criteria->compare('phone_house',$this->phone_house,true);
 		$criteria->compare('phone_mobile',$this->phone_mobile,true);
 		$criteria->compare('description',$this->description,true);
-
+		$criteria->compare('send_mail',$this->send_mail,true);
+		
 		return new CActiveDataProvider($this, array(
 				'criteria'=>$criteria,
 		));

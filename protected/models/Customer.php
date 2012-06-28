@@ -108,6 +108,7 @@ class Customer extends CActiveRecord
 			'phone_mobile' => 'Tel&eacute;fono M&oacute;vil',
 			'description'=>'Observaciones',
 			'tag_description'=>'Etapa',
+			'send_mail'=>'Recive Correo',
 		);
 	}
 
