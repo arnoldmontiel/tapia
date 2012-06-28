@@ -694,7 +694,7 @@ div.review-action-back
 	margin:5px 5px 5px 5px;
 	padding:5px 5px 5px 5px;
 	position: relative;
-	width: 110px;
+	width: 180px;
 	height:20px;	
 	cursor:pointer;
 	-moz-border-radius: 5px;
@@ -703,10 +703,11 @@ div.review-action-back
 	text-align: center;
 	font-weight: bold; 
 	z-index: 9;	
+	background-color: #e5ecfb;
 }
 div.review-action-back:hover
 {
-	background-color: #e5ecfb;
+	background-color: #F9FBFE;
 	color: gray;
 }
 
