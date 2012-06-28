@@ -927,11 +927,11 @@ echo CHtml::openTag('div',array('class'=>'wall-action-box-btn','id'=>'btn-box'))
 			echo CHtml::encode($model->reviewType->description);
 		echo CHtml::closeTag('div');
 	echo CHtml::closeTag('div');
-	echo CHtml::openTag('div',array('class'=>'order-info'));
-		echo CHtml::label('Orden: ','info_order');
-		$orderData = array('addressed'=>'Para','can_feedback'=>'Respuesta','need_confirmation'=>'Confirmaci'.utf8_encode('ó').'n');
-		echo CHtml::dropDownList('info_order', ($order)?$order:'addressed', $orderData);
-	echo CHtml::closeTag('div');
+// 	echo CHtml::openTag('div',array('class'=>'order-info'));
+// 		echo CHtml::label('Orden: ','info_order');
+// 		$orderData = array('addressed'=>'Para','can_feedback'=>'Respuesta','need_confirmation'=>'Confirmaci'.utf8_encode('ó').'n');
+// 		echo CHtml::dropDownList('info_order', ($order)?$order:'addressed', $orderData);
+// 	echo CHtml::closeTag('div');
 echo CHtml::closeTag('div');
 ?>
 <?php endif;?>
