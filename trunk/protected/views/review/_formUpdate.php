@@ -886,16 +886,16 @@ $('#need_reload').click(function(){
 		echo CHtml::openTag('div',array('class'=>'wall-action-btn','id'=>'btnDoc'));
 			echo 'Documentos';
 		echo CHtml::closeTag('div');
-		if($model->username == User::getCurrentUser()->username )
-		{
-			echo CHtml::openTag('div',array('class'=>'review-type'));
-				$reviewTypes = CHtml::listData($ddlReviewType, 'Id', 'description');
-				echo CHtml::label('Tipo: ','Id_review_type');
-				echo CHtml::activeDropDownList($model, 'Id_review_type', $reviewTypes);
-			echo CHtml::closeTag('div');
-		}
-		else
-		{
+// 		if($model->username == User::getCurrentUser()->username )
+// 		{
+// 			echo CHtml::openTag('div',array('class'=>'review-type'));
+// 				$reviewTypes = CHtml::listData($ddlReviewType, 'Id', 'description');
+// 				echo CHtml::label('Tipo: ','Id_review_type');
+// 				echo CHtml::activeDropDownList($model, 'Id_review_type', $reviewTypes);
+// 			echo CHtml::closeTag('div');
+// 		}
+// 		else
+// 		{
 			echo CHtml::openTag('div',array('class'=>'review-type'));
 				echo CHtml::openTag('div',array('class'=>'review-attr-level'));		
 					echo CHtml::label('Tipo: ','Id_review_type');
@@ -904,12 +904,12 @@ $('#need_reload').click(function(){
 					echo CHtml::encode($model->reviewType->description);
 				echo CHtml::closeTag('div');
 			echo CHtml::closeTag('div');
-		}
-		echo CHtml::openTag('div',array('class'=>'order-info'));
-			echo CHtml::label('Orden: ','info_order');
-			$orderData = array('addressed'=>'Para','can_feedback'=>'Respuesta','need_confirmation'=>'Confirmaci'.utf8_encode('ó').'n');
-			echo CHtml::dropDownList('info_order', ($order)?$order:'addressed', $orderData);
-		echo CHtml::closeTag('div');
+// 		}
+// 		echo CHtml::openTag('div',array('class'=>'order-info'));
+// 			echo CHtml::label('Orden: ','info_order');
+// 			$orderData = array('addressed'=>'Para','can_feedback'=>'Respuesta','need_confirmation'=>'Confirmaci'.utf8_encode('ó').'n');
+// 			echo CHtml::dropDownList('info_order', ($order)?$order:'addressed', $orderData);
+// 		echo CHtml::closeTag('div');
 		
 	echo CHtml::closeTag('div');	
 ?> 
