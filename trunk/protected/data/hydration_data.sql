@@ -2,7 +2,7 @@ USE `tapia`;
 
 LOCK TABLES `assignments` WRITE;
 /*!40000 ALTER TABLE `assignments` DISABLE KEYS */;
-INSERT INTO `assignments` VALUES ('Administrator','admin','','s:0:\"\";'),('Authority','admin','','s:0:\"\";');
+INSERT INTO `assignments` VALUES ('Administrator','admin','','s:0:\"\";'),('Arquitect','pablo','','s:0:\"\";'),('Authority','admin','','s:0:\"\";'),('Customer','arnold','','s:0:\"\";'),('Customer','daniel','','s:0:\"\";'),('Customer','mariela','','s:0:\"\";'),('Customer','matias','','s:0:\"\";'),('Customer','mazer','','s:0:\"\";'),('Customer','silvana','','s:0:\"\";');
 /*!40000 ALTER TABLE `assignments` ENABLE KEYS */;
 UNLOCK TABLES;
 USE `tapia`;
@@ -36,7 +36,7 @@ USE `tapia`;
 
 LOCK TABLES `review_type` WRITE;
 /*!40000 ALTER TABLE `review_type` DISABLE KEYS */;
-INSERT INTO `review_type` VALUES (1,'Revisión'),(2,'Planifición');
+INSERT INTO `review_type` VALUES (1,'Revisión',0,0),(2,'Modificaciones Propuestas',0,0),(3,'Req Técnicos',0,0),(4,'Propuesta Inicial',0,1),(5,'Planos',0,0),(6,'Actas de Obra',0,0),(7,'Revisiones de Obra',0,0),(8,'Informe de Avance',0,0),(9,'Informe de Programación',1,0),(10,'Informe Técnico',1,0),(11,'Cierre de Obra',0,0),(12,'Estado de Cuentas',0,0),(13,'Alerta de Inconvenientes',1,0);
 /*!40000 ALTER TABLE `review_type` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -45,7 +45,7 @@ USE `tapia`;
 
 LOCK TABLES `tag` WRITE;
 /*!40000 ALTER TABLE `tag` DISABLE KEYS */;
-INSERT INTO `tag` VALUES (1,'Problemas'),(2,'Terminado'),(3,'Solucionado'),(4,'Perdido'),(5,'Encontrado');
+INSERT INTO `tag` VALUES (1,'Iniciación'),(2,'Planificación'),(3,'Ejecución'),(4,'Cierre');
 /*!40000 ALTER TABLE `tag` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -54,7 +54,7 @@ USE `tapia`;
 
 LOCK TABLES `user_group` WRITE;
 /*!40000 ALTER TABLE `user_group` DISABLE KEYS */;
-INSERT INTO `user_group` VALUES (1,'Administrador',1,1,1,0,0,1),(2,'Arquitecto',1,0,1,0,0,0),(3,'Cliente',0,0,1,1,0,0),(4,'Electricista',0,0,0,0,0,0);
+INSERT INTO `user_group` VALUES (1,'Administrador',1,1,1,0,0,1),(2,'Arquitecto',0,0,1,0,0,0),(3,'Cliente',0,0,1,1,0,0),(4,'Programador',1,0,0,0,0,0),(5,'Técnico',1,0,0,0,0,0),(6,'Mujer Cliente',0,0,0,0,0,0);
 /*!40000 ALTER TABLE `user_group` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -63,7 +63,7 @@ USE `tapia`;
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES ('admin','admin','pmainieri@gruposmartliving.com',1,'Pablo','Mainieri','Evergreen 123');
+INSERT INTO `user` VALUES ('admin','admin4321','pmainieri@gruposmartliving.com',1,'Pablo','Mainieri','Evergreen 123','','','Este es el administrador'),('arnold','arnold','arnold@gmail.com',3,'Arnaldo','Montiel','','','','Este tipo es arnol, un tipo como cualquier otro, con muchas habilidades y tranquilamente puede ser un tipo normalmente normal, siempre y cuando sea todo como debe ser en el sentido de ser, o sea ser o no ser, esa es la cuestion'),('daniel','daniel','daniel@smartliving.com',5,'Daniel','Luna','','','',NULL),('mariela','mariela','marielan@jkjhb',6,'Mariela','Mazer','chateaux','hfjsh','',NULL),('matias','matias','matias@gmail.com',4,'Matias','Montiel','lala','45445435','',NULL),('mazer','mazer','mazer@gmail',3,'Diego','Mazer','Chateaux','234455','','Este es el que vive en el piso 32'),('pablo','pablo','pablo@gmail.com',2,'Pablo','Pedraza','',NULL,NULL,NULL),('silvana','silvana','silvana@smartliving.com',3,'Silvana','Santoni','Aguirre 41','4445557742','',NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
