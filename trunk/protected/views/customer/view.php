@@ -67,6 +67,10 @@ Yii::app()->clientScript->registerScript('viewTapiaCustomer', "
 						'type'=>'raw',
 						'value'=>$model->user->description
 				),
+				array('label'=>$model->getAttributeLabel('send_mail'),
+						'type'=>'raw',
+						'value'=>CHtml::checkBox("send_mail",$model->user->send_mail,array("disabled"=>"disabled"))
+				),
 		),
 )); ?>
 <br>

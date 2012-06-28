@@ -10,6 +10,19 @@
  */
 class ReviewUser extends CActiveRecord
 {
+	protected function afterSave()
+	{
+		
+		parent::afterSave();
+		
+		if(!$this->read && $this->user->send_mail)
+		{
+			//logica para enviar mail
+		}
+		
+		
+	}
+	
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
