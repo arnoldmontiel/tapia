@@ -1,0 +1,7 @@
+USE `tapia`;
+
+LOCK TABLES `setting` WRITE;
+/*!40000 ALTER TABLE `setting` DISABLE KEYS */;
+INSERT INTO `setting` VALUES (1,15);
+/*!40000 ALTER TABLE `setting` ENABLE KEYS */;
+UNLOCK TABLES;
