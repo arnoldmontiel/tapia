@@ -45,10 +45,10 @@ CREATE TABLE `album` (
   KEY `fk_album_user1` (`username`),
   KEY `fk_album_user_group1` (`Id_user_group_owner`),
   CONSTRAINT `fk_album_customer1` FOREIGN KEY (`Id_customer`) REFERENCES `customer` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_album_review1` FOREIGN KEY (`Id_review`) REFERENCES `review` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_album_review1` FOREIGN KEY (`Id_review`) REFERENCES `review` (`Id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   CONSTRAINT `fk_album_user1` FOREIGN KEY (`username`) REFERENCES `user` (`username`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_album_user_group1` FOREIGN KEY (`Id_user_group_owner`) REFERENCES `user_group` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=119 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=128 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -86,6 +86,23 @@ CREATE TABLE `assignments` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `audit_login`
+--
+
+DROP TABLE IF EXISTS `audit_login`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `audit_login` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(128) NOT NULL,
+  `date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`Id`),
+  KEY `fk_audit_login_user1` (`username`),
+  CONSTRAINT `fk_audit_login_user1` FOREIGN KEY (`username`) REFERENCES `user` (`username`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `customer`
 --
 
@@ -97,10 +114,29 @@ CREATE TABLE `customer` (
   `name` varchar(45) DEFAULT NULL,
   `last_name` varchar(45) DEFAULT NULL,
   `username` varchar(128) NOT NULL,
+  `building_address` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`Id`),
   KEY `fk_customer_user` (`username`),
   CONSTRAINT `fk_customer_user` FOREIGN KEY (`username`) REFERENCES `user` (`username`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `interest_power`
+--
+
+DROP TABLE IF EXISTS `interest_power`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `interest_power` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `description` varchar(45) DEFAULT NULL,
+  `can_read` tinyint(4) DEFAULT '0',
+  `addressed` tinyint(4) DEFAULT '0',
+  `need_confirmation` tinyint(4) DEFAULT '0',
+  `can_feedback` tinyint(4) DEFAULT '0',
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -170,10 +206,10 @@ CREATE TABLE `multimedia` (
   CONSTRAINT `fk_multimedia_album1` FOREIGN KEY (`Id_album`) REFERENCES `album` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_multimedia_customer1` FOREIGN KEY (`Id_customer`) REFERENCES `customer` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_multimedia_multimedia_type1` FOREIGN KEY (`Id_multimedia_type`) REFERENCES `multimedia_type` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_multimedia_review1` FOREIGN KEY (`Id_review`) REFERENCES `review` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_multimedia_review1` FOREIGN KEY (`Id_review`) REFERENCES `review` (`Id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   CONSTRAINT `fk_multimedia_user1` FOREIGN KEY (`username`) REFERENCES `user` (`username`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_multimedia_user_group1` FOREIGN KEY (`Id_user_group`) REFERENCES `user_group` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=399 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=439 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -233,10 +269,10 @@ CREATE TABLE `note` (
   KEY `fk_note_user1` (`username`),
   KEY `fk_note_user_group1` (`Id_user_group_owner`),
   CONSTRAINT `fk_note_customer1` FOREIGN KEY (`Id_customer`) REFERENCES `customer` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_note_review1` FOREIGN KEY (`Id_review`) REFERENCES `review` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_note_review1` FOREIGN KEY (`Id_review`) REFERENCES `review` (`Id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   CONSTRAINT `fk_note_user1` FOREIGN KEY (`username`) REFERENCES `user` (`username`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_note_user_group1` FOREIGN KEY (`Id_user_group_owner`) REFERENCES `user_group` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=510 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=541 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -258,21 +294,6 @@ CREATE TABLE `note_note` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `priority`
---
-
-DROP TABLE IF EXISTS `priority`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `priority` (
-  `Id` int(11) NOT NULL,
-  `description` varchar(45) DEFAULT NULL,
-  `level` int(11) DEFAULT NULL,
-  PRIMARY KEY (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Table structure for table `review`
 --
 
@@ -286,17 +307,20 @@ CREATE TABLE `review` (
   `description` text,
   `creation_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `change_date` timestamp NULL DEFAULT NULL,
-  `Id_priority` int(11) NOT NULL DEFAULT '1',
   `read` tinyint(1) DEFAULT '0',
   `Id_review_type` int(11) NOT NULL,
+  `username` varchar(128) NOT NULL,
+  `Id_user_group` int(11) NOT NULL,
   PRIMARY KEY (`Id`),
   KEY `fk_review_customer1` (`Id_customer`),
-  KEY `fk_review_priority1` (`Id_priority`),
   KEY `fk_review_review_type1` (`Id_review_type`),
+  KEY `fk_review_user1` (`username`),
+  KEY `fk_review_user_group1` (`Id_user_group`),
   CONSTRAINT `fk_review_customer1` FOREIGN KEY (`Id_customer`) REFERENCES `customer` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_review_priority1` FOREIGN KEY (`Id_priority`) REFERENCES `priority` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_review_review_type1` FOREIGN KEY (`Id_review_type`) REFERENCES `review_type` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
+  CONSTRAINT `fk_review_review_type1` FOREIGN KEY (`Id_review_type`) REFERENCES `review_type` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_review_user1` FOREIGN KEY (`username`) REFERENCES `user` (`username`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_review_user_group1` FOREIGN KEY (`Id_user_group`) REFERENCES `user_group` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -309,8 +333,28 @@ DROP TABLE IF EXISTS `review_type`;
 CREATE TABLE `review_type` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `description` varchar(255) DEFAULT NULL,
+  `is_internal` tinyint(4) DEFAULT '0',
+  `is_for_client` tinyint(4) DEFAULT '0',
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `review_type_user_group`
+--
+
+DROP TABLE IF EXISTS `review_type_user_group`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `review_type_user_group` (
+  `Id_review_type` int(11) NOT NULL,
+  `Id_user_group` int(11) NOT NULL,
+  PRIMARY KEY (`Id_review_type`,`Id_user_group`),
+  KEY `fk_review_type_has_user_group_user_group1` (`Id_user_group`),
+  KEY `fk_review_type_has_user_group_review_type1` (`Id_review_type`),
+  CONSTRAINT `fk_review_type_has_user_group_review_type1` FOREIGN KEY (`Id_review_type`) REFERENCES `review_type` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_review_type_has_user_group_user_group1` FOREIGN KEY (`Id_user_group`) REFERENCES `user_group` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -327,9 +371,23 @@ CREATE TABLE `review_user` (
   PRIMARY KEY (`Id_review`,`username`),
   KEY `fk_review_has_user_user1` (`username`),
   KEY `fk_review_has_user_review1` (`Id_review`),
-  CONSTRAINT `fk_review_has_user_review1` FOREIGN KEY (`Id_review`) REFERENCES `review` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_review_has_user_review1` FOREIGN KEY (`Id_review`) REFERENCES `review` (`Id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   CONSTRAINT `fk_review_has_user_user1` FOREIGN KEY (`username`) REFERENCES `user` (`username`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `setting`
+--
+
+DROP TABLE IF EXISTS `setting`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `setting` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `due_days` int(11) DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -343,7 +401,7 @@ CREATE TABLE `tag` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -359,8 +417,26 @@ CREATE TABLE `tag_review` (
   PRIMARY KEY (`Id_tag`,`Id_review`),
   KEY `fk_tag_has_review_review1` (`Id_review`),
   KEY `fk_tag_has_review_tag1` (`Id_tag`),
-  CONSTRAINT `fk_tag_has_review_review1` FOREIGN KEY (`Id_review`) REFERENCES `review` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_tag_has_review_tag1` FOREIGN KEY (`Id_tag`) REFERENCES `tag` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_tag_has_review_tag1` FOREIGN KEY (`Id_tag`) REFERENCES `tag` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_tag_has_review_review1` FOREIGN KEY (`Id_review`) REFERENCES `review` (`Id`) ON DELETE CASCADE ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `tag_review_type`
+--
+
+DROP TABLE IF EXISTS `tag_review_type`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tag_review_type` (
+  `Id_tag` int(11) NOT NULL,
+  `Id_review_type` int(11) NOT NULL,
+  PRIMARY KEY (`Id_tag`,`Id_review_type`),
+  KEY `fk_tag_has_review_type_review_type1` (`Id_review_type`),
+  KEY `fk_tag_has_review_type_tag1` (`Id_tag`),
+  CONSTRAINT `fk_tag_has_review_type_review_type1` FOREIGN KEY (`Id_review_type`) REFERENCES `review_type` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_tag_has_review_type_tag1` FOREIGN KEY (`Id_tag`) REFERENCES `tag` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -379,6 +455,9 @@ CREATE TABLE `user` (
   `name` varchar(100) DEFAULT NULL,
   `last_name` varchar(100) DEFAULT NULL,
   `address` varchar(100) DEFAULT NULL,
+  `phone_house` varchar(45) DEFAULT NULL,
+  `phone_mobile` varchar(45) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`username`),
   KEY `fk_user_user_group1` (`Id_user_group`),
   CONSTRAINT `fk_user_user_group1` FOREIGN KEY (`Id_user_group`) REFERENCES `user_group` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -413,7 +492,7 @@ DROP TABLE IF EXISTS `user_group`;
 CREATE TABLE `user_group` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `description` varchar(255) DEFAULT NULL,
-  `can_create` tinyint(4) NOT NULL DEFAULT '0',
+  `is_internal` tinyint(4) NOT NULL DEFAULT '0',
   `is_administrator` tinyint(4) NOT NULL DEFAULT '0',
   `can_read` tinyint(4) NOT NULL DEFAULT '0',
   `addressed` tinyint(4) NOT NULL DEFAULT '0',
@@ -421,6 +500,27 @@ CREATE TABLE `user_group` (
   `can_feedback` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `user_group_customer`
+--
+
+DROP TABLE IF EXISTS `user_group_customer`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user_group_customer` (
+  `Id_user_group` int(11) NOT NULL,
+  `Id_customer` int(11) NOT NULL,
+  `Id_interest_power` int(11) NOT NULL,
+  PRIMARY KEY (`Id_user_group`,`Id_customer`),
+  KEY `fk_user_group_has_customer_customer1` (`Id_customer`),
+  KEY `fk_user_group_has_customer_user_group1` (`Id_user_group`),
+  KEY `fk_user_group_customer_interest_power1` (`Id_interest_power`),
+  CONSTRAINT `fk_user_group_customer_interest_power1` FOREIGN KEY (`Id_interest_power`) REFERENCES `interest_power` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_user_group_has_customer_customer1` FOREIGN KEY (`Id_customer`) REFERENCES `customer` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_user_group_has_customer_user_group1` FOREIGN KEY (`Id_user_group`) REFERENCES `user_group` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -440,12 +540,14 @@ CREATE TABLE `user_group_note` (
   `need_confirmation` tinyint(4) NOT NULL DEFAULT '0',
   `confirmed` tinyint(4) NOT NULL DEFAULT '0',
   `declined` tinyint(4) NOT NULL DEFAULT '0',
+  `confirmation_date` timestamp NULL DEFAULT NULL,
+  `request_confirmation_date` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`Id_user_group`,`Id_note`),
   KEY `fk_user_group_has_note_note1` (`Id_note`),
   KEY `fk_user_group_has_note_user_group1` (`Id_user_group`),
   KEY `fk_user_group_note_customer1` (`Id_customer`),
-  CONSTRAINT `fk_user_group_has_note_note1` FOREIGN KEY (`Id_note`) REFERENCES `note` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_user_group_has_note_user_group1` FOREIGN KEY (`Id_user_group`) REFERENCES `user_group` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_user_group_has_note_note1` FOREIGN KEY (`Id_note`) REFERENCES `note` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_user_group_note_customer1` FOREIGN KEY (`Id_customer`) REFERENCES `customer` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -488,4 +590,4 @@ CREATE TABLE `wall` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-05-24 10:31:05
+-- Dump completed on 2012-06-28 10:06:02

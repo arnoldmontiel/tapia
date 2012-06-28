@@ -83,3 +83,11 @@ INSERT INTO `interest_power` VALUES (1,'Nula',0,0,0,0),(2,'Media',1,0,0,1);
 /*!40000 ALTER TABLE `interest_power` ENABLE KEYS */;
 UNLOCK TABLES;
 
+USE `tapia`;
+
+LOCK TABLES `setting` WRITE;
+/*!40000 ALTER TABLE `setting` DISABLE KEYS */;
+INSERT INTO `setting` VALUES (1,15);
+/*!40000 ALTER TABLE `setting` ENABLE KEYS */;
+UNLOCK TABLES;
+
