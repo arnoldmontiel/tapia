@@ -200,7 +200,7 @@ $('#linkCustomers').click(function(){
 	$modelCustomer=new Customer('search');
 	$modelCustomer->unsetAttributes();  // clear any default values
 
-	echo $this->renderPartial('../customer/_select', array('model'=>$modelCustomer, 'idCustomer'=>$Id_customer));
+	//echo $this->renderPartial('../customer/_select', array('model'=>$modelCustomer, 'idCustomer'=>$Id_customer));
 
 	$this->endWidget('zii.widgets.jui.CJuiDialog');
 	?>
