@@ -147,14 +147,14 @@ class Customer extends CActiveRecord
 		$criteria->compare('t.username',$this->username,true);
 		$criteria->compare('building_address',$this->building_address,true);
 	
-		$criteria->join =	" INNER JOIN review r on (t.Id = r.Id_customer)
-								INNER JOIN (select max(Id) Id from review group by Id_customer) r2 on (r2.Id = r.Id)
-										INNER JOIN review_type rt on (r.Id_review_type = rt.Id)
-										INNER JOIN tag_review_type trt on (trt.Id_review_type = rt.Id)
-										INNER JOIN tag_review tr on (tr.Id_tag = trt.Id_tag AND tr.Id_review = r.Id)
-										INNER JOIN tag ta on (tr.Id_tag = ta.Id)";
+		$criteria->join =	" LEFT JOIN review r on (t.Id = r.Id_customer)
+								LEFT JOIN (select max(Id) Id from review group by Id_customer) r2 on (r2.Id = r.Id)
+										LEFT JOIN review_type rt on (r.Id_review_type = rt.Id)
+										LEFT JOIN tag_review_type trt on (trt.Id_review_type = rt.Id)
+										LEFT JOIN tag_review tr on (tr.Id_tag = trt.Id_tag AND tr.Id_review = r.Id)
+										LEFT JOIN tag ta on (tr.Id_tag = ta.Id)";
 		$criteria->addSearchCondition("ta.description",$this->tag_description);		
-		
+		$criteria->distinct = true;
 		// Create a custom sort
 		$sort=new CSort;
 		$sort->attributes=array(
@@ -193,13 +193,15 @@ class Customer extends CActiveRecord
 	
 		$criteria->addCondition('t.Id IN(select Id_customer from user_customer where username = "'. User::getCurrentUser()->username.'")');
 		
-		$criteria->join =	" INNER JOIN review r on (t.Id = r.Id_customer)
-										INNER JOIN (select max(Id) Id from review group by Id_customer) r2 on (r2.Id = r.Id)
-												INNER JOIN review_type rt on (r.Id_review_type = rt.Id)
-												INNER JOIN tag_review_type trt on (trt.Id_review_type = rt.Id)
-												INNER JOIN tag_review tr on (tr.Id_tag = trt.Id_tag AND tr.Id_review = r.Id)
-												INNER JOIN tag ta on (tr.Id_tag = ta.Id)";
+		$criteria->join =	" LEFT JOIN review r on (t.Id = r.Id_customer)
+										LEFT JOIN (select max(Id) Id from review group by Id_customer) r2 on (r2.Id = r.Id)
+												LEFT JOIN review_type rt on (r.Id_review_type = rt.Id)
+												LEFT JOIN tag_review_type trt on (trt.Id_review_type = rt.Id)
+												LEFT JOIN tag_review tr on (tr.Id_tag = trt.Id_tag AND tr.Id_review = r.Id)
+												LEFT JOIN tag ta on (tr.Id_tag = ta.Id)";
 		$criteria->addSearchCondition("ta.description",$this->tag_description);
+		
+		$criteria->distinct = true;
 		
 		// Create a custom sort
 		$sort=new CSort;
