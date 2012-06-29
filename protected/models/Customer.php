@@ -87,7 +87,8 @@ class Customer extends CActiveRecord
 		
 		
 		$model = Customer::model()->find($criteria);
-		return $model->tag_description;
+		
+		return (isset($model))?$model->tag_description:"";
 	}
 	
 	/**
