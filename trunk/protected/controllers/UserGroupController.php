@@ -75,6 +75,27 @@ class UserGroupController extends Controller
 		));
 	}
 
+	public function actionAjaxCreate()
+	{
+		$model=new UserGroup;
+	
+		// Uncomment the following line if AJAX validation is needed
+		$this->performAjaxValidation($model);
+	
+		if(isset($_POST['UserGroup']))
+		{
+			$model->attributes=$_POST['UserGroup'];
+			if($model->save())
+			{
+				if(isset($_POST['chklist-reviewType']))
+					$this->createReviewTypeRelation($model->Id, $_POST['chklist-reviewType']);
+					
+				echo json_encode($model->attributes);
+			}
+		}
+	
+	}
+	
 	/**
 	 * Updates a particular model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
