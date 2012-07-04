@@ -28,7 +28,7 @@
 	
 	<div class="row">
 		<div class="check-title">	
-			Tipos de Agrupadores
+			Tipos de Agrupadores que podr&aacute; crear
 		</div>
 		<div class="review-types">
 		<?php
