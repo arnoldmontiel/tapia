@@ -28,11 +28,16 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'Id_user_group'); ?>
-		<?php 
-			$userGroups = CHtml::listData($ddlUserGroup, 'Id', 'description');
-			echo $form->dropDownList($model,'Id_user_group',$userGroups); ?>
-		<?php echo $form->error($model,'Id_user_group'); ?>
+		<div style="display: inline-block;">
+			<?php echo $form->labelEx($model,'Id_user_group'); ?>
+			<?php 
+				$userGroups = CHtml::listData($ddlUserGroup, 'Id', 'description');
+				echo $form->dropDownList($model,'Id_user_group',$userGroups); ?>
+			<?php echo $form->error($model,'Id_user_group'); ?>
+		</div>
+		<div style="display: inline-block;">
+			<?php echo CHtml::link( 'Agregar Nuevo Grupo de Usuarios','#',array('onclick'=>'jQuery("#CreateUserGroup").dialog("open"); return false;'));?>
+		</div>
 	</div>
 	
 	<div class="row">
@@ -84,3 +89,39 @@
 <?php $this->endWidget(); ?>
 
 </div><!-- form -->
+<?php
+//Nomenclator
+	$this->beginWidget('zii.widgets.jui.CJuiDialog', array(
+			'id'=>'CreateUserGroup',
+			// additional javascript options for the dialog plugin
+			'options'=>array(
+					'title'=>'Crear Grupo de Usuario',
+					'autoOpen'=>false,
+					'modal'=>true,
+					'width'=> '500',
+					'buttons'=>	array(
+							'Cancelar'=>'js:function(){jQuery("#CreateUserGroup").dialog( "close" );}',
+							'Grabar'=>'js:function()
+							{
+							jQuery("#wating").dialog("open");
+							jQuery.post("'.Yii::app()->createUrl("userGroup/AjaxCreate").'", $("#user-group-form").serialize(),
+							function(data) {
+								if(data!=null)
+								{
+									$("#User_Id_user_group").append(
+										$("<option></option>").val(data.Id).html(data.description)
+									);
+									jQuery("#CreateUserGroup").dialog( "close" );
+								}
+							jQuery("#wating").dialog("close");
+						},"json"
+					);
+	
+	}'),
+			),
+	));
+	$modelUserGroup = new UserGroup();
+	echo $this->renderPartial('../userGroup/_formPopUp', array('model'=>$modelUserGroup));
+	
+	$this->endWidget('zii.widgets.jui.CJuiDialog');
+?>

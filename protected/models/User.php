@@ -52,7 +52,33 @@ class User extends CActiveRecord
 				$modelCustomer->save();
 			}
 		}
-
+		
+		//Asigno permisos de SRBAC si es nuevo el registro
+		if($this->isNewRecord)
+		{
+			if($this->Id_user_group == User::getAdminUserGroupId())
+			{
+				$modelAssignment = new Assignments();
+				$modelAssignment->userid = $this->username;
+				$modelAssignment->data = 's:0:""';
+				$modelAssignment->itemname = "Administrator";
+				$modelAssignment->save();
+				
+				$modelAssignment = new Assignments();
+				$modelAssignment->userid = $this->username;
+				$modelAssignment->data = 's:0:""';
+				$modelAssignment->itemname = "Authority";
+				$modelAssignment->save();
+			}
+			else
+			{
+				$modelAssignment = new Assignments();
+				$modelAssignment->userid = $this->username;
+				$modelAssignment->data = 's:0:""';
+				$modelAssignment->itemname = "User";
+				$modelAssignment->save();
+			}
+		}
 	}
 
 	static private $_customer = null;
