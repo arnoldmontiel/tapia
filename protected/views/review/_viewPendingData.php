@@ -119,7 +119,7 @@ $('#publicArea_".$data->Id."').children().each(
 			
 			$criteria->addCondition('t.Id <> '. User::getCurrentUserGroup()->Id);
 			
-			if($data->review->reviewType->is_internal && User::getCurrentUserGroup()->Id != User::getAdminUserGroupId())
+			if($data->review->reviewType->is_internal )
 				$criteria->addCondition('t.is_internal = 1');
 			
 			$userGroups = UserGroup::model()->findAll($criteria);
