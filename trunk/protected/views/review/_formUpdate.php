@@ -1014,7 +1014,7 @@ echo CHtml::closeTag('div');
 		$modelUserGroupNote->Id_user_group = User::getCurrentUserGroup()->Id;
 		$dataProviderUserGroupNote = $modelUserGroupNote->search();
 		$infOrder = 'note.change_date DESC';
-		if($order)
+		if(isset($order))
 			$infOrder = "t.". $order . " DESC , " . $infOrder;
 		else
 			$infOrder = "t.addressed DESC , " . $infOrder;
