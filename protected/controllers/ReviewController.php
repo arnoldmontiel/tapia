@@ -185,7 +185,7 @@ class ReviewController extends Controller
 			'ddlReviewType'=>$ddlReviewType,
 			'modelMultimedia'=>$modelMultimedia,
 			'modelAlbum'=>$modelAlbum,
-			'order'=>$order,
+			//'order'=>$order,deprecated 
 		));
 	}
 
