@@ -255,6 +255,8 @@ class User extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
+		$criteria->distinct = true;
+		
 		$criteria->compare('username',$this->username,true);
 		$criteria->compare('password',$this->password,true);
 		$criteria->compare('email',$this->email,true);
@@ -265,7 +267,6 @@ class User extends CActiveRecord
 		$criteria->compare('phone_house',$this->phone_house,true);
 		$criteria->compare('phone_mobile',$this->phone_mobile,true);
 		$criteria->compare('description',$this->description,true);
-		
 		$criteria->join = 'LEFT OUTER JOIN `user_customer` `uc` ON (`t`.`username`=`uc`.`username`)
 							INNER JOIN user_group ug ON (t.Id_user_group = ug.Id)';
 		$criteria->addCondition('Id_user_group not in(1,3)');//clients (1) and administrators (3)
