@@ -4,9 +4,9 @@ Yii::app()->clientScript->registerScript('indexWall', "
 loadPage();
 function loadPage()
 {
+
 	var id_customer =".$Id_customer."; 
-	if(id_customer!=-1)
-	{
+	
 		$('#Id_customer').val(id_customer);
 		$.post('".ReviewController::createUrl('AjaxGetCustomerName')."', 
 			{
@@ -17,12 +17,20 @@ function loadPage()
 				if(data != '')
 					$('#linkCustomers').text(data);
 				else
-					$('#linkCustomers').text('Clientes');
+					$('#linkCustomers').text('Buscar');
 				doFilter();
 			});
-	}
+
 }
 
+$('#linkCustomers').click(function(){
+
+	var id_customer =".$Id_customer.";
+	if(id_customer == -1)
+	{
+		doFilter();
+	}
+});
 
 $('#Id_customer').change(function(){
 	
@@ -46,7 +54,7 @@ setInterval(function() {
 
 function doFilter()
 {
-	if($('#Id_customer').val()!= '' && $('#Id_customer').val()!= -1 ){
+
 		$('#btn-actions-box').removeClass('div-hidden');
 		$('#loading').addClass('loading');
 		$.post('".ReviewController::createUrl('AjaxFillInbox')."', 
@@ -56,7 +64,8 @@ function doFilter()
 			typeFilter: $('#typeFilter').val(),
 			reviewTypeFilter: $('#reviewTypeFilter').val(),
 			dateFromFilter: $('#dateFromFilter').val(),
-			dateToFilter: $('#dateToFilter').val()
+			dateToFilter: $('#dateToFilter').val(),
+			customerNameFilter: $('#txtSearchCustomer').val(),
 			
 		}	
 		).success(
@@ -67,13 +76,7 @@ function doFilter()
 			$('#review-area').animate({opacity: 'show'},240);
 			$('#btn-create').attr('href','".ReviewController::createUrl('create')."'+'&Id_customer='+$('#Id_customer').val());
 		});		
-	}
-	else
-	{
-		$('#btn-actions-box').addClass('div-hidden');
-		$('#review-area').html('');
-		$('#review-area').addClass('div-hidden');
-	}
+
 }
 
 
@@ -126,9 +129,6 @@ function getCheck(checkName)
 	return data['value[]'];
 }
 
-$('#linkCustomers').click(function(){
-	jQuery('#SelectCustomer').dialog('open'); return false;
-});
 
 ");
 ?>
@@ -162,55 +162,23 @@ $('#linkCustomers').click(function(){
 			'buttons'=>array('save'),
 			'idDialog'=>'wating',
 	));
-	$this->beginWidget('zii.widgets.jui.CJuiDialog', array(
-			'id'=>'SelectCustomer',
-			// additional javascript options for the dialog plugin
-			'options'=>array(
-					'title'=>'Seleccionar Cliente',
-					'autoOpen'=>false,
-					'modal'=>true,
-					'width'=> '500',
-					'buttons'=>	array(
-							'Cancelar'=>'js:function(){jQuery("#SelectCustomer").dialog( "close" );}',
-							'Aceptar'=>'js:function()
-							{
-								jQuery("#wating").dialog("open");
-								$("#Id_customer").val($.fn.yiiGridView.getSelection("customer-grid"));
-								jQuery("#wating").dialog("close");
-								jQuery("#SelectCustomer").dialog( "close" );
-								$.post("'.ReviewController::createUrl('AjaxGetCustomerName').'", 
-								{
-									Id_customer: $("#Id_customer").val()
-								}	
-								).success(
-								function(data){
-									if(data != "")
-										$("#linkCustomers").text(data);
-									else
-										$("#linkCustomers").text("Clientes");
-									doFilter();
-								});		
-								
-							
-
-}'),
-			),
-	));
-	
-	$modelCustomer=new Customer('search');
-	$modelCustomer->unsetAttributes();  // clear any default values
-
-	echo $this->renderPartial('../customer/_select', array('model'=>$modelCustomer, 'idCustomer'=>$Id_customer));
-
-	$this->endWidget('zii.widgets.jui.CJuiDialog');
 	?>
 </div>
 <?php endif;?>
-<?php if(User::canCreate()):?>
+<?php if(User::canCreate() && isset($Id_customer) && $Id_customer > 0):?>
 
 <?php
 	echo CHtml::openTag('div',array('class'=>'review-action-box-btn div-hidden','id'=>'btn-actions-box'));	
 		echo CHtml::link('Nuevo','',array('id'=>'btn-create','class'=>'submit-btn'));
+	echo CHtml::closeTag('div');	
+?>
+<?php endif;?>
+
+<?php if(User::canCreate() && $Id_customer == -1):?>
+
+<?php
+	echo CHtml::openTag('div',array('class'=>'review-action-box-btn div-hidden','id'=>'btn-actions-box'));
+		echo CHtml::textField('txtSearchCustomer','',array('Id'=>'txtSearchCustomer'));			
 	echo CHtml::closeTag('div');	
 ?>
 <?php endif;?>
