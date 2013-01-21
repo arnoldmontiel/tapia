@@ -705,6 +705,23 @@ div.review-action-back
 	z-index: 9;	
 	background-color: #e5ecfb;
 }
+div.review-action-customer
+{
+	float: left;
+	margin:5px 5px 5px 5px;
+	padding:5px 5px 5px 5px;
+	position: relative;
+	width: 180px;
+	height:20px;	
+	cursor:pointer;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	text-align: center;
+	font-weight: bold; 
+	z-index: 9;	
+	background-color: #e5ecfb;
+}
 div.review-action-back:hover
 {
 	background-color: #F9FBFE;
@@ -1222,6 +1239,26 @@ div.index-review-area
 	-webkit-border-radius: 5px;
 	border-radius: 5px;
 }
+
+div.index-review-customer-separator
+{
+	display: inline-block;
+	border: 1px solid #f4f6fb;
+	position: relative;
+	width: 95%;	
+	margin: 10px 10px 10px 10px;
+	padding:10px 10px 10px 10px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+}
+
+div.index-review-quick-view
+{	
+	margin: 5px;
+	padding:5px;
+}
+
 div.div-hidden
 {
 	display: none;

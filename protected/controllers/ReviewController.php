@@ -292,8 +292,8 @@ class ReviewController extends Controller
 	{
 		$idCustomer = ($_POST['Id_customer'])?$_POST['Id_customer']:null;
 
-		$name = "";
-		if(isset($idCustomer))
+		$name = "Buscar";
+		if(isset($idCustomer) && $idCustomer > 0)
 		{
 			$modelCustomer = Customer::model()->findByPk($idCustomer);
 			$name = $modelCustomer->getCustomerDesc();
@@ -416,16 +416,48 @@ class ReviewController extends Controller
 	{
 		
 		$review = new Review;
-		$review->Id_customer = $Id_customer;
-
-		$dataProvider = $review->searchSummary($arrFilters);
-		
-		$dataProvider->pagination->pageSize= 20;
-		
-		$data = $dataProvider->getData();
+		if($Id_customer > 0)
+		{
+			$review->Id_customer = $Id_customer;
+	
+			$dataProvider = $review->searchSummary($arrFilters);
 			
-		foreach ($data as $item){
-			$this->renderPartial('_view',array('data'=>$item));
+			$dataProvider->pagination->pageSize= 20;
+			
+			$data = $dataProvider->getData();
+				
+			foreach ($data as $item){
+				$this->renderPartial('_view',array('data'=>$item));
+			}
+		}
+		else
+		{	
+			
+			$criteria=new CDbCriteria;
+			
+			if($arrFilters['customerNameFilter'])
+			{
+				$criteria->addCondition('t.name LIKE "%'. $arrFilters['customerNameFilter'].'%"');
+				$criteria->addCondition('t.last_name LIKE "%'. $arrFilters['customerNameFilter'].'%"', 'OR');
+				$criteria->addCondition(' CONCAT(CONCAT(t.name," "),t.last_name) LIKE "%'. $arrFilters['customerNameFilter'].'%"', 'OR');
+			}
+			
+			$customers = Customer::model()->findAll($criteria);
+			
+			foreach ($customers as $customer){
+				
+				$review->Id_customer = $customer->Id;
+				
+				$dataProvider = $review->searchQuickView($arrFilters);
+					
+				$dataProvider->pagination->pageSize= 4;
+					
+				$data = $dataProvider->getData();
+								
+				$this->renderPartial('_quickView',array('data'=>$data, 'customer'=>$customer));
+								
+			}
+			
 		}
 	}
 	
@@ -437,7 +469,8 @@ class ReviewController extends Controller
 							 'typeFilter'=>$_POST['typeFilter'],
 							 'reviewTypeFilter'=>$_POST['reviewTypeFilter'],
 							 'dateFromFilter'=>$_POST['dateFromFilter'],
-							 'dateToFilter'=>$_POST['dateToFilter']);
+							 'dateToFilter'=>$_POST['dateToFilter'],
+							 'customerNameFilter'=>$_POST['customerNameFilter']);
 			
 			$this->fillIndex($_POST['Id_customer'], $arrFilters);
 		}		

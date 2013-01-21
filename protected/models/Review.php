@@ -193,6 +193,7 @@ class Review extends CActiveRecord
 			$criteria->addCondition('t.creation_date <= "'. date("Y-m-d H:i:s",strtotime($arrFilters['dateToFilter'] . " + 1 day")) . '"');
 		}
 		
+		
 		$criteria->addCondition('t.Id_customer = '. $this->Id_customer);
 		
 		
@@ -207,10 +208,71 @@ class Review extends CActiveRecord
 		}
 		
 		$criteria->distinct = true;
+		
 		$criteria->order = 't.change_date DESC, t.review DESC';
 			
 		return new CActiveDataProvider($this, array(
 				'criteria'=>$criteria,
+		));
+	}
+	
+	public function searchQuickView($arrFilters)
+	{
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
+	
+		$criteria=new CDbCriteria;
+	
+		if($arrFilters['tagFilter'])
+		$criteria->addCondition('t.Id IN(select Id_review from tag_review where Id_tag IN ('. $arrFilters['tagFilter'].'))');
+	
+		if($arrFilters['typeFilter'])
+		{
+	
+			$criteria->join =  	"LEFT OUTER JOIN multimedia m ON (m.Id_review=t.Id)
+									inner join multimedia_note mn ON (mn.Id_multimedia = m.Id)";
+			$criteria->addCondition("mn.Id_note IN(
+										select ugn.Id_note from user_group_note ugn
+										where ugn.Id_note IN (select n.Id from note n where n.Id_review = t.Id
+										and ugn.Id_user_group = ". User::getCurrentUserGroup()->Id .")
+										and m.Id_multimedia_type IN ( ".$arrFilters['typeFilter'] . "))");
+		}
+	
+		if($arrFilters['reviewTypeFilter'])
+		{
+			$criteria->addCondition('t.Id_review_type IN ('. $arrFilters['reviewTypeFilter'].')');
+		}
+	
+		
+		if($arrFilters['dateFromFilter'])
+		{
+			$criteria->addCondition('t.creation_date >= "'. date("Y-m-d H:i:s",strtotime($arrFilters['dateFromFilter'])) . '"');
+		}
+	
+		if($arrFilters['dateToFilter'])
+		{
+			$criteria->addCondition('t.creation_date <= "'. date("Y-m-d H:i:s",strtotime($arrFilters['dateToFilter'] . " + 1 day")) . '"');
+		}
+	
+		$criteria->addCondition('t.Id_customer = '. $this->Id_customer);
+			
+		if(!User::getCurrentUserGroup()->is_administrator )
+		{
+			//$criteria->join .= ' INNER JOIN `review_user` `reviewUsers` ON (`reviewUsers`.`Id_review`=`t`.`Id`)';
+			//$criteria->addCondition('reviewUsers.username = "'.User::getCurrentUser()->username.'"');
+			$criteria->join .= ' LEFT OUTER JOIN `note` `n` ON (`n`.`Id_review`=`t`.`Id`)
+									LEFT OUTER JOIN `user_group_note` `ugn` ON (`ugn`.`Id_note`=`n`.`Id`)';
+			$criteria->addCondition('ugn.Id_user_group = '.User::getCurrentUserGroup()->Id);
+			$criteria->addCondition('t.username = "'. User::getCurrentUser()->username . '"','OR');
+		}
+	
+		$criteria->distinct = true;
+
+		$criteria->order = ' t.Id_customer, t.change_date DESC, t.review DESC';
+		$criteria->limit = 4;
+			
+		return new CActiveDataProvider($this, array(
+					'criteria'=>$criteria,
 		));
 	}
 }
