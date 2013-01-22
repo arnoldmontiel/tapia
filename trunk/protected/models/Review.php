@@ -194,7 +194,7 @@ class Review extends CActiveRecord
 		}
 		
 		
-		$criteria->addCondition('t.Id_customer = '. $this->Id_customer);
+		
 		
 		
 		if(!User::getCurrentUserGroup()->is_administrator )
@@ -207,6 +207,7 @@ class Review extends CActiveRecord
 			$criteria->addCondition('t.username = "'. User::getCurrentUser()->username . '"','OR');
 		}
 		
+		$criteria->addCondition('t.Id_customer = '. $this->Id_customer);
 		$criteria->distinct = true;
 		
 		$criteria->order = 't.change_date DESC, t.review DESC';
@@ -254,7 +255,7 @@ class Review extends CActiveRecord
 			$criteria->addCondition('t.creation_date <= "'. date("Y-m-d H:i:s",strtotime($arrFilters['dateToFilter'] . " + 1 day")) . '"');
 		}
 	
-		$criteria->addCondition('t.Id_customer = '. $this->Id_customer);
+		
 			
 		if(!User::getCurrentUserGroup()->is_administrator )
 		{
@@ -266,6 +267,7 @@ class Review extends CActiveRecord
 			$criteria->addCondition('t.username = "'. User::getCurrentUser()->username . '"','OR');
 		}
 	
+		$criteria->addCondition('t.Id_customer = '. $this->Id_customer);
 		$criteria->distinct = true;
 
 		$criteria->order = ' t.Id_customer, t.change_date DESC, t.review DESC';

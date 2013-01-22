@@ -436,7 +436,9 @@ class ReviewController extends Controller
 			$criteria=new CDbCriteria;
 			$criteria->distinct = true;
 			$criteria->select = 't.Id, t.name, t.last_name';
-			$criteria->join =  	"LEFT OUTER JOIN review r ON (r.Id_customer=t.Id)";
+			$criteria->join =  	"LEFT OUTER JOIN review r ON (t.Id = r.Id_customer)
+								LEFT OUTER JOIN review_user ru ON (r.Id = ru.Id_review)";
+
 			
 			if($arrFilters['customerNameFilter'])
 			{
@@ -445,6 +447,8 @@ class ReviewController extends Controller
 				$criteria->addCondition(' CONCAT(CONCAT(t.name," "),t.last_name) LIKE "%'. $arrFilters['customerNameFilter'].'%"', 'OR');
 			}
 
+			$criteria->addCondition('ru.username = "' . User::getCurrentUser()->username . '" OR ru.username is null' );
+			
 			$criteria->order = 'r.change_date DESC';
 			
 			$customers = Customer::model()->findAll($criteria);
