@@ -42,7 +42,10 @@
 				<?php echo CHtml::link('Usuarios',Yii::app()->createUrl('user/index'),array('class'=>(Yii::app()->user->checkAccess('UserIndex'))?'header-menu-item':'header-menu-item-hidden')); ?>
 			</div>
 			<div class="header-menu-item">
-				<?php echo CHtml::link('Grupo de Usuarios',Yii::app()->createUrl('userGroup/index'),array('class'=>(Yii::app()->user->checkAccess('UserGroupIndex'))?'header-menu-item':'header-menu-item-hidden')); ?>
+				<?php echo CHtml::link('Grupos',Yii::app()->createUrl('userGroup/index'),array('class'=>(Yii::app()->user->checkAccess('UserGroupIndex'))?'header-menu-item':'header-menu-item-hidden')); ?>
+			</div>
+			<div class="header-menu-item">
+				<?php echo CHtml::link('Docs',Yii::app()->createUrl('documentType/index'),array('class'=>(Yii::app()->user->checkAccess('DocumentTypeIndex'))?'header-menu-item':'header-menu-item-hidden')); ?>
 			</div>
 			<div class="header-menu-item">
 				<?php echo CHtml::link('Auditoria',Yii::app()->createUrl('auditLogin/index'),array('class'=>(Yii::app()->user->checkAccess('AuditLoginIndex'))?'header-menu-item':'header-menu-item-hidden')); ?>

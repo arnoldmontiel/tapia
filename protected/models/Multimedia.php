@@ -246,6 +246,7 @@ class Multimedia extends CActiveRecord
 			'idUserGroup' => array(self::BELONGS_TO, 'UserGroup', 'Id_user_group'),
 			'customer' => array(self::BELONGS_TO, 'Customer', 'Id_customer'),
 			'multimediaType' => array(self::BELONGS_TO, 'MultimediaType', 'Id_multimedia_type'),
+			'documentType' => array(self::BELONGS_TO, 'DocumentType', 'Id_document_type'),
 			'review' => array(self::BELONGS_TO, 'Review', 'Id_review'),
 			'notes' => array(self::MANY_MANY, 'Note', 'multimedia_note(Id_multimedia, Id_note)'),
 			'walls' => array(self::HAS_MANY, 'Wall', 'Id_multimedia'),
