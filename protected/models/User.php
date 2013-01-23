@@ -240,8 +240,7 @@ class User extends CActiveRecord
 		$criteria->compare('address',$this->address,true);
 		$criteria->compare('phone_house',$this->phone_house,true);
 		$criteria->compare('phone_mobile',$this->phone_mobile,true);
-		$criteria->compare('description',$this->description,true);
-		$criteria->compare('send_mail',$this->send_mail,true);
+		$criteria->compare('description',$this->description,true);		
 		
 		return new CActiveDataProvider($this, array(
 				'criteria'=>$criteria,
