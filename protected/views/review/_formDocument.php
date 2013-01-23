@@ -75,6 +75,16 @@ echo CHtml::hiddenField('Id_customer',$Id_customer,array('id'=>'Id_customer'));
 		<div class="wall-action-fake-uploadFile">
 			<input id='fake-uploadFile' class="wall-action-fake-uploadFile"/>
 		</div>
+		
+		<div class="review-cbo">			
+			Tipo de Documento
+			<?php 
+		echo $formDocument->dropDownList($model,'Id_document_type', 
+		CHtml::listData(DocumentType::model()->findAll(), 'Id', 'name') , array('prompt'=>'Generico')); 
+		?>	
+		</div>
+		
+			
 	</div>
 	
 	<div class="row">
