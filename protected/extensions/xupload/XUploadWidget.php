@@ -79,7 +79,10 @@ class XUploadWidget extends CJuiInputWidget {
 		}
 
 		if( !isset($this->htmlOptions['id']) ){
-			$this->htmlOptions['id'] = get_class($model)."_form";
+			if(!isset($model))			
+				$this->htmlOptions['id'] = "XUploadWidget_form";
+			else
+				$this->htmlOptions['id'] = get_class($model)."_form";
 		}
 
 		$options=CJavaScript::encode($this->options);
