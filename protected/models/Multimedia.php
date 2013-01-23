@@ -222,14 +222,14 @@ class Multimedia extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('Id_customer, Id_review', 'required'),
-			array('Id_multimedia_type, Id_customer, Id_album, width, height, width_small, height_small, Id_review, Id_user_group', 'numerical', 'integerOnly'=>true),
+			array('Id_multimedia_type, Id_customer, Id_album, width, height, width_small, height_small, Id_review, Id_user_group, Id_document_type', 'numerical', 'integerOnly'=>true),
 			array('size, size_small', 'numerical'),
 			array('username', 'length', 'max'=>128),
 			array('file_name, description, file_name_small', 'length', 'max'=>255),
 			array('creation_date', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id, file_name, size, description, file_name_small, size_small, Id_multimedia_type, Id_customer, creation_date, Id_album, Id_review', 'safe', 'on'=>'search'),
+			array('Id, file_name, size, description, file_name_small, size_small, Id_multimedia_type, Id_customer, creation_date, Id_album, Id_review, Id_document_type', 'safe', 'on'=>'search'),
 		);
 	}
 
