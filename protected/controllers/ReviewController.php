@@ -439,15 +439,19 @@ class ReviewController extends Controller
 			$criteria->join =  	"LEFT OUTER JOIN review r ON (t.Id = r.Id_customer)
 								LEFT OUTER JOIN review_user ru ON (r.Id = ru.Id_review)";
 
+			if(!User::isInternal())
+			{
+				$criteria->join =  	"LEFT OUTER JOIN review r ON (t.Id = r.Id_customer)
+									LEFT OUTER JOIN user_customer uc on (t.Id = uc.Id_customer)";
+				$criteria->addCondition('uc.username = "'. User::getCurrentUser()->username.'"');
+			}
 			
 			if($arrFilters['customerNameFilter'])
 			{
 				$criteria->addCondition('t.name LIKE "%'. $arrFilters['customerNameFilter'].'%"');
 				$criteria->addCondition('t.last_name LIKE "%'. $arrFilters['customerNameFilter'].'%"', 'OR');
 				$criteria->addCondition(' CONCAT(CONCAT(t.name," "),t.last_name) LIKE "%'. $arrFilters['customerNameFilter'].'%"', 'OR');
-			}
-
-			$criteria->addCondition('ru.username = "' . User::getCurrentUser()->username . '" OR ru.username is null' );
+			}			
 			
 			$criteria->order = 'r.change_date DESC';
 			
