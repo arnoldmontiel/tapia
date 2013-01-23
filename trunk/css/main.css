@@ -1704,6 +1704,14 @@ div.review-type
 	margin-top: 10px;
 	margin-left: 5px;
 }
+div.review-cbo
+{
+	float:left;
+	margin-top: 10px;
+	margin-left: 10px;
+	background-color: #d7ddeb;
+	cursor: default;
+}
 div.order-info
 {
 	float:left;
