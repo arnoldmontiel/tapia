@@ -197,7 +197,8 @@ class ReviewController extends Controller
 		
 		$criteria->addCondition('t.Id NOT IN(select Id_multimedia from multimedia_note where Id_note = '. $idNote.')');
 		$criteria->addCondition('t.Id_user_group = '. User::getCurrentUserGroup()->Id);
-		$criteria->addCondition('t.Id_review = '. $id);
+		//$criteria->addCondition('t.Id_review = '. $id);
+		$criteria->addCondition('t.Id_customer = '. $model->Id_customer);
 		$criteria->addCondition('t.Id_multimedia_type = 1'); //image
 		
 		$modelMultimedia = Multimedia::model()->findAll($criteria);
@@ -226,9 +227,10 @@ class ReviewController extends Controller
 	
 		$criteria->addCondition('t.Id NOT IN(select Id_multimedia from multimedia_note where Id_note = '. $idNote.')');
 		$criteria->addCondition('t.Id_user_group = '. User::getCurrentUserGroup()->Id);
-		$criteria->addCondition('t.Id_review = '. $id);
+		//$criteria->addCondition('t.Id_review = '. $id);
+		$criteria->addCondition('t.Id_customer = '. $model->Id_customer);
 		$criteria->addCondition('t.Id_multimedia_type >= 3'); //docs (pdf or autocad)
-		
+		$criteria->order = 't.Id_document_type';
 		$modelMultimedia = Multimedia::model()->findAll($criteria);
 	
 		$criteria=new CDbCriteria;
