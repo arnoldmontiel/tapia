@@ -26,6 +26,10 @@ $this->menu=array(
 				'type'=>'raw',
 				'value'=>CHtml::checkBox("is_administrator",$model->is_administrator,array("disabled"=>"disabled"))
 		),
+		array('label'=>$model->getAttributeLabel('use_technical_docs'),
+				'type'=>'raw',
+				'value'=>CHtml::checkBox("use_technical_docs",$model->use_technical_docs,array("disabled"=>"disabled"))
+		),
 	),
 )); ?>
 <br>

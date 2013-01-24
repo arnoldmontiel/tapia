@@ -26,6 +26,12 @@
 		<?php echo $form->error($model,'is_administrator'); ?>
 	</div>
 	
+	<div class="row">	
+		<?php echo $form->labelEx($model,'use_technical_docs'); ?>
+		<?php echo $form->checkBox($model,'use_technical_docs'); ?>
+		<?php echo $form->error($model,'use_technical_docs'); ?>
+	</div>
+	
 	<div class="row">
 		<div class="check-title">	
 			Tipos de Agrupadores que podr&aacute; crear
