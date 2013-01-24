@@ -223,7 +223,7 @@ class NoteController extends Controller
 		
 		$criteria=new CDbCriteria;
 		
-		$criteria->addCondition('Id_multimedia IN(select Id from multimedia where Id_multimedia_type IN ( 3,4,5,6))');
+		$criteria->addCondition('Id_multimedia IN(select Id from multimedia where Id_document_type is null AND Id_multimedia_type IN ( 3,4,5,6))');		
 		
 		MultimediaNote::model()->deleteAllByAttributes(array('Id_note'=>$id),$criteria);
 		try {
@@ -239,6 +239,37 @@ class NoteController extends Controller
 				$this->markAsUnread($modelNote);
 			}
 			$transaction->commit();	
+		} catch (Exception $e) {
+			$transaction->rollback();
+		}
+	}
+	
+	public function actionAjaxAttachTechDoc()
+	{
+		$docs = $_POST['docs'];
+		$id = $_POST['id'];
+	
+		$modelNote =$this->loadModel($id);
+		$transaction =  $modelNote->dbConnection->beginTransaction();
+	
+		$criteria=new CDbCriteria;
+	
+		$criteria->addCondition('Id_multimedia IN(select Id from multimedia where Id_document_type is not null AND Id_multimedia_type IN ( 3,4,5,6))');
+	
+		MultimediaNote::model()->deleteAllByAttributes(array('Id_note'=>$id),$criteria);
+		try {
+			if($docs)
+			{
+				foreach($docs as $item)
+				{
+					$model = new MultimediaNote;
+					$model->Id_note = $id;
+					$model->Id_multimedia = $item;
+					$model->save();
+				}
+				$this->markAsUnread($modelNote);
+			}
+			$transaction->commit();
 		} catch (Exception $e) {
 			$transaction->rollback();
 		}

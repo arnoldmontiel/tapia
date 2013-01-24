@@ -229,14 +229,17 @@ class ReviewController extends Controller
 		$criteria->addCondition('t.Id_user_group = '. User::getCurrentUserGroup()->Id);
 		//$criteria->addCondition('t.Id_review = '. $id);
 		$criteria->addCondition('t.Id_customer = '. $model->Id_customer);
+		$criteria->addCondition('t.Id_document_type is null');
 		$criteria->addCondition('t.Id_multimedia_type >= 3'); //docs (pdf or autocad)
 		$criteria->order = 't.Id_document_type';
 		$modelMultimedia = Multimedia::model()->findAll($criteria);
-	
+		
 		$criteria=new CDbCriteria;
 		
 		$criteria->addCondition('t.Id IN(select Id_multimedia from multimedia_note where Id_note = '. $idNote.')');
-		$criteria->addCondition('t.Id_review = '. $id);
+		//$criteria->addCondition('t.Id_review = '. $id);
+		$criteria->addCondition('t.Id_customer = '. $model->Id_customer);
+		$criteria->addCondition('t.Id_document_type is null');
 		$criteria->addCondition('t.Id_multimedia_type >= 3'); //docs (pdf or autocad)
 		
 		$modelMultimediaSelected = Multimedia::model()->findAll($criteria);
@@ -246,6 +249,44 @@ class ReviewController extends Controller
 						'idNote'=>$idNote,
 						'modelMultimedia'=>$modelMultimedia,
 						'modelMultimediaSelected'=>$modelMultimediaSelected,
+		));
+	}
+	
+	public function actionAjaxAttachTechDoc($id, $idNote)
+	{
+		$model=$this->loadModel($id);
+	
+		$criteria=new CDbCriteria;
+	
+		$criteria->addCondition('t.Id_document_type NOT IN(select m.Id_document_type from multimedia_note mn, multimedia m 
+						where mn.Id_multimedia = m.Id AND m.Id_document_type is not null AND Id_note = '. $idNote.')');
+		
+		$criteria->addCondition('t.Id IN (SELECT max(Id) FROM multimedia
+											WHERE Id_customer = '. $model->Id_customer .'
+											AND Id_document_type is not null 
+											AND Id_multimedia_type >= 3
+											GROUP BY Id_document_type)');
+				
+		$modelMultimedia = Multimedia::model()->findAll($criteria);
+	
+		$criteria=new CDbCriteria;
+	
+		$criteria->addCondition('t.Id_document_type IN(select m.Id_document_type from multimedia_note mn, multimedia m
+						where mn.Id_multimedia = m.Id AND m.Id_document_type is not null AND Id_note = '. $idNote.')');
+		
+		$criteria->addCondition('t.Id IN (SELECT max(Id) FROM multimedia
+											WHERE Id_customer = '. $model->Id_customer .'
+											AND Id_document_type is not null 
+											AND Id_multimedia_type >= 3
+											GROUP BY Id_document_type)');
+	
+		$modelMultimediaSelected = Multimedia::model()->findAll($criteria);
+	
+		$this->render('attachTechDocs',array(
+							'model'=>$model,
+							'idNote'=>$idNote,
+							'modelMultimedia'=>$modelMultimedia,
+							'modelMultimediaSelected'=>$modelMultimediaSelected,
 		));
 	}
 	
