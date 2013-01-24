@@ -342,7 +342,7 @@ $editable = $isAdministrator||$isOwner;
 			}
 			foreach($data->multimedias as $item)
 			{
-				if($item->Id_multimedia_type < 3) continue;
+				if($item->Id_multimedia_type < 3 || $item->Id_document_type != null) continue;
 				echo CHtml::openTag('div');
 				
 				echo CHtml::openTag('div',array('class'=>'index-review-single-resource'));
@@ -387,6 +387,57 @@ $editable = $isAdministrator||$isOwner;
 				
 		?>
 	</div>
+	<?php if (User::useTechnicalDocs()):?>
+	<div class="review-text-docs">
+	<?php
+	
+		foreach($data->multimedias as $item)
+		{
+			if($item->Id_multimedia_type < 3 || $item->Id_document_type == null) continue;
+			echo CHtml::openTag('div');
+		
+			echo CHtml::openTag('div',array('class'=>'index-review-single-resource'));
+			switch ( $item->Id_multimedia_type) {
+				case 4:
+					echo CHtml::image('images/autocad_resource.png','',array('style'=>'width:25px;'));
+					break;
+				case 5:
+					echo CHtml::image('images/word_resource.png','',array('style'=>'width:25px;'));
+					break;
+				case 6:
+					echo CHtml::image('images/excel_resource.png','',array('style'=>'width:25px;'));
+					break;
+				case 3:
+					echo CHtml::image('images/pdf_resource.png','',array('style'=>'width:25px;'));
+					break;
+			}
+			echo CHtml::closeTag('div');
+		
+			echo CHtml::link(
+			CHtml::encode($item->documentType->name),
+			Yii::app()->baseUrl.'/docs/'.$item->file_name,
+			array('target'=>'_blank','class'=>'review-text-docs')
+			);
+			echo CHtml::encode(' '.round(($item->size / 1024), 2));
+			echo CHtml::encode(' (Kb) ');
+		
+			echo CHtml::openTag('div',array('class'=>'review-area-single-files-description'));
+			echo CHtml::encode($item->description);
+			echo CHtml::closeTag('div');
+		
+			echo CHtml::closeTag('div');
+				
+		}
+		echo CHtml::openTag('div', array('class'=>'review-add-docs-container'));
+		if($editable){
+			echo CHtml::link('Adjuntar Documentos Tecnicos',
+				ReviewController::createUrl('AjaxAttachTechDoc',array('id'=>$data->review->Id, 'idNote'=>$data->Id)),
+					array('class'=>'review-text-docs'));
+		}
+		echo CHtml::closeTag('div');
+	?>
+	</div>
+	<?php endif;?>
 	</div>
 	<div class="singles-notes-confirmations">
 		<?php if ($needConfirmation):?>

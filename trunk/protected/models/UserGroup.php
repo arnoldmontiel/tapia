@@ -12,6 +12,7 @@
  * @property integer $addressed
  * @property integer $need_confirmation
  * @property integer $can_feedback
+ * @property integer $use_technical_docs
  *
  * The followings are the available model relations:
  * @property Album[] $albums
@@ -48,11 +49,11 @@ class UserGroup extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('description', 'required'),
-			array('is_internal, is_administrator, can_read, addressed, need_confirmation, can_feedback', 'numerical', 'integerOnly'=>true),
+			array('is_internal, is_administrator, can_read, addressed, need_confirmation, can_feedback, use_technical_docs', 'numerical', 'integerOnly'=>true),
 			array('description', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id, description, is_internal, is_administrator', 'safe', 'on'=>'search'),
+			array('Id, description, is_internal, is_administrator, use_technical_docs', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -86,6 +87,7 @@ class UserGroup extends CActiveRecord
 			'addressed' => 'Direcci&oacute;n',
 			'need_confirmation' => 'Necesita confirmaci&oacute;n por defecto',
 			'can_feedback' => 'Puede dar feedback por defecto',
+			'use_technical_docs' => 'Puede ver Documentos T&eacute;cnicos',
 		);
 	}
 
