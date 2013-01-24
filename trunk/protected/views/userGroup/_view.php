@@ -1,3 +1,4 @@
+
 <div class="view">
 
 	<b><?php echo $data->getAttributeLabel('description'); ?>:</b>
@@ -12,5 +13,8 @@
 	<?php echo CHtml::checkBox("is_administrator",CHtml::encode($data->is_administrator),array('disabled'=>'disabled')); ?>
 	<br />
 
+	<b><?php echo $data->getAttributeLabel('use_technical_docs'); ?>:</b>
+	<?php echo CHtml::checkBox("use_technical_docs",CHtml::encode($data->use_technical_docs),array('disabled'=>'disabled')); ?>
+	<br />
 
 </div>
