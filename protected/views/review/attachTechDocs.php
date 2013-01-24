@@ -1,5 +1,5 @@
 <?php
-Yii::app()->clientScript->registerScript('AttachDoc', "
+Yii::app()->clientScript->registerScript('AttachTechDocs', "
 
 $('#btnCancel').click(function(){
 		window.location = '".ReviewController::createUrl('update',array('id'=>$model->Id))."';
@@ -13,7 +13,8 @@ $('#btnPublic').click(function(){
 		if($(this).attr('name') == 'chkDoc')
  	 		data['docs[]'].push($(this).val());
 	});
-	$.post('".NoteController::createUrl('note/AjaxAttachDoc')."', 
+	
+	$.post('".NoteController::createUrl('note/AjaxAttachTechDoc')."', 
 		{
 			id: ".$idNote.",
 			docs: data['docs[]']
@@ -45,9 +46,28 @@ echo CHtml::checkBox('chkAll','',array('id'=>'chkAll'));?>
 <div id="documents">
 	<div class="review-area-files" id="files_selected_container">
 		<div class="review-action-area-files" >
-		<?php		
+		<?php
+		$is_first = true;
+		$documentType = '';
 		foreach ($modelMultimediaSelected as $item)
-		{			
+		{
+			if($is_first)
+			{
+				$documentType = isset($item->documentType)?$item->documentType->name: 'General';
+				echo $documentType;
+				$is_first = false;
+			}
+			else
+			{
+				$newDocumentType = isset($item->documentType)?$item->documentType->name: 'General';
+				if($documentType != $newDocumentType)
+				{
+					echo "<hr style='clear:none'>";
+					echo $newDocumentType;
+					$documentType = $newDocumentType;
+				}
+			}
+			
 			echo CHtml::openTag('div',array('id'=>'picture_'.$item->Id,'class'=>'review-area-single-files'));
 				echo CHtml::openTag('div',array('class'=>'review-area-single-files-name'));
 					echo CHtml::checkBox('chkDoc',true,array('id'=>$item->Id, 'value'=>$item->Id));
@@ -67,8 +87,27 @@ echo CHtml::checkBox('chkAll','',array('id'=>'chkAll'));?>
 	<div class="review-area-files" id="files_container">
 		<div class="review-action-area-files" >
 		<?php
+		$is_first = true;
+		$documentType = '';
 		foreach ($modelMultimedia as $item)
 		{
+			if($is_first)
+			{
+				$documentType = isset($item->documentType)?$item->documentType->name: 'General';
+				echo $documentType; 
+				$is_first = false;
+			}
+			else 
+			{
+				$newDocumentType = isset($item->documentType)?$item->documentType->name: 'General';
+				if($documentType != $newDocumentType)
+				{
+					echo "<hr style='clear:none'>";
+					echo $newDocumentType;
+					$documentType = $newDocumentType;
+				}
+			}
+			
 			echo CHtml::openTag('div',array('id'=>'picture_'.$item->Id,'class'=>'review-area-single-files'));
 				echo CHtml::openTag('div',array('class'=>'review-area-single-files-name'));
 					echo CHtml::checkBox('chkDoc','',array('id'=>$item->Id, 'value'=>$item->Id));

@@ -75,7 +75,9 @@ echo CHtml::hiddenField('Id_customer',$Id_customer,array('id'=>'Id_customer'));
 		<div class="wall-action-fake-uploadFile">
 			<input id='fake-uploadFile' class="wall-action-fake-uploadFile"/>
 		</div>
-		
+		<?php
+		if(User::useTechnicalDocs()): 
+		?>
 		<div class="review-cbo">			
 			Tipo de Documento
 			<?php 
@@ -83,7 +85,9 @@ echo CHtml::hiddenField('Id_customer',$Id_customer,array('id'=>'Id_customer'));
 		CHtml::listData(DocumentType::model()->findAll(), 'Id', 'name') , array('prompt'=>'Generico')); 
 		?>	
 		</div>
-		
+		<?php
+		endif; 
+		?>
 			
 	</div>
 	

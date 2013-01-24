@@ -101,6 +101,10 @@ class User extends CActiveRecord
 	{
 		return self::getCurrentUserGroup()->is_internal;
 	}
+	public static function useTechnicalDocs()
+	{
+		return self::getCurrentUserGroup()->use_technical_docs;
+	}
 	public static function isOwnerOf($modelNote)
 	{
 		return self::getCurrentUserGroup()->Id==$modelNote->Id_user_group_owner;
