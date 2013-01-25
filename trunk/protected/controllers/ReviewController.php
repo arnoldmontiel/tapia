@@ -189,6 +189,47 @@ class ReviewController extends Controller
 		));
 	}
 
+	public function actionAjaxViewImageResource($Id_customer)
+	{
+		$modelAlbum = Album::model()->findAllByAttributes(array('Id_customer'=>$Id_customer,
+								'Id_user_group_owner'=>User::getCurrentUserGroup()->Id ));
+		
+		$this->render('viewImageResource',array(					
+					'modelAlbum'=>$modelAlbum,
+					'Id_customer'=>$Id_customer,
+		));
+	}
+	
+	public function actionAjaxViewDocResource($Id_customer)
+	{
+		$criteria=new CDbCriteria;
+		$criteria->addCondition('Id_document_type is null');
+		$criteria->addCondition('Id_user_group = '. User::getCurrentUserGroup()->Id);
+		$criteria->addCondition('Id_customer = '. $Id_customer);
+				
+		$modelMultimedia = Multimedia::model()->findAll($criteria);
+	
+		$this->render('viewDocResource',array(
+						'modelMultimedia'=>$modelMultimedia,
+						'Id_customer'=>$Id_customer,
+		));
+	}
+	
+	public function actionAjaxViewTechDocResource($Id_customer)
+	{
+		$criteria=new CDbCriteria;
+		$criteria->addCondition('Id_document_type is not null');		
+		$criteria->addCondition('Id_customer = '. $Id_customer);
+		$criteria->order = 'Id_document_type, Id DESC';
+				
+		$modelMultimedia = Multimedia::model()->findAll($criteria);
+		
+		$this->render('viewTechDocResource',array(
+						'modelMultimedia'=>$modelMultimedia,
+						'Id_customer'=>$Id_customer,
+		));
+	}
+	
 	public function actionAjaxAttachImage($id, $idNote)
 	{
 		$model=$this->loadModel($id);
@@ -323,10 +364,30 @@ class ReviewController extends Controller
 		
 		$this->showFilter = true;
 		
+		$hasAlbum = Album::model()->countByAttributes(array('Id_customer'=>$Id_customer,
+						'Id_user_group_owner'=>User::getCurrentUserGroup()->Id )) > 0;		
+		
+		$criteria=new CDbCriteria;
+		$criteria->addCondition('Id_document_type is null');
+		$criteria->addCondition('Id_user_group = '. User::getCurrentUserGroup()->Id);
+		$criteria->addCondition('Id_customer = '. $Id_customer);
+		
+		$hasDocs = count(Multimedia::model()->findAll($criteria));
+		
+		$criteria=new CDbCriteria;
+		$criteria->addCondition('Id_document_type is not null');
+		$criteria->addCondition('Id_user_group = '. User::getCurrentUserGroup()->Id);
+		$criteria->addCondition('Id_customer = '. $Id_customer);
+		
+		$hasTechDocs = count(Multimedia::model()->findAll($criteria));
+		
 		$this->render('index',
 			array('modelMultimedia'=>$modelMultimedia,
 					'modelNote'=>$modelNote,
 					'Id_customer'=>$Id_customer,
+					'hasAlbum'=>$hasAlbum,
+					'hasDocs'=>$hasDocs,
+					'hasTechDocs'=>$hasTechDocs,
 			)
 		);
 	}
