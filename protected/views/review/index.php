@@ -193,3 +193,48 @@ function getCheck(checkName)
 ?>
 <div id="review-area" class="index-review-area div-hidden" >
 </div>
+
+<?php if(isset($Id_customer) && $Id_customer > 0):?>
+<div id="resources-view" class="review-single-view">
+	<div class="review-resources-title">
+		Recursos Multimedias
+	</div>
+<?php
+		if($hasAlbum)
+		{
+			echo CHtml::openTag('div', array('style'=>'width:30%;display:inline-block'));
+				echo CHtml::openTag('div',array('class'=>'index-review-single-resource'));
+					echo CHtml::image('images/image_resource.png','',array('style'=>'width:25px;'));
+				echo CHtml::closeTag('div');
+				echo CHtml::link("Im&aacute;genes",
+							ReviewController::createUrl('AjaxViewImageResource',array('Id_customer'=>$Id_customer))
+							);
+			echo CHtml::closeTag('div');			
+		}
+		
+		if($hasDocs)
+		{
+			echo CHtml::openTag('div', array('style'=>'width:30%;display:inline-block'));
+			echo CHtml::openTag('div',array('class'=>'index-review-single-resource'));
+			echo CHtml::image('images/image_resource.png','',array('style'=>'width:25px;'));
+			echo CHtml::closeTag('div');
+			echo CHtml::link("Documentos Generales",
+			ReviewController::createUrl('AjaxViewDocResource',array('Id_customer'=>$Id_customer))
+			);
+			echo CHtml::closeTag('div');
+		}
+		
+		if($hasTechDocs)
+		{
+			echo CHtml::openTag('div', array('style'=>'width:30%;display:inline-block'));
+			echo CHtml::openTag('div',array('class'=>'index-review-single-resource'));
+			echo CHtml::image('images/image_resource.png','',array('style'=>'width:25px;'));
+			echo CHtml::closeTag('div');
+			echo CHtml::link("Documentos T&eacute;cnicos",
+			ReviewController::createUrl('AjaxViewTechDocResource',array('Id_customer'=>$Id_customer))
+			);
+			echo CHtml::closeTag('div');
+		}		
+?>
+</div>
+<?php endif;?>

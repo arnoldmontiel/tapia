@@ -97,7 +97,7 @@ echo CHtml::imageButton(
 																}',
 												'success'=>'js:function(data)
 												{
-													window.location = "'.ReviewController::createUrl('update',array('id'=>$model->Id_review)).'";
+													window.location = "'.ReviewController::createUrl('AjaxViewImageResource',array('Id_customer'=>$model->Id_customer)).'";
 												}'
 									)
 								)
@@ -191,7 +191,7 @@ echo CHtml::imageButton(
 	<div class="row" style="text-align: center;">
 			<?php 
 				echo CHtml::link('Volver',
-					ReviewController::createUrl('update',array('id'=>$model->Id_review)),
+					ReviewController::createUrl('AjaxViewImageResource',array('Id_customer'=>$model->Id_customer)),					
 					array('id'=>'finish-btn','class'=>'wall-action-submit-btn')
 				);
 			?>
