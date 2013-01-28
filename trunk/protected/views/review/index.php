@@ -228,7 +228,7 @@ function getCheck(checkName)
 		{
 			echo CHtml::openTag('div', array('style'=>'width:30%;display:inline-block'));
 			echo CHtml::openTag('div',array('class'=>'index-review-single-resource'));
-			echo CHtml::image('images/document_resource.png','',array('style'=>'width:25px;'));
+			echo CHtml::image('images/tech_document_resource.png','',array('style'=>'width:25px;'));
 			echo CHtml::closeTag('div');
 			echo CHtml::link("Documentos T&eacute;cnicos",
 			ReviewController::createUrl('AjaxViewTechDocResource',array('Id_customer'=>$Id_customer))
