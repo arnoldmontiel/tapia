@@ -17,7 +17,7 @@ $('#btnBack').click(function(){
 		<?php
 		$currentDocTypeDesc = '';
 		$isFirst = true;
-		$tab = "	"; 
+		$isCurrent = true; 
 		foreach ($modelMultimedia as $item)
 		{
 			if($item->Id_multimedia_type != 1)
@@ -39,10 +39,18 @@ $('#btnBack').click(function(){
 					echo CHtml::openTag('div',array('class'=>'review-update-single-files'));
 					echo $currentDocTypeDesc;
 					echo CHtml::closeTag('div');
+					$isCurrent = true;
 				}
 				
 				echo CHtml::openTag('div',array('id'=>'file_'.$item->Id,'class'=>'review-update-single-files'));
-					echo CHtml::openTag('div',array('class'=>'review-update-files-name'));
+					if($isCurrent)
+					{
+						echo CHtml::openTag('div',array('class'=>'review-tech-files-name'));
+						$isCurrent = false;
+					}
+					else
+						echo CHtml::openTag('div',array('class'=>'review-tech-child-files-name'));
+					
 						echo CHtml::openTag('div',array('class'=>'index-review-single-resource'));
 							switch ( $item->Id_multimedia_type) {
 								case 4:
@@ -61,12 +69,10 @@ $('#btnBack').click(function(){
 						echo CHtml::closeTag('div');
 						echo CHtml::link(CHtml::encode($item->file_name),Yii::app()->baseUrl.'/docs/'.$item->file_name,array('target'=>'_blank'));
 						echo CHtml::encode(' '.round(($item->size / 1024), 2));
-						echo CHtml::encode(' (Kb) ');
-						echo CHtml::openTag('div',array('class'=>'review-area-single-files-description'));
-						echo CHtml::encode($item->description);
-						echo CHtml::closeTag('div');
+						echo CHtml::encode(' (Kb) ');						
 					echo CHtml::closeTag('div');
-					echo CHtml::openTag('div',array('class'=>'review-update-files-descr'));						
+					echo CHtml::openTag('div',array('class'=>'review-tech-files-descr'));						
+						echo CHtml::encode($item->description);
 						echo "<p>Subido por : ". $item->username ." el ". $item->creation_date . "</p>";
 					echo CHtml::closeTag('div');
 				echo CHtml::closeTag('div');
