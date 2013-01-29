@@ -844,6 +844,9 @@ div.wall-action-upload-file-btn
 	text-align: center;
 	font-weight: bold; 
 	z-index: 1;
+	<!--
+	left:0;
+	-->
 }
 div.wall-action-upload-file-btn-hover
 {
@@ -856,6 +859,9 @@ div.wall-action-upload-file-btn-container
 	height:30px;	
 	padding:5px 5px 5px 5px;
 	float: left;
+	<!--
+	left:0;
+	-->
 }
 div.wall-action-upload-file-container
 {
