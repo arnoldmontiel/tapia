@@ -361,8 +361,13 @@ class ReviewController extends Controller
 			$Id_customer =$_GET['Id_customer'];
 		}
 
-		
 		$this->showFilter = true;
+		
+		if($Id_customer==-1)
+		{
+			$this->showFilter = false;			
+		}
+		
 		
 		$hasAlbum = Album::model()->countByAttributes(array('Id_customer'=>$Id_customer,
 						'Id_user_group_owner'=>User::getCurrentUserGroup()->Id )) > 0;		
@@ -541,13 +546,23 @@ class ReviewController extends Controller
 			$criteria->distinct = true;
 			$criteria->select = 't.Id, t.name, t.last_name';
 			$criteria->join =  	"LEFT OUTER JOIN review r ON (t.Id = r.Id_customer)
-								LEFT OUTER JOIN review_user ru ON (r.Id = ru.Id_review)";
-
-			if(!User::isInternal())
+								LEFT OUTER JOIN review_user ru ON (r.Id = ru.Id_review)
+											";
+			User::getCurrentUserGroup()->Id;
+			$criteria->order = 'change_date DESC';
+			if(!User::isAdministartor())
 			{
-				$criteria->join =  	"LEFT OUTER JOIN review r ON (t.Id = r.Id_customer)
-									LEFT OUTER JOIN user_customer uc on (t.Id = uc.Id_customer)";
+				$criteria->select = 't.Id, t.name, t.last_name, max(n.change_date) as max_date';
+				$criteria->join =  	"
+					LEFT OUTER JOIN user_customer uc on (t.Id = uc.Id_customer)
+        			LEFT OUTER JOIN review r ON (t.Id = r.Id_customer)
+        			LEFT OUTER JOIN user u on (u.username = uc.username)
+        			LEFT OUTER JOIN note n ON ( u.Id_user_group = u.Id_user_group and n.Id_review = r.Id)
+        			JOIN user_group_note ugn ON (n.id = ugn.Id_note and u.Id_user_group = ugn.Id_user_group)
+				";
 				$criteria->addCondition('uc.username = "'. User::getCurrentUser()->username.'"');
+				$criteria->order = 'max_date DESC';
+				$criteria->group = 't.id';
 			}
 			
 			if($arrFilters['customerNameFilter'])
@@ -557,7 +572,6 @@ class ReviewController extends Controller
 				$criteria->addCondition(' CONCAT(CONCAT(t.name," "),t.last_name) LIKE "%'. $arrFilters['customerNameFilter'].'%"', 'OR');
 			}			
 			
-			$criteria->order = 'r.change_date DESC';
 			
 			$customers = Customer::model()->findAll($criteria);
 			
