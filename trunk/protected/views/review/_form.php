@@ -12,6 +12,11 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#review-form-create', "
 			$('#Review_review').val(data);
 		});
 	});
+	
+	$('#btnCancel').click(function(){
+		window.location = '".ReviewController::createUrl('index',array('Id_customer'=>$model->Id_customer))."';
+		return false;
+	});
 ");
 		
 $this->widget('ext.processingDialog.processingDialog', array(
@@ -53,6 +58,7 @@ $this->widget('ext.processingDialog.processingDialog', array(
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save',array('id'=>'save')); ?>
+		<?php echo CHtml::submitButton('Cancelar',array('id'=>'btnCancel')); ?>		
 	</div>
 
 <?php $this->endWidget(); ?>

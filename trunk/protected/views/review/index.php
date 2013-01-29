@@ -178,6 +178,17 @@ function(){
 	$(this).removeClass('wall-action-btn-hover');
 	}
 );
+$('#btnNew').hover(function(){
+	if(!EnableButton($(this)))
+	{
+		return false;
+	}
+	$(this).addClass('wall-action-btn-hover');
+},
+function(){
+	$(this).removeClass('wall-action-btn-hover');
+	}
+);
 
 $('#btnPublicAlbum').click(function(){
 	var url = '".ReviewController::createUrl('index&Id_customer='.$Id_customer)."';
@@ -331,7 +342,7 @@ function getCheck(checkName)
 
 <?php
 	echo CHtml::openTag('div',array('class'=>'wall-action-box-btn','id'=>'btn-box'));
-		echo CHtml::openTag('div',array('class'=>'review-action-box-btn div-hidden','id'=>'btn-actions-box'));
+		echo CHtml::openTag('div',array('class'=>'wall-action-btn','id'=>'btnNew'));
 			echo CHtml::link('Nuevo','',array('id'=>'btn-create','class'=>'submit-btn'));
 		echo CHtml::closeTag('div');
 		echo CHtml::openTag('div',array('class'=>'wall-action-btn','id'=>'btnAlbum'));
