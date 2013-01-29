@@ -364,7 +364,7 @@ function getCheck(checkName)
 	echo CHtml::closeTag('div');
 ?>
 <?php endif;?>
-
+</div>
 <!-- *************** ALBUM ******************************* -->
 
 <div id="wall-action-album"  class='wall-action-area-note' style="display:none">
@@ -408,7 +408,7 @@ function getCheck(checkName)
 ?>
 <?php endif;?>
 
-</div>
+
 <?php
 	echo CHtml::hiddenField('tagFilter','',array('id'=>'tagFilter'));	
 	echo CHtml::hiddenField('typeFilter','',array('id'=>'typeFilter'));
