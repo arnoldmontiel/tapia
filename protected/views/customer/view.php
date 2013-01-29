@@ -97,7 +97,7 @@ Yii::app()->clientScript->registerScript('viewTapiaCustomer', "
 
 	<?php 
 	$creteria = new CDbCriteria();
-	$creteria->addCondition('is_internal = 0');
+	//$creteria->addCondition('is_internal = 0');
 	$creteria->addNotInCondition('Id', array('1','3'));
 	$userGroup = UserGroup::model()->findAll($creteria);
 	$userGroupList = CHtml::listData($userGroup,'Id','description');

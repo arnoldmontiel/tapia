@@ -273,7 +273,7 @@ class User extends CActiveRecord
 		$criteria->join = 'LEFT OUTER JOIN `user_customer` `uc` ON (`t`.`username`=`uc`.`username`)
 							INNER JOIN user_group ug ON (t.Id_user_group = ug.Id)';
 		$criteria->addCondition('Id_user_group not in(1,3)');//clients (1) and administrators (3)
-		$criteria->addCondition('ug.is_internal = 0');
+		//$criteria->addCondition('ug.is_internal = 0');
 		
  		$criteria->addCondition('t.username not in (
  				select u.username from user u LEFT OUTER JOIN user_customer uc on (u.username = uc.username)
