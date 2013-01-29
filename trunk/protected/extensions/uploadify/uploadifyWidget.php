@@ -3,7 +3,7 @@ class uploadifyWidget extends CInputWidget {
     public $mult;
     private $assets;
     public $action;
-    public $idReview;
+    public $idCustomer;
     public $idAlbum;
     public $AjaxRemoveImageURL;
     public $AjaxAddImageDescriptionURL;
@@ -30,7 +30,7 @@ class uploadifyWidget extends CInputWidget {
         	array('mult'=>$this->mult,
         		'assets'=>$this->assets,
         		'action'=>$this->action,
-        		'idReview'=>$this->idReview,
+        		'idCustomer'=>$this->idCustomer,
         		'idAlbum'=>$this->idAlbum,
         		'AjaxRemoveImageURL'=>$this->AjaxRemoveImageURL,
         		'AjaxAddImageDescriptionURL'=>$this->AjaxAddImageDescriptionURL,

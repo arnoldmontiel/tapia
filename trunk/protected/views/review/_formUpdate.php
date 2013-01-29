@@ -523,7 +523,7 @@ $('#btnAlbum').click(function(){
 		).success(
 		function(data){
 			$('#loading').removeClass('loading');
-			var param = '&idAlbum='+data+'&idReview='+".$model->Id.";
+			var param = '&idAlbum='+data+'&idCustomer='+".$model->Id_customer.";
 		
 			$('#XUploadWidget_form').attr('action','".AlbumController::createUrl('album/AjaxUpload')."'+param);
 			$('#Album_Id_album').val(data);
@@ -532,7 +532,7 @@ $('#btnAlbum').click(function(){
 			{
 				$('#file_upload').uploadify({
 			        'swf'      : '".Yii::app()->request->baseUrl."/js/uploadify.swf',
-			        'uploader' : '".AlbumController::createUrl('album/AjaxUploadify')."&idAlbum='+$('#uploadify_id_album').val()+'&idReview='+$('#uploadify_id_review').val(),
+			        'uploader' : '".AlbumController::createUrl('album/AjaxUploadify')."&idAlbum='+$('#uploadify_id_album').val()+'&idCustomer='+$('#uploadify_id_customer').val(),
 			        // Put your options here
 			        'buttonText' : 'Seleccione',
 			        'onUploadSuccess' : function(file, data, response) {
