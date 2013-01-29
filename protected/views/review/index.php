@@ -74,7 +74,6 @@ function doFilter()
 			$('#loading').removeClass('loading');
 			$('#review-area').html(data);
 			$('#review-area').animate({opacity: 'show'},240);
-			$('#btn-create').attr('href','".ReviewController::createUrl('create')."'+'&Id_customer='+$('#Id_customer').val());
 		});		
 
 }
@@ -178,7 +177,7 @@ function(){
 	$(this).removeClass('wall-action-btn-hover');
 	}
 );
-$('#btnNew').hover(function(){
+$('#btnCreate').hover(function(){
 	if(!EnableButton($(this)))
 	{
 		return false;
@@ -189,6 +188,17 @@ function(){
 	$(this).removeClass('wall-action-btn-hover');
 	}
 );
+
+$('#btnCreate').click(function(){
+	if(!EnableButton($(this)))
+	{
+		return false;
+	}
+	SelectAButton($(this));
+	var url = '".ReviewController::createUrl('create') . "' + '&Id_customer='+$('#Id_customer').val();
+	window.location = url;
+	return false;
+});
 
 $('#btnPublicAlbum').click(function(){
 	var url = '".ReviewController::createUrl('index&Id_customer='.$Id_customer)."';
@@ -342,8 +352,8 @@ function getCheck(checkName)
 
 <?php
 	echo CHtml::openTag('div',array('class'=>'wall-action-box-btn','id'=>'btn-box'));
-		echo CHtml::openTag('div',array('class'=>'wall-action-btn','id'=>'btnNew'));
-			echo CHtml::link('Nuevo','',array('id'=>'btn-create','class'=>'submit-btn'));
+		echo CHtml::openTag('div',array('class'=>'wall-action-btn','id'=>'btnCreate'));
+			echo 'Nuevo';
 		echo CHtml::closeTag('div');
 		echo CHtml::openTag('div',array('class'=>'wall-action-btn','id'=>'btnAlbum'));
 			echo 'Album';
