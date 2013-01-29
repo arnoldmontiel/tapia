@@ -174,7 +174,7 @@ echo CHtml::imageButton(
 
 <?php
 $this->widget('ext.xupload.XUploadWidget', array(
-                    'url' => AlbumController::createUrl('album/AjaxUpload',array('idAlbum'=>$model->Id,'idReview'=>$model->Id_review)),
+                    'url' => AlbumController::createUrl('album/AjaxUpload',array('idAlbum'=>$model->Id,'idCustomer'=>$model->Id_customer)),
 					'multiple'=>true,
 					'name'=>'file',
 					'options' => array(

@@ -180,7 +180,7 @@ echo CHtml::imageButton(
 	$this->widget('ext.uploadify.uploadifyWidget', array(
 						'action' => AlbumController::createUrl('album/AjaxUploadify'),
 						'mult'=>true,
-						'idReview'=>$model->Id_review,
+						'idCustomer'=>$model->Id_customer,
 						'idAlbum'=>$model->Id,
 						'AjaxAddImageDescriptionURL'=>AlbumController::createUrl('album/AjaxAddImageDescription'),
 						'AjaxRemoveImageURL'=>AlbumController::createUrl('album/AjaxRemoveImage'),
