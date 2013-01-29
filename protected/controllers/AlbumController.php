@@ -119,20 +119,17 @@ class AlbumController extends Controller
 		));
 	}
 	
-	public function actionAjaxUpload($idAlbum, $idReview)
+	public function actionAjaxUpload($idAlbum, $idCustomer)
 	{
 
 		$file = $_FILES['file'];
 		
-		$modelReview = Review::model()->findByPk($idReview);
-		
 		$modelMultimedia = new Multimedia;
  		
- 		$modelMultimedia->Id_album = $idAlbum;
- 		$modelMultimedia->Id_review = $idReview;
+ 		$modelMultimedia->Id_album = $idAlbum; 		
  		$modelMultimedia->uploadedFile = $file;
  		$modelMultimedia->Id_multimedia_type = 1;
- 		$modelMultimedia->Id_customer = $modelReview->Id_customer;
+ 		$modelMultimedia->Id_customer = $idCustomer;
  		
  		$modelMultimedia->save();
  		
@@ -142,19 +139,16 @@ class AlbumController extends Controller
 		echo json_encode(array("name" => $img,"type" => '',"size"=> $size, "id"=>$modelMultimedia->Id));
 	}
 
-	public function actionAjaxUploadify($idAlbum, $idReview)
+	public function actionAjaxUploadify($idAlbum, $idCustomer)
 	{
  		$tempFile = $_FILES['Filedata'];
-		 
-		$modelReview = Review::model()->findByPk($idReview);
 	
 		$modelMultimedia = new Multimedia;
 			
-		$modelMultimedia->Id_album = $idAlbum;
-		$modelMultimedia->Id_review = $idReview;
+		$modelMultimedia->Id_album = $idAlbum;		
 		$modelMultimedia->uploadedFile = $tempFile;
 		$modelMultimedia->Id_multimedia_type = 1;
-		$modelMultimedia->Id_customer = $modelReview->Id_customer;
+		$modelMultimedia->Id_customer = $idCustomer;
 			
 		$modelMultimedia->save();
  		echo CHtml::openTag('div',array('id'=>$modelMultimedia->Id,'class'=>'album-view-image','style'=>'display:none;'));
@@ -301,7 +295,7 @@ class AlbumController extends Controller
 		{
 			$modelAlbum = new Album;
 			$modelAlbum->Id_customer = $_POST['idCustomer'];
-			$modelAlbum->Id_review = $_POST['idReview'];
+			$modelAlbum->Id_review = isset($_POST['idReview'])?$_POST['idReview']:null;
 			$modelAlbum->username = User::getCurrentUser()->username;
 			$modelAlbum->Id_user_group_owner = User::getCurrentUserGroup()->Id;
 			$transaction = $modelAlbum->dbConnection->beginTransaction();
@@ -323,7 +317,7 @@ class AlbumController extends Controller
 		{
 			$modelAlbum = new Album;
 			$modelAlbum->Id_customer = $_POST['idCustomer'];
-			$modelAlbum->Id_review = $_POST['idReview'];
+			$modelAlbum->Id_review = isset($_POST['idReview'])?$_POST['idReview']:null;
 			$modelAlbum->username = User::getCurrentUser()->username;
 			$modelAlbum->Id_user_group_owner = User::getCurrentUserGroup()->Id;
 			$transaction = $modelAlbum->dbConnection->beginTransaction();
@@ -339,7 +333,7 @@ class AlbumController extends Controller
 			$this->widget('ext.uploadify.uploadifyWidget', array(
 					'action' => AlbumController::createUrl('album/AjaxUploadify'),
 					'mult'=>true,
-					'idReview'=>$modelAlbum->Id_review,
+					'idCustomer'=>$modelAlbum->Id_customer,
 					'idAlbum'=>$modelAlbum->Id
 					
 			));

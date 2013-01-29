@@ -247,7 +247,7 @@ class ReviewController extends Controller
 		$criteria=new CDbCriteria;
 		
 		$criteria->addCondition('t.Id IN(select Id_multimedia from multimedia_note where Id_note = '. $idNote.')');
-		$criteria->addCondition('t.Id_review = '. $id);
+		//$criteria->addCondition('t.Id_review = '. $id);
 		$criteria->addCondition('t.Id_multimedia_type = 1'); //image
 		
 		$modelMultimediaSelected = Multimedia::model()->findAll($criteria);
@@ -771,7 +771,10 @@ class ReviewController extends Controller
 					
 				
 				$transaction->commit();
-				$this->redirect(array('update','id'=>$_POST['Id_review']));
+				if(isset($_POST['Id_review']) && $_POST['Id_review'] != null)
+					$this->redirect(array('update','id'=>$_POST['Id_review']));
+				else
+					$this->redirect(array('index&Id_customer='. $_POST['Id_customer']));
 					
 			} catch (Exception $e) {
 				$transaction->rollback();
