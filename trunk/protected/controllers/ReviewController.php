@@ -779,19 +779,17 @@ class ReviewController extends Controller
 				$model->uploadedFile = $file;
 				$model->Id_customer = $_POST['Id_customer'];				
 				
-				if($model->save())								
-					$this->redirect(array('index&Id_customer='. $_POST['Id_customer']));
-				else
-					$this->redirect(array('index'));
+				$model->save();													
 				
 				$transaction->commit();
-				$this->redirect(array('index&Id_customer='. $_POST['Id_customer']));
-// 				if(isset($_POST['Id_review']) && $_POST['Id_review'] != null)
-// 					$this->redirect(array('update','id'=>$_POST['Id_review']));
-// 				else
-// 					$this->redirect(array('index&Id_customer='. $_POST['Id_customer']));
+								
+				if(isset($_POST['Id_review']) && $_POST['Id_review'] != null)
+					$this->redirect(array('update','id'=>$_POST['Id_review']));
+				else
+					$this->redirect(array('index&Id_customer='. $_POST['Id_customer']));
 					
 			} catch (Exception $e) {
+				echo $e;
 				$transaction->rollback();
 			}
 		}
