@@ -58,6 +58,11 @@ function doFilter()
 
 		$('#btn-actions-box').removeClass('div-hidden');
 		$('#loading').addClass('loading');
+		
+		var searchTextCust = '';
+		if (typeof($('#txtSearchCustomer').val()) != 'undefined')
+			searchTextCust = $('#txtSearchCustomer').val();
+			
 		$.post('".ReviewController::createUrl('AjaxFillInbox')."', 
 		{
 			tagFilter: $('#tagFilter').val(),
@@ -66,7 +71,7 @@ function doFilter()
 			reviewTypeFilter: $('#reviewTypeFilter').val(),
 			dateFromFilter: $('#dateFromFilter').val(),
 			dateToFilter: $('#dateToFilter').val(),
-			customerNameFilter: $('#txtSearchCustomer').val()
+			customerNameFilter: searchTextCust
 			
 		}	
 		).success(
