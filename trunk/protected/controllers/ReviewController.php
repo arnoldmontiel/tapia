@@ -565,7 +565,7 @@ class ReviewController extends Controller
 				$criteria->group = 't.id';
 			}
 			
-			if($arrFilters['customerNameFilter'])
+			if(isset($arrFilters['customerNameFilter']))
 			{
 				$criteria->addCondition('t.name LIKE "%'. $arrFilters['customerNameFilter'].'%"');
 				$criteria->addCondition('t.last_name LIKE "%'. $arrFilters['customerNameFilter'].'%"', 'OR');
