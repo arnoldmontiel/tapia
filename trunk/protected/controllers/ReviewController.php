@@ -778,8 +778,7 @@ class ReviewController extends Controller
 					
 				$model->attributes = $multi;
 				$model->uploadedFile = $file;
-				$model->Id_customer = $_POST['Id_customer'];
-				$model->Id_review = $_POST['Id_review'];
+				$model->Id_customer = $_POST['Id_customer'];				
 					
 				$model->save();
 					
