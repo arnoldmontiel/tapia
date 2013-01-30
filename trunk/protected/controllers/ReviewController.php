@@ -778,8 +778,13 @@ class ReviewController extends Controller
 				$model->attributes = $multi;
 				$model->uploadedFile = $file;
 				$model->Id_customer = $_POST['Id_customer'];				
-					
-				$model->save();
+
+				try {
+					$model->save();
+				} catch (Exception $e) {
+					echo $e;
+				}
+				
 				$this->redirect(array('index&Id_customer='. $_POST['Id_customer']));
 				
 				$transaction->commit();
