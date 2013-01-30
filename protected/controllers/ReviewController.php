@@ -784,10 +784,11 @@ class ReviewController extends Controller
 					
 				
 				$transaction->commit();
-				if(isset($_POST['Id_review']) && $_POST['Id_review'] != null)
-					$this->redirect(array('update','id'=>$_POST['Id_review']));
-				else
-					$this->redirect(array('index&Id_customer='. $_POST['Id_customer']));
+				$this->redirect(array('index&Id_customer='. $_POST['Id_customer']));
+// 				if(isset($_POST['Id_review']) && $_POST['Id_review'] != null)
+// 					$this->redirect(array('update','id'=>$_POST['Id_review']));
+// 				else
+// 					$this->redirect(array('index&Id_customer='. $_POST['Id_customer']));
 					
 			} catch (Exception $e) {
 				$transaction->rollback();
