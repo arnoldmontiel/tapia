@@ -1,4 +1,5 @@
 <?php
+$browser = get_browser(null, true);
 Yii::app()->clientScript->registerScript('indexWall', "
 
 loadPage();
