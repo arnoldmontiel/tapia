@@ -788,8 +788,7 @@ class ReviewController extends Controller
 				else
 					$this->redirect(array('index&Id_customer='. $_POST['Id_customer']));
 					
-			} catch (Exception $e) {
-				echo $e;
+			} catch (Exception $e) {				
 				$transaction->rollback();
 			}
 		}
