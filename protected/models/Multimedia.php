@@ -121,7 +121,7 @@ class Multimedia extends CActiveRecord
 				
 				
 				$folder = "docs/";
-				$fileName = $this->customer->last_name . '_' . $this->customer->name . '_r' .  $this->review->review . '_' . $uniqueId.'.'.$ext;
+				$fileName = $customer->last_name . '_' . $customer->name . '_' . $uniqueId.'.'.$ext;
 				$filePath = $folder . $fileName;
 				
 				//save doc
