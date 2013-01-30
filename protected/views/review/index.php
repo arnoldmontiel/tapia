@@ -373,7 +373,7 @@ function getCheck(checkName)
 	<?php 
 		$modeNewlAlbum = new Album;
 		$browser = get_browser(null, true);
-		if($browser['browser']=='IE')
+		if(isset($browser) && $browser['browser']=='IE')
 		{
 			$this->renderPartial('_formAlbumIE',array('model'=>$modeNewlAlbum));				
 		}
