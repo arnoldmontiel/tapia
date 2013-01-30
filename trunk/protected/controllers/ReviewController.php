@@ -761,7 +761,7 @@ class ReviewController extends Controller
 	{
 		//$_FILES
 		$file = $_FILES["file"];
-	
+		$this->redirect(array('index&Id_customer='. $_POST['Id_customer']));
 		if ($_FILES["file"]["error"] > 0)
 		{
 			echo "Return Code: " . $_FILES["file"]["error"] . "<br />";
