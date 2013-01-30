@@ -761,7 +761,7 @@ class ReviewController extends Controller
 	{
 		//$_FILES
 		$file = $_FILES["file"];
-		$this->redirect(array('index&Id_customer='. $_POST['Id_customer']));
+				
 		if ($_FILES["file"]["error"] > 0)
 		{
 			echo "Return Code: " . $_FILES["file"]["error"] . "<br />";
@@ -771,9 +771,9 @@ class ReviewController extends Controller
 	
 			$multi = $_POST['Multimedia'];
 			$model = new Multimedia;
-	
+			
 			$transaction = $model->dbConnection->beginTransaction();
-	
+			$this->redirect(array('index&Id_customer='. $_POST['Id_customer']));
 			try {
 					
 				$model->attributes = $multi;
