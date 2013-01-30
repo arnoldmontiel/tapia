@@ -61,7 +61,7 @@ $('#btnPublicDoc').click(function(){
 	'method'=>'post',
 ));
 
-echo CHtml::hiddenField('Id_review',$Id_review,array('id'=>'Id_review'));
+echo CHtml::hiddenField('Id_review',isset($Id_review)?$Id_review:null,array('id'=>'Id_review'));
 echo CHtml::hiddenField('Id_customer',$Id_customer,array('id'=>'Id_customer'));
 ?>
 
