@@ -772,14 +772,13 @@ class ReviewController extends Controller
 			$multi = $_POST['Multimedia'];
 			$model = new Multimedia;
 			
-			$transaction = $model->dbConnection->beginTransaction();
-			$this->redirect(array('index&Id_customer='. $_POST['Id_customer']));
+			$transaction = $model->dbConnection->beginTransaction();			
 			try {
 					
 				$model->attributes = $multi;
 				$model->uploadedFile = $file;
 				$model->Id_customer = $_POST['Id_customer'];				
-					
+				$this->redirect(array('index&Id_customer='. $_POST['Id_customer']));
 				$model->save();
 					
 				
