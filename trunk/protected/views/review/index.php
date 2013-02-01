@@ -370,6 +370,16 @@ function getCheck(checkName)
 	echo CHtml::closeTag('div');
 ?>
 <?php endif;?>
+
+<?php if(User::canCreate() && $Id_customer == -1):?>
+
+<?php
+	echo CHtml::openTag('div',array('class'=>'review-action-box-btn div-hidden','id'=>'btn-actions-box'));
+		echo CHtml::textField('txtSearchCustomer','',array('Id'=>'txtSearchCustomer'));			
+	echo CHtml::closeTag('div');	
+?>
+<?php endif;?>
+
 </div>
 <!-- *************** ALBUM ******************************* -->
 
@@ -404,15 +414,6 @@ function getCheck(checkName)
 		$this->renderPartial('_formDocument',array('model'=>$modelMulti, 'Id_review'=>null, 'Id_customer'=>$Id_customer));
 	?>
 </div>
-
-<?php if(User::canCreate() && $Id_customer == -1):?>
-
-<?php
-	echo CHtml::openTag('div',array('class'=>'review-action-box-btn div-hidden','id'=>'btn-actions-box'));
-		echo CHtml::textField('txtSearchCustomer','',array('Id'=>'txtSearchCustomer'));			
-	echo CHtml::closeTag('div');	
-?>
-<?php endif;?>
 
 
 <?php
