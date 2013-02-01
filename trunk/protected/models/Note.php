@@ -63,10 +63,11 @@ class Note extends CActiveRecord
 		return array(
 			array('Id_customer, username, Id_user_group_owner', 'required'),
 			array('Id_customer, Id_review, in_progress, need_confirmation, confirmed, Id_user_group_owner', 'numerical', 'integerOnly'=>true),
+			array('title', 'length', 'max'=>255),
 			array('note, creation_date,change_date', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id, note, creation_date, change_date, Id_customer, Id_review, in_progress, need_confirmation, confirmed, username, Id_user_group_owner', 'safe', 'on'=>'search'),
+			array('Id, note, creation_date, change_date, Id_customer, Id_review, in_progress, need_confirmation, confirmed, username, Id_user_group_owner, title', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -109,6 +110,7 @@ class Note extends CActiveRecord
 			'confirmed' => 'Confirmed',
 			'username' => 'Username',
 			'Id_user_group_owner' => 'Id User Group Owner',
+			'title' => 'Titulo',
 		);
 	}
 

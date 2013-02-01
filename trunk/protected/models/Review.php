@@ -14,6 +14,9 @@
  * @property integer $Id_review_type
  * @property string $username
  * @property integer $Id_user_group
+ * @property string $closing_description
+ * @property integer $is_open
+ * 
  * The followings are the available model relations:
  * @property Album[] $albums
  * @property Multimedia[] $multimedias
@@ -65,15 +68,15 @@ class Review extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('Id_customer,Id_review_type', 'required'),
-			array('review, Id_customer, read, Id_review_type', 'numerical', 'integerOnly'=>true),
-			array('description, creation_date, change_date', 'safe'),		
+			array('review, Id_customer, read, Id_review_type, is_open', 'numerical', 'integerOnly'=>true),
+			array('description, creation_date, change_date, closing_description', 'safe'),		
 			array('username', 'length', 'max'=>128),
 			array('change_date','default',
 				              'value'=>new CDbExpression('NOW()'),
 				              'setOnEmpty'=>false,'on'=>'insert,update'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Id, review, Id_customer, description,creation_date, change_date, read, Id_review_type', 'safe', 'on'=>'search'),
+			array('Id, review, Id_customer, description,creation_date, change_date, read, Id_review_type, closing_description, is_open', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -110,6 +113,7 @@ class Review extends CActiveRecord
 			'change_date' => 'Change Date',
 			'read' => 'Read',
 			'Id_review_type' => 'Id Review Type',
+			'closing_description' => 'Descripción de Cierre',			
 		);
 	}
 
