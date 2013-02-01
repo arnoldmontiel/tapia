@@ -1,6 +1,20 @@
 <?php
 Yii::app()->clientScript->registerScript('form-note', "
 
+$('#Note_title').change(function(){
+	$.post(
+		'".NoteController::createUrl('note/AjaxUpdateNoteTitle')."',
+		{
+			id: $('#Note_Id_note').val(),
+			title:$(this).val()
+		}).success(
+			function() 
+			{ 
+				//$('#saveok2').animate({opacity: 'show'},2000);
+				//$('#saveok2').animate({opacity: 'hide'},2000);
+			});
+		}
+	);
 		
 $('#Note_note').change(function(){
 	$.post(
@@ -44,6 +58,11 @@ $('#Note_need_confirmation').change(function(){
 
 	<?php echo CHtml::hiddenField('Note_Id_note',$model->Id,array('id'=>'Note_Id_note')); ?>
 	
+	<div class="row">
+		<?php echo $formNote->labelEx($model,'title'); ?>
+		<?php echo $formNote->textField($model,'title',array('placeholder'=>'Escriba un titulo...')); ?>
+		<?php echo $formNote->error($model,'title'); ?>
+	</div>
 	
 	<div class="row">
 		<?php echo $formNote->textArea($model,'note',array('rows'=>2, 'cols'=>110,'class'=>'wall-action-upload-file-description', 'placeholder'=>'Escriba una nota...')); ?>

@@ -11,6 +11,22 @@ $editable = $isAdministrator||$isOwner;
 ?>
 
 <div class="review-single-view" id="<?php echo $data->Id?>" >
+	<div class="view-note-title">
+	<?php if($editable):?>
+		<div id='edit_main_title_<?php echo $data->Id?>' class="review-create-note-btn review-create-title-btn-main div-hidden">
+			Grabar
+		</div>
+		<div id='edit_main_title_cancel_<?php echo $data->Id?>' class="review-create-note-btn review-create-title-btn-main-cancel div-hidden">
+			Cancelar
+		</div>
+		<textarea id='main_title<?php echo $data->Id?>' class="wall-action-edit-main-title" placeholder='Escriba un titulo...'><?php echo $data->title;?></textarea>
+		<textarea id='main_original_title<?php echo $data->Id?>' class="wall-action-edit-main-title" style="display: none;" placeholder='Escriba un titulo...'><?php echo $data->title;?></textarea>
+		<?php else:?>
+			<div class="wall-action-edit-main-title" >
+			<p class="single-formated-text"><?php echo $data->title;?></p>
+			</div>
+		<?php endif;?>
+	</div>
 	<div class="view-text-date"><?php echo $data->change_date;?></div>
 	<?php if($editable):?>
 	<div id='edit_image<?php echo $data->Id?>' class="review-edit-image div-hidden">	
