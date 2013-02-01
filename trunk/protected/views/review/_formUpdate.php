@@ -69,6 +69,14 @@ function bindEvents(item)
 	}
 	);
 
+	$(item).find('#main_title'+idMainNote).focus(function()
+	{
+		$(this).addClass('review-white');
+		$(item).find('#edit_main_title_'+idMainNote).removeClass('div-hidden');
+		$(item).find('#edit_main_title_cancel_'+idMainNote).removeClass('div-hidden');
+	}
+	);
+	
 	$(item).find('#main_note'+idMainNote).focus(function()
 	{
 		$(this).addClass('review-white');
@@ -76,7 +84,15 @@ function bindEvents(item)
 		$(item).find('#edit_main_note_cancel_'+idMainNote).removeClass('div-hidden');
 	}
 	);
-		
+
+	$(item).find('#edit_main_title_cancel_'+idMainNote).click(function(){
+		$(item).find('#main_title'+idMainNote).removeClass('review-white');
+		var title = $(item).find('#main_title'+idMainNote);
+		$(item).find('#edit_main_title_'+idMainNote).addClass('div-hidden');
+		$(this).addClass('div-hidden');
+		$(title).val($(item).find('#main_original_title'+idMainNote).val());
+	})
+	
 	$(item).find('#edit_main_note_cancel_'+idMainNote).click(function(){
 		$(item).find('#main_note'+idMainNote).removeClass('review-white');
 		var note = $(item).find('#main_note'+idMainNote);
@@ -130,6 +146,26 @@ function bindEvents(item)
 						$(item).find('#main_original_note'+idMainNote).val($(item).find('#main_note'+idMainNote).val());
 						$(item).find('#edit_main_note_'+idMainNote).addClass('div-hidden');
 						$(item).find('#edit_main_note_cancel_'+idMainNote).addClass('div-hidden');
+					}
+			);
+ 
+	});
+	
+	$(item).find('#edit_main_title_'+idMainNote).click(function(){
+		var title = $(item).find('#main_title'+idMainNote);
+		var value = $(title).val();
+		$.post(
+			'".Yii::app()->createUrl('note/AjaxUpdateNoteTitle')."',
+			{
+			 	id: idMainNote,
+				title: $(title).val()
+			 }).success(
+					function(data) 
+					{ 
+						$(item).find('#main_title'+idMainNote).removeClass('review-white');
+						$(item).find('#main_original_title'+idMainNote).val($(item).find('#main_title'+idMainNote).val());
+						$(item).find('#edit_main_title_'+idMainNote).addClass('div-hidden');
+						$(item).find('#edit_main_title_cancel_'+idMainNote).addClass('div-hidden');
 					}
 			);
  
@@ -859,6 +895,16 @@ $('#need_reload').click(function(){
 				echo CHtml::closeTag('div');				
 			} 
 			echo CHtml::image('images/reload.png','',array('class'=>'review-need-update', 'id'=>'need_reload','title'=>'Recargar'));
+		?>
+	</div>
+	<div class="review-close-review">
+		<?php
+			if(User::canCreate() && $model->username == User::getCurrentUser()->username)
+			{
+				echo CHtml::openTag('div',array('class'=>'wall-action-btn','id'=>'btnClose'));
+					echo 'Cerrar';
+				echo CHtml::closeTag('div');
+			}
 		?>
 	</div>
 </div>

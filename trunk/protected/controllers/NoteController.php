@@ -136,6 +136,20 @@ class NoteController extends Controller
 		));
 	}
 
+	public function actionAjaxUpdateNoteTitle()
+	{
+		$title = $_POST['title'];
+		$id = $_POST['id'];
+		$model=$this->loadModel($id);
+		if(isset($model))
+		{
+			$model->title = $title;
+			$model->save();
+			$this->markAsUnread($model);
+		}
+	
+	}
+	
 	public function actionAjaxUpdateNoteDesc()
 	{
 		$note = $_POST['note'];
