@@ -59,6 +59,11 @@ class Review extends CActiveRecord
 		return 'review';
 	}
 
+	public function isOpen()
+	{
+		return $this->is_open;
+	}
+	
 	/**
 	 * @return array validation rules for model attributes.
 	 */
