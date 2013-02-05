@@ -1327,6 +1327,20 @@ div.review-update-data
 	margin-top: 0px;
 	
 }
+div.review-close-area
+{
+	position:relative;
+	display: inline-block;
+	padding:5px 10px 10px 10px;
+	border-top: 1px solid white;
+	border-bottom: 1px solid white;
+	background-color: #cccccc;
+	width: 940px;	
+	height: 35px;	
+	margin-left: 15px;
+	margin-top: 0px;
+	
+}
 input.review-update-data-number
 {	
 	color:#666666;	
@@ -1569,6 +1583,18 @@ div.index-review-type-box
 	border: 1px solid white;
 	background-color: #96CDCD;
 }
+div.index-review-close-box
+{
+	margin:0px 0px 0px 5px;
+	padding: 0px 2px 0px 2px;
+	float: left;
+	position:relative;
+	display: inline-block;
+	font-size: 12px;
+	border: 1px solid white;
+	background-color: #cccccc;
+}
+
 div.index-review-resource-box
 {
 	margin:0px 0px 0px 5px;
