@@ -69,6 +69,32 @@ function bindEvents(item)
 	}
 	);
 
+	$(item).find('.check-last-doc').click(function()
+	{	
+		var url = $(this).attr('url');	
+		$.post(
+			'".ReviewController::createUrl('AjaxCheckLastDoc')."',
+			{
+				idCustomer: $(this).attr('idcustomer'),
+			 	idMultimedia: $(this).attr('idmultimedia'),
+				idDocType: $(this).attr('iddocType')				
+			 }).success(
+					function(data) 
+					{ 
+						
+						if(data != '')
+						{
+							if(confirm('Existe una actualizacion de este documento, desea abrirla? (Si cancela se abrira la version adjuntada a la nota)'))
+								url = data;
+						}
+						window.open(url,'_blank');
+						return false;
+						
+					}
+			);
+	}
+	);
+	
 	$(item).find('#main_title'+idMainNote).focus(function()
 	{
 		$(this).addClass('review-white');
