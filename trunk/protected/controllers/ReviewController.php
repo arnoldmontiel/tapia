@@ -322,14 +322,11 @@ class ReviewController extends Controller
 	
 		$criteria=new CDbCriteria;
 	
-		$criteria->addCondition('t.Id_document_type IN(select m.Id_document_type from multimedia_note mn, multimedia m
-						where mn.Id_multimedia = m.Id AND m.Id_document_type is not null AND Id_note = '. $idNote.')');
-		
-		$criteria->addCondition('t.Id IN (SELECT max(Id) FROM multimedia
-											WHERE Id_customer = '. $model->Id_customer .'
-											AND Id_document_type is not null 
-											AND Id_multimedia_type >= 3
-											GROUP BY Id_document_type)');
+		$criteria->addCondition('t.Id IN(select Id_multimedia from multimedia_note where Id_note = '. $idNote.')');
+		//$criteria->addCondition('t.Id_review = '. $id);
+		$criteria->addCondition('t.Id_customer = '. $model->Id_customer);
+		$criteria->addCondition('t.Id_document_type is not null');
+		$criteria->addCondition('t.Id_multimedia_type >= 3'); //docs (pdf or autocad)		
 	
 		$modelMultimediaSelected = Multimedia::model()->findAll($criteria);
 	
@@ -407,6 +404,28 @@ class ReviewController extends Controller
 		);
 	}
 
+	public function actionAjaxCheckLastDoc()
+	{
+		$idMultimedia = $_POST['idMultimedia'];
+		$idDocType = $_POST['idDocType'];
+		$idCustomer = $_POST['idCustomer'];
+		
+		$criteria=new CDbCriteria;
+		$criteria->select = 'MAX(Id) as last';
+		$criteria->addCondition('Id_document_type = '. $idDocType);
+		$criteria->addCondition('Id_customer = '. $idCustomer);		
+		
+		$model = Multimedia::model()->find($criteria);
+		
+		if($model->last > $idMultimedia)
+		{
+			$lastMultimedia = Multimedia::model()->findByPk($model->last);			
+			echo Yii::app()->baseUrl.'/docs/'.$lastMultimedia->file_name;
+		}
+		
+		echo '';
+	}
+	
 	public function actionAjaxGetCustomerName()
 	{
 		$idCustomer = ($_POST['Id_customer'])?$_POST['Id_customer']:null;
