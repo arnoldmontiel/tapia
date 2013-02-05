@@ -792,7 +792,10 @@ $('#btnAttachTechDocToNote').click(function(){
 });
 
 $('#btnClose').click(function(){
-	jQuery('#ClosingReviewDialog').dialog('open'); 
+	
+	if(confirm('Si cierra el tema, todas las notas con confirmaciones pendientes se autoconfirmaran'))
+		jQuery('#ClosingReviewDialog').dialog('open'); 
+		
 	return false;
 });
 
@@ -1140,7 +1143,10 @@ $this->beginWidget('zii.widgets.jui.CJuiDialog', array(
 					'modal'=>true,
 					'width'=> '500',
 					'buttons'=>	array(
-							'Cancelar'=>'js:function(){jQuery("#ClosingReviewDialog").dialog( "close" );}',
+							'Cancelar'=>'js:function(){
+										jQuery("#ClosingReviewDialog").dialog( "close" );
+										$("#Review_closing_description").val(null);
+							}',
 							'Guardar'=>'js:function()
 							{
 							jQuery("#wating").dialog("open");			

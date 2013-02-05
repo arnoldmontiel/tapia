@@ -265,26 +265,30 @@ $editable = $isAdministrator||$isOwner;
 						}
 						else
 						{
-							if($outOfDate)
-							{
-								$color= 'background-color:#80e765;color:black;';
-								$label= CHtml::decode('Auto Conf');
-								$date = '('. $modelUserGroupNoteInstance->getDueDate() .')';
-							}
-							else 
+							if($modelUserGroupNoteInstance->confirmed || $modelUserGroupNoteInstance->declined)
 							{
 								if($modelUserGroupNoteInstance->confirmed)
 								{
-			 						$color= 'background-color:#80e765;color:black;';
+									$color= 'background-color:#80e765;color:black;';
 									$label= CHtml::decode('Confirmado');
 								}
 								else
 								{
-			 						$color= 'background-color:#ed5656;color:black;';
+									$color= 'background-color:#ed5656;color:black;';
 									$label= CHtml::decode('Declinado');
 								}
 								$date = '('. $modelUserGroupNoteInstance->getConfirmDate() .')';
 							}
+							else
+							{
+								if($outOfDate)
+								{
+									$color= 'background-color:#80e765;color:black;';
+									$label= CHtml::decode('Auto Conf');
+									$date = '('. $modelUserGroupNoteInstance->getDueDate() .')';
+								}
+							}
+							
 						}
 						
 						echo CHtml::openTag('div', array('class'=>'review-permission-row'));

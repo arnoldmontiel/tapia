@@ -3,7 +3,8 @@ Yii::app()->clientScript->registerScript(__CLASS__.'#review-view-data'.$data->Id
 ");
 $needConfirmation = $dataUserGroupNote->need_confirmation;
 $confirmed = $dataUserGroupNote->confirmed;
-$declined = $dataUserGroupNote->declined; 
+$declined = $dataUserGroupNote->declined;
+$isOwner = User::isOwnerOf($data); 
 ?>
 
 <div class="review-single-view" id="<?php echo $data->Id?>" >
@@ -79,31 +80,17 @@ $declined = $dataUserGroupNote->declined;
 		 			}
 		 			else 
 		 			{
-		 				$outOfDate = isset($dataUserGroupNote)?$dataUserGroupNote->isOutOfDate():false;
-		 				if($outOfDate)
-		 				{
-		 					echo CHtml::openTag('div',
-		 						array(
- 							 			'class'=>'review-confirmed-note-btn review-confirm-note-btn-pos',
- 							 			'style'=>'background-color:#80e765;color:black;',
-		 							)
-		 						);
-		 					echo 'Auto Conf';
-		 					echo CHtml::closeTag('div');
-		 					echo CHtml::openTag('div',array('class'=>'review-conf-note-pos'));
-		 					echo '('. $dataUserGroupNote->getDueDate() .')';
-		 					echo CHtml::closeTag('div');
-		 					
-		 				}
-		 				else 
-		 				{
-			 				echo CHtml::openTag('div',array('class'=>'review-confirm-note-btn review-confirm-note-btn-pos','id'=>'confirm_note_'.$data->Id));
-			 				echo 'Confirmar';
-			 				echo CHtml::closeTag('div');
-			 				echo CHtml::openTag('div',array('class'=>'review-decline-note-btn review-decline-note-btn-pos','id'=>'decline_note_'.$data->Id));
-			 				echo 'Rechazar';
-			 				echo CHtml::closeTag('div');
-		 				}
+		 				echo CHtml::openTag('div',
+		 					array(
+ 						 			'class'=>'review-confirmed-note-btn review-confirm-note-btn-pos',
+ 						 			'style'=>'background-color:#80e765;color:black;',
+		 						)
+		 					);
+		 				echo 'Auto Conf';
+		 				echo CHtml::closeTag('div');
+		 				echo CHtml::openTag('div',array('class'=>'review-conf-note-pos'));
+		 				echo '('. $dataUserGroupNote->getDueDate() .')';
+		 				echo CHtml::closeTag('div');
 		 			}
 		 		}
 		 	?>
@@ -241,7 +228,7 @@ $declined = $dataUserGroupNote->declined;
 	<?php endif;?>
 	</div>
 	<div class="singles-notes-confirmations">
-		<?php if ($needConfirmation):?>
+		<?php if ($needConfirmation || $isOwner):?>
 		<div class="singles-notes-confirmations-title">
 			<?php 
 			echo CHtml::encode("Estado de confirmaciones:");
@@ -280,17 +267,13 @@ $declined = $dataUserGroupNote->declined;
 							$color.='#ed5656;color:black;';
 							$date = '('. $item->getConfirmDate() .')';
 						}
-						else if($outOfDate)
+						else 
 						{
 							$text = CHtml::encode("Auto Conf");
 							$color.='#80e765;color:black;';
 							$date = '('. $item->getDueDate() .')';
 						}
-						else
-						{
-							$text = CHtml::encode("Pendiente");						
-							$color.='#AFBAD7;color:black;';
-						}
+						
 						echo CHtml::openTag('div',array('class'=>'status-permission-data','style'=>$color));
 						echo $text;
 						echo CHtml::closeTag('div');
