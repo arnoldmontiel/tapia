@@ -294,6 +294,18 @@ a.review-text-docs:HOVER
 {
 	text-decoration: underline;
 }
+p.review-text-docs
+{
+	text-decoration: none;
+	color: #0066CC;
+	cursor: pointer;
+}
+p.review-text-docs:HOVER
+{
+	text-decoration: underline;
+	color: #0099FF;
+	cursor: pointer;
+}
 
 div.view-text-simple-title
 {
