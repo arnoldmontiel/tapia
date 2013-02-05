@@ -206,13 +206,15 @@ $isOwner = User::isOwnerOf($data);
 			}
 			echo CHtml::closeTag('div');
 		
-			echo CHtml::link(
-			CHtml::encode($item->documentType->name),
-			Yii::app()->baseUrl.'/docs/'.$item->file_name,
-			array('target'=>'_blank','class'=>'review-text-docs')
-			);
+			echo CHtml::openTag('p',array('class'=>'review-text-docs check-last-doc',
+														'url'=>Yii::app()->baseUrl.'/docs/'.$item->file_name,
+														'idcustomer'=>$item->Id_customer, 
+														'idmultimedia'=>$item->Id, 
+														'iddocType'=>$item->Id_document_type));
+			echo CHtml::encode($item->documentType->name);
 			echo CHtml::encode(' '.round(($item->size / 1024), 2));
 			echo CHtml::encode(' (Kb) ');
+			echo CHtml::closeTag('p');
 		
 			echo CHtml::openTag('div',array('class'=>'review-area-single-files-description'));
 			echo CHtml::encode($item->description);
