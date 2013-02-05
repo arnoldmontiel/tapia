@@ -36,7 +36,7 @@ class Multimedia extends CActiveRecord
 {
 	
 	public $uploadedFile;
-	
+	public $last;
 	
 	public function beforeSave()
 	{
