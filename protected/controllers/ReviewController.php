@@ -133,6 +133,16 @@ class ReviewController extends Controller
 		echo $modelMax->maxReview + 1;
 	}
 	
+	public function actionViewClose($id, $order=null)
+	{
+		$model=$this->loadModel($id);
+		
+		$this->render('viewClose',array(
+					'model'=>$model,					
+		//'order'=>$order,deprecated
+		));
+	}
+	
 	/**
 	 * Updates a particular model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
@@ -677,6 +687,20 @@ class ReviewController extends Controller
 		}
 		else
 			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+	}
+	
+	
+	public function actionAjaxCloseReview()
+	{
+		$id = $_POST['id'];
+		$closingDescription = $_POST['closingDescription'];
+		
+		$model=$this->loadModel($id);
+		$model->closing_description = $closingDescription;
+		$model->is_open = 0;
+
+		$model->save();		
+		
 	}
 	
 	public function actionAjaxAddNote()

@@ -1,4 +1,9 @@
-<a href="<?php echo ReviewController::createUrl('update',array('id'=>$data->Id))?>" class="index-review-single-link">
+<?php
+$route = 'update';
+if(!$data->isOpen())
+	$route = 'viewClose';
+?>
+<a href="<?php echo ReviewController::createUrl($route,array('id'=>$data->Id))?>" class="index-review-single-link">
 <div class="index-review-single" id='review_<?php echo $data->Id; ?>'>
 	<div class="index-review-single-container">
 
@@ -8,9 +13,15 @@
 		if($modelReviewUser && $modelReviewUser->read)
 			$classStyle = 'index-review-summary'; ?>
 	
-	<?php	
+	<?php
+		if(!$data->is_open)
+		{
+			echo CHtml::openTag('div',array('class'=>'index-review-close-box','title'=>$data->closing_description));
+				echo "Cerrado";
+			echo CHtml::closeTag('div');
+		}	
 		echo CHtml::openTag('div',array('class'=>'index-review-type-box'));
-		echo $data->reviewType->description;
+			echo $data->reviewType->description;
 		echo CHtml::closeTag('div');
 	?>
 	

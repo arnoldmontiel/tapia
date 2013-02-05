@@ -751,20 +751,6 @@ $('#btnAttachImgToNote').click(function(){
 	return false;
 });
 
-$('#btnAttachDocToNote').click(function(){
-	
-	var url = '".ReviewController::createUrl('AjaxAttachDoc',array('id'=>$model->Id))."';
-	window.location = url + '&idNote='+$('#Note_Id_note').val();
-	return false;
-});
-
-$('#btnAttachTechDocToNote').click(function(){
-	
-	var url = '".ReviewController::createUrl('AjaxAttachTechDoc',array('id'=>$model->Id))."';
-	window.location = url + '&idNote='+$('#Note_Id_note').val();
-	return false;
-});
-
 $('#btnClose').click(function(){
 	jQuery('#ClosingReviewDialog').dialog('open'); 
 	return false;
@@ -846,31 +832,6 @@ $(':checkbox').click(function() {
 		}
 	});
 	
-setInterval(function() {
-
-	$.post('".ReviewController::createUrl('AjaxCheckUpdate')."', 
-			{
-				id: ".$model->Id."	
-			}	
-			).success(
-			function(data){
-				if(data == 0){
-					$('#need_reload').animate({opacity: 'show'},240);
-					$('#notification').animate({opacity: 'show'},240);
-					if('".$browser['browser']."'=='IE')
-					{
-						$('#notification').removeClass('div-hidden');
-					}		
-				}			
-	});
-}, 20000)
-$('#notification').click(function(){
-		
-	var url = '".ReviewController::createUrl('update',array('id'=>$model->Id))."';
-	window.location = url + '&order='+$('#info_order').val();
-	return false;
-		
-	});
 		
 $('#need_reload').click(function(){
 		
@@ -881,196 +842,52 @@ $('#need_reload').click(function(){
 	});
 ");
 ?>
-<div id="notification" class="review-update-notification div-hidden">
-	Hay novedades, click para actualizar
-</div>
 <div class="review-update-data">
 
 	<div class="review-update-data-info">
-		<?php 
-			if(User::canCreate() && $model->username == User::getCurrentUser()->username)
-			{
-				echo CHtml::activeTextField($model,'review',array('class'=>'review-update-data-number'));
-				echo CHtml::encode(' - ');				
-			}
-			else
-			{
-				echo CHtml::openTag('div',array('class'=>'review-update-data-info-descr-number'));				
-				echo CHtml::encode($model->review.' -');				
-				echo CHtml::closeTag('div');				
-			} 
+		<?php 			
+			echo CHtml::openTag('div',array('class'=>'review-update-data-info-descr-number'));				
+			echo CHtml::encode($model->review.' -');				
+			echo CHtml::closeTag('div');				
 		?>
 	</div>
 	<div class="review-update-data-info-descr">
 		<?php 
-			if(User::canCreate() && $model->username == User::getCurrentUser()->username) 
-				echo CHtml::activeTextArea($model,'description',array('class'=>'review-update-data-text','rows'=>2, 'cols'=>70)); 
-			else
-			{
-				echo CHtml::openTag('div',array('class'=>'review-update-data-info-descr-text'));				
-				echo CHtml::encode($model->description);				
-				echo CHtml::closeTag('div');				
-			} 
+			echo CHtml::openTag('div',array('class'=>'review-update-data-info-descr-text'));				
+			echo CHtml::encode($model->description);				
+			echo CHtml::closeTag('div');				 
 			echo CHtml::image('images/reload.png','',array('class'=>'review-need-update', 'id'=>'need_reload','title'=>'Recargar'));
 		?>
 	</div>
-	<div class="review-close-review">
-		<?php
-			if(User::canCreate() && $model->username == User::getCurrentUser()->username)
-			{
-				echo CHtml::openTag('div',array('class'=>'wall-action-btn','id'=>'btnClose'));
-					echo 'Cerrar';
-				echo CHtml::closeTag('div');
-			}
-		?>
-	</div>
 </div>
-
+<div class="review-close-area">
+<?php 
+	echo CHtml::encode($model->closing_description);
+?>
+</div>
 <div class="wall-action-area" id="wall-action-area">
-<div id="customer" class="review-action-back" >
+	<div id="customer" class="review-action-back" >
 	<?php echo CHtml::link($model->customer->name.' '.$model->customer->last_name,
 		ReviewController::createUrl('index',array('Id_customer'=>$model->Id_customer)),
 		array('class'=>'index-review-single-link')
 		);
 	 ?>
-</div>
+	</div>
 
-<?php if(User::canCreate() && $model->username == User::getCurrentUser()->username):?>
-<div id="loading" class="loading-place-holder" >
-</div>
-<?php
+	<div id="loading" class="loading-place-holder" >
+	</div>
+	<?php
 	echo CHtml::openTag('div',array('class'=>'wall-action-box-btn','id'=>'btn-box'));
-		echo CHtml::openTag('div',array('class'=>'wall-action-btn','id'=>'btnAlbum'));
-			echo 'Album';
-		echo CHtml::closeTag('div');	
-		echo CHtml::openTag('div',array('class'=>'wall-action-btn','id'=>'btnNote'));
-			echo 'Notas';
-		echo CHtml::closeTag('div');	
-		echo CHtml::openTag('div',array('class'=>'wall-action-btn','id'=>'btnDoc'));
-			echo 'Documentos';
-		echo CHtml::closeTag('div');
-// 		if($model->username == User::getCurrentUser()->username )
-// 		{
-// 			echo CHtml::openTag('div',array('class'=>'review-type'));
-// 				$reviewTypes = CHtml::listData($ddlReviewType, 'Id', 'description');
-// 				echo CHtml::label('Tipo: ','Id_review_type');
-// 				echo CHtml::activeDropDownList($model, 'Id_review_type', $reviewTypes);
-// 			echo CHtml::closeTag('div');
-// 		}
-// 		else
-// 		{
-			echo CHtml::openTag('div',array('class'=>'review-type'));
-				echo CHtml::openTag('div',array('class'=>'review-attr-level'));		
-					echo CHtml::label('Tipo: ','Id_review_type');
-				echo CHtml::closeTag('div');
-				echo CHtml::openTag('div',array('class'=>'review-attr-text'));		
-					echo CHtml::encode($model->reviewType->description);
-				echo CHtml::closeTag('div');
+	
+		echo CHtml::openTag('div',array('class'=>'review-type'));
+			echo CHtml::openTag('div',array('class'=>'review-attr-level'));		
+				echo CHtml::label('Tipo: ','Id_review_type');
 			echo CHtml::closeTag('div');
-// 		}
-// 		echo CHtml::openTag('div',array('class'=>'order-info'));
-// 			echo CHtml::label('Orden: ','info_order');
-// 			$orderData = array('addressed'=>'Para','can_feedback'=>'Respuesta','need_confirmation'=>'Confirmaci'.utf8_encode('ó').'n');
-// 			echo CHtml::dropDownList('info_order', ($order)?$order:'addressed', $orderData);
-// 		echo CHtml::closeTag('div');
-		
-	echo CHtml::closeTag('div');	
-?> 
-<?php else:?>
-<div id="loading" class="loading-place-holder" >
-</div>
-<?php
-echo CHtml::openTag('div',array('class'=>'wall-action-box-btn','id'=>'btn-box'));
-
-	echo CHtml::openTag('div',array('class'=>'review-type'));
-		echo CHtml::openTag('div',array('class'=>'review-attr-level'));		
-			echo CHtml::label('Tipo: ','Id_review_type');
-		echo CHtml::closeTag('div');
-		echo CHtml::openTag('div',array('class'=>'review-attr-text'));		
-			echo CHtml::encode($model->reviewType->description);
+			echo CHtml::openTag('div',array('class'=>'review-attr-text'));		
+				echo CHtml::encode($model->reviewType->description);
+			echo CHtml::closeTag('div');
 		echo CHtml::closeTag('div');
 	echo CHtml::closeTag('div');
-// 	echo CHtml::openTag('div',array('class'=>'order-info'));
-// 		echo CHtml::label('Orden: ','info_order');
-// 		$orderData = array('addressed'=>'Para','can_feedback'=>'Respuesta','need_confirmation'=>'Confirmaci'.utf8_encode('ó').'n');
-// 		echo CHtml::dropDownList('info_order', ($order)?$order:'addressed', $orderData);
-// 	echo CHtml::closeTag('div');
-echo CHtml::closeTag('div');
-?>
-<?php endif;?>
-</div>
-<!-- *************** NOTE ******************************* -->
-
-<div id="wall-action-note"  class='wall-action-area-note' style="display:none">
-	<div class="review-action-area-dialog" style="left: 310px;">
-	</div>
-	<?php 
-		
-		$modelNote = (isset($idNote))? Note::model()->findByPk($idNote):new Note;
-		$this->renderPartial('_formNote',array('model'=>$modelNote));
-	?>		
-	<div class="row" style="text-align: center;">
-		<?php echo CHtml::button('Guardar',array('class'=>'wall-action-submit-btn','id'=>'btnSaveNote'));?>
-		<?php echo CHtml::button('Adjuntar Imagen',array('class'=>'wall-action-submit-btn','id'=>'btnAttachImgToNote', 'style'=>'width:150px'));?>
-		<?php echo CHtml::button('Adjuntar Docs',array('class'=>'wall-action-submit-btn','id'=>'btnAttachDocToNote', 'style'=>'width:150px'));?>
-		<?php 
-			if(User::useTechnicalDocs())
-				echo CHtml::button('Adjuntar Tec Docs',array('class'=>'wall-action-submit-btn','id'=>'btnAttachTechDocToNote', 'style'=>'width:150px'));
-		?>
-		<?php echo CHtml::button('Cancelar',array('class'=>'wall-action-submit-btn','id'=>'btnCancelNote'));?>
-	</div>
-</div>
-
-<!-- *************** ALBUM ******************************* -->
-
-<div id="wall-action-album"  class='wall-action-area-note' style="display:none">
-	<div class="review-action-area-dialog" style="left: 190px;">
-	</div>
-	<?php 
-		$modeNewlAlbum = new Album;
-		$browser = get_browser(null, true);
-		if($browser['browser']=='IE')
-		{
-			$this->renderPartial('_formAlbumIE',array('model'=>$modeNewlAlbum));				
-		}
-		else 
-		{
-			$this->renderPartial('_formAlbum',array('model'=>$modeNewlAlbum));				
-		}
-	?>
-	<div class="row" style="text-align: center;">
-		<?php echo CHtml::button('Publicar',array('class'=>'wall-action-submit-btn','id'=>'btnPublicAlbum'));?>
-		<?php echo CHtml::button('Cancelar',array('class'=>'wall-action-submit-btn','id'=>'btnCancelAlbum'));?>
-	</div>
-		
-</div>
-
-<!-- *************** DOCUMENT ******************************* -->
-
-<div id="wall-action-doc"  class='wall-action-area-note' style="display:none">
-	<div class="review-action-area-dialog" style="left: 430px;">
-	</div>
-	<?php 
-		$modelMulti = new Multimedia;
-		$this->renderPartial('_formDocument',array('model'=>$modelMulti, 'Id_review'=>$model->Id, 'Id_customer'=>$model->Id_customer));
-	?>
-</div>
-
-<div id="review-pending-view">
-	<?php 
-		$modelNote = new Note;
-		$modelNote->Id_review = $model->Id;
-		$modelNote->Id_user_group_owner = User::getCurrentUserGroup()->Id;
-		$dataProviderNote = $modelNote->search();
-		$dataProviderNote->criteria->order= 'change_date DESC';
-		$noteData = $dataProviderNote->data;
-		echo CHtml::openTag('div',array('class'=>'review-container-single-view','style'=>'display:none;','id'=>'noteContainer_place_holder'));
-		echo CHtml::closeTag('div');
-		foreach ($noteData as $item) {
-			echo CHtml::openTag('div',array('class'=>'review-container-single-view','id'=>'noteContainer_'.$item->Id));
-			$this->renderPartial('_viewPendingData',array('data'=>$item));
-			echo CHtml::closeTag('div');
-		}
 	?>
 </div>
 	
@@ -1093,7 +910,7 @@ echo CHtml::closeTag('div');
 		echo CHtml::closeTag('div');
 		foreach ($noteData as $item) {
 			echo CHtml::openTag('div',array('class'=>'review-container-single-view','id'=>'noteContainer_'.$item->note->Id));
-			$this->renderPartial('_viewData',array('data'=>$item->note,'dataUserGroupNote'=>$item));
+			$this->renderPartial('_viewCloseData',array('data'=>$item->note,'dataUserGroupNote'=>$item));
 			echo CHtml::closeTag('div');
 		}
 	?>
@@ -1103,38 +920,4 @@ echo CHtml::closeTag('div');
 $this->widget('ext.processingDialog.processingDialog', array(
 		'idDialog'=>'dialogProcessing',
 ));
-
-//New Budget Version
-$this->beginWidget('zii.widgets.jui.CJuiDialog', array(
-			'id'=>'ClosingReviewDialog',
-// additional javascript options for the dialog plugin
-			'options'=>array(
-					'title'=>'Cierre de Tema',
-					'autoOpen'=>false,
-					'modal'=>true,
-					'width'=> '500',
-					'buttons'=>	array(
-							'Cancelar'=>'js:function(){jQuery("#ClosingReviewDialog").dialog( "close" );}',
-							'Guardar'=>'js:function()
-							{
-							jQuery("#wating").dialog("open");			
-										
-							jQuery.post("'.Yii::app()->createUrl("review/AjaxCloseReview").'", 
-								{
-									id: "'. $model->Id . '",									
-									closingDescription: $("#Review_closing_description").val(),
-								},
-							function(data) {
-								jQuery("#ClosingReviewDialog").dialog( "close" );
-								window.location = "'.ReviewController::createUrl('index',array('Id_customer'=>$model->Id_customer)) .'";
-							}
-					);
-	
-			}'),
-),
-));
-
-echo $this->renderPartial('_closeReview', array('id'=>8, 'version'=>9));
-
-$this->endWidget('zii.widgets.jui.CJuiDialog');
 ?>
