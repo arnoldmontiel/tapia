@@ -386,12 +386,15 @@ class ReviewController extends Controller
 		
 		$hasDocs = count(Multimedia::model()->findAll($criteria));
 		
-		$criteria=new CDbCriteria;
-		$criteria->addCondition('Id_document_type is not null');
-		$criteria->addCondition('Id_user_group = '. User::getCurrentUserGroup()->Id);
-		$criteria->addCondition('Id_customer = '. $Id_customer);
+		$hasTechDocs = false;
+		if (User::useTechnicalDocs())
+		{
+			$criteria=new CDbCriteria;
+			$criteria->addCondition('Id_document_type is not null');			
+			$criteria->addCondition('Id_customer = '. $Id_customer);
 		
-		$hasTechDocs = count(Multimedia::model()->findAll($criteria));
+			$hasTechDocs = count(Multimedia::model()->findAll($criteria));
+		}		
 		
 		$this->render('index',
 			array('modelMultimedia'=>$modelMultimedia,
