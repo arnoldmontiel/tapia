@@ -84,7 +84,7 @@ function bindEvents(item)
 						
 						if(data != '')
 						{
-							if(confirm('Existe una actualizacion de este documento, desea abrirla? (Si cancela se abrira la version adjuntada a la nota)'))
+							if(confirm('Existe una actualizaci\u00f3n de este documento, desea abrirla? \\nEn caso de cancelar, se abrir\u00e1 la version adjuntada a la nota'))
 								url = data;
 						}
 						window.open(url,'_blank');
@@ -793,7 +793,7 @@ $('#btnAttachTechDocToNote').click(function(){
 
 $('#btnClose').click(function(){
 	
-	if(confirm('Si cierra el tema, todas las notas con confirmaciones pendientes se autoconfirmaran'))
+	if(confirm('Si cierra el tema, todas las notas con confirmaciones pendientes se autoconfirmar\u00e1n'))
 		jQuery('#ClosingReviewDialog').dialog('open'); 
 		
 	return false;
