@@ -56,7 +56,7 @@ class User extends CActiveRecord
 		//Asigno permisos de SRBAC si es nuevo el registro
 		if($this->isNewRecord)
 		{
-			if($this->Id_user_group == User::getAdminUserGroupId())
+			if($this->userGroup->is_administrator)
 			{
 				$modelAssignment = new Assignments();
 				$modelAssignment->userid = $this->username;
