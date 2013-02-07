@@ -1,8 +1,4 @@
 <?php
-$this->breadcrumbs=array(
-	'Document Types'=>array('index'),
-	$model->name,
-);
 
 $this->menu=array(
 	array('label'=>'Listar Tipo de Documentos', 'url'=>array('index')),
