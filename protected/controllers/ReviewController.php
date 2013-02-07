@@ -717,7 +717,7 @@ class ReviewController extends Controller
 		$model=$this->loadModel($id);
 		$model->closing_description = $closingDescription;
 		$model->is_open = 0;
-
+		$model->closing_date = new CDbExpression('NOW()');
 		$model->save();		
 		
 	}
