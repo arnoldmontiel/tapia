@@ -260,8 +260,8 @@ class NoteController extends Controller
 	
 	public function actionAjaxAttachTechDoc()
 	{
-		$docs = $_POST['docs'];
-		$id = $_POST['id'];
+		$docs = isset($_POST['docs'])?$_POST['docs']:null;
+		$id = isset($_POST['id'])?$_POST['id']:null;
 	
 		$modelNote =$this->loadModel($id);
 		$transaction =  $modelNote->dbConnection->beginTransaction();
