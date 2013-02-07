@@ -407,7 +407,7 @@ $editable = $isAdministrator||$isOwner;
 				
 		?>
 	</div>
-	<?php if (User::useTechnicalDocs()):?>
+	
 	<div class="review-text-docs">
 	<?php
 	
@@ -460,7 +460,7 @@ $editable = $isAdministrator||$isOwner;
 		echo CHtml::closeTag('div');
 	?>
 	</div>
-	<?php endif;?>
+	
 	</div>
 	<div class="singles-notes-confirmations">
 		<?php if ($needConfirmation):?>
