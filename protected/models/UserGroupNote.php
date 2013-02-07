@@ -123,6 +123,12 @@ class UserGroupNote extends CActiveRecord
 		return $date->format('Y-m-d');
 	}
 	
+	public function getCloseDate()
+	{
+		$date = new DateTime($this->note->review->closing_date);		
+		return $date->format('Y-m-d');
+	}
+	
 	public function getConfirmDate()
 	{
 		$date = new DateTime($this->confirmation_date);
@@ -144,6 +150,23 @@ class UserGroupNote extends CActiveRecord
 		}
 		
 		return $outOfDate;
+	}
+	
+	public function isForceClose()
+	{
+		$forceClose = false;
+		if(isset($this->request_confirmation_date)  && isset($this->note->review->closing_date))
+		{			
+			$closingDate = new DateTime($this->note->review->closing_date);
+			
+			$dueDate = new DateTime($this->request_confirmation_date);
+			$dueDate->modify('+'.Setting::getDueDays().' day');
+			
+			if($dueDate >$closingDate)
+				$forceClose = true;
+		}
+		
+		return $forceClose;
 	}
 	
 	public $Id_review = null;
