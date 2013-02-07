@@ -269,11 +269,17 @@ $isOwner = User::isOwnerOf($data);
 							$color.='#ed5656;color:black;';
 							$date = '('. $item->getConfirmDate() .')';
 						}
+						else if($item->isForceClose())
+						{
+							$text = CHtml::encode("Conf Cierre");
+							$color.='#80e765;color:black;';
+							$date = '('. $item->getCloseDate() .')';
+						}
 						else 
 						{
 							$text = CHtml::encode("Auto Conf");
 							$color.='#80e765;color:black;';
-							$date = '('. $item->getDueDate() .')';
+							$date = '('. $item->getDueDate() .')';							
 						}
 						
 						echo CHtml::openTag('div',array('class'=>'status-permission-data','style'=>$color));

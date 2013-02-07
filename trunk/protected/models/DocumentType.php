@@ -40,8 +40,8 @@ class DocumentType extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('name', 'required'),
-			array('name', 'length', 'max'=>100),
-			array('description', 'length', 'max'=>255),
+			array('name', 'length', 'max'=>100),			
+			array('description', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('Id, name, description', 'safe', 'on'=>'search'),
