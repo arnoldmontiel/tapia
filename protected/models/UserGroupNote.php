@@ -62,34 +62,6 @@ class UserGroupNote extends CActiveRecord
 				}
 			}
 			
-			//usuarios de comunicacion interna (cross)
-			if($this->userGroup->is_internal)
-			{
-				$usergroups = UserGroup::model()->findAllByAttributes(array('is_internal'=>1));
-				
-				foreach($usergroups as $ugroup)
-				{
-					foreach($ugroup->users as $user)
-					{
-						if($user->username != User::getCurrentUser()->username)
-						{
-							$modelReviewUserDb = ReviewUser::model()->findByPk(array('Id_review'=>$modelReview->Id,'username'=>$user->username));
-							if($modelReviewUserDb)
-							{
-								$modelReviewUserDb->read = 0;
-								$modelReviewUserDb->save();
-							}
-							else
-							{
-								$modelReviewUser = new ReviewUser;
-								$modelReviewUser->Id_review = $modelReview->Id;					
-								$modelReviewUser->username = $user->username;
-								$modelReviewUser->save();
-							}	
-						}
-					}
-				}
-			}
 			
 			//client
 			if($this->customer->user->Id_user_group == $this->Id_user_group && $this->customer->user->username != User::getCurrentUser()->username)
