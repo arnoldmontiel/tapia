@@ -452,7 +452,7 @@ $editable = $isAdministrator||$isOwner;
 				
 		}
 		echo CHtml::openTag('div', array('class'=>'review-add-docs-container'));
-		if($editable){
+		if($editable && User::useTechnicalDocs()){
 			echo CHtml::link('Adjuntar Documentos Tecnicos',
 				ReviewController::createUrl('AjaxAttachTechDoc',array('id'=>$data->review->Id, 'idNote'=>$data->Id)),
 					array('class'=>'review-text-docs'));
