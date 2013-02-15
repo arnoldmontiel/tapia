@@ -383,8 +383,9 @@ class ReviewController extends Controller
 		$criteria->addCondition('Id_document_type is null');
 		$criteria->addCondition('Id_user_group = '. User::getCurrentUserGroup()->Id);
 		$criteria->addCondition('Id_customer = '. $Id_customer);
+		$criteria->addCondition('Id_multimedia_type > 1 ');
 		
-		$hasDocs = count(Multimedia::model()->findAll($criteria));
+		$hasDocs = count(Multimedia::model()->findAll($criteria)) > 0;
 		
 		$hasTechDocs = false;
 		if (User::useTechnicalDocs())
@@ -393,7 +394,7 @@ class ReviewController extends Controller
 			$criteria->addCondition('Id_document_type is not null');			
 			$criteria->addCondition('Id_customer = '. $Id_customer);
 		
-			$hasTechDocs = count(Multimedia::model()->findAll($criteria));
+			$hasTechDocs = count(Multimedia::model()->findAll($criteria)) > 0;
 		}		
 		
 		$this->render('index',
@@ -575,26 +576,18 @@ class ReviewController extends Controller
 		{	
 			
 			$criteria=new CDbCriteria;
-// 			$criteria->distinct = true;
-// 			$criteria->select = 't.Id, t.name, t.last_name';
-// 			$criteria->join =  	"LEFT OUTER JOIN review r ON (t.Id = r.Id_customer)
-// 								LEFT OUTER JOIN review_user ru ON (r.Id = ru.Id_review)
-// 											";
-			
-// 			$criteria->order = 'change_date DESC';
-// 			if(!User::isAdministartor())
-// 			{
-				$criteria->select = 't.Id, t.name, t.last_name, max(n.change_date) as max_date';
-				$criteria->join =  	" 
+
+			$criteria->select = 't.Id, t.name, t.last_name, max(n.change_date) as max_date';
+			$criteria->join =  	" 
 					LEFT OUTER JOIN user_customer uc on (t.Id = uc.Id_customer)
           			LEFT OUTER JOIN user u on (u.username = uc.username)
           			LEFT OUTER JOIN note n ON ( n.Id_customer = uc.Id_customer)
           			LEFT OUTER JOIN user_group_note ugn on (u.Id_user_group = ugn.Id_user_group)
 				";
-				$criteria->addCondition('uc.username = "'. User::getCurrentUser()->username.'"');
-				$criteria->group = 't.Id';
-				$criteria->order = 'max_date DESC';				
-// 			}
+			$criteria->addCondition('uc.username = "'. User::getCurrentUser()->username.'"');
+			$criteria->group = 't.Id';
+			$criteria->order = 'max_date DESC';				
+
 			
 			if(isset($arrFilters['customerNameFilter']))
 			{
