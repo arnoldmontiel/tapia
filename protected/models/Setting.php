@@ -7,7 +7,7 @@
  * @property integer $Id
  * @property integer $due_days
  */
-class Setting extends CActiveRecord
+class Setting extends TapiaActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

@@ -8,7 +8,7 @@
  * @property string $username
  * @property integer $read
  */
-class ReviewUser extends CActiveRecord
+class ReviewUser extends TapiaActiveRecord
 {
 	protected function afterSave()
 	{

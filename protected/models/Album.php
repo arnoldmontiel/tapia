@@ -22,7 +22,7 @@
  * @property Note[] $notes
  * @property Multimedia[] $multimedias
  */
-class Album extends CActiveRecord
+class Album extends TapiaActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

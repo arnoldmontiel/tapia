@@ -20,7 +20,7 @@
  * @property Note[] $notes
  * @property User[] $users
  */
-class UserGroup extends CActiveRecord
+class UserGroup extends TapiaActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

@@ -15,7 +15,7 @@
  * @since 1.0.0
  */
 
-class ItemChildren extends CActiveRecord {
+class ItemChildren extends TapiaActiveRecord {
 /**
  * The followings are the available columns in table 'itemchildren':
  * @var string $parent

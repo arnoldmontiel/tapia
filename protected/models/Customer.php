@@ -15,7 +15,7 @@
  * @property Multimedia[] $multimedias
  * @property Note[] $notes
  */
-class Customer extends CActiveRecord
+class Customer extends TapiaActiveRecord
 {
 	public $tag_description;
 	/**

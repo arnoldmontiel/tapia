@@ -27,7 +27,7 @@
  * @property Note[] $notes
  * @property Note[] $parentNotes
  */
-class Note extends CActiveRecord
+class Note extends TapiaActiveRecord
 {	
 	public function beforeSave()
 	{		

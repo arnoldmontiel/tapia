@@ -11,7 +11,7 @@
  * @property Note $idParent
  * @property Note $idChild
  */
-class NoteNote extends CActiveRecord
+class NoteNote extends TapiaActiveRecord
 {
 	public function afterSave()
 	{

@@ -11,7 +11,7 @@
  * @property Tag $tag
  * @property ReviwType $reviewType
  */
-class TagReviewType extends CActiveRecord
+class TagReviewType extends TapiaActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

@@ -18,7 +18,7 @@
  * @property Multimedia $idMultimedia
  * @property Note $idNote
  */
-class Wall extends CActiveRecord
+class Wall extends TapiaActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

@@ -27,7 +27,7 @@
  *  @property Tag[] $tags
  * @property Wall[] $walls
  */
-class Review extends CActiveRecord
+class Review extends TapiaActiveRecord
 {
 	public $maxReview;
 
@@ -159,7 +159,7 @@ class Review extends CActiveRecord
 		$sql .= ' and ugn.Id_user_group = '.$userGroupId.')';
 		$sql .= ' and m.Id_multimedia_type = '.$multimediaType;
 		
-		$connection = Yii::app()->db;
+		$connection = self::getDbConnection();
 		$command = $connection->createCommand($sql);
 		$results = $command->queryAll();
 		

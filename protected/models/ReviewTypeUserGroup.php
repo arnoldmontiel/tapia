@@ -7,7 +7,7 @@
  * @property integer $Id_review_type
  * @property integer $Id_user_group
  */
-class ReviewTypeUserGroup extends CActiveRecord
+class ReviewTypeUserGroup extends TapiaActiveRecord
 {
 	
 	public $review_type_desc;
