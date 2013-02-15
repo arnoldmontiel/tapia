@@ -16,7 +16,7 @@
  * @property string $confirmation_date
  * @property string $request_confirmation_date
  */
-class UserGroupNote extends CActiveRecord
+class UserGroupNote extends TapiaActiveRecord
 {
 	
 	protected function beforeSave()

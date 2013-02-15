@@ -32,7 +32,7 @@
  * @property Note[] $notes
  * @property Wall[] $walls
  */
-class Multimedia extends CActiveRecord
+class Multimedia extends TapiaActiveRecord
 {
 	
 	public $uploadedFile;

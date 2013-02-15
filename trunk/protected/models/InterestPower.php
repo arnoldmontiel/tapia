@@ -11,7 +11,7 @@
  * @property integer $need_confirmation
  * @property integer $can_feedback
  */
-class InterestPower extends CActiveRecord
+class InterestPower extends TapiaActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

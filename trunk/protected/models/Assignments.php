@@ -9,7 +9,7 @@
  * @property string $bizrule
  * @property string $data
  */
-class Assignments extends CActiveRecord
+class Assignments extends TapiaActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

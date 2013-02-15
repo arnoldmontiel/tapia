@@ -11,7 +11,7 @@
  * The followings are the available model relations:
  * @property Multimedia[] $multimedias
  */
-class DocumentType extends CActiveRecord
+class DocumentType extends TapiaActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

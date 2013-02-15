@@ -8,7 +8,7 @@
  * @property integer $Id_customer
  * @property integer $Id_interest_power
  */
-class UserGroupCustomer extends CActiveRecord
+class UserGroupCustomer extends TapiaActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

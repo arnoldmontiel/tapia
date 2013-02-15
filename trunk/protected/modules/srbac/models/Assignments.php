@@ -15,7 +15,7 @@
  * @since 1.0.0
  */
 
-class Assignments extends CActiveRecord {
+class Assignments extends TapiaActiveRecord {
 /**
  * The followings are the available columns in table 'authassignment':
  * @var string $itemname

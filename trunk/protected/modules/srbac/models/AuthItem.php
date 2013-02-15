@@ -13,7 +13,7 @@
  * @package srbac.models
  * @since 1.0.0
  */
-class AuthItem extends CActiveRecord {
+class AuthItem extends TapiaActiveRecord {
 /**
  * The followings are the available columns in table 'authitem':
  * @var string $name

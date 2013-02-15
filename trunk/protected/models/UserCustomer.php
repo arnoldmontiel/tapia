@@ -7,7 +7,7 @@
  * @property string $username
  * @property integer $Id_customer
  */
-class UserCustomer extends CActiveRecord
+class UserCustomer extends TapiaActiveRecord
 {
 	public $name;
 	public $last_name;

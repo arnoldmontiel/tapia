@@ -10,7 +10,7 @@
  * The followings are the available model relations:
  * @property Multimedia[] $multimedias
  */
-class MultimediaType extends CActiveRecord
+class MultimediaType extends TapiaActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

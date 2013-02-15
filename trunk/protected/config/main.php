@@ -90,11 +90,12 @@ return array(
 		),
 		*/
 		// uncomment the following to use a MySQL database
-		'db'=>array(
+		'db2'=>array(
+			'class' => 'CDbConnection',
 			'connectionString' => 'mysql:host=localhost;dbname=tapia',
 			'emulatePrepare' => true,
 			'username' => 'root',
-			'password' => 'admin',
+			'password' => '',
 			'charset' => 'utf8',
 		),
 		'authManager'=>array(
@@ -102,7 +103,7 @@ return array(
 		//access checking (or CDbAuthManager for case sensitive access checking)
 									'class'=>'application.modules.srbac.components.SDbAuthManager',
 		// The database component used
-									'connectionID'=>'db',
+									'connectionID'=>'db2',
 		// The itemTable name (default:authitem)
 									'itemTable'=>'items',
 		// The assignmentTable name (default:authassignment)

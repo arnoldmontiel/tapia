@@ -7,7 +7,7 @@
  * @property integer $Id_note
  * @property integer $Id_multimedia
  */
-class MultimediaNote extends CActiveRecord
+class MultimediaNote extends TapiaActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

@@ -7,7 +7,7 @@
  * @property integer $Id_tag
  * @property integer $Id_review
  */
-class TagReview extends CActiveRecord
+class TagReview extends TapiaActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.

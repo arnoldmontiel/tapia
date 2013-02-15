@@ -11,7 +11,7 @@
  * The followings are the available model relations:
  * @property User $username0
  */
-class AuditLogin extends CActiveRecord
+class AuditLogin extends TapiaActiveRecord
 {
 	public $user_group_desc;
 	public $user_name;

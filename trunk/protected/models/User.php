@@ -23,7 +23,7 @@
  * @property Note[] $notes
  * @property Review[] $reviews
  */
-class User extends CActiveRecord
+class User extends TapiaActiveRecord
 {
 	public $userGroupDescription;
 	public $building_address;
